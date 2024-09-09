@@ -59,8 +59,9 @@
             // 
             // MirrorOutputForm
             // 
-            AutoScaleDimensions = new SizeF(14F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(192F, 192F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoSize = true;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(1574, 2489);
             Controls.Add(title);
