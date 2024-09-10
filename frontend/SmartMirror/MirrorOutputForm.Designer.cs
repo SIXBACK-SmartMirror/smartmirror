@@ -66,6 +66,7 @@
             ClientSize = new Size(1574, 2489);
             Controls.Add(title);
             Controls.Add(pictureBox1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "MirrorOutputForm";
             ShowIcon = false;
             ShowInTaskbar = false;
