@@ -31,10 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchInputForm));
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
+            label9 = new Label();
             label1 = new Label();
             panel2 = new Panel();
-            pictureBox2 = new PictureBox();
             label5 = new Label();
+            pictureBox2 = new PictureBox();
             label2 = new Label();
             panel3 = new Panel();
             label7 = new Label();
@@ -65,100 +66,119 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(242, 242, 242);
+            panel1.BackColor = Color.FromArgb(176, 98, 193);
             panel1.Controls.Add(pictureBox1);
+            panel1.Controls.Add(label9);
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(734, 139);
+            panel1.Location = new Point(704, 139);
             panel1.Name = "panel1";
             panel1.Size = new Size(278, 247);
             panel1.TabIndex = 0;
+            panel1.Paint += panel1_Paint;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(95, 77);
+            pictureBox1.Location = new Point(173, 145);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(88, 88);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("맑은 고딕", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            label9.ForeColor = Color.White;
+            label9.Location = new Point(34, 77);
+            label9.Name = "label9";
+            label9.Size = new Size(104, 30);
+            label9.TabIndex = 8;
+            label9.Text = "화면 끄기";
+            // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("맑은 고딕", 10F);
-            label1.Location = new Point(82, 188);
+            label1.Font = new Font("맑은 고딕", 13.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(24, 18);
             label1.Name = "label1";
-            label1.Size = new Size(125, 37);
+            label1.Size = new Size(183, 50);
             label1.TabIndex = 1;
-            label1.Text = "거울모드";
+            label1.Text = "거울 모드";
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(242, 242, 242);
-            panel2.Controls.Add(pictureBox2);
+            panel2.BackColor = Color.FromArgb(155, 234, 240);
             panel2.Controls.Add(label5);
+            panel2.Controls.Add(pictureBox2);
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(57, 139);
+            panel2.Location = new Point(73, 139);
             panel2.Name = "panel2";
             panel2.Size = new Size(278, 247);
             panel2.TabIndex = 2;
+            panel2.Paint += panel2_Paint;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("맑은 고딕", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(24, 77);
+            label5.Name = "label5";
+            label5.Size = new Size(195, 30);
+            label5.TabIndex = 6;
+            label5.Text = "움성으로 물건 찾기";
             // 
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(90, 77);
+            pictureBox2.Location = new Point(174, 145);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(88, 88);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 5;
             pictureBox2.TabStop = false;
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("맑은 고딕", 8F);
-            label5.Location = new Point(31, 18);
-            label5.Name = "label5";
-            label5.Size = new Size(205, 30);
-            label5.TabIndex = 6;
-            label5.Text = "음성으로 물건 찾기";
-            // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("맑은 고딕", 10F);
-            label2.Location = new Point(88, 188);
+            label2.Font = new Font("맑은 고딕", 13.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(17, 18);
             label2.Name = "label2";
-            label2.Size = new Size(98, 37);
+            label2.Size = new Size(183, 50);
             label2.TabIndex = 1;
-            label2.Text = "마이크";
+            label2.Text = "음성 검색";
             // 
             // panel3
             // 
-            panel3.BackColor = Color.FromArgb(242, 242, 242);
+            panel3.BackColor = Color.FromArgb(85, 171, 217);
             panel3.Controls.Add(label7);
             panel3.Controls.Add(pictureBox4);
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(392, 139);
+            panel3.Location = new Point(390, 139);
             panel3.Name = "panel3";
             panel3.Size = new Size(278, 247);
             panel3.TabIndex = 3;
+            panel3.Paint += panel3_Paint;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("맑은 고딕", 8F);
-            label7.Location = new Point(53, 18);
+            label7.Font = new Font("맑은 고딕", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            label7.ForeColor = Color.White;
+            label7.Location = new Point(26, 77);
             label7.Name = "label7";
-            label7.Size = new Size(183, 30);
+            label7.Size = new Size(195, 30);
             label7.TabIndex = 7;
-            label7.Text = "타자로 물건 찾기";
+            label7.Text = "키보드로 물건 찾기";
             // 
             // pictureBox4
             // 
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(101, 77);
+            pictureBox4.Location = new Point(173, 145);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(88, 88);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -168,12 +188,13 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("맑은 고딕", 10F);
-            label3.Location = new Point(91, 188);
+            label3.Font = new Font("맑은 고딕", 13.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(16, 18);
             label3.Name = "label3";
-            label3.Size = new Size(98, 37);
+            label3.Size = new Size(220, 50);
             label3.TabIndex = 2;
-            label3.Text = "키보드";
+            label3.Text = "키보드 검색";
             // 
             // panel5
             // 
@@ -191,18 +212,18 @@
             panel6.Controls.Add(panel1);
             panel6.Controls.Add(panel2);
             panel6.Controls.Add(panel3);
-            panel6.Location = new Point(136, 88);
+            panel6.Location = new Point(137, 88);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1064, 725);
+            panel6.Size = new Size(1064, 712);
             panel6.TabIndex = 6;
             // 
             // panel9
             // 
             panel9.BackColor = Color.FromArgb(224, 224, 224);
             panel9.Controls.Add(label8);
-            panel9.Location = new Point(57, 455);
+            panel9.Location = new Point(73, 436);
             panel9.Name = "panel9";
-            panel9.Size = new Size(955, 210);
+            panel9.Size = new Size(909, 210);
             panel9.TabIndex = 4;
             // 
             // label8
@@ -233,9 +254,9 @@
             label6.Font = new Font("맑은 고딕", 15F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label6.Location = new Point(88, 22);
             label6.Name = "label6";
-            label6.Size = new Size(103, 54);
+            label6.Size = new Size(197, 54);
             label6.TabIndex = 0;
-            label6.Text = "선택";
+            label6.Text = "물건 찾기";
             // 
             // label4
             // 
@@ -269,7 +290,7 @@
             // 
             // panel8
             // 
-            panel8.BackColor = SystemColors.Control;
+            panel8.BackColor = Color.White;
             panel8.Controls.Add(label6);
             panel8.Controls.Add(pictureBox3);
             panel8.Location = new Point(136, 88);
@@ -334,5 +355,6 @@
         private Label label7;
         private Panel panel9;
         private Label label8;
+        private Label label9;
     }
 }
