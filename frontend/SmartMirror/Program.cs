@@ -27,8 +27,24 @@ namespace SmartMirror
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ApplicationConfiguration.Initialize();
-            Application.Run(new MirrorOutputForm());
+            // 모니터 인덱스를 설정
+            int monitorIndex = 1;
+
+            // MirrorOutputForm을 먼저 생성
+            MirrorOutputForm mirrorOutputForm = new MirrorOutputForm();
+
+            Screen mirror = Screen.AllScreens[monitorIndex];
+
+            // MirrorOutputForm의 위치 및 크기를 설정
+            mirrorOutputForm.StartPosition = FormStartPosition.Manual;
+            mirrorOutputForm.Location = mirror.Bounds.Location;
+            mirrorOutputForm.Size = new Size(mirror.Bounds.Width, mirror.Bounds.Height);
+
+            mirrorOutputForm.Show();
+
+            // MirrorInputForm을 생성하면서 MirrorOutputForm을 전달
+            MirrorInputForm mirrorInputForm = new MirrorInputForm(mirrorOutputForm);
+            Application.Run(mirrorInputForm);
         }
     }
 }

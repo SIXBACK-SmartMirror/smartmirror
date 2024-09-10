@@ -38,7 +38,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.Bottom;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(476, 1367);
+            pictureBox1.Location = new Point(485, 1438);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(676, 1120);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -63,7 +63,7 @@
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
             BackColor = SystemColors.ActiveCaptionText;
-            ClientSize = new Size(1574, 2489);
+            ClientSize = new Size(1600, 2560);
             Controls.Add(title);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.None;

@@ -1,5 +1,4 @@
 using System.Media;
-using System.Windows.Forms;
 
 namespace SmartMirror
 {
@@ -12,8 +11,6 @@ namespace SmartMirror
         public MirrorOutputForm()
         {
             InitializeComponent();
-            //this.DoubleBuffered = true;
-            //this.FormBorderStyle = FormBorderStyle.None;
 
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 2000; // 2초마다 실행
@@ -26,13 +23,7 @@ namespace SmartMirror
 
         private void MirrorOutputForm_Load(object sender, EventArgs e)
         {
-            if (mirrorInput == null || mirrorInput.IsDisposed)
-            {
-                mirrorInput = new MirrorInputForm();
-            }
 
-            mirrorInput.Show(); // outputForm을 보여줌
-            mirrorInput.BringToFront(); // outputForm을 최상위로 포커스
         }
 
         private void OnTimerTick(object sender, EventArgs e)
@@ -44,6 +35,11 @@ namespace SmartMirror
             {
                 player.Play();
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
