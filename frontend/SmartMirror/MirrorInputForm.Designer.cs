@@ -28,12 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            button1 = new Button();
+            SuspendLayout();
+            // 
+            // button1
+            // 
+            button1.Location = new Point(882, 48);
+            button1.Name = "button1";
+            button1.Size = new Size(231, 141);
+            button1.TabIndex = 0;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // MirrorInputForm
+            // 
+            AutoScaleDimensions = new SizeF(14F, 32F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveCaptionText;
+            ClientSize = new Size(1200, 800);
+            Controls.Add(button1);
+            Name = "MirrorInputForm";
+            Text = "Form1";
+            Load += MirrorInputForm_Load;
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button button1;
     }
 }

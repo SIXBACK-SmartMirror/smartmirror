@@ -15,6 +15,13 @@ namespace SmartMirror
         public MirrorInputForm()
         {
             InitializeComponent();
+            //this.WindowState = FormWindowState.Maximized;
+            //this.FormBorderStyle = FormBorderStyle.None;
+        }
+
+        private void MirrorInputForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
