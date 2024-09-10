@@ -42,14 +42,14 @@
             label3 = new Label();
             panel5 = new Panel();
             panel6 = new Panel();
+            panel9 = new Panel();
+            label8 = new Label();
             pictureBox3 = new PictureBox();
             label6 = new Label();
             label4 = new Label();
             panel4 = new Panel();
             panel7 = new Panel();
             panel8 = new Panel();
-            label8 = new Label();
-            panel9 = new Panel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -57,10 +57,10 @@
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panel6.SuspendLayout();
+            panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
-            panel9.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -103,6 +103,7 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(278, 247);
             panel2.TabIndex = 2;
+            panel2.Click += panel2_Click;
             // 
             // pictureBox2
             // 
@@ -196,6 +197,26 @@
             panel6.Size = new Size(1064, 725);
             panel6.TabIndex = 6;
             // 
+            // panel9
+            // 
+            panel9.BackColor = Color.FromArgb(224, 224, 224);
+            panel9.Controls.Add(label8);
+            panel9.Location = new Point(57, 455);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(955, 210);
+            panel9.TabIndex = 4;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("맑은 고딕", 15F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(274, 84);
+            label8.Name = "label8";
+            label8.Size = new Size(371, 54);
+            label8.TabIndex = 2;
+            label8.Text = "여기에는 광고 넣기";
+            // 
             // pictureBox3
             // 
             pictureBox3.Anchor = AnchorStyles.None;
@@ -257,26 +278,6 @@
             panel8.Size = new Size(1064, 96);
             panel8.TabIndex = 4;
             // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("맑은 고딕", 15F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            label8.ForeColor = Color.White;
-            label8.Location = new Point(274, 84);
-            label8.Name = "label8";
-            label8.Size = new Size(371, 54);
-            label8.TabIndex = 2;
-            label8.Text = "여기에는 광고 넣기";
-            // 
-            // panel9
-            // 
-            panel9.BackColor = Color.FromArgb(224, 224, 224);
-            panel9.Controls.Add(label8);
-            panel9.Location = new Point(57, 455);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(955, 210);
-            panel9.TabIndex = 4;
-            // 
             // MainInputForm
             // 
             AutoScaleDimensions = new SizeF(14F, 32F);
@@ -301,12 +302,12 @@
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             panel6.ResumeLayout(false);
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }

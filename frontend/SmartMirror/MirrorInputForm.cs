@@ -22,7 +22,7 @@
             this.Hide();
 
             // MainInputForm을 생성하고 표시
-            MainInputForm mainInputForm = new MainInputForm();
+            MainInputForm mainInputForm = new MainInputForm(mirrorOutputForm);
 
             // 메인 인풋 폼을 특정 모니터에 표시 (예: 첫 번째 모니터)
             Screen primaryScreen = Screen.AllScreens[0];
