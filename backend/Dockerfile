@@ -13,9 +13,6 @@ COPY . .
 # 5. 권한 부여 및 Gradle 빌드 실행
 RUN chmod +x ./gradlew && ./gradlew clean build
 
-# 경로 확인
-RUN ls al build/libs
-
 # 6. JAR 파일을 컨테이너의 /app으로 복사
 COPY ${JAR_FILE_PATH} app.jar
 
