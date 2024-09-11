@@ -3,7 +3,6 @@ package com.sixback.backend.domain.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Getter
 @AllArgsConstructor
@@ -18,10 +17,10 @@ public class UseGoodsOptionDto {
     public String toString() {
         return String.format("""
                 {
-                \"option_id\":%d,
-                \"goods_name\":\"%s\",
-                \"option_name\":\"%s\",
-                \"option_image\":\"%s\",
+                "option_id":%d,
+                "goods_name":"%s",
+                "option_name":"%s",
+                "option_image":"%s",
                 }
                 """, optionId, goodsName, optionName, optionImage);
     }
