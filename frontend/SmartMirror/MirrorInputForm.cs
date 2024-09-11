@@ -11,11 +11,6 @@
             this.mirrorOutputForm = outputForm;
         }
 
-        private void MirrorInputForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             // 현재 MirrorInputForm을 숨김

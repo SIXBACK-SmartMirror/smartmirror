@@ -98,7 +98,6 @@
             Name = "MainOutputForm";
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
-            Load += MainOutputForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

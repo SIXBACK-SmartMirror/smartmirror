@@ -50,7 +50,6 @@
             Controls.Add(button1);
             Name = "MirrorInputForm";
             Text = "                        ";
-            Load += MirrorInputForm_Load;
             ResumeLayout(false);
         }
 

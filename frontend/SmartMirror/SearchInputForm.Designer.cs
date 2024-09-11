@@ -330,7 +330,6 @@
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
             ResumeLayout(false);
-            this.WindowState = FormWindowState.Maximized;
             PerformLayout();
         }
 
