@@ -15,9 +15,9 @@ public class LocationDto {
     public String toString() {
         return String.format("""
                 {
-                \"name\":\"%s\",
-                \"row\":%d,
-                \"col\":%d,
+                "name":"%s",
+                "row":%d,
+                "col":%d,
                 }
                 """, name, row, col);
     }
