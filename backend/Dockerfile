@@ -7,9 +7,8 @@ WORKDIR /app
 # 3. ARG 변수 설정
 ARG JAR_FILE_PATH=build/libs/*.jar
 
-# 4. gradlew와 gradle 디렉토리 복사
-COPY gradlew ./
-COPY gradle ./gradle
+# 4. 디렉토리 복사
+COPY . .
 
 # 5. 권한 부여 및 Gradle 빌드 실행
 RUN chmod +x ./gradlew && ./gradlew clean build
