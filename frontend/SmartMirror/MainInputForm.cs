@@ -4,9 +4,9 @@ namespace SmartMirror
 {
     public partial class MainInputForm : Form
     {
-        private Form mainOutputForm;
+        private MainOutputForm mainOutputForm;
 
-        public MainInputForm(Form mainOutputForm)
+        public MainInputForm(MainOutputForm mainOutputForm)
         {
             InitializeComponent();
             this.mainOutputForm = mainOutputForm;

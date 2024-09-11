@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace SmartMirror
 {
@@ -79,6 +80,24 @@ namespace SmartMirror
 
             // 패널의 모양을 둥근 모서리로 설정
             panel1.Region = new Region(path);
+        }
+
+        private void ShowOnScreenKeyboard()
+        {
+            Process.Start("osk.exe");
+        }
+
+        private void CloseOnScreenKeyboard()
+        {
+            foreach (var process in Process.GetProcessesByName("osk"))
+            {
+                process.Kill();
+            }
+        }
+
+        private void panel3_Click(object sender, EventArgs e)
+        {
+            ShowOnScreenKeyboard();
         }
     }
 }
