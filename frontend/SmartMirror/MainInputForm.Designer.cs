@@ -66,6 +66,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.None;
             panel1.BackColor = Color.FromArgb(232, 89, 173);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label9);
@@ -110,6 +111,7 @@
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.None;
             panel2.BackColor = Color.FromArgb(255, 80, 120);
             panel2.Controls.Add(label5);
             panel2.Controls.Add(pictureBox2);
@@ -155,6 +157,7 @@
             // 
             // panel3
             // 
+            panel3.Anchor = AnchorStyles.None;
             panel3.BackColor = Color.FromArgb(255, 120, 120);
             panel3.Controls.Add(label7);
             panel3.Controls.Add(pictureBox4);
@@ -199,7 +202,7 @@
             // 
             // panel5
             // 
-            panel5.Anchor = AnchorStyles.Top;
+            panel5.Anchor = AnchorStyles.Left;
             panel5.BackColor = Color.FromArgb(130, 220, 40);
             panel5.Location = new Point(-3, -3);
             panel5.Name = "panel5";
@@ -208,6 +211,7 @@
             // 
             // panel6
             // 
+            panel6.Anchor = AnchorStyles.None;
             panel6.BackColor = Color.White;
             panel6.Controls.Add(panel9);
             panel6.Controls.Add(panel1);
@@ -220,6 +224,7 @@
             // 
             // panel9
             // 
+            panel9.Anchor = AnchorStyles.Bottom;
             panel9.BackColor = Color.FromArgb(224, 224, 224);
             panel9.Controls.Add(label8);
             panel9.Location = new Point(73, 436);
@@ -261,6 +266,7 @@
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
             label4.BackColor = Color.White;
             label4.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
@@ -281,16 +287,17 @@
             // 
             // panel7
             // 
-            panel7.Anchor = AnchorStyles.Top;
+            panel7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel7.BackColor = Color.FromArgb(130, 220, 40);
             panel7.Controls.Add(panel4);
-            panel7.Location = new Point(898, 23);
+            panel7.Location = new Point(901, 22);
             panel7.Name = "panel7";
             panel7.Size = new Size(45, 45);
             panel7.TabIndex = 7;
             // 
             // panel8
             // 
+            panel8.Anchor = AnchorStyles.Top;
             panel8.BackColor = Color.White;
             panel8.Controls.Add(label6);
             panel8.Controls.Add(pictureBox3);
@@ -313,6 +320,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "MainInputForm";
             Text = "Form1";
+            WindowState = FormWindowState.Maximized;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
