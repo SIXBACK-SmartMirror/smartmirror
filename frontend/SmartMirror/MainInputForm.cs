@@ -12,11 +12,6 @@ namespace SmartMirror
             this.mainOutputForm = mainOutputForm;
         }
 
-        private void MainInputForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void panel2_Click(object sender, EventArgs e)
         {
             // 현재 MirrorInputForm을 숨김

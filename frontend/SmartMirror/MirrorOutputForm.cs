@@ -21,11 +21,6 @@ namespace SmartMirror
             player = new SoundPlayer(audioStream);
         }
 
-        private void MirrorOutputForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void OnTimerTick(object sender, EventArgs e)
         {
             title.Visible = !title.Visible;

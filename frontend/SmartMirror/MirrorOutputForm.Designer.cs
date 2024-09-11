@@ -72,7 +72,6 @@
             ShowInTaskbar = false;
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
-            Load += MirrorOutputForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
