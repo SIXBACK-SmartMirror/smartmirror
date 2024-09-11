@@ -49,7 +49,7 @@
             ClientSize = new Size(1200, 800);
             Controls.Add(button1);
             Name = "MirrorInputForm";
-            Text = "Form1";
+            Text = "                        ";
             Load += MirrorInputForm_Load;
             ResumeLayout(false);
         }

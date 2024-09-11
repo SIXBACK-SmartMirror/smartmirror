@@ -162,6 +162,7 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(278, 247);
             panel3.TabIndex = 3;
+            panel3.Click += panel3_Click;
             panel3.Paint += panel3_Paint;
             // 
             // label7
@@ -329,6 +330,7 @@
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
             ResumeLayout(false);
+            this.WindowState = FormWindowState.Maximized;
             PerformLayout();
         }
 
