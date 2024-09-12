@@ -19,4 +19,14 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<?> handleCustomException(CustomException e) {
 		return new ResponseEntity<>(new ResponseDto<>(e.getMessage(), null), HttpStatus.OK);
 	}
+
+	/**
+	 * 알 수 없는 예외 발생.
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<?> handleUnknownException(Exception e) {
+		return new ResponseEntity<>(new ResponseDto<>("C01", null), HttpStatus.OK);
+	}
 }
