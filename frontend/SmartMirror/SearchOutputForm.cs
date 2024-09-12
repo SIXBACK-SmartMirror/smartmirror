@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -42,6 +43,30 @@ namespace SmartMirror
             Pen greenPen = new Pen(Color.Green, 5); // 초록색, 두께 5의 테두리
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias; // 테두리의 부드러운 렌더링
             e.Graphics.DrawPath(greenPen, path);
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+            label1.Text = textBox1.Text; // TextBox의 내용을 Label에 반영
+        }
+
+        // Enter 키를 감지하는 KeyDown 이벤트 핸들러
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                CloseOnScreenKeyboard(); // Enter 키를 누르면 가상 키보드를 종료
+                e.Handled = true; // 이벤트 처리 완료
+                e.SuppressKeyPress = true; // Enter 키 입력을 텍스트 박스에 전달하지 않음
+            }
+        }
+
+        private void CloseOnScreenKeyboard()
+        {
+            foreach (var process in Process.GetProcessesByName("osk"))
+            {
+                process.Kill();
+            }
         }
     }
 }
