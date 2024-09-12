@@ -108,7 +108,6 @@
             textBox1.Size = new Size(1039, 61);
             textBox1.TabIndex = 3;
             textBox1.TextChanged += textBox1_TextChanged_1;
-            textBox1.KeyDown += textBox1_KeyDown;
             // 
             // pictureBox2
             // 

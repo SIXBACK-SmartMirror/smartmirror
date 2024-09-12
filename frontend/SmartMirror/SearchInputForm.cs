@@ -12,6 +12,7 @@ namespace SmartMirror
         {
             InitializeComponent();
             this.outputForm = outputForm;
+            outputForm.textBox1.KeyDown += textBox1_KeyDown;
         }
 
         private void panel_Paint(object sender, PaintEventArgs e)
@@ -52,6 +53,46 @@ namespace SmartMirror
             {
                 process.Kill();
             }
+        }
+
+        // Enter 키를 감지하는 KeyDown 이벤트 핸들러
+        public void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                CloseOnScreenKeyboard(); // Enter 키를 누르면 가상 키보드를 종료
+                e.Handled = true; // 이벤트 처리 완료
+                e.SuppressKeyPress = true; // Enter 키 입력을 텍스트 박스에 전달하지 않음
+
+                change();
+            }
+        }
+
+        private void change()
+        {
+            this.Hide();
+
+            SearchInfoOutputForm searchInfoOutputForm = new SearchInfoOutputForm();
+
+            Screen secondaryScreen = Screen.AllScreens[1];
+            searchInfoOutputForm.StartPosition = FormStartPosition.Manual;
+            searchInfoOutputForm.Location = secondaryScreen.Bounds.Location;
+            searchInfoOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+            if (outputForm != null && !outputForm.IsDisposed)
+            {
+                outputForm.Hide(); // MainOutputForm 숨기기
+            }
+
+            // SearchOutputForm 표시
+            searchInfoOutputForm.Show();
+
+            SearchInfoInputForm searchInputForm = new SearchInfoInputForm();
+
+            Screen primaryScreen = Screen.AllScreens[0];
+            searchInputForm.StartPosition = FormStartPosition.Manual;
+            searchInputForm.Location = primaryScreen.Bounds.Location;
+            searchInputForm.Show();
         }
 
         private void panel3_Click(object sender, EventArgs e)
