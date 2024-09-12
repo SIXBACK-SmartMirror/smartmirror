@@ -1,4 +1,6 @@
-﻿namespace SmartMirror
+﻿using System.IO;
+
+namespace SmartMirror
 {
     partial class SearchInputForm
     {
@@ -29,15 +31,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchInputForm));
-            panel1 = new Panel();
+            mirror = new Panel();
             pictureBox1 = new PictureBox();
             label9 = new Label();
             label1 = new Label();
-            panel2 = new Panel();
+            voice = new Panel();
             label5 = new Label();
             pictureBox2 = new PictureBox();
             label2 = new Label();
-            panel3 = new Panel();
+            keybaord = new Panel();
             label7 = new Label();
             pictureBox4 = new PictureBox();
             label3 = new Label();
@@ -51,11 +53,11 @@
             panel4 = new Panel();
             panel7 = new Panel();
             panel8 = new Panel();
-            panel1.SuspendLayout();
+            mirror.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel2.SuspendLayout();
+            voice.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            panel3.SuspendLayout();
+            keybaord.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panel6.SuspendLayout();
             panel9.SuspendLayout();
@@ -64,17 +66,17 @@
             panel8.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // mirror
             // 
-            panel1.BackColor = Color.FromArgb(176, 98, 193);
-            panel1.Controls.Add(pictureBox1);
-            panel1.Controls.Add(label9);
-            panel1.Controls.Add(label1);
-            panel1.Location = new Point(704, 139);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(278, 247);
-            panel1.TabIndex = 0;
-            panel1.Paint += panel1_Paint;
+            mirror.BackColor = Color.FromArgb(176, 98, 193);
+            mirror.Controls.Add(pictureBox1);
+            mirror.Controls.Add(label9);
+            mirror.Controls.Add(label1);
+            mirror.Location = new Point(704, 139);
+            mirror.Name = "mirror";
+            mirror.Size = new Size(278, 247);
+            mirror.TabIndex = 0;
+            mirror.Paint += panel_Paint;
             // 
             // pictureBox1
             // 
@@ -108,17 +110,17 @@
             label1.TabIndex = 1;
             label1.Text = "거울 모드";
             // 
-            // panel2
+            // voice
             // 
-            panel2.BackColor = Color.FromArgb(155, 234, 240);
-            panel2.Controls.Add(label5);
-            panel2.Controls.Add(pictureBox2);
-            panel2.Controls.Add(label2);
-            panel2.Location = new Point(73, 139);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(278, 247);
-            panel2.TabIndex = 2;
-            panel2.Paint += panel2_Paint;
+            voice.BackColor = Color.FromArgb(155, 234, 240);
+            voice.Controls.Add(label5);
+            voice.Controls.Add(pictureBox2);
+            voice.Controls.Add(label2);
+            voice.Location = new Point(73, 139);
+            voice.Name = "voice";
+            voice.Size = new Size(278, 247);
+            voice.TabIndex = 2;
+            voice.Paint += panel_Paint;
             // 
             // label5
             // 
@@ -152,18 +154,18 @@
             label2.TabIndex = 1;
             label2.Text = "음성 검색";
             // 
-            // panel3
+            // keybaord
             // 
-            panel3.BackColor = Color.FromArgb(85, 171, 217);
-            panel3.Controls.Add(label7);
-            panel3.Controls.Add(pictureBox4);
-            panel3.Controls.Add(label3);
-            panel3.Location = new Point(390, 139);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(278, 247);
-            panel3.TabIndex = 3;
-            panel3.Click += panel3_Click;
-            panel3.Paint += panel3_Paint;
+            keybaord.BackColor = Color.FromArgb(85, 171, 217);
+            keybaord.Controls.Add(label7);
+            keybaord.Controls.Add(pictureBox4);
+            keybaord.Controls.Add(label3);
+            keybaord.Location = new Point(390, 139);
+            keybaord.Name = "keybaord";
+            keybaord.Size = new Size(278, 247);
+            keybaord.TabIndex = 3;
+            keybaord.Click += panel3_Click;
+            keybaord.Paint += panel_Paint;
             // 
             // label7
             // 
@@ -210,9 +212,9 @@
             // 
             panel6.BackColor = Color.White;
             panel6.Controls.Add(panel9);
-            panel6.Controls.Add(panel1);
-            panel6.Controls.Add(panel2);
-            panel6.Controls.Add(panel3);
+            panel6.Controls.Add(mirror);
+            panel6.Controls.Add(voice);
+            panel6.Controls.Add(keybaord);
             panel6.Location = new Point(137, 88);
             panel6.Name = "panel6";
             panel6.Size = new Size(1064, 712);
@@ -313,14 +315,14 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "SearchInputForm";
             Text = "Form1";
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            mirror.ResumeLayout(false);
+            mirror.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            voice.ResumeLayout(false);
+            voice.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
+            keybaord.ResumeLayout(false);
+            keybaord.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             panel6.ResumeLayout(false);
             panel9.ResumeLayout(false);
@@ -335,11 +337,11 @@
 
         #endregion
 
-        private Panel panel1;
+        private Panel mirror;
         private Label label1;
-        private Panel panel2;
+        private Panel voice;
         private Label label2;
-        private Panel panel3;
+        private Panel keybaord;
         private Label label3;
         private PictureBox pictureBox1;
         private Panel panel5;
