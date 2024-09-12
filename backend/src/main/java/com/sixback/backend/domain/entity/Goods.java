@@ -62,7 +62,7 @@ public class Goods {
 	// 거래 여부
 	@Column(columnDefinition = "tinyint(1) default 1", nullable = false)
 	@ColumnDefault("true")
-	private boolean isPassible;
+	private boolean isPossible;
 
 	// 출시 일시
 	@Column(columnDefinition = "datetime", nullable = false)
