@@ -49,24 +49,5 @@ namespace SmartMirror
         {
             label1.Text = textBox1.Text; // TextBox의 내용을 Label에 반영
         }
-
-        // Enter 키를 감지하는 KeyDown 이벤트 핸들러
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                CloseOnScreenKeyboard(); // Enter 키를 누르면 가상 키보드를 종료
-                e.Handled = true; // 이벤트 처리 완료
-                e.SuppressKeyPress = true; // Enter 키 입력을 텍스트 박스에 전달하지 않음
-            }
-        }
-
-        private void CloseOnScreenKeyboard()
-        {
-            foreach (var process in Process.GetProcessesByName("osk"))
-            {
-                process.Kill();
-            }
-        }
     }
 }
