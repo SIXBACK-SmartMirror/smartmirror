@@ -71,7 +71,8 @@
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label9);
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(704, 139);
+            panel1.ImeMode = ImeMode.Off;
+            panel1.Location = new Point(74, 139);
             panel1.Name = "panel1";
             panel1.Size = new Size(278, 247);
             panel1.TabIndex = 0;
@@ -93,7 +94,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("맑은 고딕", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label9.ForeColor = Color.White;
-            label9.Location = new Point(34, 77);
+            label9.Location = new Point(32, 77);
             label9.Name = "label9";
             label9.Size = new Size(104, 30);
             label9.TabIndex = 8;
@@ -117,7 +118,7 @@
             panel2.Controls.Add(label5);
             panel2.Controls.Add(pictureBox2);
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(73, 139);
+            panel2.Location = new Point(390, 139);
             panel2.Name = "panel2";
             panel2.Size = new Size(278, 247);
             panel2.TabIndex = 2;
@@ -163,7 +164,7 @@
             panel3.Controls.Add(label7);
             panel3.Controls.Add(pictureBox4);
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(390, 139);
+            panel3.Location = new Point(704, 139);
             panel3.Name = "panel3";
             panel3.Size = new Size(278, 247);
             panel3.TabIndex = 3;
