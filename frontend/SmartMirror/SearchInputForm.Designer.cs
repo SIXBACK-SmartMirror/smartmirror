@@ -72,7 +72,7 @@ namespace SmartMirror
             mirror.Controls.Add(pictureBox1);
             mirror.Controls.Add(label9);
             mirror.Controls.Add(label1);
-            mirror.Location = new Point(704, 139);
+            mirror.Location = new Point(74, 139);
             mirror.Name = "mirror";
             mirror.Size = new Size(278, 247);
             mirror.TabIndex = 0;
@@ -94,11 +94,11 @@ namespace SmartMirror
             label9.AutoSize = true;
             label9.Font = new Font("맑은 고딕", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label9.ForeColor = Color.White;
-            label9.Location = new Point(34, 77);
+            label9.Location = new Point(32, 77);
             label9.Name = "label9";
-            label9.Size = new Size(104, 30);
+            label9.Size = new Size(174, 30);
             label9.TabIndex = 8;
-            label9.Text = "화면 끄기";
+            label9.Text = "홈 화면으로 이동";
             // 
             // label1
             // 
@@ -107,9 +107,9 @@ namespace SmartMirror
             label1.ForeColor = Color.White;
             label1.Location = new Point(24, 18);
             label1.Name = "label1";
-            label1.Size = new Size(183, 50);
+            label1.Size = new Size(59, 50);
             label1.TabIndex = 1;
-            label1.Text = "거울 모드";
+            label1.Text = "홈";
             // 
             // voice
             // 
@@ -117,7 +117,7 @@ namespace SmartMirror
             voice.Controls.Add(label5);
             voice.Controls.Add(pictureBox2);
             voice.Controls.Add(label2);
-            voice.Location = new Point(74, 139);
+            voice.Location = new Point(390, 139);
             voice.Name = "voice";
             voice.Size = new Size(278, 247);
             voice.TabIndex = 2;
@@ -162,7 +162,7 @@ namespace SmartMirror
             keybaord.Controls.Add(label7);
             keybaord.Controls.Add(pictureBox4);
             keybaord.Controls.Add(label3);
-            keybaord.Location = new Point(390, 139);
+            keybaord.Location = new Point(704, 139);
             keybaord.Name = "keybaord";
             keybaord.Size = new Size(278, 247);
             keybaord.TabIndex = 3;
