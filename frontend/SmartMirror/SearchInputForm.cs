@@ -128,7 +128,28 @@ namespace SmartMirror
 
         private void mirror_Click(object sender, EventArgs e)
         {
-           
+            this.Hide();
+
+            MainOutputForm mainOutputForm = new MainOutputForm();
+
+            Screen secondaryScreen = Screen.AllScreens[1];
+            mainOutputForm.StartPosition = FormStartPosition.Manual;
+            mainOutputForm.Location = secondaryScreen.Bounds.Location;
+            mainOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+            if (outputForm != null && !outputForm.IsDisposed)
+            {
+                outputForm.Hide();
+            }
+
+            mainOutputForm.Show();
+
+            MainInputForm inputForm = new MainInputForm(mainOutputForm);
+
+            Screen primaryScreen = Screen.AllScreens[0];
+            inputForm.StartPosition = FormStartPosition.Manual;
+            inputForm.Location = primaryScreen.Bounds.Location;
+            inputForm.Show();
         }
 
         // 녹음 시작 메서드
