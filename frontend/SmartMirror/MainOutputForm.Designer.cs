@@ -33,6 +33,7 @@
             title = new Label();
             label1 = new Label();
             label2 = new Label();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -83,6 +84,14 @@
             label2.TabIndex = 3;
             label2.Text = "검색하기";
             // 
+            // panel1
+            // 
+            panel1.Location = new Point(54, 218);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(431, 311);
+            panel1.TabIndex = 4;
+            panel1.Visible = false;
+            // 
             // MainOutputForm
             // 
             AutoScaleDimensions = new SizeF(192F, 192F);
@@ -90,6 +99,7 @@
             AutoSize = true;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(1600, 2560);
+            Controls.Add(panel1);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(title);
@@ -109,5 +119,6 @@
         private Label title;
         private Label label1;
         private Label label2;
+        public Panel panel1;
     }
 }
