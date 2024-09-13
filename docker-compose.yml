@@ -1,10 +1,19 @@
 version: '3'
 
 services:
-  spring-boot-app:
+  spring-boot:
     build:
       context: ./backend
-    image: spring-boot/latest
+    image: spring-boot/lts
     container_name: spring-boot
     ports:
-      - "8000:8080"
+      - "${SPRING_BOOT_HOST_PORT}:${SPRING_BOOT_APP_PORT}"
+
+  nginx:
+    build:
+      context: ./nginx
+    image: nginx/lts
+    container_name: nginx
+    ports:
+      - "${NGINX_HTTP_HOST_PORT}:${NGINX_HTTP_APP_PORT}"
+      - "${NGINX_HTTPS_HOST_PORT}:${NGINX_HTTPS_APP_PORT}"
