@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchInfoOutputForm));
             title = new Label();
             panel1 = new Panel();
-            panel2 = new Panel();
             label1 = new Label();
             pictureBox2 = new PictureBox();
             panelProducts = new Panel();
@@ -57,7 +56,6 @@
             // 
             panel1.Anchor = AnchorStyles.Top;
             panel1.BackColor = SystemColors.ControlLightLight;
-            panel1.Controls.Add(panel2);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(pictureBox2);
             panel1.Location = new Point(145, 218);
@@ -65,13 +63,6 @@
             panel1.Size = new Size(1237, 147);
             panel1.TabIndex = 2;
             panel1.Paint += panel1_Paint;
-            // 
-            // panel2
-            // 
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(400, 200);
-            panel2.TabIndex = 4;
             // 
             // label1
             // 
@@ -141,7 +132,6 @@
         private Panel panel1;
         private PictureBox pictureBox2;
         private Label label1;
-        private Panel panel2;
         private Panel panelProducts;
         private Label label2;
     }
