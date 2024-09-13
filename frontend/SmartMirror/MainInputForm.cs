@@ -5,6 +5,7 @@ namespace SmartMirror
     public partial class MainInputForm : Form
     {
         private MainOutputForm mainOutputForm;
+        private bool isClose;
 
         public MainInputForm(MainOutputForm mainOutputForm)
         {
@@ -67,6 +68,25 @@ namespace SmartMirror
             panel1.Region = new Region(path);
             panel2.Region = new Region(path);
             panel3.Region = new Region(path);
+        }
+
+        private void panel1_Click(object sender, EventArgs e)
+        {
+            mainOutputForm.panel1.Dock = DockStyle.Fill;
+            
+            if (!isClose)
+            {
+                label9.Text = "화면 켜기";
+                label1.Text = "거울 OFF";
+                mainOutputForm.panel1.Visible = true;
+            }
+            else
+            {
+                label9.Text = "화면 끄기";
+                label1.Text = "거울 ON";
+                mainOutputForm.panel1.Visible = false;
+            }
+            isClose = !isClose;
         }
     }
 }

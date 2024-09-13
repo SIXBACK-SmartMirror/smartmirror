@@ -75,6 +75,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(278, 247);
             panel1.TabIndex = 0;
+            panel1.Click += panel1_Click;
             panel1.Paint += panel_Paint;
             // 
             // pictureBox1
@@ -105,9 +106,9 @@
             label1.ForeColor = Color.White;
             label1.Location = new Point(24, 18);
             label1.Name = "label1";
-            label1.Size = new Size(183, 50);
+            label1.Size = new Size(168, 50);
             label1.TabIndex = 1;
-            label1.Text = "거울 모드";
+            label1.Text = "거울 ON";
             // 
             // panel2
             // 
