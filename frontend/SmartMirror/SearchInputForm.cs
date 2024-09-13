@@ -1,10 +1,16 @@
 ﻿using System.Drawing.Drawing2D;
 using System.Diagnostics;
+using NAudio.Wave;
 
 namespace SmartMirror
 {
     public partial class SearchInputForm : Form
     {
+        private WaveInEvent waveIn; // 마이크 입력
+        private WaveFileWriter writer; // 녹음한 오디오를 파일로 저장
+        private string outputFilePath = "recordedAudio.wav"; // 녹음 파일 경로
+        private bool isRecording = false; // 녹음 상태 관리 변수
+
         private SearchOutputForm outputForm;
         private Process oskProcess;
 
@@ -98,6 +104,78 @@ namespace SmartMirror
         private void panel3_Click(object sender, EventArgs e)
         {
             ShowOnScreenKeyboard();
+        }
+
+        private void voice_Click(object sender, EventArgs e)
+        {
+
+            if (!isRecording)
+            {
+                label2.Text = "녹음 중지";
+                label5.Text = "'OO' 찾아줘~";
+
+                StartRecording();
+            }
+            else
+            {
+                label5.Text = "움성으로 물건 찾기";
+                label2.Text = "음성 검색";
+                StopRecording();
+            }
+
+            isRecording = !isRecording;
+        }
+
+        private void mirror_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        // 녹음 시작 메서드
+        private void StartRecording()
+        {
+            waveIn = new WaveInEvent(); // 마이크 입력 초기화
+            waveIn.WaveFormat = new WaveFormat(44100, 1); // 44.1kHz, 모노
+
+            // 데이터가 들어올 때마다 호출되는 이벤트 핸들러 연결
+            waveIn.DataAvailable += OnDataAvailable;
+            waveIn.RecordingStopped += OnRecordingStopped;
+
+            // .wav 파일 작성 시작
+            writer = new WaveFileWriter(outputFilePath, waveIn.WaveFormat);
+            Console.Write(outputFilePath);
+
+            // 녹음 시작
+            waveIn.StartRecording();
+            MessageBox.Show("녹음을 시작합니다.");
+        }
+
+        // 녹음 중에 데이터가 들어올 때마다 호출되는 메서드
+        private void OnDataAvailable(object sender, WaveInEventArgs e)
+        {
+            if (writer != null)
+            {
+                // 녹음된 데이터를 파일에 기록
+                writer.Write(e.Buffer, 0, e.BytesRecorded);
+                writer.Flush();
+            }
+        }
+
+        // 녹음 중지 메서드
+        private void StopRecording()
+        {
+            waveIn?.StopRecording(); // 녹음 중지
+        }
+
+        // 녹음이 중지될 때 호출되는 메서드
+        private void OnRecordingStopped(object sender, StoppedEventArgs e)
+        {
+            writer?.Dispose(); // 파일 작성 완료 및 해제
+            writer = null;
+            waveIn.Dispose(); // 마이크 입력 해제
+            waveIn = null;
+
+            MessageBox.Show($"녹음이 완료되었습니다. 파일 경로: {outputFilePath}");
         }
     }
 }

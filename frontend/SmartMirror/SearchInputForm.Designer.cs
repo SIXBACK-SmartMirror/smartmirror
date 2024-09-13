@@ -76,6 +76,7 @@ namespace SmartMirror
             mirror.Name = "mirror";
             mirror.Size = new Size(278, 247);
             mirror.TabIndex = 0;
+            mirror.Click += mirror_Click;
             mirror.Paint += panel_Paint;
             // 
             // pictureBox1
@@ -112,14 +113,15 @@ namespace SmartMirror
             // 
             // voice
             // 
-            voice.BackColor = Color.FromArgb(155, 234, 240);
+            voice.BackColor = Color.FromArgb(85, 171, 217);
             voice.Controls.Add(label5);
             voice.Controls.Add(pictureBox2);
             voice.Controls.Add(label2);
-            voice.Location = new Point(73, 139);
+            voice.Location = new Point(74, 139);
             voice.Name = "voice";
             voice.Size = new Size(278, 247);
             voice.TabIndex = 2;
+            voice.Click += voice_Click;
             voice.Paint += panel_Paint;
             // 
             // label5
@@ -156,7 +158,7 @@ namespace SmartMirror
             // 
             // keybaord
             // 
-            keybaord.BackColor = Color.FromArgb(85, 171, 217);
+            keybaord.BackColor = Color.FromArgb(155, 234, 240);
             keybaord.Controls.Add(label7);
             keybaord.Controls.Add(pictureBox4);
             keybaord.Controls.Add(label3);
