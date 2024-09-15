@@ -12,7 +12,7 @@ services:
   nginx:
     build:
       context: ./nginx
-    image: nginx/alpine
+    image: nginx:alpine
     container_name: nginx
     ports:
       - "${NGINX_HTTP_HOST_PORT}:${NGINX_HTTP_APP_PORT}"
