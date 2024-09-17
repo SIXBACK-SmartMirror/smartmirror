@@ -8,15 +8,3 @@ services:
     container_name: spring-boot
     ports:
       - "${SPRING_BOOT_HOST_PORT}:${SPRING_BOOT_APP_PORT}"
-
-  nginx:
-    build:
-      context: ./nginx
-    image: nginx:alpine
-    container_name: nginx
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/ssl:/etc/nginx/ssl
-    ports:
-      - "${NGINX_HTTP_HOST_PORT}:${NGINX_HTTP_APP_PORT}"
-      - "${NGINX_HTTPS_HOST_PORT}:${NGINX_HTTPS_APP_PORT}"
