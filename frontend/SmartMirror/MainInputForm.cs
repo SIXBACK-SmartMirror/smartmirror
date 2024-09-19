@@ -63,8 +63,8 @@ namespace SmartMirror
             int cornerRadius = 15;
 
             // 패널의 크기
-            int panelWidth = panel2.Width;
-            int panelHeight = panel2.Height;
+            int panelWidth = search.Width;
+            int panelHeight = search.Height;
 
             // GraphicsPath를 사용해 둥근 모서리 경로를 생성
             GraphicsPath path = new GraphicsPath();
@@ -75,9 +75,9 @@ namespace SmartMirror
             path.CloseFigure();
 
             // 패널의 모양을 둥근 모서리로 설정
-            panel1.Region = new Region(path);
-            panel2.Region = new Region(path);
-            panel3.Region = new Region(path);
+            mirror.Region = new Region(path);
+            search.Region = new Region(path);
+            makeup.Region = new Region(path);
         }
 
         private void panel1_Click(object sender, EventArgs e)
