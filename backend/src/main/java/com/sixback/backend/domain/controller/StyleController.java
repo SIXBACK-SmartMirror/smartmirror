@@ -1,5 +1,8 @@
 package com.sixback.backend.domain.controller;
 
+import java.util.ArrayList;
+import java.util.Base64;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sixback.backend.common.dto.ResponseDto;
+import com.sixback.backend.domain.dto.StyleResultDto;
 import com.sixback.backend.domain.dto.VirtualMakeupReqDto;
 import com.sixback.backend.domain.service.StyleService;
 
@@ -53,5 +57,11 @@ public class StyleController {
 		return new ResponseEntity<>(new ResponseDto<>("A00", styleResultDto), HttpStatus.OK);
 	}
 
+	@PostMapping(value = "/testAi", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public Mono<ResponseEntity<?>> testAICreatVirtualMakeup(@PathVariable("marketId") Long marketId,
+		@Valid @ModelAttribute VirtualMakeupReqDto virtualMakeupReqDto) {
+		return styleService.testAIcreateVirtualMakeup(marketId, virtualMakeupReqDto)
+			.map(styleResultDto -> new ResponseEntity<>(new ResponseDto<>("A00", styleResultDto), HttpStatus.OK));
+	}
 
 }
