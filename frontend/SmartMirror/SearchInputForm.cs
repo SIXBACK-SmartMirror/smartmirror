@@ -1,6 +1,7 @@
 ﻿using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using NAudio.Wave;
+using System.Runtime.InteropServices;
 
 namespace SmartMirror
 {
@@ -15,6 +16,16 @@ namespace SmartMirror
 
         private SearchOutputForm outputForm;
         private Process oskProcess;
+
+        // Windows API 선언
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+        private const uint SWP_NOZORDER = 0x0004;
+        private const uint SWP_NOACTIVATE = 0x0010;
 
         public SearchInputForm(SearchOutputForm outputForm)
         {
@@ -52,7 +63,34 @@ namespace SmartMirror
             CloseOnScreenKeyboard();
 
             oskProcess = Process.Start("osk.exe");
+
+            // 가상 키보드가 실행될 시간을 조금 대기
+            System.Threading.Thread.Sleep(500);
+
+            // 가상 키보드 창을 특정 모니터로 이동
+            MoveOnScreenKeyboardToMonitor(inputMonitor); // 2번 모니터로 이동
+
             outputForm.textBox1.Focus();
+        }
+
+        private void MoveOnScreenKeyboardToMonitor(int monitorIndex)
+        {
+            // 2번 모니터가 존재하는지 확인
+            if (Screen.AllScreens.Length > monitorIndex)
+            {
+                Screen selectedMonitor = Screen.AllScreens[monitorIndex];
+                IntPtr hWnd = FindWindow("IPTip_Main_Window", "keyboard"); // 가상 키보드의 창 클래스 이름
+
+                if (hWnd != IntPtr.Zero)
+                {
+                    // 모니터 위치로 가상 키보드 이동
+                    SetWindowPos(hWnd, IntPtr.Zero, selectedMonitor.Bounds.X, selectedMonitor.Bounds.Y, selectedMonitor.Bounds.Width, selectedMonitor.Bounds.Height, SWP_NOZORDER | SWP_NOACTIVATE);
+                }
+            }
+            else
+            {
+                MessageBox.Show($"모니터 {monitorIndex + 1}이(가) 존재하지 않습니다.");
+            }
         }
 
         private void CloseOnScreenKeyboard()
