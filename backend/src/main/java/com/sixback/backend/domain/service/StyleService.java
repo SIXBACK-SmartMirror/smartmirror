@@ -1,6 +1,7 @@
 package com.sixback.backend.domain.service;
 
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,26 @@ public class StyleService {
 					StyleResultDto.builder()
 						.styleId(style.getStyleId())
 						.goodsOptionList(style.getGoodsOptionList())
+						.makeupImage(makeupImage.toString())
+						.qrImage(qrImage)
+						.build()
+				)
+			);
+	}
+
+	public Mono<StyleResultDto> testAIcreateVirtualMakeup(Long marketId, VirtualMakeupReqDto virtualMakeupReqDto) {
+		// 매장 유효성 검사
+		// 스타일 식별 번호 검증 && 사용된 상품 정보 가져오기
+		// GAN AI 서버 요청 (비동기)
+		return ganClientService.sendRequest(GanRequestDto.builder()
+				.inputImage(virtualMakeupReqDto.getInputImage())
+				.styleImage("https://i.ibb.co/Dg0DFfb/XMY-014.png")
+				.build())
+			.flatMap(makeupImage ->
+				createQRImage().map(qrImage ->
+					StyleResultDto.builder()
+						.styleId(1L)
+						.goodsOptionList(List.of())
 						.makeupImage(makeupImage.toString())
 						.qrImage(qrImage)
 						.build()
