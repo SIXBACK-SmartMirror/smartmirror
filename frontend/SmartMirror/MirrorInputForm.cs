@@ -1,9 +1,12 @@
-﻿namespace SmartMirror
+﻿using System.Windows.Forms;
+
+namespace SmartMirror
 {
     public partial class MirrorInputForm : Form
     {
         private MirrorOutputForm mirrorOutputForm;
-        private int monitorIndex = 1;
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
 
         public MirrorInputForm(MirrorOutputForm outputForm)
         {
@@ -16,11 +19,18 @@
             // 현재 MirrorInputForm을 숨김
             this.Hide();
 
+            Screen[] screens = Screen.AllScreens;
+
+            if (screens.Length == 2)
+            {
+                inputMonitor = 1;
+            }
+
             // MirrorOutputForm을 MainOutputForm으로 변경
             MainOutputForm mainOutputForm = new MainOutputForm();
 
             // MainOutputForm을 두 번째 모니터에 표시
-            Screen secondaryScreen = Screen.AllScreens[monitorIndex];
+            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
             mainOutputForm.StartPosition = FormStartPosition.Manual;
             mainOutputForm.Location = secondaryScreen.Bounds.Location;
             mainOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
@@ -31,11 +41,11 @@
             // MainInputForm을 생성하고 표시
             MainInputForm mainInputForm = new MainInputForm(mainOutputForm);
 
-            // 메인 인풋 폼을 특정 모니터에 표시 (예: 첫 번째 모니터)
-            Screen primaryScreen = Screen.AllScreens[0];
+            // 메인 인풋 폼을 특정 모니터에 표시
+            Screen primaryScreen = Screen.AllScreens[inputMonitor];
             mainInputForm.StartPosition = FormStartPosition.Manual;
             mainInputForm.Location = primaryScreen.Bounds.Location;
-            //mainInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+            mainInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
             mainInputForm.Show();
         }
     }
