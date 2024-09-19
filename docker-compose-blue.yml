@@ -8,3 +8,10 @@ services:
     container_name: spring-boot
     ports:
       - "${SPRING_BOOT_HOST_PORT}:${SPRING_BOOT_APP_PORT}"
+  fastapi:
+    build:
+      context: ./fastapi
+    image: fastapi-blue/lts
+    container_name: fastapi-blue
+    ports:
+      - "${FASTAPI_HOST_PORT_BLUE}:${FASTAPI_APP_PORT_BLUE}"
