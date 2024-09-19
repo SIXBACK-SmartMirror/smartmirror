@@ -1,8 +1,6 @@
 package com.sixback.backend.domain.controller;
 
 import java.util.ArrayList;
-
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sixback.backend.common.dto.ResponseDto;
-import com.sixback.backend.domain.dto.StyleInfoDto;
-import com.sixback.backend.domain.dto.StyleResultDto;
+import com.sixback.backend.domain.dto.StyleInfoListDto;
 import com.sixback.backend.domain.dto.VirtualMakeupReqDto;
 import com.sixback.backend.domain.service.StyleService;
 
@@ -39,8 +36,8 @@ public class StyleController {
 	public ResponseEntity<?> findAllStyle(@PathVariable("marketId") Long marketId,
 		@Min(0) @RequestParam("page") int page,
 		@Min(1) @RequestParam("size") int size) {
-		Page<StyleInfoDto> styleInfoDtoPage = styleService.findAllStyle(marketId, page, size);
-		return new ResponseEntity<>(new ResponseDto<>("A00", styleInfoDtoPage), HttpStatus.OK);
+		StyleInfoListDto styleInfoListDto = new StyleInfoListDto(styleService.findAllStyle(marketId, page, size));
+		return new ResponseEntity<>(new ResponseDto<>("A00", styleInfoListDto), HttpStatus.OK);
 	}
 
 	// 가상 화장 하기
