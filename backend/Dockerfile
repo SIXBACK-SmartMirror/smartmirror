@@ -1,5 +1,5 @@
-# open jdk 17 버전의 환경을 구성
-FROM openjdk:17
+# open jdk 21 버전의 환경을 구성
+FROM openjdk:21
 
 # tzdata 패키지 설치 및 타임존 설정
 RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime && echo Asia/Seoul > /etc/timezone
