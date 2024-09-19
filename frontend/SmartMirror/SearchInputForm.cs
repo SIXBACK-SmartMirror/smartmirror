@@ -1,6 +1,7 @@
 ﻿using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using NAudio.Wave;
+using System.Runtime.InteropServices;
 
 namespace SmartMirror
 {
@@ -10,9 +11,21 @@ namespace SmartMirror
         private WaveFileWriter writer; // 녹음한 오디오를 파일로 저장
         private string outputFilePath = "recordedAudio.wav"; // 녹음 파일 경로
         private bool isRecording = false; // 녹음 상태 관리 변수
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
 
         private SearchOutputForm outputForm;
         private Process oskProcess;
+
+        // Windows API 선언
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+        private const uint SWP_NOZORDER = 0x0004;
+        private const uint SWP_NOACTIVATE = 0x0010;
 
         public SearchInputForm(SearchOutputForm outputForm)
         {
@@ -50,7 +63,34 @@ namespace SmartMirror
             CloseOnScreenKeyboard();
 
             oskProcess = Process.Start("osk.exe");
+
+            // 가상 키보드가 실행될 시간을 조금 대기
+            System.Threading.Thread.Sleep(500);
+
+            // 가상 키보드 창을 특정 모니터로 이동
+            MoveOnScreenKeyboardToMonitor(inputMonitor); // 2번 모니터로 이동
+
             outputForm.textBox1.Focus();
+        }
+
+        private void MoveOnScreenKeyboardToMonitor(int monitorIndex)
+        {
+            // 2번 모니터가 존재하는지 확인
+            if (Screen.AllScreens.Length > monitorIndex)
+            {
+                Screen selectedMonitor = Screen.AllScreens[monitorIndex];
+                IntPtr hWnd = FindWindow("IPTip_Main_Window", "keyboard"); // 가상 키보드의 창 클래스 이름
+
+                if (hWnd != IntPtr.Zero)
+                {
+                    // 모니터 위치로 가상 키보드 이동
+                    SetWindowPos(hWnd, IntPtr.Zero, selectedMonitor.Bounds.X, selectedMonitor.Bounds.Y, selectedMonitor.Bounds.Width, selectedMonitor.Bounds.Height, SWP_NOZORDER | SWP_NOACTIVATE);
+                }
+            }
+            else
+            {
+                MessageBox.Show($"모니터 {monitorIndex + 1}이(가) 존재하지 않습니다.");
+            }
         }
 
         private void CloseOnScreenKeyboard()
@@ -78,9 +118,16 @@ namespace SmartMirror
         {
             this.Hide();
 
+            Screen[] screens = Screen.AllScreens;
+
+            if (screens.Length == 2)
+            {
+                inputMonitor = 1;
+            }
+
             SearchInfoOutputForm searchInfoOutputForm = new SearchInfoOutputForm();
 
-            Screen secondaryScreen = Screen.AllScreens[1];
+            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
             searchInfoOutputForm.StartPosition = FormStartPosition.Manual;
             searchInfoOutputForm.Location = secondaryScreen.Bounds.Location;
             searchInfoOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
@@ -95,9 +142,10 @@ namespace SmartMirror
 
             SearchInfoInputForm searchInputForm = new SearchInfoInputForm();
 
-            Screen primaryScreen = Screen.AllScreens[0];
+            Screen primaryScreen = Screen.AllScreens[inputMonitor];
             searchInputForm.StartPosition = FormStartPosition.Manual;
             searchInputForm.Location = primaryScreen.Bounds.Location;
+            searchInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
             searchInputForm.Show();
         }
 
@@ -130,9 +178,16 @@ namespace SmartMirror
         {
             this.Hide();
 
+            Screen[] screens = Screen.AllScreens;
+
+            if (screens.Length == 2)
+            {
+                inputMonitor = 1;
+            }
+
             MainOutputForm mainOutputForm = new MainOutputForm();
 
-            Screen secondaryScreen = Screen.AllScreens[1];
+            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
             mainOutputForm.StartPosition = FormStartPosition.Manual;
             mainOutputForm.Location = secondaryScreen.Bounds.Location;
             mainOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
@@ -146,9 +201,10 @@ namespace SmartMirror
 
             MainInputForm inputForm = new MainInputForm(mainOutputForm);
 
-            Screen primaryScreen = Screen.AllScreens[0];
+            Screen primaryScreen = Screen.AllScreens[inputMonitor];
             inputForm.StartPosition = FormStartPosition.Manual;
             inputForm.Location = primaryScreen.Bounds.Location;
+            inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
             inputForm.Show();
         }
 

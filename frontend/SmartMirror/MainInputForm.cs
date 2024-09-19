@@ -6,6 +6,8 @@ namespace SmartMirror
     {
         private MainOutputForm mainOutputForm;
         private bool isClose;
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
 
         public MainInputForm(MainOutputForm mainOutputForm)
         {
@@ -18,11 +20,19 @@ namespace SmartMirror
             // 현재 MirrorInputForm을 숨김
             this.Hide();
 
+            // 연결된 모니터 리스트 가져오기
+            Screen[] screens = Screen.AllScreens;
+
+            if (screens.Length == 2)
+            {
+                inputMonitor = 1;
+            }
+
             // MirrorOutputForm을 MainOutputForm으로 변경
             SearchOutputForm searchOutputForm = new SearchOutputForm();
 
             // MainOutputForm을 두 번째 모니터에 표시
-            Screen secondaryScreen = Screen.AllScreens[1];
+            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
             searchOutputForm.StartPosition = FormStartPosition.Manual;
             searchOutputForm.Location = secondaryScreen.Bounds.Location;
             searchOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
@@ -31,10 +41,10 @@ namespace SmartMirror
             SearchInputForm searchInputForm = new SearchInputForm(searchOutputForm);
 
             // 메인 인풋 폼을 특정 모니터에 표시 (예: 첫 번째 모니터)
-            Screen primaryScreen = Screen.AllScreens[0];
+            Screen primaryScreen = Screen.AllScreens[inputMonitor];
             searchInputForm.StartPosition = FormStartPosition.Manual;
             searchInputForm.Location = primaryScreen.Bounds.Location;
-            //mainInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+            searchInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
             searchInputForm.Show();
 
             // 이미 떠있는 MainOutputForm을 숨김
@@ -53,8 +63,8 @@ namespace SmartMirror
             int cornerRadius = 15;
 
             // 패널의 크기
-            int panelWidth = panel2.Width;
-            int panelHeight = panel2.Height;
+            int panelWidth = search.Width;
+            int panelHeight = search.Height;
 
             // GraphicsPath를 사용해 둥근 모서리 경로를 생성
             GraphicsPath path = new GraphicsPath();
@@ -65,9 +75,9 @@ namespace SmartMirror
             path.CloseFigure();
 
             // 패널의 모양을 둥근 모서리로 설정
-            panel1.Region = new Region(path);
-            panel2.Region = new Region(path);
-            panel3.Region = new Region(path);
+            mirror.Region = new Region(path);
+            search.Region = new Region(path);
+            makeup.Region = new Region(path);
         }
 
         private void panel1_Click(object sender, EventArgs e)
