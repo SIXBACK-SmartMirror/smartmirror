@@ -1,1 +1,17 @@
+version: '3'
 
+services:
+  spring-boot:
+    build:
+      context: ./backend
+    image: spring-boot-green/lts
+    container_name: spring-boot-green
+    ports:
+      - "${SPRING_BOOT_HOST_PORT_GREEN}:${SPRING_BOOT_APP_PORT_GREEN}"
+  fastapi:
+    build:
+      context: ./fastapi
+    image: fastapi-green/lts
+    container_name: fastapi-green
+    ports:
+      - "${FASTAPI_HOST_PORT_GREEN}:${FASTAPI_APP_PORT_GREEN}"
