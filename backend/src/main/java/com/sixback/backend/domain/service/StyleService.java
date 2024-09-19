@@ -1,6 +1,5 @@
 package com.sixback.backend.domain.service;
 
-import java.util.Base64;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
