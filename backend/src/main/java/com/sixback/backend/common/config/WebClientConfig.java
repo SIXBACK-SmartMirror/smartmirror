@@ -22,8 +22,7 @@ public class WebClientConfig {
 	@Bean
 	public WebClient ganWebClient(WebClient.Builder webClientBuilder) {
 		return webClientBuilder
-			.baseUrl("https://localhost:8000")
-			.defaultHeader("Content-Type", "multipart/form-data")  // For sending image files
+			.baseUrl("http://localhost:8000")
 			.build();
 	}
 
