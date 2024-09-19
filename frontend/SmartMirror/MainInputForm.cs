@@ -6,6 +6,8 @@ namespace SmartMirror
     {
         private MainOutputForm mainOutputForm;
         private bool isClose;
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
 
         public MainInputForm(MainOutputForm mainOutputForm)
         {
@@ -18,11 +20,19 @@ namespace SmartMirror
             // 현재 MirrorInputForm을 숨김
             this.Hide();
 
+            // 연결된 모니터 리스트 가져오기
+            Screen[] screens = Screen.AllScreens;
+
+            if (screens.Length == 2)
+            {
+                inputMonitor = 1;
+            }
+
             // MirrorOutputForm을 MainOutputForm으로 변경
             SearchOutputForm searchOutputForm = new SearchOutputForm();
 
             // MainOutputForm을 두 번째 모니터에 표시
-            Screen secondaryScreen = Screen.AllScreens[1];
+            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
             searchOutputForm.StartPosition = FormStartPosition.Manual;
             searchOutputForm.Location = secondaryScreen.Bounds.Location;
             searchOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
@@ -31,10 +41,10 @@ namespace SmartMirror
             SearchInputForm searchInputForm = new SearchInputForm(searchOutputForm);
 
             // 메인 인풋 폼을 특정 모니터에 표시 (예: 첫 번째 모니터)
-            Screen primaryScreen = Screen.AllScreens[0];
+            Screen primaryScreen = Screen.AllScreens[inputMonitor];
             searchInputForm.StartPosition = FormStartPosition.Manual;
             searchInputForm.Location = primaryScreen.Bounds.Location;
-            //mainInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+            searchInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
             searchInputForm.Show();
 
             // 이미 떠있는 MainOutputForm을 숨김
