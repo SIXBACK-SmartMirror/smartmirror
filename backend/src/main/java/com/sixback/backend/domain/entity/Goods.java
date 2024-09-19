@@ -2,7 +2,6 @@ package com.sixback.backend.domain.entity;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -15,8 +14,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,6 +29,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
+@Builder
 @DynamicInsert
 public class Goods {
 	// 상품 식별번호
@@ -49,10 +51,12 @@ public class Goods {
 
 	// 상품 이미지 url
 	@Column(columnDefinition = "varchar(255)")
+	@Size(max = 255)
 	private String goodsImage;
 
 	// 상품 이름
 	@Column(columnDefinition = "varchar(100)", nullable = false)
+	@Size(min = 1, max = 100)
 	private String goodsName;
 
 	// 상품 가격
@@ -61,15 +65,16 @@ public class Goods {
 
 	// 거래 여부
 	@Column(columnDefinition = "tinyint(1) default 1", nullable = false)
-	@ColumnDefault("true")
-	private boolean isPossible;
+	@Builder.Default
+	private boolean isPossible = true;
 
 	// 출시 일시
-	@Column(columnDefinition = "datetime", nullable = false)
+	@Column(columnDefinition = "datetime default current_timestamp", nullable = false)
 	@CreationTimestamp
 	private LocalDateTime releaseAt;
 
 	// 최대 할인률
-	@Column(columnDefinition = "float", nullable = false)
-	private Float maxDiscount;
+	@Column(columnDefinition = "float default 0", nullable = false)
+	@Builder.Default
+	private float maxDiscount = 0;
 }

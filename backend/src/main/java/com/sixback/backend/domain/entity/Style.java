@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,10 +36,12 @@ public class Style {
 
 	// 화장 스타일 이미지 URL
 	@Column(columnDefinition = "varchar(255)", nullable = false)
+	@Size(min = 1, max = 255)
 	private String styleImage;
 
 	// 화장 스타일 이름
 	@Column(columnDefinition = "varchar(30)", nullable = false)
+	@Size(min = 1, max = 30)
 	private String styleName;
 
 	// 사용된 옵션 상품들
