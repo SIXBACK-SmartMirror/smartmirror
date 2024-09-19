@@ -6,8 +6,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
+@Builder
 public class Market {
 	// 매장 식별번호
 	@Id
@@ -28,13 +31,22 @@ public class Market {
 
 	// 매장명
 	@Column(columnDefinition = "varchar(30)", nullable = false)
+	@Size(min = 1, max = 30)
 	private String marketName;
 
 	// 매장 주소
 	@Column(columnDefinition = "varchar(100)", nullable = false)
+	@Size(min = 1, max = 100)
 	private String address;
 
 	// 매장 도면 URL
 	@Column(columnDefinition = "varchar(255)", nullable = false)
+	@Size(min = 1, max = 255)
 	private String blueprintImage;
+
+	// 거래 여부
+	@Column(columnDefinition = "tinyint(1) default 0", nullable = false)
+	@Builder.Default
+	private boolean isClosed = false;
+
 }
