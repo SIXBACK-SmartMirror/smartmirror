@@ -54,7 +54,7 @@ public class Stock {
 	private boolean isSelling = false;
 
 	// 옵션 상품 위치
-	@Column(columnDefinition = "json default {\"name\": \"A\", \"row\" : \"0\", \" col \": \"0\"}", nullable = false)
+	@Column(columnDefinition = "json", nullable = false)
 	@JdbcTypeCode(SqlTypes.JSON)
 	private LocationDto location;
 
