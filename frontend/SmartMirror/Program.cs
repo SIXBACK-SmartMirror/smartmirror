@@ -28,12 +28,20 @@ namespace SmartMirror
             Application.SetCompatibleTextRenderingDefault(false);
 
             // 모니터 인덱스를 설정
-            int monitorIndex = 1;
+            int outputMonitor = 1;
+            int inputMonitor = 2;
+
+            Screen[] screens = Screen.AllScreens;
+
+            if (screens.Length == 2)
+            {
+                inputMonitor = 1;
+            }
 
             // MirrorOutputForm을 먼저 생성
             MirrorOutputForm mirrorOutputForm = new MirrorOutputForm();
 
-            Screen mirror = Screen.AllScreens[monitorIndex];
+            Screen mirror = Screen.AllScreens[outputMonitor];
 
             // MirrorOutputForm의 위치 및 크기를 설정
             mirrorOutputForm.StartPosition = FormStartPosition.Manual;
@@ -43,7 +51,13 @@ namespace SmartMirror
             mirrorOutputForm.Show();
 
             // MirrorInputForm을 생성하면서 MirrorOutputForm을 전달
+            Screen inputScreen = Screen.AllScreens[inputMonitor];
+
+            // MirrorInputForm을 생성하면서 위치를 설정하고 MirrorOutputForm을 전달
             MirrorInputForm mirrorInputForm = new MirrorInputForm(mirrorOutputForm);
+            mirrorInputForm.StartPosition = FormStartPosition.Manual;
+            mirrorInputForm.Location = inputScreen.Bounds.Location;
+            mirrorInputForm.Size = new Size(inputScreen.Bounds.Width, inputScreen.Bounds.Height);
             Application.Run(mirrorInputForm);
         }
     }

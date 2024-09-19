@@ -10,6 +10,8 @@ namespace SmartMirror
         private WaveFileWriter writer; // 녹음한 오디오를 파일로 저장
         private string outputFilePath = "recordedAudio.wav"; // 녹음 파일 경로
         private bool isRecording = false; // 녹음 상태 관리 변수
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
 
         private SearchOutputForm outputForm;
         private Process oskProcess;
@@ -78,9 +80,16 @@ namespace SmartMirror
         {
             this.Hide();
 
+            Screen[] screens = Screen.AllScreens;
+
+            if (screens.Length == 2)
+            {
+                inputMonitor = 1;
+            }
+
             SearchInfoOutputForm searchInfoOutputForm = new SearchInfoOutputForm();
 
-            Screen secondaryScreen = Screen.AllScreens[1];
+            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
             searchInfoOutputForm.StartPosition = FormStartPosition.Manual;
             searchInfoOutputForm.Location = secondaryScreen.Bounds.Location;
             searchInfoOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
@@ -95,9 +104,10 @@ namespace SmartMirror
 
             SearchInfoInputForm searchInputForm = new SearchInfoInputForm();
 
-            Screen primaryScreen = Screen.AllScreens[0];
+            Screen primaryScreen = Screen.AllScreens[inputMonitor];
             searchInputForm.StartPosition = FormStartPosition.Manual;
             searchInputForm.Location = primaryScreen.Bounds.Location;
+            searchInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
             searchInputForm.Show();
         }
 
@@ -130,9 +140,16 @@ namespace SmartMirror
         {
             this.Hide();
 
+            Screen[] screens = Screen.AllScreens;
+
+            if (screens.Length == 2)
+            {
+                inputMonitor = 1;
+            }
+
             MainOutputForm mainOutputForm = new MainOutputForm();
 
-            Screen secondaryScreen = Screen.AllScreens[1];
+            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
             mainOutputForm.StartPosition = FormStartPosition.Manual;
             mainOutputForm.Location = secondaryScreen.Bounds.Location;
             mainOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
@@ -146,9 +163,10 @@ namespace SmartMirror
 
             MainInputForm inputForm = new MainInputForm(mainOutputForm);
 
-            Screen primaryScreen = Screen.AllScreens[0];
+            Screen primaryScreen = Screen.AllScreens[inputMonitor];
             inputForm.StartPosition = FormStartPosition.Manual;
             inputForm.Location = primaryScreen.Bounds.Location;
+            inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
             inputForm.Show();
         }
 
