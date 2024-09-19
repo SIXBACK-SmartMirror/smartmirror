@@ -75,7 +75,6 @@ namespace SmartMirror
                 this.streamingBox.Visible = true;
                 this.captureImg.Visible = false;
             }
-
             timer = new System.Windows.Forms.Timer();
             timer.Tick += new EventHandler(count_down);
             timer.Interval = 1000;
