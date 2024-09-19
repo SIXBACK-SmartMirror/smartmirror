@@ -1,5 +1,8 @@
 package com.sixback.backend.common.exception;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -82,9 +85,19 @@ public class GlobalExceptionHandler {
 	 * @param e
 	 * @return
 	 */
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<?> handleUnknownException(Exception e) {
-		log.error("Exception Error " + e.getMessage());
-		return new ResponseEntity<>(new ResponseDto<>("B00", null), HttpStatus.INTERNAL_SERVER_ERROR);
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<?> integrityViolationException(DataIntegrityViolationException e) {
+		return new ResponseEntity<>(new ResponseDto<>("D00", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+
+	/**
+	 * 데이터 베이스 전반 오류
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(DataAccessException.class)
+	public ResponseEntity<?> dataException(DataAccessException e) {
+		return new ResponseEntity<>(new ResponseDto<>("D00", null), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 }
