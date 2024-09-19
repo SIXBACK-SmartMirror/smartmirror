@@ -1,7 +1,7 @@
 import dlib
 import tensorflow as tf
 import numpy as np
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from PIL import Image, UnidentifiedImageError
@@ -21,6 +21,17 @@ class ApiResponse(BaseModel):
 # 공통 응답 생성 함수 (상태 코드 지정 가능)
 def create_response(code: str, data: dict, status_code: int = 200) -> JSONResponse:
     return JSONResponse(content={"code": code, "data": data}, status_code=status_code)
+
+# 커스텀 에러 클래스 생성
+class CustomHTTPException(HTTPException):
+    def __init__(self, code: str, status_code: int, detail: str = None):
+        super().__init__(status_code=status_code, detail=detail)
+        self.code = code
+
+# 전역 에러 처리 함수
+@app.exception_handler(CustomHTTPException)
+async def custom_http_exception_handler(request: Request, exc: CustomHTTPException):
+    return create_response(exc.code, None, status_code=exc.status_code)
 
 # 얼굴 탐지기 및 랜드마크 모델 로드
 detector = dlib.get_frontal_face_detector()
@@ -72,34 +83,27 @@ def get_image_from_url(url):
 
     # 네트워크 또는 URL 관련 예외 처리
     except requests.exceptions.RequestException:
-        raise HTTPException(status_code=500, detail="G02: Failed to fetch style image") # 예외 발생 시 코드 G02 부여
+        raise CustomHTTPException(code="G02", status_code=500, detail="Failed to fetch style image")
 
     # 이미지가 유효하지 않거나 손상된 경우 예외 처리
     except UnidentifiedImageError:
-        raise HTTPException(status_code=500, detail="G00: Invalid image format or corrupted image") # 예외 발생 시 코드 G00 부여
-
+        raise CustomHTTPException(code="G00", status_code=500, detail="Invalid image format or corrupted image")
 
 # FastAPI 엔드포인트
 @app.post("/ai/makeup/")
 async def makeup(inputImage: UploadFile = File(...), styleImage: str = Form(...)):
     # 입력 파일과 styleImage가 빈 값일 때 처리
     if not inputImage or not styleImage:
-        return create_response("F02", None, status_code=400)
+        raise CustomHTTPException(code="F02", status_code=400, detail="Input data missing")
 
     # inputImage를 읽어서 RGB로 변환 (파일 형식이 잘못되었을 때 처리)
     try:
         src_pil = Image.open(io.BytesIO(await inputImage.read())).convert("RGB")
     except UnidentifiedImageError:
-        return create_response("F00", None, status_code=400)
+        raise CustomHTTPException(code="F00", status_code=400, detail="Invalid input image")
 
     # styleImage에서 이미지를 가져오는 시도 (URL이 잘못되었거나 서버 문제일 때 처리)
-    try:
-        ref_pil = get_image_from_url(styleImage)
-    except HTTPException as e:
-        if "G02" in e.detail:
-            return create_response("G02", None, status_code=500)
-        elif "G00" in e.detail:
-            return create_response("G00", None, status_code=500)
+    ref_pil = get_image_from_url(styleImage)
 
     # PIL 이미지를 numpy로 변환
     src_img = pil_to_numpy(src_pil)
@@ -110,7 +114,7 @@ async def makeup(inputImage: UploadFile = File(...), styleImage: str = Form(...)
     ref_faces = align_faces(ref_img)
 
     if len(src_faces) == 0 or len(ref_faces) == 0:
-        return create_response("G00", None, status_code=500)
+        raise CustomHTTPException(code="G00", status_code=500, detail="Face alignment failed")
 
     # 전처리
     X_img = preprocess(src_faces[0])
@@ -124,7 +128,7 @@ async def makeup(inputImage: UploadFile = File(...), styleImage: str = Form(...)
         # output = sess.run(Xs, feed_dict={X: X_img, Y: Y_img}, options=tf.RunOptions(timeout_in_ms=5000))  # 5초 타임아웃
 
     except tf.errors.DeadlineExceededError:
-        return create_response("G01", None, status_code=500)
+                raise CustomHTTPException(code="G01", status_code=500, detail="AI processing timeout")
 
     output_img = postprocess(output[0])
 
