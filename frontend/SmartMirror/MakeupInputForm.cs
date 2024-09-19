@@ -26,6 +26,7 @@ namespace SmartMirror
 
         private void filmingBtn_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("필름 버튼 클릭 성공");
             outputForm.CaptureImage();
         }
 
