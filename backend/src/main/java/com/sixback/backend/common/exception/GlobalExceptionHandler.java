@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 import com.sixback.backend.common.dto.ResponseDto;
 
@@ -47,17 +48,37 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
-	 * 부적절항 양식 요청시 예외  발생.
+	 * 유효성 검사 오류 (Request Body에서의 유효성 검사)
 	 * @param e
 	 * @return
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<?> handleValidException(MethodArgumentNotValidException e) {
+	public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException e) {
 		return new ResponseEntity<>(new ResponseDto<>("I00", null), HttpStatus.BAD_REQUEST);
 	}
 
 	/**
-	 * 알 수 없는 예외 발생.
+	 * 유효성 검사 오류 (Request Header에서의 유효성 검사)
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(HandlerMethodValidationException.class)
+	public ResponseEntity<?> handleValidationException(HandlerMethodValidationException e) {
+		return new ResponseEntity<>(new ResponseDto<>("I01", null), HttpStatus.BAD_REQUEST);
+	}
+
+	/**
+	 * db에 정보가 없을 때
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(EmptyResultDataAccessException.class)
+	public ResponseEntity<?> noDataException(EmptyResultDataAccessException e) {
+		return new ResponseEntity<>(new ResponseDto<>("C00", null), HttpStatus.NOT_FOUND);
+	}
+
+	/**
+	 * 무결성 제약 위반시 발생
 	 * @param e
 	 * @return
 	 */
