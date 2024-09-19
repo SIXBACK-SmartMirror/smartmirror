@@ -3,6 +3,8 @@ package com.sixback.backend.domain.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +31,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @ToString(exclude = "children")  //children 필드때문에 순환참조 문제 생김
+@DynamicInsert
 public class GoodsType {
 	// 상품 타입 식별번호
 	@Id
@@ -37,6 +41,7 @@ public class GoodsType {
 
 	// 상품 타입 이름
 	@Column(columnDefinition = "varchar(30)", nullable = false)
+	@Size(min = 1, max = 30)
 	private String typeName;
 
 	// 상위 상품 타입 식별번호 (자기참조)
