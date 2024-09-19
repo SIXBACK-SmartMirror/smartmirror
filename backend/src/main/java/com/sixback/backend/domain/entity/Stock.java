@@ -1,6 +1,5 @@
 package com.sixback.backend.domain.entity;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -18,6 +17,7 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,6 +29,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
+@Builder
 public class Stock {
 	// 옵션 상품 식별번호
 	@Id
@@ -48,12 +49,12 @@ public class Stock {
 	private GoodsOption option;
 
 	// 판매여부
+	@Builder.Default
 	@Column(columnDefinition = "tinyint(1) default 0", nullable = false)
-	@ColumnDefault("false")
-	private boolean isSelling;
+	private boolean isSelling = false;
 
 	// 옵션 상품 위치
-	@Column(columnDefinition = "json", nullable = false)
+	@Column(columnDefinition = "json default {\"name\": \"A\", \"row\" : \"0\", \" col \": \"0\"}", nullable = false)
 	@JdbcTypeCode(SqlTypes.JSON)
 	private LocationDto location;
 

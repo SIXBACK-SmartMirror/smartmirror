@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,9 +29,11 @@ public class Brand {
 
 	// 한글 브랜드명
 	@Column(columnDefinition = "varchar(60)", nullable = false)
+	@Size(min = 1, max = 60)
 	private String brandNameKr;
 
 	// 영어 브랜드명
 	@Column(columnDefinition = "varchar(60)", nullable = false)
+	@Size(min = 1, max = 60)
 	private String brandNameEng;
 }

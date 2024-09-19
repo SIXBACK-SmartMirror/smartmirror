@@ -2,8 +2,8 @@ package com.sixback.backend.domain.entity;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,8 +14,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +29,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
+@Builder
+@DynamicInsert
 public class GoodsOption {
 	// 옵션 식별 번호
 	@Id
@@ -42,10 +46,12 @@ public class GoodsOption {
 
 	// 상품 옵션명
 	@Column(columnDefinition = "varchar(100)", nullable = false)
+	@Size(min = 1, max = 100)
 	private String optionName;
 
 	// 옵션 이미지 URL
 	@Column(columnDefinition = "varchar(255)")
+	@Size(max = 255)
 	private String optionImage;
 
 	// 옵션 가격(정가)
@@ -53,12 +59,12 @@ public class GoodsOption {
 	private Long optionPrice;
 
 	// 할인율
-	@Column(columnDefinition = "float", nullable = false)
-	@ColumnDefault("0.0")
-	private Float optionDiscount;
+	@Column(columnDefinition = "float default 0", nullable = false)
+	@Builder.Default
+	private float optionDiscount = 0;
 
 	// 출시 일시
-	@Column(columnDefinition = "datetime", nullable = false)
+	@Column(columnDefinition = "datetime default current_timestamp", nullable = false)
 	@CreationTimestamp
 	private LocalDateTime releaseAt;
 }
