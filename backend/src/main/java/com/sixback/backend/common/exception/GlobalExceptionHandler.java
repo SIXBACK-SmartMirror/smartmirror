@@ -51,6 +51,18 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<?> handleCustomFileException(CustomFileException e) {
 		return new ResponseEntity<>(new ResponseDto<>(e.getMessage(), null), HttpStatus.BAD_REQUEST);
 	}
+
+	/**
+	 * 알 수 없는 예외 발생.
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<?> handleUnknownException(Exception e) {
+		log.error("Exception Error " + e.getMessage());
+		return new ResponseEntity<>(new ResponseDto<>("B00", null), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 	/**
 	 * 파일 IO 관련 파일 처리 중 발생
 	 * @param e
