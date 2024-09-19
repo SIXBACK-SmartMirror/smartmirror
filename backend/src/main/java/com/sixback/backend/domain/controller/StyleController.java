@@ -52,7 +52,7 @@ public class StyleController {
 			.styleId(virtualMakeupReqDto.getStyleId())
 			.makeupImage("https://i.ibb.co/Dg0DFfb/XMY-014.png") // MultipartFile
 			.goodsOptionList(new ArrayList<>()) // 빈 리스트 초기화
-			.qrImage(imageBytes) // MultipartFile
+			.qrImage(base64Image) // MultipartFile
 			.build();
 		return new ResponseEntity<>(new ResponseDto<>("A00", styleResultDto), HttpStatus.OK);
 	}
