@@ -1,5 +1,7 @@
 package com.sixback.backend.common.exception;
 
+import java.io.IOException;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -48,6 +50,15 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(CustomFileException.class)
 	public ResponseEntity<?> handleCustomFileException(CustomFileException e) {
 		return new ResponseEntity<>(new ResponseDto<>(e.getMessage(), null), HttpStatus.BAD_REQUEST);
+	}
+	/**
+	 * 파일 IO 관련 파일 처리 중 발생
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(IOException.class)
+	public ResponseEntity<?> FileIOException(IOException e) {
+		return new ResponseEntity<>(new ResponseDto<>("F00", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	/**
