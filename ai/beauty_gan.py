@@ -90,7 +90,7 @@ def get_image_from_url(url):
         raise CustomHTTPException(code="G00", status_code=500, detail="Invalid image format or corrupted image")
 
 # FastAPI 엔드포인트
-@app.post("/ai/makeup/")
+@app.post("/ai/makeup")
 async def makeup(inputImage: UploadFile = File(...), styleImage: str = Form(...)):
     # 입력 파일과 styleImage가 빈 값일 때 처리
     if not inputImage or not styleImage:
