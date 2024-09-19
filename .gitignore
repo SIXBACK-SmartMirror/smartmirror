@@ -402,3 +402,27 @@ out/
 
 ## Custom
 application-local.properties
+
+# Python virtual environments
+venv/
+env/
+*.venv/
+
+# Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Pipenv
+Pipfile
+Pipfile.lock
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python test and coverage reports
+.pytest_cache/
+*.coverage
+htmlcov/
+
