@@ -4,10 +4,10 @@ services:
   spring-boot:
     build:
       context: ./backend
-    image: spring-boot/lts
-    container_name: spring-boot
+    image: spring-boot-blue/lts
+    container_name: spring-boot-blue
     ports:
-      - "${SPRING_BOOT_HOST_PORT}:${SPRING_BOOT_APP_PORT}"
+      - "${SPRING_BOOT_HOST_PORT_BLUE}:${SPRING_BOOT_APP_PORT_BLUE}"
   fastapi:
     build:
       context: ./fastapi
