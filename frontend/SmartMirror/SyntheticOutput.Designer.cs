@@ -28,7 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            syntheticImg = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)syntheticImg).BeginInit();
             SuspendLayout();
+            // 
+            // syntheticImg
+            // 
+            syntheticImg.Anchor = AnchorStyles.None;
+            syntheticImg.Location = new Point(292, 341);
+            syntheticImg.Name = "syntheticImg";
+            syntheticImg.Size = new Size(1000, 794);
+            syntheticImg.SizeMode = PictureBoxSizeMode.AutoSize;
+            syntheticImg.TabIndex = 4;
+            syntheticImg.TabStop = false;
+            syntheticImg.UseWaitCursor = true;
             // 
             // SyntheticOutput
             // 
@@ -36,11 +49,17 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(1600, 2122);
+            Controls.Add(syntheticImg);
             ForeColor = Color.White;
             Name = "SyntheticOutput";
+            Load += SyntheticOutput_Load;
+            ((System.ComponentModel.ISupportInitialize)syntheticImg).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private PictureBox syntheticImg;
     }
 }

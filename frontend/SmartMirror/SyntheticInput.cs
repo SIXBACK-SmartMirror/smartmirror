@@ -12,7 +12,7 @@ namespace SmartMirror
 {
     public partial class SyntheticInput : Form
     {
-        public SyntheticInput()
+        public SyntheticInput(int styleNum)
         {
             InitializeComponent();
         }
