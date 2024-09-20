@@ -14,8 +14,6 @@ import lombok.NoArgsConstructor;
 public class StyleResultDto {
 	private Long styleId;
 	private List<UseGoodsOptionDto> goodsOptionList;
-	// private MultipartFile makeupImage;
-	// private MultipartFile qrImage;
 	private String makeupImage;
-	private byte[] qrImage;
+	private String qrImage;
 }
