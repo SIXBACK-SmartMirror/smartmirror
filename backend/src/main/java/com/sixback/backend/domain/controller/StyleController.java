@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sixback.backend.common.dto.ResponseDto;
 import com.sixback.backend.domain.dto.StyleInfoListDto;
+import com.sixback.backend.domain.dto.StyleResultDto;
 import com.sixback.backend.domain.dto.VirtualMakeupReqDto;
 import com.sixback.backend.domain.service.StyleService;
 
