@@ -1,10 +1,16 @@
 package com.sixback.backend.common.exception;
 
+import java.io.IOException;
+
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 import com.sixback.backend.common.dto.ResponseDto;
 
@@ -47,16 +53,6 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
-	 * 부적절항 양식 요청시 예외  발생.
-	 * @param e
-	 * @return
-	 */
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<?> handleValidException(MethodArgumentNotValidException e) {
-		return new ResponseEntity<>(new ResponseDto<>("I00", null), HttpStatus.BAD_REQUEST);
-	}
-
-	/**
 	 * 알 수 없는 예외 발생.
 	 * @param e
 	 * @return
@@ -66,4 +62,65 @@ public class GlobalExceptionHandler {
 		log.error("Exception Error " + e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("B00", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+
+	/**
+	 * 파일 IO 관련 파일 처리 중 발생
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(IOException.class)
+	public ResponseEntity<?> FileIOException(IOException e) {
+		return new ResponseEntity<>(new ResponseDto<>("F00", null), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	/**
+	 * 유효성 검사 오류 (Request Body에서의 유효성 검사)
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException e) {
+		return new ResponseEntity<>(new ResponseDto<>("I00", null), HttpStatus.BAD_REQUEST);
+	}
+
+	/**
+	 * 유효성 검사 오류 (Request Header에서의 유효성 검사)
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(HandlerMethodValidationException.class)
+	public ResponseEntity<?> handleValidationException(HandlerMethodValidationException e) {
+		return new ResponseEntity<>(new ResponseDto<>("I01", null), HttpStatus.BAD_REQUEST);
+	}
+
+	/**
+	 * db에 정보가 없을 때
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(EmptyResultDataAccessException.class)
+	public ResponseEntity<?> noDataException(EmptyResultDataAccessException e) {
+		return new ResponseEntity<>(new ResponseDto<>("C00", null), HttpStatus.NOT_FOUND);
+	}
+
+	/**
+	 * 무결성 제약 위반시 발생
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<?> integrityViolationException(DataIntegrityViolationException e) {
+		return new ResponseEntity<>(new ResponseDto<>("D00", null), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	/**
+	 * 데이터 베이스 전반 오류
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(DataAccessException.class)
+	public ResponseEntity<?> dataException(DataAccessException e) {
+		return new ResponseEntity<>(new ResponseDto<>("D00", null), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 }
