@@ -40,13 +40,13 @@ namespace SmartMirror
             int inputMonitorIndex = 0;
 
             Screen output = Screen.AllScreens[outputMonitorIndex];
-            SyntheticOutput syntheticOutput = new SyntheticOutput(1);
+            SyntheticOutput syntheticOutput = new SyntheticOutput(styleNum); // 나중에 수정 해야함
             syntheticOutput.StartPosition = FormStartPosition.Manual;
             syntheticOutput.Location = output.Bounds.Location;
             syntheticOutput.Show();
 
-            Screen input = Screen.AllScreens[inputMonitorIndex];
-            SyntheticInput syntheticInput = new SyntheticInput();
+            Screen input = Screen.AllScreens[inputMonitorIndex]; 
+            SyntheticInput syntheticInput = new SyntheticInput(styleNum); // 나중에 수정 해야함
             syntheticInput.StartPosition = FormStartPosition.Manual;
             syntheticInput.Location = input.Bounds.Location;
             syntheticInput.Show();

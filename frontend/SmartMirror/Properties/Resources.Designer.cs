@@ -83,6 +83,16 @@ namespace SmartMirror.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap captured_image {
+            get {
+                object obj = ResourceManager.GetObject("captured_image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap free_icon_home_5544292 {
             get {
                 object obj = ResourceManager.GetObject("free-icon-home-5544292", resourceCulture);
