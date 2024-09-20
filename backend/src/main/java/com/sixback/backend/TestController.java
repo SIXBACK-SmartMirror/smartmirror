@@ -13,9 +13,4 @@ public class TestController {
     public static String getTest() {
         return "OK";
     }
-
-    @GetMapping("/api-test2")
-    public static String getTest2() {
-        return "OK2";
-    }
 }
