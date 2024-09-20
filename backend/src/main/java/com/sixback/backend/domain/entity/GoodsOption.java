@@ -60,6 +60,7 @@ public class GoodsOption {
 
 	// 할인율
 	@Column(columnDefinition = "float default 0", nullable = false)
+	@Size(max = 1)
 	@Builder.Default
 	private float optionDiscount = 0;
 
