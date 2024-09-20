@@ -4,14 +4,20 @@ import numpy as np
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, UnidentifiedImageError, ImageOps
 import io
 import uvicorn
 import base64
 import requests
+import logging
 
 # FastAPI 인스턴스 생성
 app = FastAPI()
+
+# 로그 설정: ERROR 이상의 로그만 출력
+logging.basicConfig(level=logging.ERROR)
+# 로거 생성
+logger = logging.getLogger(__name__)  # __name__을 사용해 올바른 로거 생성
 
 # 공통 응답 구조를 정의하는 클래스
 class ApiResponse(BaseModel):
@@ -27,6 +33,8 @@ class CustomHTTPException(HTTPException):
     def __init__(self, code: str, status_code: int, detail: str = None):
         super().__init__(status_code=status_code, detail=detail)
         self.code = code
+        # 예외가 발생할 때 자동으로 로그 출력
+        logger.error(f"Error Code: {code}, status Code: {status_code}, Detail: {detail}")
 
 # 전역 에러 처리 함수
 @app.exception_handler(CustomHTTPException)
@@ -89,6 +97,28 @@ def get_image_from_url(url):
     except UnidentifiedImageError:
         raise CustomHTTPException(code="G00", status_code=500, detail="Invalid image format or corrupted image")
 
+def resize_with_aspect_ratio(image, target_size):
+    # 원본 이미지 크기 가져오기
+    width, height = image.size
+    # 종횡비 유지하며 크기 계산
+    aspect_ratio = width / height
+
+    if width > height:
+        new_width = target_size
+        new_height = int(target_size / aspect_ratio)
+    else:
+        new_height = target_size
+        new_width = int(target_size * aspect_ratio)
+    
+    return image.resize((new_width, new_height), Image.ANTIALIAS)
+
+def add_padding_to_square(image, target_size, fill_color=(255, 255, 255)):
+    # 이미지를 중앙에 배치하고 나머지 공간을 채워서 정사각형(800x800)으로 맞추기
+    width, height = image.size
+    new_image = Image.new("RGB", (target_size, target_size), fill_color)
+    new_image.paste(image, ((target_size - width) // 2, (target_size - height) // 2))
+    return new_image
+
 # FastAPI 엔드포인트
 @app.post("/ai/makeup")
 async def makeup(inputImage: UploadFile = File(...), styleImage: str = Form(...)):
@@ -128,12 +158,20 @@ async def makeup(inputImage: UploadFile = File(...), styleImage: str = Form(...)
         # output = sess.run(Xs, feed_dict={X: X_img, Y: Y_img}, options=tf.RunOptions(timeout_in_ms=5000))  # 5초 타임아웃
 
     except tf.errors.DeadlineExceededError:
-                raise CustomHTTPException(code="G01", status_code=500, detail="AI processing timeout")
+        raise CustomHTTPException(code="G01", status_code=500, detail="AI processing timeout")
 
     output_img = postprocess(output[0])
 
     # 이미지를 바이너리로 변환
     output_img_pil = Image.fromarray(output_img.astype(np.uint8))
+    
+    # 원본 비율 유지하며 리사이즈 (긴 쪽이 800)
+    output_img_pil_resized = resize_with_aspect_ratio(output_img_pil, 800)
+
+    # 패딩 추가하여 800x800 정사각형 이미지로 만들기
+    output_img_pil = add_padding_to_square(output_img_pil_resized, 800)
+    
+    # 이미지 저장
     img_byte_arr = io.BytesIO()
     output_img_pil.save(img_byte_arr, format='JPEG')
     img_byte_arr.seek(0)
