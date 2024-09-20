@@ -100,7 +100,7 @@ public class StyleService {
 		return StyleResultDto.builder()
 			.styleId(style.getStyleId())
 			.goodsOptionList(style.getGoodsOptionList())
-			.makeupImage(style.getStyleImage())
+			.makeupImage(base64Image)
 			.qrImage(base64Image)
 			.build();
 	}
