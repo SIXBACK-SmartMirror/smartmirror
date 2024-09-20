@@ -35,7 +35,7 @@ namespace SmartMirror
 
             if (screens.Length == 2)
             {
-                inputMonitor = 1;
+                inputMonitor = 0;
             }
 
             // MirrorOutputForm을 먼저 생성

@@ -8,6 +8,7 @@ namespace SmartMirror
         private bool isClose;
         private int outputMonitor = 1;
         private int inputMonitor = 2;
+        private Screen[] screens = Screen.AllScreens;
 
         public MainInputForm(MainOutputForm mainOutputForm)
         {
@@ -20,12 +21,9 @@ namespace SmartMirror
             // 현재 MirrorInputForm을 숨김
             this.Hide();
 
-            // 연결된 모니터 리스트 가져오기
-            Screen[] screens = Screen.AllScreens;
-
             if (screens.Length == 2)
             {
-                inputMonitor = 1;
+                inputMonitor = 0;
             }
 
             // MirrorOutputForm을 MainOutputForm으로 변경

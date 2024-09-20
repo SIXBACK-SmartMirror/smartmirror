@@ -13,6 +13,7 @@ namespace SmartMirror
         private bool isRecording = false; // 녹음 상태 관리 변수
         private int outputMonitor = 1;
         private int inputMonitor = 2;
+        private Screen[] screens = Screen.AllScreens;
 
         private SearchOutputForm outputForm;
         private Process oskProcess;
@@ -118,11 +119,9 @@ namespace SmartMirror
         {
             this.Hide();
 
-            Screen[] screens = Screen.AllScreens;
-
             if (screens.Length == 2)
             {
-                inputMonitor = 1;
+                inputMonitor = 0;
             }
 
             SearchInfoOutputForm searchInfoOutputForm = new SearchInfoOutputForm();
@@ -178,11 +177,9 @@ namespace SmartMirror
         {
             this.Hide();
 
-            Screen[] screens = Screen.AllScreens;
-
             if (screens.Length == 2)
             {
-                inputMonitor = 1;
+                inputMonitor = 0;
             }
 
             MainOutputForm mainOutputForm = new MainOutputForm();
