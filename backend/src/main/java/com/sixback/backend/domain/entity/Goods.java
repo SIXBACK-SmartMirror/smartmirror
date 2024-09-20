@@ -75,6 +75,7 @@ public class Goods {
 
 	// 최대 할인률
 	@Column(columnDefinition = "float default 0", nullable = false)
+	@Size(max = 1)
 	@Builder.Default
 	private float maxDiscount = 0;
 }

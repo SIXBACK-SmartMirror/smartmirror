@@ -2,6 +2,10 @@ package com.sixback.backend.domain.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,6 +13,7 @@ import com.sixback.backend.common.dto.gan.GanRequestDto;
 import com.sixback.backend.common.exception.EmptyFileException;
 import com.sixback.backend.common.exception.StyleNotFoundException;
 import com.sixback.backend.common.service.GanClientService;
+import com.sixback.backend.domain.dto.StyleInfoDto;
 import com.sixback.backend.domain.dto.StyleResultDto;
 import com.sixback.backend.domain.dto.VirtualMakeupReqDto;
 import com.sixback.backend.domain.entity.Style;
@@ -26,6 +31,15 @@ public class StyleService {
 	private final MarketService marketService;
 	private final GanClientService ganClientService;
 	private final StyleRepository styleRepository;
+
+	public Page<StyleInfoDto> findAllStyle(Long marketId, int page, int size) {
+		// 매장 유효성 검사
+		marketService.validateMarket(marketId);
+		// 화장 스타일 식별번호 순으로 정렬
+		Pageable pageable = PageRequest.of(page, size, Sort.by("styleId").ascending());
+		Page<StyleInfoDto> styleInfoDtoPage = styleRepository.findAllDto(pageable);
+		return styleInfoDtoPage;
+	}
 
 	public Mono<StyleResultDto> createVirtualMakeup(Long marketId, VirtualMakeupReqDto virtualMakeupReqDto) {
 		validateFileSize(virtualMakeupReqDto.getInputImage());
