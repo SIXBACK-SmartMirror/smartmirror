@@ -17,6 +17,7 @@ java {
 sonar {
     properties {
         property "sonar.projectKey", System.getenv('SONAR_PROJECT_KEY')
+        property "sonar.projectName", System.getenv('SONAR_PROJECT_NAME') // 프로젝트 이름 설정
     }
 }
 
