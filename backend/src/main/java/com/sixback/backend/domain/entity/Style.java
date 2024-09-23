@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import com.sixback.backend.domain.dto.UseGoodsOptionDto;
+import com.sixback.backend.domain.dto.UseOptionDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -47,5 +47,5 @@ public class Style {
 	// 사용된 옵션 상품들
 	@Column(columnDefinition = "json", nullable = false)
 	@JdbcTypeCode(SqlTypes.JSON)
-	private List<UseGoodsOptionDto> goodsOptionList;
+	private List<UseOptionDto> goodsOptionList;
 }
