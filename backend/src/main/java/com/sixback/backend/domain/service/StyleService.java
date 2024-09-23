@@ -11,12 +11,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sixback.backend.common.dto.gan.GanRequestDto;
 import com.sixback.backend.common.exception.EmptyFileException;
+import com.sixback.backend.common.exception.OptionNotFoundException;
 import com.sixback.backend.common.exception.StyleNotFoundException;
+import com.sixback.backend.common.exception.StyleUseOptionNotFoundException;
 import com.sixback.backend.common.service.GanClientService;
+import com.sixback.backend.domain.dto.OptionInfoDto;
 import com.sixback.backend.domain.dto.StyleInfoDto;
+import com.sixback.backend.domain.dto.StyleInfoListDto;
 import com.sixback.backend.domain.dto.StyleResultDto;
+import com.sixback.backend.domain.dto.UseOptionDetailDto;
+import com.sixback.backend.domain.dto.UseOptionLocationListDto;
 import com.sixback.backend.domain.dto.VirtualMakeupReqDto;
 import com.sixback.backend.domain.entity.Style;
+import com.sixback.backend.domain.repository.GoodsOptionRepository;
 import com.sixback.backend.domain.repository.StyleRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +38,7 @@ public class StyleService {
 	private final MarketService marketService;
 	private final GanClientService ganClientService;
 	private final StyleRepository styleRepository;
+	private final GoodsOptionRepository goodsOptionRepository;
 
 	public StyleInfoListDto findAllStyle(Long marketId, int page, int size) {
 		// 매장 유효성 검사
