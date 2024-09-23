@@ -119,48 +119,77 @@ namespace SmartMirror
             string baseUrl = "http://192.168.100.147:8080/smartmirrorApi/market/1/goods";
             string urlWithParams = $"{baseUrl}?keyword={keyword}&page=0&size=10";
 
-            using (HttpClient client = new HttpClient())
+            try
             {
-                HttpResponseMessage response = await client.GetAsync(urlWithParams);
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsStringAsync();
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(urlWithParams);
+
+                    // 서버 응답이 성공적인지 확인
+                    response.EnsureSuccessStatusCode();
+
+                    // 성공적으로 응답을 받았을 때
+                    return await response.Content.ReadAsStringAsync();
+                }
+            }
+            catch (HttpRequestException httpEx)
+            {
+                // HTTP 요청과 관련된 오류 처리
+                MessageBox.Show($"HTTP 요청 실패: {httpEx.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            catch (TaskCanceledException timeoutEx)
+            {
+                // 타임아웃과 같은 비동기 작업 취소 오류 처리
+                MessageBox.Show($"요청이 시간 초과되었습니다: {timeoutEx.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // 기타 일반적인 예외 처리
+                MessageBox.Show($"예기치 않은 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
         }
 
         private async void change()
         {
-            this.Hide();
-
-            if (screens.Length == 2)
-            {
-                inputMonitor = 0;
-            }
-
-            SearchInfoOutputForm searchInfoOutputForm = new SearchInfoOutputForm();
-
-            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
-            searchInfoOutputForm.StartPosition = FormStartPosition.Manual;
-            searchInfoOutputForm.Location = secondaryScreen.Bounds.Location;
-            searchInfoOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
-
-            if (outputForm != null && !outputForm.IsDisposed)
-            {
-                outputForm.Hide(); // MainOutputForm 숨기기
-            }
-
-            // SearchOutputForm 표시
-            searchInfoOutputForm.Show();
-
             string apiResponse = await CallSearchApi(outputForm.textBox1.Text);
+
             Console.WriteLine(apiResponse);
 
-            SearchInfoInputForm searchInputForm = new SearchInfoInputForm(apiResponse);
+            if (apiResponse != null)
+            {
+                if (screens.Length == 2)
+                {
+                    inputMonitor = 0;
+                }
 
-            Screen primaryScreen = Screen.AllScreens[inputMonitor];
-            searchInputForm.StartPosition = FormStartPosition.Manual;
-            searchInputForm.Location = primaryScreen.Bounds.Location;
-            searchInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
-            searchInputForm.Show();
+                SearchInfoOutputForm searchInfoOutputForm = new SearchInfoOutputForm();
+
+                Screen secondaryScreen = Screen.AllScreens[outputMonitor];
+                searchInfoOutputForm.StartPosition = FormStartPosition.Manual;
+                searchInfoOutputForm.Location = secondaryScreen.Bounds.Location;
+                searchInfoOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+                SearchInfoInputForm searchInputForm = new SearchInfoInputForm(apiResponse);
+
+                Screen primaryScreen = Screen.AllScreens[inputMonitor];
+                searchInputForm.StartPosition = FormStartPosition.Manual;
+                searchInputForm.Location = primaryScreen.Bounds.Location;
+                searchInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+
+                this.Hide();
+                searchInputForm.Show();
+
+                if (outputForm != null && !outputForm.IsDisposed)
+                {
+                    outputForm.Hide(); // MainOutputForm 숨기기
+                }
+
+                // SearchOutputForm 표시
+                searchInfoOutputForm.Show();
+            }
         }
 
         private void panel3_Click(object sender, EventArgs e)
