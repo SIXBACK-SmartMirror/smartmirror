@@ -118,4 +118,15 @@ public class StyleService {
 			throw new EmptyFileException();
 		}
 	}
+
+	public Object findUseGoodsOptionInfo(Long marketId, Long styleId, Long optionId) {
+		// 매장 유효성 검사
+		marketService.validateMarket(marketId);
+		if (optionId == null) {
+			return findAllUseOptonLocationList(marketId, styleId);
+		} else {
+			return findByOptionId(marketId, styleId, optionId);
+		}
+	}
+
 }
