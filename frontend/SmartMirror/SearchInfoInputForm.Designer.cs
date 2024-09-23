@@ -36,25 +36,6 @@
             label6 = new Label();
             panel15 = new Panel();
             label8 = new Label();
-            panel6 = new Panel();
-            panel2 = new Panel();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label5 = new Label();
-            pictureBox2 = new PictureBox();
-            panel13 = new Panel();
-            panel12 = new Panel();
-            panel11 = new Panel();
-            panel10 = new Panel();
-            panel9 = new Panel();
-            panel3 = new Panel();
-            panel1 = new Panel();
-            goodsDiscountPrice = new Label();
-            goodsPrice = new Label();
-            goodsName = new Label();
-            brandNameKr = new Label();
-            pictureBox1 = new PictureBox();
             pictureBox3 = new PictureBox();
             total = new Label();
             label4 = new Label();
@@ -62,21 +43,14 @@
             panel7 = new Panel();
             panel8 = new Panel();
             label7 = new Label();
-            pictureBox4 = new PictureBox();
+            panel6 = new Panel();
             panel5.SuspendLayout();
             panel16.SuspendLayout();
             panel14.SuspendLayout();
             panel15.SuspendLayout();
-            panel6.SuspendLayout();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            panel3.SuspendLayout();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             SuspendLayout();
             // 
             // panel5
@@ -157,194 +131,6 @@
             label8.Text = "결과";
             label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // panel6
-            // 
-            panel6.Anchor = AnchorStyles.None;
-            panel6.AutoScroll = true;
-            panel6.BackColor = Color.White;
-            panel6.Controls.Add(panel2);
-            panel6.Controls.Add(panel13);
-            panel6.Controls.Add(panel12);
-            panel6.Controls.Add(panel11);
-            panel6.Controls.Add(panel10);
-            panel6.Controls.Add(panel9);
-            panel6.Controls.Add(panel3);
-            panel6.Controls.Add(panel1);
-            panel6.Location = new Point(100, 173);
-            panel6.Margin = new Padding(2);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(1369, 823);
-            panel6.TabIndex = 6;
-            // 
-            // panel2
-            // 
-            panel2.BorderStyle = BorderStyle.FixedSingle;
-            panel2.Controls.Add(label1);
-            panel2.Controls.Add(label2);
-            panel2.Controls.Add(label3);
-            panel2.Controls.Add(label5);
-            panel2.Controls.Add(pictureBox2);
-            panel2.Location = new Point(364, 33);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(309, 342);
-            panel2.TabIndex = 2;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label1.AutoSize = true;
-            label1.Location = new Point(167, 312);
-            label1.Name = "label1";
-            label1.Size = new Size(74, 25);
-            label1.TabIndex = 8;
-            label1.Text = "8,900원";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(73, 312);
-            label2.Name = "label2";
-            label2.Size = new Size(74, 25);
-            label2.TabIndex = 8;
-            label2.Text = "9,900원";
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top;
-            label3.AutoSize = true;
-            label3.Location = new Point(60, 287);
-            label3.Name = "label3";
-            label3.Size = new Size(192, 25);
-            label3.TabIndex = 8;
-            label3.Text = "롬앤 쥬시 래스팅 틴트";
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Top;
-            label5.AutoSize = true;
-            label5.Location = new Point(119, 262);
-            label5.Name = "label5";
-            label5.Size = new Size(48, 25);
-            label5.TabIndex = 8;
-            label5.Text = "롬앤";
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Anchor = AnchorStyles.Top;
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(31, 13);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(246, 246);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
-            // 
-            // panel13
-            // 
-            panel13.Location = new Point(994, 403);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(309, 342);
-            panel13.TabIndex = 1;
-            // 
-            // panel12
-            // 
-            panel12.Location = new Point(679, 403);
-            panel12.Name = "panel12";
-            panel12.Size = new Size(309, 342);
-            panel12.TabIndex = 1;
-            // 
-            // panel11
-            // 
-            panel11.Location = new Point(364, 403);
-            panel11.Name = "panel11";
-            panel11.Size = new Size(309, 342);
-            panel11.TabIndex = 1;
-            // 
-            // panel10
-            // 
-            panel10.Location = new Point(49, 403);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(309, 342);
-            panel10.TabIndex = 1;
-            // 
-            // panel9
-            // 
-            panel9.Location = new Point(993, 33);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(309, 342);
-            panel9.TabIndex = 1;
-            // 
-            // panel3
-            // 
-            panel3.Controls.Add(pictureBox4);
-            panel3.Location = new Point(679, 33);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(309, 342);
-            panel3.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(goodsDiscountPrice);
-            panel1.Controls.Add(goodsPrice);
-            panel1.Controls.Add(goodsName);
-            panel1.Controls.Add(brandNameKr);
-            panel1.Controls.Add(pictureBox1);
-            panel1.Location = new Point(49, 33);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(309, 342);
-            panel1.TabIndex = 0;
-            // 
-            // goodsDiscountPrice
-            // 
-            goodsDiscountPrice.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            goodsDiscountPrice.AutoSize = true;
-            goodsDiscountPrice.Location = new Point(167, 312);
-            goodsDiscountPrice.Name = "goodsDiscountPrice";
-            goodsDiscountPrice.Size = new Size(74, 25);
-            goodsDiscountPrice.TabIndex = 8;
-            goodsDiscountPrice.Text = "8,900원";
-            // 
-            // goodsPrice
-            // 
-            goodsPrice.AutoSize = true;
-            goodsPrice.Location = new Point(73, 312);
-            goodsPrice.Name = "goodsPrice";
-            goodsPrice.Size = new Size(74, 25);
-            goodsPrice.TabIndex = 8;
-            goodsPrice.Text = "9,900원";
-            // 
-            // goodsName
-            // 
-            goodsName.Anchor = AnchorStyles.Top;
-            goodsName.AutoSize = true;
-            goodsName.Location = new Point(60, 287);
-            goodsName.Name = "goodsName";
-            goodsName.Size = new Size(192, 25);
-            goodsName.TabIndex = 8;
-            goodsName.Text = "롬앤 쥬시 래스팅 틴트";
-            // 
-            // brandNameKr
-            // 
-            brandNameKr.Anchor = AnchorStyles.Top;
-            brandNameKr.AutoSize = true;
-            brandNameKr.Location = new Point(119, 262);
-            brandNameKr.Name = "brandNameKr";
-            brandNameKr.Size = new Size(48, 25);
-            brandNameKr.TabIndex = 8;
-            brandNameKr.Text = "롬앤";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(30, 13);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(246, 246);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
             // pictureBox3
             // 
             pictureBox3.Anchor = AnchorStyles.Left;
@@ -424,16 +210,16 @@
             label7.TabIndex = 2;
             label7.Text = "총 2개";
             // 
-            // pictureBox4
+            // panel6
             // 
-            pictureBox4.Anchor = AnchorStyles.Top;
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(31, 14);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(246, 246);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 1;
-            pictureBox4.TabStop = false;
+            panel6.Anchor = AnchorStyles.None;
+            panel6.AutoScroll = true;
+            panel6.BackColor = Color.White;
+            panel6.Location = new Point(100, 173);
+            panel6.Margin = new Padding(2);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(1369, 823);
+            panel6.TabIndex = 6;
             // 
             // SearchInfoInputForm
             // 
@@ -458,26 +244,16 @@
             panel14.PerformLayout();
             panel15.ResumeLayout(false);
             panel15.PerformLayout();
-            panel6.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            panel3.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private Panel panel5;
-        private Panel panel6;
         private Label total;
         private PictureBox pictureBox3;
         private Label label4;
@@ -510,5 +286,6 @@
         private Panel panel16;
         private Label label9;
         private PictureBox pictureBox4;
+        private Panel panel6;
     }
 }
