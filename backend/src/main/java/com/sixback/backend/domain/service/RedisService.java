@@ -1,5 +1,7 @@
 package com.sixback.backend.domain.service;
 
+import com.sixback.backend.domain.entity.User;
+import com.sixback.backend.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import java.time.Duration;
 public class RedisService {
 
     private final StringRedisTemplate stringRedisTemplate;
+    private final UserRepository userRepository;
 
     /**
      * Redis에서 값을 조회합니다.
@@ -48,6 +51,9 @@ public class RedisService {
             } else {
                 stringRedisTemplate.opsForValue().set(key, value, duration);
             }
+            User user = new User();
+            user.setName(key);
+            userRepository.save(user);
             return 1; // 성공
         } catch (Exception e) {
             // 예외 처리
