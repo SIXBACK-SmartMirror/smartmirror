@@ -76,21 +76,19 @@ namespace SmartMirror
 
         private void MoveOnScreenKeyboardToMonitor(int monitorIndex)
         {
-            // 2번 모니터가 존재하는지 확인
-            if (Screen.AllScreens.Length > monitorIndex)
+            if (screens.Length == 2)
             {
-                Screen selectedMonitor = Screen.AllScreens[monitorIndex];
-                IntPtr hWnd = FindWindow("IPTip_Main_Window", "keyboard"); // 가상 키보드의 창 클래스 이름
-
-                if (hWnd != IntPtr.Zero)
-                {
-                    // 모니터 위치로 가상 키보드 이동
-                    SetWindowPos(hWnd, IntPtr.Zero, selectedMonitor.Bounds.X, selectedMonitor.Bounds.Y, selectedMonitor.Bounds.Width, selectedMonitor.Bounds.Height, SWP_NOZORDER | SWP_NOACTIVATE);
-                }
+                inputMonitor = 0;
             }
-            else
-            {
-                MessageBox.Show($"모니터 {monitorIndex + 1}이(가) 존재하지 않습니다.");
+            
+            Screen selectedMonitor = Screen.AllScreens[inputMonitor];
+            IntPtr hWnd = FindWindow("IPTip_Main_Window", "keyboard"); // 가상 키보드의 창 클래스 이름
+
+            if (hWnd != IntPtr.Zero)
+             {
+                // 모니터 위치로 가상 키보드 이동
+                // SetWindowPos(hWnd, IntPtr.Zero, selectedMonitor.Bounds.X, selectedMonitor.Bounds.Y, selectedMonitor.Bounds.Width, selectedMonitor.Bounds.Height, SWP_NOZORDER | SWP_NOACTIVATE);
+                //
             }
         }
 
@@ -115,7 +113,21 @@ namespace SmartMirror
             }
         }
 
-        private void change()
+        // API 호출
+        private async Task<string> CallSearchApi(string keyword)
+        {
+            string baseUrl = "http://192.168.100.147:8080/smartmirrorApi/market/1/goods";
+            string urlWithParams = $"{baseUrl}?keyword={keyword}&page=0&size=10";
+
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(urlWithParams);
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        private async void change()
         {
             this.Hide();
 
@@ -139,7 +151,10 @@ namespace SmartMirror
             // SearchOutputForm 표시
             searchInfoOutputForm.Show();
 
-            SearchInfoInputForm searchInputForm = new SearchInfoInputForm();
+            string apiResponse = await CallSearchApi(outputForm.textBox1.Text);
+            Console.WriteLine(apiResponse);
+
+            SearchInfoInputForm searchInputForm = new SearchInfoInputForm(apiResponse);
 
             Screen primaryScreen = Screen.AllScreens[inputMonitor];
             searchInputForm.StartPosition = FormStartPosition.Manual;
