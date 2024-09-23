@@ -218,7 +218,7 @@
             panel6.Location = new Point(100, 173);
             panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1369, 823);
+            panel6.Size = new Size(1400, 823);
             panel6.TabIndex = 6;
             // 
             // SearchInfoInputForm
