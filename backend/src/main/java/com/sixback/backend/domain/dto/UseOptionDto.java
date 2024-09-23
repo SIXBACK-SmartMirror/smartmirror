@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UseGoodsOptionDto {
+public class UseOptionDto {
 	// 사용된 옵션 상품 ID, 상품명, 옵션명, 옵션 이미지 URL
 	@JsonProperty("option_id")
 	private Long optionId;
