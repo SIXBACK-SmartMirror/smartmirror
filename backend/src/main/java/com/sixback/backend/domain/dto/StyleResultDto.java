@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class StyleResultDto {
 	private Long styleId;
-	private List<UseGoodsOptionDto> goodsOptionList;
+	private List<UseOptionDto> goodsOptionList;
 	private String makeupImage;
 	private String qrImage;
 }
