@@ -129,4 +129,10 @@ public class StyleService {
 		}
 	}
 
+	public UseOptionLocationListDto findAllUseOptonLocationList(Long marketId, Long styleId) {
+		// 스타일 식별 번호 검증 & 사용된 상품 위치 정보 가져오기
+		List<OptionInfoDto> results = styleRepository.findAllUseOptionLocationList(marketId, styleId);
+		return new UseOptionLocationListDto(results);
+	}
+
 }
