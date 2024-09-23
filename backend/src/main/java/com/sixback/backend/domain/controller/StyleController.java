@@ -63,4 +63,12 @@ public class StyleController {
 			.map(styleResultDto -> new ResponseEntity<>(new ResponseDto<>("A00", styleResultDto), HttpStatus.OK));
 	}
 
+	// 현재 스타일에 사용된 모든 상품 위치 또는 특정 상품 상세 정보 확인
+	@GetMapping("/{styleId}")
+	public ResponseEntity<?> findUseOptionInfo(@PathVariable("marketId") Long marketId,
+		@PathVariable("styleId") Long styleId,
+		@RequestParam(value = "optionId", required = false) Long optionId) {
+		Object useOptionInfo = styleService.findUseGoodsOptionInfo(marketId, styleId, optionId);
+		return new ResponseEntity<>(new ResponseDto<>("A00", useOptionInfo), HttpStatus.OK);
+	}
 }
