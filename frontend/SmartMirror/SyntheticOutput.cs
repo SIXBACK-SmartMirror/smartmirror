@@ -72,58 +72,6 @@ namespace SmartMirror
                     Console.WriteLine(path);
 
                     syntheticImg.Image = GetUrlImage(path);
-                    //syntheticImg.Size = new Size(500,500);
-
-                    //// Base64 문자열을 바이트 배열로 변환
-                    //byte[] imageBytes = Convert.FromBase64String(path);
-
-                    //// 바이트 배열을 MemoryStream으로 변환 후 이미지 생성
-                    //MemoryStream stream = new MemoryStream(imageBytes);
-                    //syntheticImg.Image = Image.FromStream(stream);
-
-
-                    //byte[] imgArray;
-                    //imgArray = client.GetByteArrayAsync(path);
-                    //System.Net.WebClient wc = new System.Net.WebClient();
-                    //Stream stream = wc.OpenRead(path);
-                    //this.syntheticImg.Image = stream;
-
-                    //// WebClient를 사용하여 이미지를 다운로드
-                    //using (WebClient wc = new WebClient())
-                    //{
-                    //    // 이미지를 바이트 배열로 다운로드
-                    //    byte[] imageBytes = await wc.DownloadDataTaskAsync(path);
-                    //    Console.WriteLine(imageBytes);
-
-                    //    // 바이트 배열을 MemoryStream으로 변환 후 이미지 생성
-                    //    using (MemoryStream stream = new MemoryStream(imageBytes))
-                    //    {
-                    //        this.syntheticImg.Image = Image.FromStream(stream);
-                    //    }
-                    //}
-
-                    //// WebClient를 사용하여 이미지를 다운로드
-                    //using (WebClient wc = new WebClient())
-                    //{
-                    //    // 이미지를 바이트 배열로 다운로드
-                    //    byte[] imageBytes = await wc.DownloadDataTaskAsync(path);
-                    //    Console.WriteLine(imageBytes);
-
-                    //    // 바이트 배열을 MemoryStream으로 변환 후 이미지 생성
-                    //    using (MemoryStream stream = new MemoryStream(imageBytes))
-                    //    {
-                    //        this.syntheticImg.Image = Image.FromStream(stream);
-                    //    }
-                    //}
-
-
-                    //var webClient = new WebClient();
-                    //byte[] imageBytes = webClient.DownloadData(path);
-                    //Console.WriteLine(imageBytes);
-                    //MemoryStream stream = new MemoryStream(imageBytes);
-                    //this.syntheticImg.Image = Image.FromStream(stream);
-
-
 
 
                 }

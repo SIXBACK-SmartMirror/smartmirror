@@ -69,7 +69,7 @@
             HomeBtn.Controls.Add(pictureBox1);
             HomeBtn.Controls.Add(label9);
             HomeBtn.Controls.Add(label1);
-            HomeBtn.Location = new Point(48, 87);
+            HomeBtn.Location = new Point(240, 87);
             HomeBtn.Margin = new Padding(2);
             HomeBtn.Name = "HomeBtn";
             HomeBtn.Size = new Size(179, 154);
@@ -93,24 +93,24 @@
             label9.AutoSize = true;
             label9.Font = new Font("맑은 고딕", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label9.ForeColor = Color.White;
-            label9.Location = new Point(21, 48);
+            label9.Location = new Point(1, 48);
             label9.Margin = new Padding(2, 0, 2, 0);
             label9.Name = "label9";
-            label9.Size = new Size(117, 19);
+            label9.Size = new Size(178, 19);
             label9.TabIndex = 8;
-            label9.Text = "홈 화면으로 이동";
+            label9.Text = "선택한 상품으로 화장 하기";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("맑은 고딕", 13.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(15, 11);
+            label1.Location = new Point(5, 11);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(38, 32);
+            label1.Size = new Size(142, 32);
             label1.TabIndex = 1;
-            label1.Text = "홈";
+            label1.Text = "커스텀 화장";
             // 
             // filmingBtn
             // 
@@ -118,7 +118,7 @@
             filmingBtn.Controls.Add(label5);
             filmingBtn.Controls.Add(pictureBox2);
             filmingBtn.Controls.Add(label2);
-            filmingBtn.Location = new Point(251, 87);
+            filmingBtn.Location = new Point(28, 87);
             filmingBtn.Margin = new Padding(2);
             filmingBtn.Name = "filmingBtn";
             filmingBtn.Size = new Size(179, 154);
@@ -131,7 +131,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("맑은 고딕", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(15, 48);
+            label5.Location = new Point(14, 48);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
             label5.Size = new Size(70, 19);
@@ -141,7 +141,7 @@
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.free_icon_photo_11943305;
-            pictureBox2.Location = new Point(112, 91);
+            pictureBox2.Location = new Point(111, 91);
             pictureBox2.Margin = new Padding(2);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(57, 55);
@@ -154,12 +154,12 @@
             label2.AutoSize = true;
             label2.Font = new Font("맑은 고딕", 13.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(15, 11);
+            label2.Location = new Point(14, 11);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(62, 32);
+            label2.Size = new Size(118, 32);
             label2.TabIndex = 1;
-            label2.Text = "촬영";
+            label2.Text = "다시 촬영";
             // 
             // usingBtn
             // 
