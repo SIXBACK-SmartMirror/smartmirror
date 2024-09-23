@@ -135,4 +135,13 @@ public class StyleService {
 		return new UseOptionLocationListDto(results);
 	}
 
+	public UseOptionDetailDto findByOptionId(Long marketId, Long styleId, Long optionId) {
+		// 스타일 식별 번호 & 옵션 ID 검증
+		Style style = styleRepository.findByStyleIdAndOptionId(styleId, optionId)
+			.orElseThrow(StyleUseOptionNotFoundException::new);
+		// 사용된 상품 정보 가져 오기
+		UseOptionDetailDto useOptionDetailDto = goodsOptionRepository.findTopByMarketIdAndOptionId(marketId, optionId)
+			.orElseThrow(OptionNotFoundException::new);
+		return useOptionDetailDto;
+	}
 }
