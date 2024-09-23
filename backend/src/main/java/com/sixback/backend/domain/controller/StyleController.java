@@ -36,7 +36,7 @@ public class StyleController {
 	public ResponseEntity<?> findAllStyle(@PathVariable("marketId") Long marketId,
 		@Min(0) @RequestParam("page") int page,
 		@Min(1) @RequestParam("size") int size) {
-		StyleInfoListDto styleInfoListDto = new StyleInfoListDto(styleService.findAllStyle(marketId, page, size));
+		StyleInfoListDto styleInfoListDto = styleService.findAllStyle(marketId, page, size);
 		return new ResponseEntity<>(new ResponseDto<>("A00", styleInfoListDto), HttpStatus.OK);
 	}
 

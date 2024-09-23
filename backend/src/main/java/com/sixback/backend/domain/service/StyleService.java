@@ -32,13 +32,13 @@ public class StyleService {
 	private final GanClientService ganClientService;
 	private final StyleRepository styleRepository;
 
-	public Page<StyleInfoDto> findAllStyle(Long marketId, int page, int size) {
+	public StyleInfoListDto findAllStyle(Long marketId, int page, int size) {
 		// 매장 유효성 검사
 		marketService.validateMarket(marketId);
 		// 화장 스타일 식별번호 순으로 정렬
 		Pageable pageable = PageRequest.of(page, size, Sort.by("styleId").ascending());
 		Page<StyleInfoDto> styleInfoDtoPage = styleRepository.findAllDto(pageable);
-		return styleInfoDtoPage;
+		return new StyleInfoListDto(styleInfoDtoPage);
 	}
 
 	public Mono<StyleResultDto> createVirtualMakeup(Long marketId, VirtualMakeupReqDto virtualMakeupReqDto) {
