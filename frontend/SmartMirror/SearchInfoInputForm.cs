@@ -39,7 +39,7 @@ namespace SmartMirror
             // 동적으로 패널을 추가하여 상품 정보 표시
             int panelIndex = 0;
             int itemsPerRow = 3;  // 한 줄에 배치할 아이템 수
-            int panelSpacing = 20; // 패널 간격 설정
+            int panelSpacing = 15; // 패널 간격 설정
 
             foreach (var goods in goodsList)
             {
@@ -71,7 +71,7 @@ namespace SmartMirror
         {
             Panel panel = new Panel();
             panel.Size = new Size(309, 342);
-            panel.BorderStyle = BorderStyle.FixedSingle;
+            //panel.BorderStyle = BorderStyle.FixedSingle;
 
             // 상품 이름 Label
             Label goodsNameLabel = new Label();
@@ -91,16 +91,18 @@ namespace SmartMirror
 
             // 상품 가격 Label
             Label priceLabel = new Label();
-            priceLabel.Text = goodsPrice + "원";
-            priceLabel.Location = new Point(73, 312);
-            priceLabel.Size = new Size(100, 25);
+            priceLabel.Text = $"{int.Parse(goodsPrice):N0}원";
+            priceLabel.Location = new Point(80, 312);
+            priceLabel.Size = new Size(80, 25);
+            priceLabel.Font = new Font(priceLabel.Font, FontStyle.Strikeout);
             panel.Controls.Add(priceLabel);
 
             // 할인 가격 Label
             Label discountPriceLabel = new Label();
-            discountPriceLabel.Text = goodsDiscountPrice + "원";
-            discountPriceLabel.Location = new Point(167, 312);
-            discountPriceLabel.Size = new Size(100, 25);
+            discountPriceLabel.Text = $"{int.Parse(goodsDiscountPrice):N0}원~";
+            discountPriceLabel.Location = new Point(160, 312);
+            discountPriceLabel.Size = new Size(80, 25);
+            discountPriceLabel.ForeColor = Color.Red;
             panel.Controls.Add(discountPriceLabel);
 
             // 상품 이미지 PictureBox
