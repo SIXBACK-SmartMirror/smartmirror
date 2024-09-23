@@ -9,19 +9,40 @@ namespace SmartMirror
     public partial class SearchInfoInputForm : Form
     {
         private string resultApi;
+        private string currentKeyword;
+        private int currentPage = 0;
+        private int totalPages = 1;
+        private FlowLayoutPanel pageButtonsPanel;
 
         public SearchInfoInputForm(string apiResponse)
         {
             InitializeComponent();
             this.resultApi = apiResponse;
 
+            // 페이지 버튼 패널 초기화
+            InitializePageButtonsPanel();
+
             // API 결과를 처리 및 UI 표시
             DisplayApiResponse(apiResponse);
+        }
+
+        // 페이지 번호 버튼 패널 초기화
+        private void InitializePageButtonsPanel()
+        {
+            pageButtonsPanel = new FlowLayoutPanel();
+            pageButtonsPanel.Location = new Point(100, 900);  // 페이지 버튼 위치 설정
+            pageButtonsPanel.Size = new Size(800, 50);        // 페이지 버튼 크기 설정
+            pageButtonsPanel.FlowDirection = FlowDirection.LeftToRight; // 버튼을 가로로 배치
+            Controls.Add(pageButtonsPanel);
         }
 
         // API 응답 데이터를 처리하여 UI에 표시하는 메서드
         private void DisplayApiResponse(string apiResponse)
         {
+            // 기존 상품 목록 및 페이지 버튼 초기화
+            panel6.Controls.Clear();
+            pageButtonsPanel.Controls.Clear();
+
             // API 응답을 JSON으로 파싱
             JObject jsonResponse = JObject.Parse(apiResponse);
 
@@ -29,11 +50,14 @@ namespace SmartMirror
             var goodsList = jsonResponse["data"]["goodsList"]["content"];
 
             // 검색 키워드 추출 및 total 라벨에 반영
-            string searchKeyword = jsonResponse["data"]["searchKeyword"].ToString();
-            total.Text = $"'{searchKeyword}'에 대한 검색결과";
+            currentKeyword = jsonResponse["data"]["searchKeyword"].ToString();
+            total.Text = $"'{currentKeyword}'에 대한 검색결과";
 
             // 총 개수와 페이지 크기 표시 (label7)
             int totalElements = (int)jsonResponse["data"]["goodsList"]["page"]["totalElements"];
+
+            totalPages = (int)jsonResponse["data"]["goodsList"]["page"]["totalPages"];
+
             label7.Text = $"총 {totalElements}개";
 
             // 동적으로 패널을 추가하여 상품 정보 표시
@@ -63,6 +87,47 @@ namespace SmartMirror
                 this.panel6.Controls.Add(productPanel);
 
                 panelIndex++;
+            }
+
+            // 페이지 버튼 생성
+            CreatePageButtons(totalPages);
+        }
+
+        // 페이지 번호에 따라 버튼 생성
+        private void CreatePageButtons(int totalPages)
+        {
+            for (int i = 0; i < totalPages; i++)
+            {
+                Button pageButton = new Button();
+                pageButton.Text = (i + 1).ToString();  // 페이지 번호로 텍스트 설정
+                pageButton.Size = new Size(50, 40);    // 버튼 크기 설정
+                pageButton.Tag = i;                   // 페이지 번호를 Tag로 저장
+                pageButton.Click += PageButton_Click; // 버튼 클릭 이벤트 연결
+                pageButtonsPanel.Controls.Add(pageButton);
+            }
+        }
+
+        // 페이지 번호 버튼 클릭 시 처리하는 메서드
+        private async void PageButton_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            int selectedPage = (int)clickedButton.Tag;
+
+            // 선택된 페이지 데이터를 로드
+            await LoadPageData(selectedPage);
+        }
+
+        // 페이지 데이터를 다시 불러오는 메서드
+        private async Task LoadPageData(int page)
+        {
+            // 현재 검색어로 해당 페이지의 데이터를 다시 호출
+            string apiResponse = await SearchApi.CallSearchApi(currentKeyword, page);
+
+            // 새로운 API 응답을 다시 처리하여 UI에 반영
+            if (apiResponse != null)
+            {
+                currentPage = page; // 현재 페이지 업데이트
+                DisplayApiResponse(apiResponse);  // 새로운 데이터를 UI에 반영
             }
         }
 
