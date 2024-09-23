@@ -30,7 +30,7 @@ namespace SmartMirror
         private void InitializePageButtonsPanel()
         {
             pageButtonsPanel = new FlowLayoutPanel();
-            pageButtonsPanel.Location = new Point(100, 900);  // 페이지 버튼 위치 설정
+            pageButtonsPanel.Location = new Point(600, 910);  // 페이지 버튼 위치 설정
             pageButtonsPanel.Size = new Size(800, 50);        // 페이지 버튼 크기 설정
             pageButtonsPanel.FlowDirection = FlowDirection.LeftToRight; // 버튼을 가로로 배치
             Controls.Add(pageButtonsPanel);
@@ -156,9 +156,10 @@ namespace SmartMirror
 
             // 상품 가격 Label
             Label priceLabel = new Label();
-            priceLabel.Text = $"{int.Parse(goodsPrice):N0}원";
+            priceLabel.Text = $"{int.Parse(goodsPrice):N0}원~";
             priceLabel.Location = new Point(80, 312);
             priceLabel.Size = new Size(80, 25);
+            priceLabel.ForeColor = Color.Gray;
             priceLabel.Font = new Font(priceLabel.Font, FontStyle.Strikeout);
             panel.Controls.Add(priceLabel);
 
