@@ -33,15 +33,6 @@
             pictureBox6 = new PictureBox();
             panel6 = new Panel();
             panel9 = new Panel();
-            style8 = new PictureBox();
-            style7 = new PictureBox();
-            style6 = new PictureBox();
-            style5 = new PictureBox();
-            style4 = new PictureBox();
-            style3 = new PictureBox();
-            style2 = new PictureBox();
-            style1 = new PictureBox();
-            label8 = new Label();
             pictureBox3 = new PictureBox();
             label6 = new Label();
             label4 = new Label();
@@ -51,15 +42,6 @@
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel6.SuspendLayout();
-            panel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)style8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)style7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)style6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)style5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)style4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)style3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)style2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)style1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
@@ -98,113 +80,13 @@
             // 
             // panel9
             // 
+            panel9.AutoScroll = true;
             panel9.BackColor = Color.WhiteSmoke;
-            panel9.Controls.Add(style8);
-            panel9.Controls.Add(style7);
-            panel9.Controls.Add(style6);
-            panel9.Controls.Add(style5);
-            panel9.Controls.Add(style4);
-            panel9.Controls.Add(style3);
-            panel9.Controls.Add(style2);
-            panel9.Controls.Add(style1);
-            panel9.Controls.Add(label8);
             panel9.Location = new Point(16, 64);
             panel9.Margin = new Padding(2);
             panel9.Name = "panel9";
             panel9.Size = new Size(647, 370);
             panel9.TabIndex = 4;
-            // 
-            // style8
-            // 
-            style8.Image = Properties.Resources._1;
-            style8.Location = new Point(485, 195);
-            style8.Name = "style8";
-            style8.Size = new Size(117, 119);
-            style8.SizeMode = PictureBoxSizeMode.StretchImage;
-            style8.TabIndex = 10;
-            style8.TabStop = false;
-            // 
-            // style7
-            // 
-            style7.Image = Properties.Resources._1;
-            style7.Location = new Point(338, 195);
-            style7.Name = "style7";
-            style7.Size = new Size(117, 119);
-            style7.SizeMode = PictureBoxSizeMode.StretchImage;
-            style7.TabIndex = 9;
-            style7.TabStop = false;
-            // 
-            // style6
-            // 
-            style6.Image = Properties.Resources._1;
-            style6.Location = new Point(193, 195);
-            style6.Name = "style6";
-            style6.Size = new Size(117, 119);
-            style6.SizeMode = PictureBoxSizeMode.StretchImage;
-            style6.TabIndex = 8;
-            style6.TabStop = false;
-            // 
-            // style5
-            // 
-            style5.Image = Properties.Resources._1;
-            style5.Location = new Point(44, 195);
-            style5.Name = "style5";
-            style5.Size = new Size(117, 119);
-            style5.SizeMode = PictureBoxSizeMode.StretchImage;
-            style5.TabIndex = 7;
-            style5.TabStop = false;
-            // 
-            // style4
-            // 
-            style4.Image = Properties.Resources._1;
-            style4.Location = new Point(485, 47);
-            style4.Name = "style4";
-            style4.Size = new Size(117, 119);
-            style4.SizeMode = PictureBoxSizeMode.StretchImage;
-            style4.TabIndex = 6;
-            style4.TabStop = false;
-            // 
-            // style3
-            // 
-            style3.Image = Properties.Resources._1;
-            style3.Location = new Point(338, 47);
-            style3.Name = "style3";
-            style3.Size = new Size(117, 119);
-            style3.SizeMode = PictureBoxSizeMode.StretchImage;
-            style3.TabIndex = 5;
-            style3.TabStop = false;
-            // 
-            // style2
-            // 
-            style2.Image = Properties.Resources._1;
-            style2.Location = new Point(193, 47);
-            style2.Name = "style2";
-            style2.Size = new Size(117, 119);
-            style2.SizeMode = PictureBoxSizeMode.StretchImage;
-            style2.TabIndex = 4;
-            style2.TabStop = false;
-            // 
-            // style1
-            // 
-            style1.Image = Properties.Resources._1;
-            style1.Location = new Point(44, 47);
-            style1.Name = "style1";
-            style1.Size = new Size(117, 119);
-            style1.SizeMode = PictureBoxSizeMode.StretchImage;
-            style1.TabIndex = 3;
-            style1.TabStop = false;
-            style1.Click += style1_Click;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("맑은 고딕", 15F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            label8.ForeColor = Color.White;
-            label8.Location = new Point(176, 52);
-            label8.Margin = new Padding(2, 0, 2, 0);
-            label8.Name = "label8";
-            label8.Size = new Size(0, 35);
-            label8.TabIndex = 2;
             // 
             // pictureBox3
             // 
@@ -292,16 +174,6 @@
             panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             panel6.ResumeLayout(false);
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)style8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)style7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)style6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)style5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)style4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)style3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)style2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)style1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
@@ -320,15 +192,6 @@
         private Panel panel7;
         private Panel panel8;
         private Panel panel9;
-        private Label label8;
-        private PictureBox style1;
         private PictureBox pictureBox6;
-        private PictureBox style8;
-        private PictureBox style7;
-        private PictureBox style6;
-        private PictureBox style5;
-        private PictureBox style4;
-        private PictureBox style3;
-        private PictureBox style2;
     }
 }
