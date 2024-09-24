@@ -5,6 +5,7 @@ namespace SmartMirror
     public partial class MirrorInputForm : Form
     {
         private MirrorOutputForm mirrorOutputForm;
+        private Screen[] screens = Screen.AllScreens;
         private int outputMonitor = 1;
         private int inputMonitor = 2;
 
@@ -19,11 +20,10 @@ namespace SmartMirror
             // 현재 MirrorInputForm을 숨김
             this.Hide();
 
-            Screen[] screens = Screen.AllScreens;
 
             if (screens.Length == 2)
             {
-                inputMonitor = 1;
+                inputMonitor = 0;
             }
 
             // MirrorOutputForm을 MainOutputForm으로 변경
