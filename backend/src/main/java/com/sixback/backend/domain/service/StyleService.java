@@ -11,12 +11,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sixback.backend.common.dto.gan.GanRequestDto;
 import com.sixback.backend.common.exception.EmptyFileException;
+import com.sixback.backend.common.exception.OptionNotFoundException;
 import com.sixback.backend.common.exception.StyleNotFoundException;
+import com.sixback.backend.common.exception.StyleUseOptionNotFoundException;
 import com.sixback.backend.common.service.GanClientService;
+import com.sixback.backend.domain.dto.OptionInfoDto;
 import com.sixback.backend.domain.dto.StyleInfoDto;
+import com.sixback.backend.domain.dto.StyleInfoListDto;
 import com.sixback.backend.domain.dto.StyleResultDto;
+import com.sixback.backend.domain.dto.UseOptionDetailDto;
+import com.sixback.backend.domain.dto.UseOptionLocationListDto;
 import com.sixback.backend.domain.dto.VirtualMakeupReqDto;
 import com.sixback.backend.domain.entity.Style;
+import com.sixback.backend.domain.repository.GoodsOptionRepository;
 import com.sixback.backend.domain.repository.StyleRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -31,14 +38,15 @@ public class StyleService {
 	private final MarketService marketService;
 	private final GanClientService ganClientService;
 	private final StyleRepository styleRepository;
+	private final GoodsOptionRepository goodsOptionRepository;
 
-	public Page<StyleInfoDto> findAllStyle(Long marketId, int page, int size) {
+	public StyleInfoListDto findAllStyle(Long marketId, int page, int size) {
 		// 매장 유효성 검사
 		marketService.validateMarket(marketId);
 		// 화장 스타일 식별번호 순으로 정렬
 		Pageable pageable = PageRequest.of(page, size, Sort.by("styleId").ascending());
 		Page<StyleInfoDto> styleInfoDtoPage = styleRepository.findAllDto(pageable);
-		return styleInfoDtoPage;
+		return new StyleInfoListDto(styleInfoDtoPage);
 	}
 
 	public Mono<StyleResultDto> createVirtualMakeup(Long marketId, VirtualMakeupReqDto virtualMakeupReqDto) {
@@ -117,5 +125,31 @@ public class StyleService {
 		if (file.getSize() < 0) {
 			throw new EmptyFileException();
 		}
+	}
+
+	public Object findUseGoodsOptionInfo(Long marketId, Long styleId, Long optionId) {
+		// 매장 유효성 검사
+		marketService.validateMarket(marketId);
+		if (optionId == null) {
+			return findAllUseOptonLocationList(marketId, styleId);
+		} else {
+			return findByOptionId(marketId, styleId, optionId);
+		}
+	}
+
+	public UseOptionLocationListDto findAllUseOptonLocationList(Long marketId, Long styleId) {
+		// 스타일 식별 번호 검증 & 사용된 상품 위치 정보 가져오기
+		List<OptionInfoDto> results = styleRepository.findAllUseOptionLocationList(marketId, styleId);
+		return new UseOptionLocationListDto(results);
+	}
+
+	public UseOptionDetailDto findByOptionId(Long marketId, Long styleId, Long optionId) {
+		// 스타일 식별 번호 & 옵션 ID 검증
+		Style style = styleRepository.findByStyleIdAndOptionId(styleId, optionId)
+			.orElseThrow(StyleUseOptionNotFoundException::new);
+		// 사용된 상품 정보 가져 오기
+		UseOptionDetailDto useOptionDetailDto = goodsOptionRepository.findTopByMarketIdAndOptionId(marketId, optionId)
+			.orElseThrow(OptionNotFoundException::new);
+		return useOptionDetailDto;
 	}
 }
