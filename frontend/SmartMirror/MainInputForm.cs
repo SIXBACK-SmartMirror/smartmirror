@@ -8,6 +8,7 @@ namespace SmartMirror
         private bool isClose;
         private int outputMonitor = 1;
         private int inputMonitor = 2;
+        private Screen[] screens = Screen.AllScreens;
 
         public MainInputForm(MainOutputForm mainOutputForm)
         {
@@ -20,12 +21,9 @@ namespace SmartMirror
             // 현재 MirrorInputForm을 숨김
             this.Hide();
 
-            // 연결된 모니터 리스트 가져오기
-            Screen[] screens = Screen.AllScreens;
-
             if (screens.Length == 2)
             {
-                inputMonitor = 1;
+                inputMonitor = 0;
             }
 
             // MirrorOutputForm을 MainOutputForm으로 변경
@@ -83,17 +81,19 @@ namespace SmartMirror
         private void panel1_Click(object sender, EventArgs e)
         {
             mainOutputForm.panel1.Dock = DockStyle.Fill;
-            
+
             if (!isClose)
             {
                 label9.Text = "화면 켜기";
                 label1.Text = "거울 OFF";
+                mirror.BackColor = Color.Gray;
                 mainOutputForm.panel1.Visible = true;
             }
             else
             {
                 label9.Text = "화면 끄기";
                 label1.Text = "거울 ON";
+                mirror.BackColor = Color.FromArgb(232, 89, 173);
                 mainOutputForm.panel1.Visible = false;
             }
             isClose = !isClose;
