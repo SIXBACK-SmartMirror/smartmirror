@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchInfoInputForm));
             panel5 = new Panel();
-            panel16 = new Panel();
+            home = new Panel();
             label9 = new Label();
-            panel14 = new Panel();
+            research = new Panel();
             label6 = new Label();
             panel15 = new Panel();
             label8 = new Label();
@@ -45,8 +45,8 @@
             label7 = new Label();
             panel6 = new Panel();
             panel5.SuspendLayout();
-            panel16.SuspendLayout();
-            panel14.SuspendLayout();
+            home.SuspendLayout();
+            research.SuspendLayout();
             panel15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel7.SuspendLayout();
@@ -57,8 +57,8 @@
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel5.BackColor = Color.FromArgb(130, 220, 40);
-            panel5.Controls.Add(panel16);
-            panel5.Controls.Add(panel14);
+            panel5.Controls.Add(home);
+            panel5.Controls.Add(research);
             panel5.Controls.Add(panel15);
             panel5.Location = new Point(-2, -2);
             panel5.Margin = new Padding(2);
@@ -66,14 +66,15 @@
             panel5.Size = new Size(99, 1015);
             panel5.TabIndex = 5;
             // 
-            // panel16
+            // home
             // 
-            panel16.BackColor = Color.FromArgb(224, 224, 224);
-            panel16.Controls.Add(label9);
-            panel16.Location = new Point(2, 371);
-            panel16.Name = "panel16";
-            panel16.Size = new Size(100, 100);
-            panel16.TabIndex = 9;
+            home.BackColor = Color.FromArgb(224, 224, 224);
+            home.Controls.Add(label9);
+            home.Location = new Point(2, 371);
+            home.Name = "home";
+            home.Size = new Size(100, 100);
+            home.TabIndex = 9;
+            home.Click += home_Click;
             // 
             // label9
             // 
@@ -87,15 +88,17 @@
             label9.TabIndex = 0;
             label9.Text = "홈";
             label9.TextAlign = ContentAlignment.MiddleCenter;
+            label9.Click += home_Click;
             // 
-            // panel14
+            // research
             // 
-            panel14.BackColor = Color.FromArgb(224, 224, 224);
-            panel14.Controls.Add(label6);
-            panel14.Location = new Point(0, 271);
-            panel14.Name = "panel14";
-            panel14.Size = new Size(100, 100);
-            panel14.TabIndex = 8;
+            research.BackColor = Color.FromArgb(224, 224, 224);
+            research.Controls.Add(label6);
+            research.Location = new Point(0, 271);
+            research.Name = "research";
+            research.Size = new Size(100, 100);
+            research.TabIndex = 8;
+            research.Click += research_Click;
             // 
             // label6
             // 
@@ -109,6 +112,7 @@
             label6.TabIndex = 0;
             label6.Text = "재검색";
             label6.TextAlign = ContentAlignment.MiddleCenter;
+            label6.Click += research_Click;
             // 
             // panel15
             // 
@@ -238,10 +242,10 @@
             Name = "SearchInfoInputForm";
             Text = "Form1";
             panel5.ResumeLayout(false);
-            panel16.ResumeLayout(false);
-            panel16.PerformLayout();
-            panel14.ResumeLayout(false);
-            panel14.PerformLayout();
+            home.ResumeLayout(false);
+            home.PerformLayout();
+            research.ResumeLayout(false);
+            research.PerformLayout();
             panel15.ResumeLayout(false);
             panel15.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
@@ -279,11 +283,11 @@
         private Label label5;
         private PictureBox pictureBox2;
         private Label label7;
-        private Panel panel14;
+        private Panel research;
         private Label label6;
         private Panel panel15;
         private Label label8;
-        private Panel panel16;
+        private Panel home;
         private Label label9;
         private PictureBox pictureBox4;
         private Panel panel6;
