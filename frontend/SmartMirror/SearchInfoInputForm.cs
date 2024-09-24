@@ -14,9 +14,15 @@ namespace SmartMirror
         private int totalPages = 1;
         private FlowLayoutPanel pageButtonsPanel;
 
-        public SearchInfoInputForm(string apiResponse)
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
+        private Screen[] screens = Screen.AllScreens;
+        private SearchInfoOutputForm outputForm;
+
+        public SearchInfoInputForm(string apiResponse, SearchInfoOutputForm outputForm)
         {
             InitializeComponent();
+            this.outputForm = outputForm;
             this.resultApi = apiResponse;
 
             // 페이지 버튼 패널 초기화
@@ -197,6 +203,70 @@ namespace SmartMirror
             panel.Controls.Add(pictureBox);
 
             return panel;
+        }
+
+        private void home_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            if (screens.Length == 2)
+            {
+                inputMonitor = 0;
+            }
+
+            MainOutputForm mainOutputForm = new MainOutputForm();
+
+            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
+            mainOutputForm.StartPosition = FormStartPosition.Manual;
+            mainOutputForm.Location = secondaryScreen.Bounds.Location;
+            mainOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+            if (outputForm != null && !outputForm.IsDisposed)
+            {
+                outputForm.Hide();
+            }
+
+            mainOutputForm.Show();
+
+            MainInputForm inputForm = new MainInputForm(mainOutputForm);
+
+            Screen primaryScreen = Screen.AllScreens[inputMonitor];
+            inputForm.StartPosition = FormStartPosition.Manual;
+            inputForm.Location = primaryScreen.Bounds.Location;
+            inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+            inputForm.Show();
+        }
+
+        private void research_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            if (screens.Length == 2)
+            {
+                inputMonitor = 0;
+            }
+
+            SearchOutputForm searchOutputForm = new SearchOutputForm();
+
+            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
+            searchOutputForm.StartPosition = FormStartPosition.Manual;
+            searchOutputForm.Location = secondaryScreen.Bounds.Location;
+            searchOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+            if (outputForm != null && !outputForm.IsDisposed)
+            {
+                outputForm.Hide();
+            }
+
+            searchOutputForm.Show();
+
+            SearchInputForm inputForm = new SearchInputForm(searchOutputForm);
+
+            Screen primaryScreen = Screen.AllScreens[inputMonitor];
+            inputForm.StartPosition = FormStartPosition.Manual;
+            inputForm.Location = primaryScreen.Bounds.Location;
+            inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+            inputForm.Show();
         }
     }
 }

@@ -134,7 +134,7 @@ namespace SmartMirror
                 searchInfoOutputForm.Location = secondaryScreen.Bounds.Location;
                 searchInfoOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
 
-                SearchInfoInputForm searchInputForm = new SearchInfoInputForm(apiResponse);
+                SearchInfoInputForm searchInputForm = new SearchInfoInputForm(apiResponse, searchInfoOutputForm);
 
                 Screen primaryScreen = Screen.AllScreens[inputMonitor];
                 searchInputForm.StartPosition = FormStartPosition.Manual;
