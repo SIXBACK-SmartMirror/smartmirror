@@ -1,49 +1,102 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Drawing.Drawing2D;
 
 namespace SmartMirror
 {
     public partial class MainInputForm : Form
     {
-        public MainInputForm()
+        private MainOutputForm mainOutputForm;
+        private bool isClose;
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
+        private Screen[] screens = Screen.AllScreens;
+
+        public MainInputForm(MainOutputForm mainOutputForm)
         {
             InitializeComponent();
+            this.mainOutputForm = mainOutputForm;
         }
 
-        private void makeup_Click(object sender, EventArgs e)
+        private void panel2_Click(object sender, EventArgs e)
         {
-            
-            int monitorIndex = 1;
-            MakeupOutputForm outputForm = new MakeupOutputForm();
-
-            Screen mirror = Screen.AllScreens[monitorIndex];
-
-            outputForm.StartPosition = FormStartPosition.Manual;
-            outputForm.Location = mirror.Bounds.Location;
-
-            // MakeupInform show
-            Console.WriteLine("연결");
-            outputForm.Show();
-
-            // MaininputForm 숨기기
+            // 현재 MirrorInputForm을 숨김
             this.Hide();
 
-            MakeupInputForm inputForm = new MakeupInputForm(outputForm);
-            //inputForm.Owner = this;
-            inputForm.Show();
-            
+            if (screens.Length == 2)
+            {
+                inputMonitor = 0;
+            }
+
+            // MirrorOutputForm을 MainOutputForm으로 변경
+            SearchOutputForm searchOutputForm = new SearchOutputForm();
+
+            // MainOutputForm을 두 번째 모니터에 표시
+            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
+            searchOutputForm.StartPosition = FormStartPosition.Manual;
+            searchOutputForm.Location = secondaryScreen.Bounds.Location;
+            searchOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+            // MainInputForm을 생성하고 표시
+            SearchInputForm searchInputForm = new SearchInputForm(searchOutputForm);
+
+            // 메인 인풋 폼을 특정 모니터에 표시 (예: 첫 번째 모니터)
+            Screen primaryScreen = Screen.AllScreens[inputMonitor];
+            searchInputForm.StartPosition = FormStartPosition.Manual;
+            searchInputForm.Location = primaryScreen.Bounds.Location;
+            searchInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+            searchInputForm.Show();
+
+            // 이미 떠있는 MainOutputForm을 숨김
+            if (mainOutputForm != null && !mainOutputForm.IsDisposed)
+            {
+                mainOutputForm.Hide(); // MainOutputForm 숨기기
+            }
+
+            // SearchOutputForm 표시
+            searchOutputForm.Show();
         }
 
-        private void MainInputForm_Load(object sender, EventArgs e)
+        private void panel_Paint(object sender, PaintEventArgs e)
         {
+            // 둥근 모서리 반지름 설정
+            int cornerRadius = 15;
 
+            // 패널의 크기
+            int panelWidth = search.Width;
+            int panelHeight = search.Height;
+
+            // GraphicsPath를 사용해 둥근 모서리 경로를 생성
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(new Rectangle(0, 0, cornerRadius, cornerRadius), 180, 90);  // 좌상단
+            path.AddArc(new Rectangle(panelWidth - cornerRadius, 0, cornerRadius, cornerRadius), 270, 90); // 우상단
+            path.AddArc(new Rectangle(panelWidth - cornerRadius, panelHeight - cornerRadius, cornerRadius, cornerRadius), 0, 90); // 우하단
+            path.AddArc(new Rectangle(0, panelHeight - cornerRadius, cornerRadius, cornerRadius), 90, 90); // 좌하단
+            path.CloseFigure();
+
+            // 패널의 모양을 둥근 모서리로 설정
+            mirror.Region = new Region(path);
+            search.Region = new Region(path);
+            makeup.Region = new Region(path);
+        }
+
+        private void panel1_Click(object sender, EventArgs e)
+        {
+            mainOutputForm.panel1.Dock = DockStyle.Fill;
+
+            if (!isClose)
+            {
+                label9.Text = "화면 켜기";
+                label1.Text = "거울 OFF";
+                mirror.BackColor = Color.Gray;
+                mainOutputForm.panel1.Visible = true;
+            }
+            else
+            {
+                label9.Text = "화면 끄기";
+                label1.Text = "거울 ON";
+                mirror.BackColor = Color.FromArgb(232, 89, 173);
+                mainOutputForm.panel1.Visible = false;
+            }
+            isClose = !isClose;
         }
     }
 }
