@@ -10,24 +10,26 @@ import com.sixback.backend.domain.dto.UseOptionDetailDto;
 import com.sixback.backend.domain.entity.GoodsOption;
 
 public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> {
-
-	@Query(value = """
-		   SELECT
-				b.brand_name_kr,
-				o.option_price,
-				o.option_price * CAST((1 - o.option_discount) AS DECIMAL(10, 2)) AS option_discount_price,
-				CASE WHEN s.location IS NOT NULL THEN true ELSE false END AS is_in_market_raw,
-				SUM(CASE WHEN s.is_selling = 0 THEN 1 ELSE 0 END) as stock,
-				s.location as location_raw
-		   FROM goods_option o
-		   JOIN Goods g ON g.goods_id = o.goods_id AND o.option_id = :optionId
-		   JOIN brand b ON b.brand_id = g.brand_id
-		   LEFT JOIN Stock s ON s.market_id = :marketId 
-		       AND s.option_id = o.option_id
-		   GROUP BY o.option_id, b.brand_name_kr, o.option_price, o.option_discount, s.location
-		   ORDER BY stock DESC
-		   LIMIT 1
-		""", nativeQuery = true)
+	@EntityGraph(attributePaths = {"goods", "goods.brand"})
+	@Query("""
+		    SELECT new com.sixback.backend.domain.dto.UseOptionDetailDto(
+		            b.brandNameKr,
+		            o.optionPrice,
+		            CAST(o.optionPrice * (1 - o.optionDiscount) AS long),
+		            CASE WHEN s.location IS NOT NULL THEN true ELSE false END,
+		           	CAST(SUM(CASE WHEN s.isSelling = false THEN 1 ELSE 0 END) AS int ),
+		            s.location
+		        )
+		    FROM GoodsOption o
+		    JOIN o.goods g ON o.optionId = :optionId
+		    JOIN g.brand b
+		    LEFT JOIN Stock s ON s.market.marketId = :marketId
+		        AND s.option.optionId = o.optionId
+		    GROUP BY o.optionId, b.brandNameKr, o.optionPrice, o.optionDiscount, s.location
+		    ORDER BY SUM(CASE WHEN s.isSelling = false THEN 1 ELSE 0 END) DESC
+		    LIMIT 1
+		""")
 	Optional<UseOptionDetailDto> findTopByMarketIdAndOptionId(@Param("marketId") Long marketId,
 		@Param("optionId") Long optionId);
+
 }
