@@ -50,8 +50,8 @@ public class GlobalExceptionHandler {
 	 * @param e 사용자 지정 예외.
 	 * @return
 	 */
-	@ExceptionHandler(CustomFileException.class)
-	public ResponseEntity<?> handleCustomFileException(CustomFileException e) {
+	@ExceptionHandler(CustomInputException.class)
+	public ResponseEntity<?> handleCustomFileException(CustomInputException e) {
 		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>(e.getMessage(), null), HttpStatus.BAD_REQUEST);
 	}
