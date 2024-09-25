@@ -4,6 +4,7 @@ using NAudio.Wave;
 using System.Runtime.InteropServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Newtonsoft.Json.Linq;
+using SmartMirror.Helpers;
 
 namespace SmartMirror
 {
@@ -121,36 +122,20 @@ namespace SmartMirror
 
             if (apiResponse != null)
             {
-
-                if (screens.Length == 2)
-                {
-                    inputMonitor = 0;
-                }
+                var screens = Screen.AllScreens;
+                var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
 
                 SearchInfoOutputForm searchInfoOutputForm = new SearchInfoOutputForm();
-
-                Screen secondaryScreen = Screen.AllScreens[outputMonitor];
-                searchInfoOutputForm.StartPosition = FormStartPosition.Manual;
-                searchInfoOutputForm.Location = secondaryScreen.Bounds.Location;
-                searchInfoOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
-
                 SearchInfoInputForm searchInputForm = new SearchInfoInputForm(apiResponse, searchInfoOutputForm);
 
-                Screen primaryScreen = Screen.AllScreens[inputMonitor];
-                searchInputForm.StartPosition = FormStartPosition.Manual;
-                searchInputForm.Location = primaryScreen.Bounds.Location;
-                searchInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                FormHelper.SwitchToForm(searchInputForm, searchInfoOutputForm, primaryScreen, secondaryScreen);
 
                 this.Hide();
-                searchInputForm.Show();
 
                 if (outputForm != null && !outputForm.IsDisposed)
                 {
                     outputForm.Hide(); // MainOutputForm 숨기기
                 }
-
-                // SearchOutputForm 표시
-                searchInfoOutputForm.Show();
             }
         }
 
@@ -183,32 +168,18 @@ namespace SmartMirror
         {
             this.Hide();
 
-            if (screens.Length == 2)
-            {
-                inputMonitor = 0;
-            }
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
 
             MainOutputForm mainOutputForm = new MainOutputForm();
+            MainInputForm inputForm = new MainInputForm(mainOutputForm);
 
-            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
-            mainOutputForm.StartPosition = FormStartPosition.Manual;
-            mainOutputForm.Location = secondaryScreen.Bounds.Location;
-            mainOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+            FormHelper.SwitchToForm(inputForm, mainOutputForm, primaryScreen, secondaryScreen);
 
             if (outputForm != null && !outputForm.IsDisposed)
             {
                 outputForm.Hide();
             }
-
-            mainOutputForm.Show();
-
-            MainInputForm inputForm = new MainInputForm(mainOutputForm);
-
-            Screen primaryScreen = Screen.AllScreens[inputMonitor];
-            inputForm.StartPosition = FormStartPosition.Manual;
-            inputForm.Location = primaryScreen.Bounds.Location;
-            inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
-            inputForm.Show();
         }
 
         // 녹음 시작 메서드

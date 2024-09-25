@@ -1,58 +1,38 @@
-﻿using System.Drawing.Drawing2D;
+﻿using SmartMirror.Helpers;
+using System.Drawing.Drawing2D;
 
 namespace SmartMirror
 {
     public partial class MainInputForm : Form
     {
-        private MainOutputForm mainOutputForm;
+        private MainOutputForm outputForm;
         private bool isClose;
         private int outputMonitor = 1;
         private int inputMonitor = 2;
         private Screen[] screens = Screen.AllScreens;
 
-        public MainInputForm(MainOutputForm mainOutputForm)
+        public MainInputForm(MainOutputForm outputForm)
         {
             InitializeComponent();
-            this.mainOutputForm = mainOutputForm;
+            this.outputForm = outputForm;
         }
 
         private void panel2_Click(object sender, EventArgs e)
         {
-            // 현재 MirrorInputForm을 숨김
             this.Hide();
 
-            if (screens.Length == 2)
-            {
-                inputMonitor = 0;
-            }
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
 
-            // MirrorOutputForm을 MainOutputForm으로 변경
             SearchOutputForm searchOutputForm = new SearchOutputForm();
-
-            // MainOutputForm을 두 번째 모니터에 표시
-            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
-            searchOutputForm.StartPosition = FormStartPosition.Manual;
-            searchOutputForm.Location = secondaryScreen.Bounds.Location;
-            searchOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
-
-            // MainInputForm을 생성하고 표시
             SearchInputForm searchInputForm = new SearchInputForm(searchOutputForm);
 
-            // 메인 인풋 폼을 특정 모니터에 표시 (예: 첫 번째 모니터)
-            Screen primaryScreen = Screen.AllScreens[inputMonitor];
-            searchInputForm.StartPosition = FormStartPosition.Manual;
-            searchInputForm.Location = primaryScreen.Bounds.Location;
-            searchInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
-            searchInputForm.Show();
+            FormHelper.SwitchToForm(searchInputForm, searchOutputForm, primaryScreen, secondaryScreen);
 
-            // 이미 떠있는 MainOutputForm을 숨김
-            if (mainOutputForm != null && !mainOutputForm.IsDisposed)
+            if (outputForm != null && !outputForm.IsDisposed)
             {
-                mainOutputForm.Hide(); // MainOutputForm 숨기기
+                outputForm.Hide();
             }
-
-            // SearchOutputForm 표시
-            searchOutputForm.Show();
         }
 
         private void panel_Paint(object sender, PaintEventArgs e)
@@ -80,21 +60,21 @@ namespace SmartMirror
 
         private void panel1_Click(object sender, EventArgs e)
         {
-            mainOutputForm.panel1.Dock = DockStyle.Fill;
+            outputForm.panel1.Dock = DockStyle.Fill;
 
             if (!isClose)
             {
                 label9.Text = "화면 켜기";
                 label1.Text = "거울 OFF";
                 mirror.BackColor = Color.Gray;
-                mainOutputForm.panel1.Visible = true;
+                outputForm.panel1.Visible = true;
             }
             else
             {
                 label9.Text = "화면 끄기";
                 label1.Text = "거울 ON";
                 mirror.BackColor = Color.FromArgb(232, 89, 173);
-                mainOutputForm.panel1.Visible = false;
+                outputForm.panel1.Visible = false;
             }
             isClose = !isClose;
         }
