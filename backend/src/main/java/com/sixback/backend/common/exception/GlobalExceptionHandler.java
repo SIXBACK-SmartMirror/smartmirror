@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 import com.sixback.backend.common.dto.ResponseDto;
@@ -132,4 +133,15 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(new ResponseDto<>("D00", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+
+	/**
+	 * 외부 API 통신 실패
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(RestClientException.class)
+	public ResponseEntity<?> apiFailException(RestClientException e) {
+		log.error(e.getMessage());
+		return new ResponseEntity<>(new ResponseDto<>("H00", null), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }
