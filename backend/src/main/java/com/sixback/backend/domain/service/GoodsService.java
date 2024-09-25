@@ -40,7 +40,7 @@ public class GoodsService {
 		// 매장 유효성 검사
 		marketService.validateMarket(marketId);
 		// 오디오에서 키워드 추출
-		String keyword = findKeyword(searchReqDto).block();
+		String keyword = removeSpecialCharacters(findKeyword(searchReqDto).block());
 		// 해당 keyword로 db에서 (like "%keyword%") 조회
 		return findAllGoodsByKeyword(keyword, searchReqDto.getPage(), searchReqDto.getSize());
 	}
@@ -97,4 +97,8 @@ public class GoodsService {
 		return new GoodsDetailDto(optionDtoList, locationList);
 	}
 
+	// 정규 표현식을 사용하여 특수문자 제거
+	private String removeSpecialCharacters(String input) {
+		return input.replaceAll("[^a-zA-Z0-9가-힣\\s]", "");
+	}
 }
