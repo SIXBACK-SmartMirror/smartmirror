@@ -88,7 +88,7 @@ public class NLPClientService {
 			}
 			String keyword = responseDto.getChoices().get(0).getMessage().getContent();
 			log.debug("NLP Result: " + keyword);
-			if(keyword == null || keyword.isEmpty()){
+			if(keyword == null || keyword.isBlank()){
 				log.error("content 키는 존재하지만 값이 비어 있습니다.");
 				return Mono.error(new NullNLPException());
 			}

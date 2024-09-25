@@ -91,7 +91,7 @@ public class STTClientService {
 				// text 키가 존재하지 않을 때
 				log.error("text 키가 없습니다.");
 				return Mono.error(new FailSTTException());
-			} else if (textNode.asText().isEmpty()) {
+			} else if (textNode.asText().isBlank()) {
 				// text 키가 존재하지만 값이 빈 문자열일 때
 				log.error("text 키는 존재하지만 값이 비어 있습니다.");
 				return Mono.error(new NullSTTException());
