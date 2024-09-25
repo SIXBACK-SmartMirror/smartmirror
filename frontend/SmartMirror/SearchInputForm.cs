@@ -10,32 +10,21 @@ namespace SmartMirror
 {
     public partial class SearchInputForm : Form
     {
-        private WaveInEvent waveIn; // 마이크 입력
-        private WaveFileWriter writer; // 녹음한 오디오를 파일로 저장
-        private string outputFilePath = "recordedAudio.wav"; // 녹음 파일 경로
-        private bool isRecording = false; // 녹음 상태 관리 변수
+        private AudioRecorder audioRecorder;
+        private SearchOutputForm outputForm;
+        private bool isRecording = false;
+
         private int outputMonitor = 1;
         private int inputMonitor = 2;
         private Screen[] screens = Screen.AllScreens;
-
-        private SearchOutputForm outputForm;
-        private Process oskProcess;
-
-        // Windows API 선언
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
-
-        private const uint SWP_NOZORDER = 0x0004;
-        private const uint SWP_NOACTIVATE = 0x0010;
 
         public SearchInputForm(SearchOutputForm outputForm)
         {
             InitializeComponent();
             this.outputForm = outputForm;
             outputForm.textBox1.KeyDown += textBox1_KeyDown;
+
+            audioRecorder = new AudioRecorder("recordedAudio.wav");
         }
 
         private void panel_Paint(object sender, PaintEventArgs e)
@@ -63,55 +52,19 @@ namespace SmartMirror
 
         private void ShowOnScreenKeyboard()
         {
-            // 이미 실행 중인 가상 키보드가 있다면 종료
-            CloseOnScreenKeyboard();
-
-            oskProcess = Process.Start("osk.exe");
-
-            // 가상 키보드가 실행될 시간을 조금 대기
-            System.Threading.Thread.Sleep(500);
-
-            // 가상 키보드 창을 특정 모니터로 이동
-            MoveOnScreenKeyboardToMonitor(inputMonitor); // 2번 모니터로 이동
-
+            KeyboardHelper.ShowOnScreenKeyboard(2, Screen.AllScreens);
             outputForm.textBox1.Focus();
         }
 
-        private void MoveOnScreenKeyboardToMonitor(int monitorIndex)
-        {
-            if (screens.Length == 2)
-            {
-                inputMonitor = 0;
-            }
-            
-            Screen selectedMonitor = Screen.AllScreens[inputMonitor];
-            IntPtr hWnd = FindWindow("IPTip_Main_Window", "keyboard"); // 가상 키보드의 창 클래스 이름
-
-            if (hWnd != IntPtr.Zero)
-             {
-                // 모니터 위치로 가상 키보드 이동
-                // SetWindowPos(hWnd, IntPtr.Zero, selectedMonitor.Bounds.X, selectedMonitor.Bounds.Y, selectedMonitor.Bounds.Width, selectedMonitor.Bounds.Height, SWP_NOZORDER | SWP_NOACTIVATE);
-                //
-            }
-        }
-
-        private void CloseOnScreenKeyboard()
-        {
-            foreach (var process in Process.GetProcessesByName("osk"))
-            {
-                process.Kill();
-            }
-        }
-
-        // Enter 키를 감지하는 KeyDown 이벤트 핸들러
         public void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                CloseOnScreenKeyboard(); // Enter 키를 누르면 가상 키보드를 종료
+                KeyboardHelper.CloseOnScreenKeyboard(); // 가상 키보드를 닫음
                 e.Handled = true; // 이벤트 처리 완료
                 e.SuppressKeyPress = true; // Enter 키 입력을 텍스트 박스에 전달하지 않음
 
+                // API 호출 및 화면 전환
                 change();
             }
         }
@@ -151,14 +104,13 @@ namespace SmartMirror
             {
                 label2.Text = "녹음 중지";
                 label5.Text = "'OO' 찾아줘~";
-
-                StartRecording();
+                audioRecorder.StartRecording();
             }
             else
             {
-                label5.Text = "움성으로 물건 찾기";
+                label5.Text = "음성으로 물건 찾기";
                 label2.Text = "음성 검색";
-                StopRecording();
+                audioRecorder.StopRecording();
             }
 
             isRecording = !isRecording;
@@ -180,53 +132,6 @@ namespace SmartMirror
             {
                 outputForm.Hide();
             }
-        }
-
-        // 녹음 시작 메서드
-        private void StartRecording()
-        {
-            waveIn = new WaveInEvent(); // 마이크 입력 초기화
-            waveIn.WaveFormat = new WaveFormat(44100, 1); // 44.1kHz, 모노
-
-            // 데이터가 들어올 때마다 호출되는 이벤트 핸들러 연결
-            waveIn.DataAvailable += OnDataAvailable;
-            waveIn.RecordingStopped += OnRecordingStopped;
-
-            // .wav 파일 작성 시작
-            writer = new WaveFileWriter(outputFilePath, waveIn.WaveFormat);
-            Console.Write(outputFilePath);
-
-            // 녹음 시작
-            waveIn.StartRecording();
-            MessageBox.Show("녹음을 시작합니다.");
-        }
-
-        // 녹음 중에 데이터가 들어올 때마다 호출되는 메서드
-        private void OnDataAvailable(object sender, WaveInEventArgs e)
-        {
-            if (writer != null)
-            {
-                // 녹음된 데이터를 파일에 기록
-                writer.Write(e.Buffer, 0, e.BytesRecorded);
-                writer.Flush();
-            }
-        }
-
-        // 녹음 중지 메서드
-        private void StopRecording()
-        {
-            waveIn?.StopRecording(); // 녹음 중지
-        }
-
-        // 녹음이 중지될 때 호출되는 메서드
-        private void OnRecordingStopped(object sender, StoppedEventArgs e)
-        {
-            writer?.Dispose(); // 파일 작성 완료 및 해제
-            writer = null;
-            waveIn.Dispose(); // 마이크 입력 해제
-            waveIn = null;
-
-            MessageBox.Show($"녹음이 완료되었습니다. 파일 경로: {outputFilePath}");
         }
     }
 }
