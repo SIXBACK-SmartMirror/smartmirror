@@ -37,10 +37,8 @@ public class GoodsController {
 	// 타이핑 검색
 	@GetMapping
 	public ResponseEntity<?> findAllGoodsByKeyword(@PathVariable("marketId") Long marketId,
-		@RequestParam("keyword") String keyword,
-		@RequestParam("page") int page,
-		@RequestParam("size") int size) {
-		SearchResultDto searchResultDto = goodsService.findAllGoodsByKeyword(marketId, keyword, page, size);
+		@Valid @ModelAttribute SearchReqDto searchReqDto) {
+		SearchResultDto searchResultDto = goodsService.findAllGoods(marketId, searchReqDto);
 		return new ResponseEntity<>(new ResponseDto<>("A00", searchResultDto), HttpStatus.OK);
 	}
 
