@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sixback.backend.common.exception.EmptyFileException;
 import com.sixback.backend.common.exception.GoodsNotFoundException;
 import com.sixback.backend.common.exception.NoSearchKeywordException;
+import com.sixback.backend.common.exception.NullNLPException;
 import com.sixback.backend.common.exception.OptionNotFoundException;
 import com.sixback.backend.common.service.NLPClientService;
 import com.sixback.backend.common.service.STTClientService;
@@ -53,7 +54,7 @@ public class GoodsService {
 
 	public Mono<String> findKeyword(SearchReqDto searchReqDto) {
 		// 이미 사용자가 키워드를 입력했으면 해당 키워드로 검색
-		if (searchReqDto.getKeyword() != null && !searchReqDto.getKeyword().equals("")) {
+		if (searchReqDto.getKeyword() != null && !searchReqDto.getKeyword().isBlank()) {
 			return Mono.just(searchReqDto.getKeyword());
 		}
 		checkVailAudioFile(searchReqDto.getAudioFile());
@@ -105,6 +106,10 @@ public class GoodsService {
 
 	// 정규 표현식을 사용하여 특수문자 제거
 	private String removeSpecialCharacters(String input) {
-		return input.replaceAll("[^a-zA-Z0-9가-힣\\s]", "");
+		String result = input.replaceAll("[^a-zA-Z0-9가-힣\\s]", "");
+		if(result == null || result.isBlank()) {
+			throw new NullNLPException();
+		}
+		return result;
 	}
 }
