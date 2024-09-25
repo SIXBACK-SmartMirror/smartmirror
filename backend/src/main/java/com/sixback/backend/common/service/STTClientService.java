@@ -30,8 +30,8 @@ public class STTClientService {
 
 	private final WebClient sttWebClient;
 	private final ObjectMapper objectMapper;
-	@Value("${spring.data.stt.url}")
-	private String STT_API_URL;
+	@Value("${spring.data.stt.uri}")
+	private String STT_API_URI;
 	@Value("${spring.data.stt.model}")
 	private String STT_MODEL;
 
@@ -39,7 +39,7 @@ public class STTClientService {
 		// Multipart 요청을 위한 Body 생성
 		MultiValueMap<String, Object> body = creatBody(autioFile);
 		return sttWebClient.post()
-			.uri(STT_API_URL)
+			.uri(STT_API_URI)
 			.contentType(MediaType.MULTIPART_FORM_DATA)
 			.bodyValue(body)
 			.retrieve()
