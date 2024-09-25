@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -14,10 +12,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sixback.backend.common.dto.nlp.ChatMessageDto;
+import com.sixback.backend.common.dto.nlp.NLPProductExtractionDto;
 import com.sixback.backend.common.dto.nlp.NLPResponseDto;
 import com.sixback.backend.common.exception.FailNLPException;
 import com.sixback.backend.common.exception.NullNLPException;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -35,16 +35,23 @@ public class NLPClientService {
 	private String CHAT_MODEL;
 	@Value("${spring.data.chat.temperature}")
 	private float TEMPERATURE;
-	@Value("${spring.data.chat.max.token}")
-	private short MAX_TOKENS;
+	@Value("${spring.data.chat.max.completion.token}")
+	private short MAX_COMPLETION_TOKENS;
+	@Value("${spring.data.chat.prompt}")
+	private String PROMPT;
+	private ChatMessageDto systemMessage;
+	@PostConstruct
+	private void init() {
+		this.systemMessage = new ChatMessageDto("system", PROMPT);
+	}
 
 	public Mono<String> sendRequest(String sttResult) {
 		// Multipart 요청을 위한 Body 생성
-		MultiValueMap<String, Object> body = creatBody(sttResult);
+		NLPProductExtractionDto body = creatBody(sttResult);
 		System.out.println(body);
 		return nlpWebClient.post()
 			.uri(CHAT_API_URI)
-			.contentType(MediaType.MULTIPART_FORM_DATA)
+			.contentType(MediaType.APPLICATION_JSON)
 			.bodyValue(body)
 			.retrieve()
 			.onStatus(status -> !status.is2xxSuccessful(),
@@ -53,17 +60,14 @@ public class NLPClientService {
 			.flatMap(this::parseNLPResult);
 	}
 
-	public MultiValueMap<String, Object> creatBody(String sttResult) {
-		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-		String prompt = String.format("Extract only the product name from the following sentence, and output just the product name with nothing else: %s", sttResult);
+	public NLPProductExtractionDto creatBody(String sttKeyword) {
 		// 메시지 생성
-		ChatMessageDto message = new ChatMessageDto("user", prompt);
-		// MultiValueMap 구성
-		body.add("model", CHAT_MODEL);
-		body.add("messages", message);
-		// body.add("temperature", TEMPERATURE);
-		// body.add("max_tokens", MAX_TOKENS);
-		return body;
+		ChatMessageDto userMessage = new ChatMessageDto("user", sttKeyword);
+		return NLPProductExtractionDto.builder()
+			.model(CHAT_MODEL)
+			.messages(List.of(systemMessage, userMessage))
+			.temperature(TEMPERATURE)
+			.max_completion_tokens(MAX_COMPLETION_TOKENS).build();
 	}
 
 	private Mono<Throwable> handleErrorResponse(ClientResponse clientResponse) {
@@ -83,11 +87,11 @@ public class NLPClientService {
 				return Mono.error(new FailNLPException());
 			}
 			String keyword = responseDto.getChoices().get(0).getMessage().getContent();
+			log.debug("NLP Result: " + keyword);
 			if(keyword == null || keyword.isEmpty()){
 				log.error("content 키는 존재하지만 값이 비어 있습니다.");
 				return Mono.error(new NullNLPException());
 			}
-			log.debug("NLP Result: " + keyword);
 			return Mono.just(keyword);
 		} catch (JsonProcessingException e) {
 			log.error("Failed to parse NLP server response", e);
