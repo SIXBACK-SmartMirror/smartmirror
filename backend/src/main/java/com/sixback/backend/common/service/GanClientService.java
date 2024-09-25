@@ -29,6 +29,20 @@ public class GanClientService {
 	private final WebClient ganWebClient;
 	private final ObjectMapper objectMapper;
 
+	public Mono<String> sendRequest(GanRequestDto ganRequestDto) {
+		// Multipart 요청을 위한 Body 생성
+		MultiValueMap<String, Object> body = creatBody(ganRequestDto);
+		return ganWebClient.post()
+			.uri("/ai/makeup")
+			.contentType(MediaType.MULTIPART_FORM_DATA)
+			.bodyValue(body)
+			.retrieve()
+			.onStatus(status -> !status.is2xxSuccessful(),
+				this::handleErrorResponse)
+			.bodyToMono(String.class)
+			.flatMap(this::parseMakeupImage);
+	}
+
 	public MultiValueMap<String, Object> creatBody(GanRequestDto ganRequestDto) {
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 		// 파일 데이터가 포함된 ByteArrayResource 생성
@@ -51,20 +65,6 @@ public class GanClientService {
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
-	}
-
-	public Mono<String> sendRequest(GanRequestDto ganRequestDto) {
-		// Multipart 요청을 위한 Body 생성
-		MultiValueMap<String, Object> body = creatBody(ganRequestDto);
-		return ganWebClient.post()
-			.uri("/ai/makeup")
-			.contentType(MediaType.MULTIPART_FORM_DATA)
-			.bodyValue(body)
-			.retrieve()
-			.onStatus(status -> !status.is2xxSuccessful(),
-				this::handleErrorResponse)
-			.bodyToMono(String.class)
-			.flatMap(this::parseMakeupImage);
 	}
 
 	private Mono<Throwable> handleErrorResponse(ClientResponse clientResponse) {
