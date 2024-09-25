@@ -14,6 +14,7 @@ import com.sixback.backend.common.exception.EmptyFileException;
 import com.sixback.backend.common.exception.GoodsNotFoundException;
 import com.sixback.backend.common.exception.NoSearchKeywordException;
 import com.sixback.backend.common.exception.OptionNotFoundException;
+import com.sixback.backend.common.service.NLPClientService;
 import com.sixback.backend.common.service.STTClientService;
 import com.sixback.backend.domain.dto.GoodsDetailDto;
 import com.sixback.backend.domain.dto.GoodsDto;
@@ -32,6 +33,7 @@ public class GoodsService {
 
 	private final MarketService marketService;
 	private final STTClientService sttClientService;
+	private final NLPClientService nlpClientService;
 	private final GoodsOptionRepository goodsOptionRepository;
 
 	public SearchResultDto findAllGoods(Long marketId, SearchReqDto searchReqDto) {
@@ -50,9 +52,9 @@ public class GoodsService {
 		}
 		checkVailAudioFile(searchReqDto.getAudioFile());
 		// STT 통신 요청 - 이때 webclient 비동기 openai한테 STT 요청 보냄
-		return sttClientService.sendRequest(searchReqDto.getAudioFile());
-		// stt 결과에서 openAI chat을 통해 상품명만 추출
-		// 요청 결과를 반환
+		return sttClientService.sendRequest(searchReqDto.getAudioFile())
+		// stt 결과에서 openAI chat을 통해 상품명만 추출 후 요청 결과를 반환
+			.flatMap(sttResult -> nlpClientService.sendRequest(sttResult));
 	}
 
 	public void checkVailAudioFile(MultipartFile audioFile) {
