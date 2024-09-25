@@ -13,24 +13,53 @@ using Newtonsoft.Json.Linq;
 
 namespace SmartMirror
 {
+
     public partial class StyleInputForm : Form
     {
         int makeupStyle = -1;
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
+        private Screen[] screens = Screen.AllScreens;
+        public String[] SyntheticResponseList;
 
+
+        //SearchOutputForm outputForm;
+
+        //public StyleInputForm(SearchOutputForm outputForm)
         public StyleInputForm()
-        {
-            InitializeComponent();
-        }
- 
 
+        {
+            //this.outputForm = outputForm;
+            InitializeComponent();
+            SyntheticResponseList = new string[100];
+            this.VisibleChanged += new EventHandler(Form_VisibleChanged);
+            //SyntheticResponseList = new string[100];
+            //Console.WriteLine("메이크업 선택 창 또 뜸");
+            //Console.WriteLine(SyntheticResponseList[0]);
+            //Console.WriteLine(SyntheticResponseList[1]);
+            //Console.WriteLine(SyntheticResponseList[2]);
+            //Console.WriteLine(SyntheticResponseList[3]);
+            //Console.WriteLine(SyntheticResponseList[4]);
+
+        }
+
+        private void Form_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible) // 폼이 다시 보여질 때
+            {
+                SyntheticResponseList = new string[100]; // 배열 초기화
+                Console.WriteLine("배열이 다시 초기화되었습니다.");
+            }
+        }
         private async void StyleInputForm_Load(object sender, EventArgs e)
         {
+            Console.WriteLine("스타일 인풋 폼 로드");
             // api 호출해서 메이크업 스타일 사진 받아오기
             // makeup img 변경
-            // img url, 스타일 명, 상뭎 리스트와 페이지
+            // img url, 스타일 명, 상품 리스트와 페이지
             HttpClient client = new HttpClient();
 
-            String apiUrl = "http://192.168.100.147:8080/smartmirrorApi/market/1/styles?page=0&size=5";
+            String apiUrl = "http://192.168.100.147:8080/smartmirrorApi/market/1/styles?page=0&size=10";
 
             try
             {
@@ -38,7 +67,7 @@ namespace SmartMirror
                 response.EnsureSuccessStatusCode();
 
                 String responseBody = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseBody);
+                //Console.WriteLine(responseBody);
 
                 JObject responseJson = JObject.Parse(responseBody);
 
@@ -79,7 +108,7 @@ namespace SmartMirror
                     try
                     {
                         Image image = Image.FromStream(await client.GetStreamAsync(styleImage));
-                        button.Image = new Bitmap(image, new Size(120, 120)); // 이미지를 크기에 맞게 조정
+                        button.Image = new Bitmap(image, new Size(110, 120)); // 이미지를 크기에 맞게 조정
                         button.ImageAlign = ContentAlignment.TopCenter;
                     }
                     catch (Exception ex)
@@ -120,32 +149,46 @@ namespace SmartMirror
 
         private void style_Click(int styleNum)
         {
-            // MaininputForm 숨기기
-            this.Hide();
 
-            this.synthaticOutputStart(styleNum);
-        }
+            Console.WriteLine("@@@@@@@@@@@@@@@@@@@");
+            if (SyntheticResponseList[styleNum] != null)
+            {
+            Console.WriteLine("이미지 내용어ㅗ엉");
+
+            }
+                    
 
 
-        private void synthaticOutputStart(int styleNum)
-        {
+
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            if (openSyntheticOutput != null)
+            {
+                openSyntheticOutput.Close();
+            }
             int outputMonitorIndex = 1;
-            int inputMonitorIndex = 0;
 
             Screen output = Screen.AllScreens[outputMonitorIndex];
             SyntheticOutput syntheticOutput = new SyntheticOutput(styleNum); // 나중에 수정 해야함
             syntheticOutput.StartPosition = FormStartPosition.Manual;
             syntheticOutput.Location = output.Bounds.Location;
             syntheticOutput.Show();
-
-            Screen input = Screen.AllScreens[inputMonitorIndex];
-            SyntheticInput syntheticInput = new SyntheticInput(styleNum); // 나중에 수정 해야함
-            syntheticInput.StartPosition = FormStartPosition.Manual;
-            syntheticInput.Location = input.Bounds.Location;
-            syntheticInput.Show();
-
         }
 
 
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            MakeupOutputForm openedForm = Application.OpenForms["MakeupOutputFOrm"] as MakeupOutputForm;
+            openedForm.Hide();
+
+            MainInputForm openMainInputForm = Application.OpenForms["MainInputForm"] as MainInputForm;
+            MainOutputForm openMainOutForm = Application.OpenForms["MainOutputForm"] as MainOutputForm;
+
+            openMainInputForm.Show();
+            openMainOutForm.Show();
+        }
     }
+
+
 }

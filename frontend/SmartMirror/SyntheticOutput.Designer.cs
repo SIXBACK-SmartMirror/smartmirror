@@ -29,13 +29,16 @@
         private void InitializeComponent()
         {
             syntheticImg = new PictureBox();
+            goodsOptionList = new Panel();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)syntheticImg).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // syntheticImg
             // 
             syntheticImg.Anchor = AnchorStyles.None;
-            syntheticImg.Location = new Point(292, 341);
+            syntheticImg.Location = new Point(29, 88);
             syntheticImg.Name = "syntheticImg";
             syntheticImg.Size = new Size(1000, 794);
             syntheticImg.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -43,23 +46,46 @@
             syntheticImg.TabStop = false;
             syntheticImg.UseWaitCursor = true;
             // 
+            // goodsOptionList
+            // 
+            goodsOptionList.Anchor = AnchorStyles.None;
+            goodsOptionList.Location = new Point(29, 957);
+            goodsOptionList.Name = "goodsOptionList";
+            goodsOptionList.Size = new Size(1000, 272);
+            goodsOptionList.TabIndex = 5;
+            // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Controls.Add(syntheticImg);
+            panel1.Controls.Add(goodsOptionList);
+            panel1.Location = new Point(263, 293);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1093, 1292);
+            panel1.TabIndex = 6;
+            // 
             // SyntheticOutput
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(1600, 2122);
-            Controls.Add(syntheticImg);
+            Controls.Add(panel1);
             ForeColor = Color.White;
+            FormBorderStyle = FormBorderStyle.None;
             Name = "SyntheticOutput";
+            WindowState = FormWindowState.Maximized;
             Load += SyntheticOutput_Load;
             ((System.ComponentModel.ISupportInitialize)syntheticImg).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private PictureBox syntheticImg;
+        private Panel goodsOptionList;
+        private Panel panel1;
     }
 }

@@ -37,6 +37,7 @@ namespace SmartMirror
         {
             thread = new Thread(new ThreadStart(CaptureVideo));
             thread.Start();
+            this.CaptureImage();
         }
 
         public void CaptureVideo()
@@ -67,6 +68,7 @@ namespace SmartMirror
         //}
         public void CaptureImage()
         {
+
             if (is_taken)
             {
                 Console.WriteLine("송출 키고, 사진 뺌");
@@ -79,6 +81,28 @@ namespace SmartMirror
             timer.Tick += new EventHandler(count_down);
             timer.Interval = 1000;
             timer.Start();
+
+            //if (time == 2 || time == 1 || time == 0)
+            //{
+            //    Console.WriteLine("????");
+            //    Console.WriteLine(time);
+                
+            //}
+            //else if (is_taken)
+            //{
+            //    Console.WriteLine("송출 키고, 사진 뺌");
+            //    this.captureImg.Image.Dispose();
+            //    this.captureImg.Image = null;
+            //    this.streamingBox.Visible = true;
+            //    this.captureImg.Visible = false;
+            //}
+            //else
+            //{
+            //    timer = new System.Windows.Forms.Timer();
+            //    timer.Tick += new EventHandler(count_down);
+            //    timer.Interval = 1000;
+            //    timer.Start();
+            //}
 
         }
 

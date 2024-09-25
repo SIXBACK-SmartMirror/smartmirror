@@ -99,26 +99,50 @@ namespace SmartMirror
             isClose = !isClose;
         }
 
+        // @@@@@@@@@@@@@@@@@@@
+        //@@@@@@@@@@@@@@@@@@@@@@@@
+        // 혜민 코드 같이 수정
         private void makeup_Click(object sender, EventArgs e)
         {
-            int monitorIndex = 1;
-            MakeupOutputForm outputForm = new MakeupOutputForm();
+            MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
+            if (openMakeupOutputForm == null)
+            {
+                int monitorIndex = 1;
+                MakeupOutputForm outputForm = new MakeupOutputForm();
 
-            Screen mirror = Screen.AllScreens[monitorIndex];
+                Screen mirror = Screen.AllScreens[monitorIndex];
 
-            outputForm.StartPosition = FormStartPosition.Manual;
-            outputForm.Location = mirror.Bounds.Location;
+                outputForm.StartPosition = FormStartPosition.Manual;
+                outputForm.Location = mirror.Bounds.Location;
 
-            // MakeupInform show
-            Console.WriteLine("연결");
-            outputForm.Show();
+                // MakeupInform show
+                Console.WriteLine("연결");
+                outputForm.Show();
 
-            // MaininputForm 숨기기
-            this.Hide();
+                // MaininputForm 숨기기
+                this.Hide();
+                // MainoutForm 숨기기
+                mainOutputForm.Hide();
 
-            MakeupInputForm inputForm = new MakeupInputForm(outputForm);
-            //inputForm.Owner = this;
-            inputForm.Show();
+                MakeupInputForm inputForm = new MakeupInputForm(outputForm);
+                //inputForm.Owner = this;
+                inputForm.Show();
+            }
+            else
+            {
+                // MaininputForm 숨기기
+                this.Hide();
+                // MainoutForm 숨기기
+                mainOutputForm.Hide();
+                // makeupout  
+                openMakeupOutputForm.Show();
+                // makeupinput  
+                MakeupInputForm openMakeupInputForm = Application.OpenForms["MakeupInputForm"] as MakeupInputForm;
+                openMakeupInputForm.Show();
+            }
+
+
+
         }
     }
 }
