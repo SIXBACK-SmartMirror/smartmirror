@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Net.Http;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
+using SmartMirror.Models;
 
 namespace SmartMirror
 {
@@ -73,6 +74,7 @@ namespace SmartMirror
 
             foreach (var goods in goodsList)
             {
+                int idx = (int)goods["goodsId"];
                 string goodsName = goods["goodsName"].ToString();
                 string goodsPrice = goods["goodsPrice"].ToString();
                 string goodsDiscountPrice = goods["goodsDiscountPrice"].ToString();
@@ -80,7 +82,7 @@ namespace SmartMirror
                 string goodsImage = goods["goodsImage"].ToString();
 
                 // 상품 패널 생성
-                Panel productPanel = CreateGoodsPanel(goodsName, goodsPrice, goodsDiscountPrice, brandName, goodsImage);
+                Panel productPanel = CreateGoodsPanel(idx, goodsName, goodsPrice, goodsDiscountPrice, brandName, goodsImage);
 
                 // 가로로 배치 (한 줄에 3개씩)
                 int xPosition = (panelIndex % itemsPerRow) * (productPanel.Width + panelSpacing);
@@ -138,7 +140,7 @@ namespace SmartMirror
         }
 
         // 상품 패널을 생성하는 메서드
-        private Panel CreateGoodsPanel(string goodsName, string goodsPrice, string goodsDiscountPrice, string brandName, string goodsImage)
+        private Panel CreateGoodsPanel(int idx, string goodsName, string goodsPrice, string goodsDiscountPrice, string brandName, string goodsImage)
         {
             Panel panel = new Panel();
             panel.Size = new Size(309, 342);
@@ -202,7 +204,84 @@ namespace SmartMirror
 
             panel.Controls.Add(pictureBox);
 
+            GoodsData goodsData = new GoodsData
+            {
+                Id = idx,
+                GoodsName = goodsName,
+                GoodsPrice = goodsPrice,
+                GoodsDiscountPrice = goodsDiscountPrice,
+                BrandName = brandName,
+                GoodsImage = goodsImage
+            };
+
+            panel.Click += (sender, e) => Panel_Click(goodsData);
+            goodsNameLabel.Click +=(sender, e) => Panel_Click(goodsData);
+            brandLabel.Click += (sender, e) => Panel_Click(goodsData);
+            priceLabel.Click += (sender, e) => Panel_Click(goodsData);
+            discountPriceLabel.Click += (sender, e) => Panel_Click(goodsData);
+            pictureBox.Click += (sender, e) => Panel_Click(goodsData);
+
             return panel;
+        }
+
+        private async void Panel_Click(GoodsData goodsData)
+        {
+
+            string baseUrl = "http://192.168.100.147:8080/smartmirrorApi/market/1/goods";
+            string urlWithParams = $"{baseUrl}/{goodsData.Id}";
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(urlWithParams);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseData = await response.Content.ReadAsStringAsync();
+                        Console.WriteLine(responseData);
+
+                        this.Hide();
+
+                        if (screens.Length == 2)
+                        {
+                            inputMonitor = 0;
+                        }
+
+                        SearchDetailOutputForm searchDetailOutputForm = new SearchDetailOutputForm();
+
+                        Screen secondaryScreen = Screen.AllScreens[outputMonitor];
+                        searchDetailOutputForm.StartPosition = FormStartPosition.Manual;
+                        searchDetailOutputForm.Location = secondaryScreen.Bounds.Location;
+                        searchDetailOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+                        if (outputForm != null && !outputForm.IsDisposed)
+                        {
+                            outputForm.Hide();
+                        }
+
+                        searchDetailOutputForm.Show();
+
+                        JObject jsonResponse = JObject.Parse(resultApi);
+
+                        SearchDetailInputForm inputForm = new SearchDetailInputForm(searchDetailOutputForm, goodsData, responseData);
+
+                        Screen primaryScreen = Screen.AllScreens[inputMonitor];
+                        inputForm.StartPosition = FormStartPosition.Manual;
+                        inputForm.Location = primaryScreen.Bounds.Location;
+                        inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                        inputForm.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"상품에 대한 요청 실패: {response.StatusCode}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"오류 발생: {ex.Message}");
+            }
         }
 
         private void home_Click(object sender, EventArgs e)
