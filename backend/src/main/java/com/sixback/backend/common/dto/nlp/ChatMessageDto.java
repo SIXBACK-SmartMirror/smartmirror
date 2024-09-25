@@ -27,10 +27,8 @@ public class ChatMessageDto {
 	 */
 	@Override
 	public String toString() {
-		return new StringBuilder()
-			.append("{\"role\":\"").append(role)
-			.append("\", \"content\":\"").append(content)
-			.append("\"}").toString();
+		return "{\"role\":\"%s\", \"content\":\"%s\"}"
+			.formatted(role, content);
 	}
 }
 

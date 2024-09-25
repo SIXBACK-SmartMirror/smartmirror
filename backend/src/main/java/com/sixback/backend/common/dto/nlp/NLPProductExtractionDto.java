@@ -2,7 +2,6 @@ package com.sixback.backend.common.dto.nlp;
 
 import java.util.List;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,11 +28,7 @@ public class NLPProductExtractionDto {
 	 */
 	@Override
 	public String toString() {
-		return new StringBuilder()
-			.append("{\"model\":\"").append(model)
-			.append("\", \"messages\":").append(messages)
-			.append(", \"temperature\":").append(temperature)
-			.append(", \"max_tokens\":").append(max_completion_tokens)
-			.append("}").toString();
+		return "{\"model\":\"%s\", \"messages\":%s, \"temperature\":%f, \"max_completion_tokens\":%d}"
+			.formatted(model, messages, temperature, max_completion_tokens);
 	}
 }
