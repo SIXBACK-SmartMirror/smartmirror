@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Net.Http;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
+using SmartMirror.Helpers;
 using SmartMirror.Models;
 
 namespace SmartMirror
@@ -83,7 +84,7 @@ namespace SmartMirror
                     BrandName = goods["brandNameKr"].ToString(),
                     GoodsImage = goods["goodsImage"].ToString()
                 };
-               
+
                 // 상품 패널 생성
                 Panel productPanel = CreateGoodsPanel(goodsData);
 
@@ -207,10 +208,10 @@ namespace SmartMirror
 
             panel.Controls.Add(pictureBox);
 
-          
+
 
             panel.Click += (sender, e) => Panel_Click(goodsData);
-            goodsNameLabel.Click +=(sender, e) => Panel_Click(goodsData);
+            goodsNameLabel.Click += (sender, e) => Panel_Click(goodsData);
             brandLabel.Click += (sender, e) => Panel_Click(goodsData);
             priceLabel.Click += (sender, e) => Panel_Click(goodsData);
             discountPriceLabel.Click += (sender, e) => Panel_Click(goodsData);
@@ -283,64 +284,38 @@ namespace SmartMirror
         {
             this.Hide();
 
-            if (screens.Length == 2)
-            {
-                inputMonitor = 0;
-            }
+            // 스크린 설정 호출
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
 
             MainOutputForm mainOutputForm = new MainOutputForm();
+            MainInputForm inputForm = new MainInputForm(mainOutputForm);
 
-            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
-            mainOutputForm.StartPosition = FormStartPosition.Manual;
-            mainOutputForm.Location = secondaryScreen.Bounds.Location;
-            mainOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+            FormHelper.SwitchToForm(inputForm, mainOutputForm, primaryScreen, secondaryScreen);
 
             if (outputForm != null && !outputForm.IsDisposed)
             {
                 outputForm.Hide();
             }
-
-            mainOutputForm.Show();
-
-            MainInputForm inputForm = new MainInputForm(mainOutputForm);
-
-            Screen primaryScreen = Screen.AllScreens[inputMonitor];
-            inputForm.StartPosition = FormStartPosition.Manual;
-            inputForm.Location = primaryScreen.Bounds.Location;
-            inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
-            inputForm.Show();
         }
 
         private void research_Click(object sender, EventArgs e)
         {
             this.Hide();
 
-            if (screens.Length == 2)
-            {
-                inputMonitor = 0;
-            }
+            // 스크린 설정 호출
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
 
             SearchOutputForm searchOutputForm = new SearchOutputForm();
+            SearchInputForm inputForm = new SearchInputForm(searchOutputForm);
 
-            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
-            searchOutputForm.StartPosition = FormStartPosition.Manual;
-            searchOutputForm.Location = secondaryScreen.Bounds.Location;
-            searchOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+            FormHelper.SwitchToForm(inputForm, searchOutputForm, primaryScreen, secondaryScreen);
 
             if (outputForm != null && !outputForm.IsDisposed)
             {
                 outputForm.Hide();
             }
-
-            searchOutputForm.Show();
-
-            SearchInputForm inputForm = new SearchInputForm(searchOutputForm);
-
-            Screen primaryScreen = Screen.AllScreens[inputMonitor];
-            inputForm.StartPosition = FormStartPosition.Manual;
-            inputForm.Location = primaryScreen.Bounds.Location;
-            inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
-            inputForm.Show();
         }
     }
 }
