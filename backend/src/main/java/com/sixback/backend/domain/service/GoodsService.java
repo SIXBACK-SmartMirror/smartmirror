@@ -1,6 +1,7 @@
 package com.sixback.backend.domain.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.sixback.backend.common.exception.GoodsNotFoundException;
+import com.sixback.backend.common.exception.OptionNotFoundException;
 import com.sixback.backend.domain.dto.GoodsDetailDto;
 import com.sixback.backend.domain.dto.GoodsDto;
 import com.sixback.backend.domain.dto.OptionDto;
@@ -39,8 +41,21 @@ public class GoodsService {
 		marketService.validateMarket(marketId);
 		// goods_id 검사
 		goodsOptionRepository.findByValidGoodsId(goodsId).orElseThrow(GoodsNotFoundException::new);
-		List<OptionDto> optionDtoList = null;
-		List<OptionInfoDto> locationList = null;
+		List<OptionInfoDto> locationList = goodsOptionRepository.findAllOptionByGoodsId(marketId, goodsId);
+		if(locationList.isEmpty()) {
+			throw new OptionNotFoundException();
+		}
+		List<OptionDto> optionDtoList = locationList.stream()
+			.map(OptionInfoDto -> new OptionDto().builder()
+				.optionId(OptionInfoDto.getOptionId())
+				.optionName(OptionInfoDto.getOptionName())
+				.optionImage(OptionInfoDto.getOptionImage())
+				.optionPrice(OptionInfoDto.getOptionPrice())
+				.optionDiscountPrice(OptionInfoDto.getOptionDiscountPrice())
+				.stock(OptionInfoDto.getStock())
+				.isInMarket(OptionInfoDto.getIsInMarket())
+				.build())
+			.collect(Collectors.toList());
 		return new GoodsDetailDto(optionDtoList, locationList);
 	}
 

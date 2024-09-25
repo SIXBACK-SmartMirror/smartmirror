@@ -1,5 +1,6 @@
 package com.sixback.backend.domain.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import com.sixback.backend.domain.dto.GoodsDto;
 import com.sixback.backend.domain.entity.Goods;
 import com.sixback.backend.domain.entity.GoodsOption;
 import com.sixback.backend.domain.dto.UseOptionDetailDto;
+import com.sixback.backend.domain.dto.OptionInfoDto;
 import com.sixback.backend.domain.entity.GoodsOption;
 
 public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> {
@@ -83,5 +85,36 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 		""")
 	Optional<Goods> findByValidGoodsId(Long goodsId);
 
-	// List<OptionDto> findOptionDtoByGoodsId(Long goodsId);
+@Query(value = """
+		SELECT co.option_id,
+			o.option_name,
+			o.option_image,
+			o.option_price,
+			o.option_price * CAST((1 - o.option_discount) AS DECIMAL(10, 2)) AS option_discount_price,
+			CASE WHEN MAX(s.market_id) IS NOT NULL THEN TRUE ELSE FALSE END AS is_in_market_raw,
+			COUNT(CASE WHEN s.is_selling = 0 THEN 1 END) AS stock,
+			s.location as location_raw
+		FROM (SELECT go.goods_id, go.option_id, FALSE AS isGroup
+				FROM goods_option go
+				WHERE go.goods_id = :goodsId
+			UNION ALL
+				SELECT gro.goods_id, gro.option_id, TRUE AS isGroup
+				FROM group_option gro
+				WHERE gro.goods_id = :goodsId) as co
+		LEFT JOIN goods_option o ON o.option_id = co.option_id
+		LEFT JOIN stock s ON s.option_id = co.option_id AND s.market_id = :marketId
+		GROUP BY co.option_id,
+			co.isGroup,
+			o.option_name,
+			o.option_image,
+			o.option_price,
+			o.option_discount,
+			s.location
+		ORDER BY
+			(CASE WHEN stock > 0 THEN 1 ELSE 0 END) DESC,
+			co.isGroup,
+			stock DESC;
+	""", nativeQuery = true)
+	List<OptionInfoDto> findAllOptionByGoodsId(@Param("marketId") Long marketId, @Param("goodsId") Long goodsId);
+
 }
