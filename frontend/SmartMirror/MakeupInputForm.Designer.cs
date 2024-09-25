@@ -1,6 +1,6 @@
 ﻿namespace SmartMirror
 {
-    partial class MainInputForm
+    partial class MakeupInputForm
     {
         /// <summary>
         /// Required designer variable.
@@ -26,22 +26,17 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainInputForm));
-            mirror = new Panel();
+            HomeBtn = new Panel();
             pictureBox1 = new PictureBox();
             label9 = new Label();
             label1 = new Label();
-            search = new Panel();
+            filmingBtn = new Panel();
             label5 = new Label();
             pictureBox2 = new PictureBox();
             label2 = new Label();
-            makeup = new Panel();
+            usingBtn = new Panel();
             label7 = new Label();
             pictureBox4 = new PictureBox();
             label3 = new Label();
@@ -55,11 +50,11 @@
             panel4 = new Panel();
             panel7 = new Panel();
             panel8 = new Panel();
-            mirror.SuspendLayout();
+            HomeBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            search.SuspendLayout();
+            filmingBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            makeup.SuspendLayout();
+            usingBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panel6.SuspendLayout();
             panel9.SuspendLayout();
@@ -68,24 +63,24 @@
             panel8.SuspendLayout();
             SuspendLayout();
             // 
-            // mirror
+            // HomeBtn
             // 
-            mirror.BackColor = Color.FromArgb(232, 89, 173);
-            mirror.Controls.Add(pictureBox1);
-            mirror.Controls.Add(label9);
-            mirror.Controls.Add(label1);
-            mirror.Location = new Point(53, 60);
-            mirror.Margin = new Padding(2);
-            mirror.Name = "mirror";
-            mirror.Size = new Size(328, 264);
-            mirror.TabIndex = 0;
-            mirror.Click += panel1_Click;
-            mirror.Paint += panel_Paint;
+            HomeBtn.BackColor = Color.FromArgb(176, 98, 193);
+            HomeBtn.Controls.Add(pictureBox1);
+            HomeBtn.Controls.Add(label9);
+            HomeBtn.Controls.Add(label1);
+            HomeBtn.Location = new Point(240, 87);
+            HomeBtn.Margin = new Padding(2);
+            HomeBtn.Name = "HomeBtn";
+            HomeBtn.Size = new Size(179, 154);
+            HomeBtn.TabIndex = 0;
+            HomeBtn.Paint += panel_Paint;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(245, 165);
+            pictureBox1.Image = Properties.Resources.free_sticker_computer_7943655;
+            pictureBox1.InitialImage = null;
+            pictureBox1.Location = new Point(111, 91);
             pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(57, 55);
@@ -96,57 +91,57 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
+            label9.Font = new Font("맑은 고딕", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label9.ForeColor = Color.White;
-            label9.Location = new Point(27, 64);
+            label9.Location = new Point(1, 48);
             label9.Margin = new Padding(2, 0, 2, 0);
             label9.Name = "label9";
-            label9.Size = new Size(109, 30);
+            label9.Size = new Size(178, 19);
             label9.TabIndex = 8;
-            label9.Text = "화면 끄기";
+            label9.Text = "선택한 상품으로 화장 하기";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("맑은 고딕", 20F, FontStyle.Bold);
+            label1.Font = new Font("맑은 고딕", 13.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(15, 11);
+            label1.Location = new Point(5, 11);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(153, 46);
+            label1.Size = new Size(142, 32);
             label1.TabIndex = 1;
-            label1.Text = "거울 ON";
+            label1.Text = "커스텀 화장";
             // 
-            // search
+            // filmingBtn
             // 
-            search.BackColor = Color.FromArgb(255, 80, 120);
-            search.Controls.Add(label5);
-            search.Controls.Add(pictureBox2);
-            search.Controls.Add(label2);
-            search.Location = new Point(441, 60);
-            search.Margin = new Padding(2);
-            search.Name = "search";
-            search.Size = new Size(328, 264);
-            search.TabIndex = 2;
-            search.Click += panel2_Click;
-            search.Paint += panel_Paint;
+            filmingBtn.BackColor = Color.FromArgb(85, 171, 217);
+            filmingBtn.Controls.Add(label5);
+            filmingBtn.Controls.Add(pictureBox2);
+            filmingBtn.Controls.Add(label2);
+            filmingBtn.Location = new Point(28, 87);
+            filmingBtn.Margin = new Padding(2);
+            filmingBtn.Name = "filmingBtn";
+            filmingBtn.Size = new Size(179, 154);
+            filmingBtn.TabIndex = 2;
+            filmingBtn.Click += filmingBtn_Click;
+            filmingBtn.Paint += panel_Paint;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
+            label5.Font = new Font("맑은 고딕", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(27, 64);
+            label5.Location = new Point(14, 48);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
-            label5.Size = new Size(241, 30);
+            label5.Size = new Size(70, 19);
             label5.TabIndex = 6;
-            label5.Text = "상품, 브랜드 이름 검색";
+            label5.Text = "사진 촬영";
             // 
             // pictureBox2
             // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(245, 165);
+            pictureBox2.Image = Properties.Resources.free_icon_photo_11943305;
+            pictureBox2.Location = new Point(111, 91);
             pictureBox2.Margin = new Padding(2);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(57, 55);
@@ -157,45 +152,45 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("맑은 고딕", 20F, FontStyle.Bold);
+            label2.Font = new Font("맑은 고딕", 13.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(15, 11);
+            label2.Location = new Point(14, 11);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(168, 46);
+            label2.Size = new Size(118, 32);
             label2.TabIndex = 1;
-            label2.Text = "물건 찾기";
+            label2.Text = "다시 촬영";
             // 
-            // makeup
+            // usingBtn
             // 
-            makeup.BackColor = Color.FromArgb(255, 120, 120);
-            makeup.Controls.Add(label7);
-            makeup.Controls.Add(pictureBox4);
-            makeup.Controls.Add(label3);
-            makeup.Location = new Point(832, 60);
-            makeup.Margin = new Padding(2);
-            makeup.Name = "makeup";
-            makeup.Size = new Size(328, 264);
-            makeup.TabIndex = 3;
-            makeup.Click += makeup_Click;
-            makeup.Paint += panel_Paint;
+            usingBtn.BackColor = Color.FromArgb(155, 234, 240);
+            usingBtn.Controls.Add(label7);
+            usingBtn.Controls.Add(pictureBox4);
+            usingBtn.Controls.Add(label3);
+            usingBtn.Location = new Point(453, 87);
+            usingBtn.Margin = new Padding(2);
+            usingBtn.Name = "usingBtn";
+            usingBtn.Size = new Size(179, 154);
+            usingBtn.TabIndex = 3;
+            usingBtn.Click += usingBtn_Click;
+            usingBtn.Paint += panel_Paint;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
+            label7.Font = new Font("맑은 고딕", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(27, 64);
+            label7.Location = new Point(17, 48);
             label7.Margin = new Padding(2, 0, 2, 0);
             label7.Name = "label7";
-            label7.Size = new Size(161, 30);
+            label7.Size = new Size(159, 19);
             label7.TabIndex = 7;
-            label7.Text = "AI로 화장 체험";
+            label7.Text = "현재 사진으로 합성하기";
             // 
             // pictureBox4
             // 
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(245, 165);
+            pictureBox4.Image = Properties.Resources.free_icon_makeup_5732023;
+            pictureBox4.Location = new Point(111, 91);
             pictureBox4.Margin = new Padding(2);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(57, 55);
@@ -206,47 +201,46 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("맑은 고딕", 20F, FontStyle.Bold);
+            label3.Font = new Font("맑은 고딕", 13.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(15, 11);
+            label3.Location = new Point(10, 11);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(168, 46);
+            label3.Size = new Size(110, 32);
             label3.TabIndex = 2;
-            label3.Text = "가상 화장";
+            label3.Text = "합성하기";
             // 
             // panel5
             // 
-            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panel5.Anchor = AnchorStyles.Top;
             panel5.BackColor = Color.FromArgb(130, 220, 40);
             panel5.Location = new Point(-2, -2);
             panel5.Margin = new Padding(2);
             panel5.Name = "panel5";
-            panel5.Size = new Size(89, 812);
+            panel5.Size = new Size(89, 512);
             panel5.TabIndex = 5;
             // 
             // panel6
             // 
-            panel6.Anchor = AnchorStyles.None;
             panel6.BackColor = Color.White;
             panel6.Controls.Add(panel9);
-            panel6.Controls.Add(mirror);
-            panel6.Controls.Add(search);
-            panel6.Controls.Add(makeup);
-            panel6.Location = new Point(90, 118);
+            panel6.Controls.Add(HomeBtn);
+            panel6.Controls.Add(filmingBtn);
+            panel6.Controls.Add(usingBtn);
+            panel6.Location = new Point(88, 55);
             panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1236, 678);
+            panel6.Size = new Size(684, 445);
             panel6.TabIndex = 6;
             // 
             // panel9
             // 
             panel9.BackColor = Color.FromArgb(224, 224, 224);
             panel9.Controls.Add(label8);
-            panel9.Location = new Point(53, 381);
+            panel9.Location = new Point(47, 272);
             panel9.Margin = new Padding(2);
             panel9.Name = "panel9";
-            panel9.Size = new Size(1107, 229);
+            panel9.Size = new Size(584, 131);
             panel9.TabIndex = 4;
             // 
             // label8
@@ -254,7 +248,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("맑은 고딕", 15F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label8.ForeColor = Color.White;
-            label8.Location = new Point(447, 105);
+            label8.Location = new Point(176, 52);
             label8.Margin = new Padding(2, 0, 2, 0);
             label8.Name = "label8";
             label8.Size = new Size(233, 35);
@@ -263,39 +257,37 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.Anchor = AnchorStyles.Left;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(17, 9);
+            pictureBox3.Anchor = AnchorStyles.None;
+            pictureBox3.Image = Properties.Resources.free_sticker_makeup_11601337;
+            pictureBox3.Location = new Point(17, 18);
             pictureBox3.Margin = new Padding(2);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(48, 42);
+            pictureBox3.Size = new Size(33, 28);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 1;
             pictureBox3.TabStop = false;
             // 
             // label6
             // 
-            label6.Anchor = AnchorStyles.Left;
             label6.AutoSize = true;
-            label6.Font = new Font("맑은 고딕", 20F, FontStyle.Bold);
-            label6.Location = new Point(74, 9);
+            label6.Font = new Font("맑은 고딕", 15F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            label6.Location = new Point(57, 14);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
-            label6.Size = new Size(88, 46);
+            label6.Size = new Size(115, 35);
             label6.TabIndex = 0;
-            label6.Text = "메뉴";
+            label6.Text = "화장하기";
             // 
             // label4
             // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
             label4.BackColor = Color.White;
-            label4.Font = new Font("맑은 고딕", 15F, FontStyle.Bold);
+            label4.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
             label4.ForeColor = Color.FromArgb(255, 120, 120);
-            label4.Location = new Point(1125, 14);
+            label4.Location = new Point(612, 14);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(174, 35);
+            label4.Size = new Size(139, 28);
             label4.TabIndex = 2;
             label4.Text = "올브영 구미점";
             // 
@@ -310,10 +302,10 @@
             // 
             // panel7
             // 
-            panel7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            panel7.Anchor = AnchorStyles.Top;
             panel7.BackColor = Color.FromArgb(130, 220, 40);
             panel7.Controls.Add(panel4);
-            panel7.Location = new Point(1095, 17);
+            panel7.Location = new Point(577, 14);
             panel7.Margin = new Padding(2);
             panel7.Name = "panel7";
             panel7.Size = new Size(29, 28);
@@ -330,12 +322,12 @@
             panel8.Size = new Size(684, 60);
             panel8.TabIndex = 4;
             // 
-            // MainInputForm
+            // MakeupInputForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(1323, 800);
+            ClientSize = new Size(771, 500);
             Controls.Add(panel8);
             Controls.Add(panel7);
             Controls.Add(label4);
@@ -343,16 +335,16 @@
             Controls.Add(panel5);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(2);
-            Name = "MainInputForm";
+            Name = "MakeupInputForm";
             Text = "Form1";
-            mirror.ResumeLayout(false);
-            mirror.PerformLayout();
+            HomeBtn.ResumeLayout(false);
+            HomeBtn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            search.ResumeLayout(false);
-            search.PerformLayout();
+            filmingBtn.ResumeLayout(false);
+            filmingBtn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            makeup.ResumeLayout(false);
-            makeup.PerformLayout();
+            usingBtn.ResumeLayout(false);
+            usingBtn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             panel6.ResumeLayout(false);
             panel9.ResumeLayout(false);
@@ -367,11 +359,11 @@
 
         #endregion
 
-        private Panel mirror;
+        private Panel HomeBtn;
         private Label label1;
-        private Panel search;
+        private Panel filmingBtn;
         private Label label2;
-        private Panel makeup;
+        private Panel usingBtn;
         private Label label3;
         private PictureBox pictureBox1;
         private Panel panel5;

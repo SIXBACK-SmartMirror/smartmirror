@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using NAudio.Wave;
 using System.Runtime.InteropServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Newtonsoft.Json.Linq;
 
 namespace SmartMirror
 {
@@ -13,6 +15,7 @@ namespace SmartMirror
         private bool isRecording = false; // 녹음 상태 관리 변수
         private int outputMonitor = 1;
         private int inputMonitor = 2;
+        private Screen[] screens = Screen.AllScreens;
 
         private SearchOutputForm outputForm;
         private Process oskProcess;
@@ -75,21 +78,19 @@ namespace SmartMirror
 
         private void MoveOnScreenKeyboardToMonitor(int monitorIndex)
         {
-            // 2번 모니터가 존재하는지 확인
-            if (Screen.AllScreens.Length > monitorIndex)
+            if (screens.Length == 2)
             {
-                Screen selectedMonitor = Screen.AllScreens[monitorIndex];
-                IntPtr hWnd = FindWindow("IPTip_Main_Window", "keyboard"); // 가상 키보드의 창 클래스 이름
-
-                if (hWnd != IntPtr.Zero)
-                {
-                    // 모니터 위치로 가상 키보드 이동
-                    SetWindowPos(hWnd, IntPtr.Zero, selectedMonitor.Bounds.X, selectedMonitor.Bounds.Y, selectedMonitor.Bounds.Width, selectedMonitor.Bounds.Height, SWP_NOZORDER | SWP_NOACTIVATE);
-                }
+                inputMonitor = 0;
             }
-            else
-            {
-                MessageBox.Show($"모니터 {monitorIndex + 1}이(가) 존재하지 않습니다.");
+            
+            Screen selectedMonitor = Screen.AllScreens[inputMonitor];
+            IntPtr hWnd = FindWindow("IPTip_Main_Window", "keyboard"); // 가상 키보드의 창 클래스 이름
+
+            if (hWnd != IntPtr.Zero)
+             {
+                // 모니터 위치로 가상 키보드 이동
+                // SetWindowPos(hWnd, IntPtr.Zero, selectedMonitor.Bounds.X, selectedMonitor.Bounds.Y, selectedMonitor.Bounds.Width, selectedMonitor.Bounds.Height, SWP_NOZORDER | SWP_NOACTIVATE);
+                //
             }
         }
 
@@ -114,39 +115,43 @@ namespace SmartMirror
             }
         }
 
-        private void change()
+        private async void change()
         {
-            this.Hide();
+            string apiResponse = await SearchApi.CallSearchApi(outputForm.textBox1.Text, 0);
 
-            Screen[] screens = Screen.AllScreens;
-
-            if (screens.Length == 2)
+            if (apiResponse != null)
             {
-                inputMonitor = 1;
+
+                if (screens.Length == 2)
+                {
+                    inputMonitor = 0;
+                }
+
+                SearchInfoOutputForm searchInfoOutputForm = new SearchInfoOutputForm();
+
+                Screen secondaryScreen = Screen.AllScreens[outputMonitor];
+                searchInfoOutputForm.StartPosition = FormStartPosition.Manual;
+                searchInfoOutputForm.Location = secondaryScreen.Bounds.Location;
+                searchInfoOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+                SearchInfoInputForm searchInputForm = new SearchInfoInputForm(apiResponse);
+
+                Screen primaryScreen = Screen.AllScreens[inputMonitor];
+                searchInputForm.StartPosition = FormStartPosition.Manual;
+                searchInputForm.Location = primaryScreen.Bounds.Location;
+                searchInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+
+                this.Hide();
+                searchInputForm.Show();
+
+                if (outputForm != null && !outputForm.IsDisposed)
+                {
+                    outputForm.Hide(); // MainOutputForm 숨기기
+                }
+
+                // SearchOutputForm 표시
+                searchInfoOutputForm.Show();
             }
-
-            SearchInfoOutputForm searchInfoOutputForm = new SearchInfoOutputForm();
-
-            Screen secondaryScreen = Screen.AllScreens[outputMonitor];
-            searchInfoOutputForm.StartPosition = FormStartPosition.Manual;
-            searchInfoOutputForm.Location = secondaryScreen.Bounds.Location;
-            searchInfoOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
-
-            if (outputForm != null && !outputForm.IsDisposed)
-            {
-                outputForm.Hide(); // MainOutputForm 숨기기
-            }
-
-            // SearchOutputForm 표시
-            searchInfoOutputForm.Show();
-
-            SearchInfoInputForm searchInputForm = new SearchInfoInputForm();
-
-            Screen primaryScreen = Screen.AllScreens[inputMonitor];
-            searchInputForm.StartPosition = FormStartPosition.Manual;
-            searchInputForm.Location = primaryScreen.Bounds.Location;
-            searchInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
-            searchInputForm.Show();
         }
 
         private void panel3_Click(object sender, EventArgs e)
@@ -178,11 +183,9 @@ namespace SmartMirror
         {
             this.Hide();
 
-            Screen[] screens = Screen.AllScreens;
-
             if (screens.Length == 2)
             {
-                inputMonitor = 1;
+                inputMonitor = 0;
             }
 
             MainOutputForm mainOutputForm = new MainOutputForm();
