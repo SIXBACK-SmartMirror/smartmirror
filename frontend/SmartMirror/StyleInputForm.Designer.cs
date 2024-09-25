@@ -49,13 +49,13 @@
             // 
             // panel5
             // 
-            panel5.Anchor = AnchorStyles.Top;
+            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel5.BackColor = Color.FromArgb(130, 220, 40);
             panel5.Controls.Add(pictureBox6);
             panel5.Location = new Point(-2, -2);
             panel5.Margin = new Padding(2);
             panel5.Name = "panel5";
-            panel5.Size = new Size(89, 512);
+            panel5.Size = new Size(89, 740);
             panel5.TabIndex = 5;
             // 
             // pictureBox6
@@ -67,25 +67,27 @@
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox6.TabIndex = 0;
             pictureBox6.TabStop = false;
+            pictureBox6.Click += pictureBox6_Click;
             // 
             // panel6
             // 
+            panel6.Anchor = AnchorStyles.None;
             panel6.BackColor = Color.White;
             panel6.Controls.Add(panel9);
-            panel6.Location = new Point(88, 55);
+            panel6.Location = new Point(104, 135);
             panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
-            panel6.Size = new Size(684, 445);
+            panel6.Size = new Size(989, 582);
             panel6.TabIndex = 6;
             // 
             // panel9
             // 
             panel9.AutoScroll = true;
             panel9.BackColor = Color.WhiteSmoke;
-            panel9.Location = new Point(16, 64);
+            panel9.Location = new Point(40, 42);
             panel9.Margin = new Padding(2);
             panel9.Name = "panel9";
-            panel9.Size = new Size(647, 370);
+            panel9.Size = new Size(906, 496);
             panel9.TabIndex = 4;
             // 
             // pictureBox3
@@ -113,11 +115,12 @@
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
             label4.BackColor = Color.White;
             label4.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
             label4.ForeColor = Color.FromArgb(255, 120, 120);
-            label4.Location = new Point(612, 14);
+            label4.Location = new Point(954, 14);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
             label4.Size = new Size(139, 28);
@@ -135,10 +138,10 @@
             // 
             // panel7
             // 
-            panel7.Anchor = AnchorStyles.Top;
+            panel7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel7.BackColor = Color.FromArgb(130, 220, 40);
             panel7.Controls.Add(panel4);
-            panel7.Location = new Point(577, 14);
+            panel7.Location = new Point(919, 14);
             panel7.Margin = new Padding(2);
             panel7.Name = "panel7";
             panel7.Size = new Size(29, 28);
@@ -160,7 +163,7 @@
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(771, 500);
+            ClientSize = new Size(1113, 728);
             Controls.Add(panel8);
             Controls.Add(panel7);
             Controls.Add(label4);
@@ -170,6 +173,7 @@
             Margin = new Padding(2);
             Name = "StyleInputForm";
             Text = "Form1";
+            WindowState = FormWindowState.Maximized;
             Load += StyleInputForm_Load;
             panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
