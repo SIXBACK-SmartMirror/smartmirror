@@ -6,15 +6,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public interface OptionInfoDto {
+	@JsonIgnore
+	Long getOptionId();
+	@JsonIgnore
+	String getOptionImage();
+	@JsonIgnore
+	Long getOptionPrice();
+	@JsonIgnore
+	Long getOptionDiscountPrice();
+	@JsonIgnore
+	String getLocationRaw(); // 내부적으로 사용
+	@JsonIgnore
+	Integer getIsInMarketRaw(); // 내부적으로 사용
 	String getOptionName();
-
 	int getStock();
-
 	// raw 값을 직접 노출하지 않고 Boolean 반환
-	default Boolean getIsInMarket() {
+	default boolean getIsInMarket() {
 		return getIsInMarketRaw() != null && getIsInMarketRaw() == 1;
 	}
-
 	// JSON 문자열을 LocationDto로 변환하여 반환
 	default LocationDto getLocation() {
 		String locationRaw = getLocationRaw();
@@ -29,12 +38,4 @@ public interface OptionInfoDto {
 			return null;
 		}
 	}
-
-	@JsonIgnore
-		// raw 값을 위한 내부 메서드
-	String getLocationRaw(); // 내부적으로 사용
-
-	@JsonIgnore
-		// 원시 값을 위한 내부 메서드
-	Integer getIsInMarketRaw(); // 내부적으로 사용
 }
