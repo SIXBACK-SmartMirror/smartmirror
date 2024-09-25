@@ -29,20 +29,10 @@ namespace SmartMirror
 
         private void panel_Paint(object sender, PaintEventArgs e)
         {
-            // 둥근 모서리 반지름 설정
-            int cornerRadius = 15;
-
-            // 패널의 크기
             int panelWidth = voice.Width;
             int panelHeight = voice.Height;
 
-            // GraphicsPath를 사용해 둥근 모서리 경로를 생성
-            GraphicsPath path = new GraphicsPath();
-            path.AddArc(new Rectangle(0, 0, cornerRadius, cornerRadius), 180, 90);  // 좌상단
-            path.AddArc(new Rectangle(panelWidth - cornerRadius, 0, cornerRadius, cornerRadius), 270, 90); // 우상단
-            path.AddArc(new Rectangle(panelWidth - cornerRadius, panelHeight - cornerRadius, cornerRadius, cornerRadius), 0, 90); // 우하단
-            path.AddArc(new Rectangle(0, panelHeight - cornerRadius, cornerRadius, cornerRadius), 90, 90); // 좌하단
-            path.CloseFigure();
+            GraphicsPath path = BoarderStyle.RoundSquare(panelWidth, panelHeight);
 
             // 패널의 모양을 둥근 모서리로 설정
             mirror.Region = new Region(path);
