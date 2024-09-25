@@ -27,6 +27,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(CustomServerException.class)
 	public ResponseEntity<?> handleCustomServerException(CustomServerException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>(e.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -38,6 +39,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(CustomClientException.class)
 	public ResponseEntity<?> handleCustomClientException(CustomClientException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>(e.getMessage(), null), HttpStatus.NOT_FOUND);
 	}
 
@@ -49,6 +51,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(CustomFileException.class)
 	public ResponseEntity<?> handleCustomFileException(CustomFileException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>(e.getMessage(), null), HttpStatus.BAD_REQUEST);
 	}
 
@@ -70,6 +73,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(IOException.class)
 	public ResponseEntity<?> FileIOException(IOException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("F00", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -80,6 +84,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("I00", null), HttpStatus.BAD_REQUEST);
 	}
 
@@ -90,6 +95,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(HandlerMethodValidationException.class)
 	public ResponseEntity<?> handleValidationException(HandlerMethodValidationException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("I01", null), HttpStatus.BAD_REQUEST);
 	}
 
@@ -100,6 +106,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(EmptyResultDataAccessException.class)
 	public ResponseEntity<?> noDataException(EmptyResultDataAccessException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("C00", null), HttpStatus.NOT_FOUND);
 	}
 
@@ -110,6 +117,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<?> integrityViolationException(DataIntegrityViolationException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("D00", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -120,6 +128,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(DataAccessException.class)
 	public ResponseEntity<?> dataException(DataAccessException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("D00", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
