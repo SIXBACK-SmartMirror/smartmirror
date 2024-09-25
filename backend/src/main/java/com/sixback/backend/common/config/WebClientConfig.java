@@ -15,7 +15,7 @@ public class WebClientConfig {
 	private String API_KEY;
 	@Value("${spring.data.api.url}")
 	private String API_URL;
-	@Value("$spring.data.gan.url}")
+	@Value("${spring.data.gan.url}")
 	private String GAN_API_URL;
 
 	// Base configuration for WebClient
