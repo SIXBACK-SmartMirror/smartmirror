@@ -57,7 +57,7 @@
             panel1.Controls.Add(label1);
             panel1.Controls.Add(pictureBox2);
             panel1.Location = new Point(109, 164);
-            panel1.Margin = new Padding(2, 2, 2, 2);
+            panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
             panel1.Size = new Size(928, 110);
             panel1.TabIndex = 2;
@@ -77,7 +77,7 @@
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
             pictureBox2.Location = new Point(835, 19);
-            pictureBox2.Margin = new Padding(2, 2, 2, 2);
+            pictureBox2.Margin = new Padding(2);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(68, 68);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -94,7 +94,7 @@
             Controls.Add(panel1);
             Controls.Add(title);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "SearchInfoOutputForm";
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
