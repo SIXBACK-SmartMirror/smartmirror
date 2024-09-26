@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             panel5 = new Panel();
+            panel2 = new Panel();
+            home = new Label();
             panel16 = new Panel();
-            label9 = new Label();
-            panel14 = new Panel();
-            label6 = new Label();
+            research = new Label();
             panel15 = new Panel();
             label8 = new Label();
             label4 = new Label();
@@ -54,8 +54,8 @@
             optionName = new Label();
             optionImg = new PictureBox();
             panel5.SuspendLayout();
+            panel2.SuspendLayout();
             panel16.SuspendLayout();
-            panel14.SuspendLayout();
             panel15.SuspendLayout();
             panel7.SuspendLayout();
             panel6.SuspendLayout();
@@ -71,8 +71,8 @@
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel5.BackColor = Color.FromArgb(130, 220, 40);
+            panel5.Controls.Add(panel2);
             panel5.Controls.Add(panel16);
-            panel5.Controls.Add(panel14);
             panel5.Controls.Add(panel15);
             panel5.Location = new Point(-2, -2);
             panel5.Margin = new Padding(2);
@@ -80,49 +80,51 @@
             panel5.Size = new Size(99, 1015);
             panel5.TabIndex = 5;
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(224, 224, 224);
+            panel2.Controls.Add(home);
+            panel2.Location = new Point(0, 371);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(100, 100);
+            panel2.TabIndex = 10;
+            // 
+            // home
+            // 
+            home.Anchor = AnchorStyles.None;
+            home.AutoSize = true;
+            home.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            home.ForeColor = Color.Black;
+            home.Location = new Point(35, 33);
+            home.Name = "home";
+            home.Size = new Size(32, 28);
+            home.TabIndex = 0;
+            home.Text = "홈";
+            home.TextAlign = ContentAlignment.MiddleCenter;
+            home.Click += home_Click;
+            // 
             // panel16
             // 
             panel16.BackColor = Color.FromArgb(224, 224, 224);
-            panel16.Controls.Add(label9);
-            panel16.Location = new Point(2, 371);
+            panel16.Controls.Add(research);
+            panel16.Location = new Point(0, 271);
             panel16.Name = "panel16";
             panel16.Size = new Size(100, 100);
             panel16.TabIndex = 9;
             // 
-            // label9
+            // research
             // 
-            label9.Anchor = AnchorStyles.None;
-            label9.AutoSize = true;
-            label9.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            label9.ForeColor = Color.Black;
-            label9.Location = new Point(33, 34);
-            label9.Name = "label9";
-            label9.Size = new Size(32, 28);
-            label9.TabIndex = 0;
-            label9.Text = "홈";
-            label9.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel14
-            // 
-            panel14.BackColor = Color.FromArgb(224, 224, 224);
-            panel14.Controls.Add(label6);
-            panel14.Location = new Point(0, 271);
-            panel14.Name = "panel14";
-            panel14.Size = new Size(100, 100);
-            panel14.TabIndex = 8;
-            // 
-            // label6
-            // 
-            label6.Anchor = AnchorStyles.None;
-            label6.AutoSize = true;
-            label6.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            label6.ForeColor = Color.Black;
-            label6.Location = new Point(13, 35);
-            label6.Name = "label6";
-            label6.Size = new Size(72, 28);
-            label6.TabIndex = 0;
-            label6.Text = "재검색";
-            label6.TextAlign = ContentAlignment.MiddleCenter;
+            research.Anchor = AnchorStyles.None;
+            research.AutoSize = true;
+            research.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            research.ForeColor = Color.Black;
+            research.Location = new Point(11, 34);
+            research.Name = "research";
+            research.Size = new Size(72, 28);
+            research.TabIndex = 0;
+            research.Text = "재검색";
+            research.TextAlign = ContentAlignment.MiddleCenter;
+            research.Click += reasearch_Click;
             // 
             // panel15
             // 
@@ -206,14 +208,14 @@
             panel3.Controls.Add(panel8);
             panel3.Location = new Point(32, 18);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1261, 387);
+            panel3.Size = new Size(1261, 452);
             panel3.TabIndex = 3;
             // 
             // img
             // 
             img.Location = new Point(20, 20);
             img.Name = "img";
-            img.Size = new Size(345, 345);
+            img.Size = new Size(345, 406);
             img.SizeMode = PictureBoxSizeMode.StretchImage;
             img.TabIndex = 0;
             img.TabStop = false;
@@ -227,14 +229,14 @@
             panel8.Controls.Add(brand);
             panel8.Location = new Point(392, 20);
             panel8.Name = "panel8";
-            panel8.Size = new Size(845, 346);
+            panel8.Size = new Size(845, 406);
             panel8.TabIndex = 1;
             // 
             // comboBox1
             // 
             comboBox1.Font = new Font("맑은 고딕", 12F, FontStyle.Regular, GraphicsUnit.Point, 129);
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(30, 267);
+            comboBox1.Location = new Point(30, 312);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(484, 40);
             comboBox1.TabIndex = 4;
@@ -286,7 +288,7 @@
             panel1.Controls.Add(optionStock);
             panel1.Controls.Add(optionName);
             panel1.Controls.Add(optionImg);
-            panel1.Location = new Point(52, 442);
+            panel1.Location = new Point(52, 489);
             panel1.Name = "panel1";
             panel1.Size = new Size(892, 131);
             panel1.TabIndex = 2;
@@ -344,10 +346,10 @@
             Text = "Form1";
             Load += SearchDetailInputForm_Load;
             panel5.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             panel16.ResumeLayout(false);
             panel16.PerformLayout();
-            panel14.ResumeLayout(false);
-            panel14.PerformLayout();
             panel15.ResumeLayout(false);
             panel15.PerformLayout();
             panel7.ResumeLayout(false);
@@ -386,12 +388,10 @@
         private Label price;
         private Label discountPrice;
         private PictureBox pictureBox2;
-        private Panel panel14;
-        private Label label6;
         private Panel panel15;
         private Label label8;
         private Panel panel16;
-        private Label label9;
+        private Label research;
         private PictureBox pictureBox4;
         private Panel panel6;
         private Panel panel8;
@@ -401,5 +401,7 @@
         private Label optionName;
         private Label optionPrice;
         private Panel panel17;
+        private Panel panel2;
+        private Label home;
     }
 }
