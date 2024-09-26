@@ -27,7 +27,7 @@ public class GroupOption {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "goods_id", nullable = false)
 	private Goods goods;
-	
+
 	// 기획에 포함된 상품 식별번호
 	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
