@@ -42,32 +42,32 @@ public class GoodsService {
 		marketService.validateMarket(marketId);
 		// 오디오에서 키워드 추출
 		String keyword = removeSpecialCharacters(findKeyword(searchReqDto).block());
-		// 해당 keyword로 db에서 (like "%keyword%") 조회
+		// 해당 keyword로 DB에서 (like "%keyword%") 조회
 		return findAllGoodsByKeyword(keyword, searchReqDto.getPage(), searchReqDto.getSize());
 	}
 
 	public SearchResultDto testFindAllGoods(Long marketId, SearchReqDto searchReqDto) {
 		// 오디오에서 키워드 추출
-		// 해당 keyword로 db에서 (like "%keyword%") 조회
+		// 해당 keyword로 DB에서 (like "%keyword%") 조회
 		return findAllGoodsByKeyword("블러셔", searchReqDto.getPage(), searchReqDto.getSize());
 	}
 
 	public Mono<String> findKeyword(SearchReqDto searchReqDto) {
-		// 이미 사용자가 키워드를 입력했으면 해당 키워드로 검색
+		// 이미 사용자가 키워드를 입력했을 경우 해당 키워드로 검색
 		if (searchReqDto.getKeyword() != null && !searchReqDto.getKeyword().isBlank()) {
 			return Mono.just(searchReqDto.getKeyword());
 		}
 		checkVailAudioFile(searchReqDto.getAudioFile());
-		// STT 통신 요청 - 이때 webclient 비동기 openai한테 STT 요청 보냄
+		// STT 통신 요청 - 이때 webclient 비동기 openAI한테 STT 요청 보냄
 		return sttClientService.sendRequest(searchReqDto.getAudioFile())
-		// stt 결과에서 openAI chat을 통해 상품명만 추출 후 요청 결과를 반환
-			.flatMap(sttResult -> nlpClientService.sendRequest(sttResult));
+			// STT 결과에서 openAI chat을 통해 상품명만 추출 후 요청 결과를 반환
+			.flatMap(nlpClientService::sendRequest);
 	}
 
 	public void checkVailAudioFile(MultipartFile audioFile) {
 		if (audioFile == null) {
 			throw new NoSearchKeywordException();
-			//검색 입력 없음
+			// 검색 입력 없음
 		} else if (audioFile.isEmpty()) {
 			// 빈파일 보냄
 			throw new EmptyFileException();
@@ -91,7 +91,7 @@ public class GoodsService {
 			throw new OptionNotFoundException();
 		}
 		List<OptionDto> optionDtoList = locationList.stream()
-			.map(OptionInfoDto -> new OptionDto().builder()
+			.map(OptionInfoDto -> OptionDto.builder()
 				.optionId(OptionInfoDto.getOptionId())
 				.optionName(OptionInfoDto.getOptionName())
 				.optionImage(OptionInfoDto.getOptionImage())
@@ -107,7 +107,7 @@ public class GoodsService {
 	// 정규 표현식을 사용하여 특수문자 제거
 	private String removeSpecialCharacters(String input) {
 		String result = input.replaceAll("[^a-zA-Z0-9가-힣\\s]", "");
-		if( result.isBlank()) {
+		if (result.isBlank()) {
 			throw new NullNLPException();
 		}
 		return result;

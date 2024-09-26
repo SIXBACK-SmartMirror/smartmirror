@@ -34,7 +34,7 @@ public class GoodsController {
 		return new ResponseEntity<>(new ResponseDto<>("A00", searchResultDto), HttpStatus.OK);
 	}
 
-	@PostMapping(path="/test", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PostMapping(path = "/test", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> testFindAllGoodsBySTT(@PathVariable("marketId") Long marketId,
 		@Valid @ModelAttribute SearchReqDto searchReqDto) {
 		SearchResultDto searchResultDto = goodsService.testFindAllGoods(marketId, searchReqDto);

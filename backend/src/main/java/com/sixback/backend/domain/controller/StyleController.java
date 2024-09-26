@@ -34,8 +34,7 @@ public class StyleController {
 	// 화장 스타일 목록 조회
 	@GetMapping
 	public ResponseEntity<?> findAllStyle(@PathVariable("marketId") Long marketId,
-		@Min(0) @RequestParam("page") int page,
-		@Min(1) @RequestParam("size") int size) {
+		@Min(0) @RequestParam("page") int page, @Min(1) @RequestParam("size") int size) {
 		StyleInfoListDto styleInfoListDto = styleService.findAllStyle(marketId, page, size);
 		return new ResponseEntity<>(new ResponseDto<>("A00", styleInfoListDto), HttpStatus.OK);
 	}
@@ -66,8 +65,7 @@ public class StyleController {
 	// 현재 스타일에 사용된 모든 상품 위치 또는 특정 상품 상세 정보 확인
 	@GetMapping("/{styleId}")
 	public ResponseEntity<?> findUseOptionInfo(@PathVariable("marketId") Long marketId,
-		@PathVariable("styleId") Long styleId,
-		@RequestParam(value = "optionId", required = false) Long optionId) {
+		@PathVariable("styleId") Long styleId, @RequestParam(value = "optionId", required = false) Long optionId) {
 		Object useOptionInfo = styleService.findUseGoodsOptionInfo(marketId, styleId, optionId);
 		return new ResponseEntity<>(new ResponseDto<>("A00", useOptionInfo), HttpStatus.OK);
 	}

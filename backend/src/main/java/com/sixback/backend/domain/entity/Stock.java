@@ -58,7 +58,7 @@ public class Stock {
 	@JdbcTypeCode(SqlTypes.JSON)
 	private LocationDto location;
 
-	// location 초기화(Defalut Value) 메서드
+	// location 초기화(Default Value) 메서드
 	@PrePersist
 	public void onCreate() {
 		if (this.location == null) {

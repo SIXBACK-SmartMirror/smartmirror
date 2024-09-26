@@ -19,7 +19,7 @@ public class NLPProductExtractionDto {
 	// 생성되는 응답의 다양성을 조절하는 온도 값(기본값은 0.8)
 	private float temperature = 0.8f;
 	// 생성할 수 있는 최대 토큰 수(기본값은 35)
-	private short maxCompletionTokens= 120;
+	private short maxCompletionTokens = 120;
 
 	/**
 	 * 객체를 JSON 문자열로 변환하여 반환.

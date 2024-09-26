@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class MarketService {
 
 	private final MarketRepository marketRepository;
-	
+
 	public Market validateMarket(Long marketId) {
 		Market market = marketRepository.findById(marketId).orElseThrow(MarketNotFoundException::new);
 		if (market.isClosed()) {

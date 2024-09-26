@@ -3,7 +3,6 @@ package com.sixback.backend.common.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.reactive.function.client.ClientResponse;
@@ -40,9 +39,15 @@ public class NLPClientService {
 	@Value("${spring.data.chat.prompt}")
 	private String PROMPT;
 	private ChatMessageDto systemMessage;
+
 	@PostConstruct
 	private void init() {
 		this.systemMessage = new ChatMessageDto("system", PROMPT);
+	}
+
+	private static void errorLog(String errorBody) {
+		// 에러 응답 본문을 콘솔에 출력
+		log.error("NLP Server Error Response: {}", errorBody);
 	}
 
 	public Mono<String> sendRequest(String sttResult) {
@@ -66,15 +71,13 @@ public class NLPClientService {
 			.model(CHAT_MODEL)
 			.messages(List.of(systemMessage, userMessage))
 			.temperature(TEMPERATURE)
-			.max_completion_tokens(MAX_COMPLETION_TOKENS).build();
+			.maxCompletionTokens(MAX_COMPLETION_TOKENS).build();
 	}
 
 	private Mono<Throwable> handleErrorResponse(ClientResponse clientResponse) {
+		// 에러 응답 본문을 콘솔에 출력
 		return clientResponse.bodyToMono(String.class)
-			.doOnNext(errorBody -> {
-				// 에러 응답 본문을 콘솔에 출력
-				log.error("NLP Server Error Response: " + errorBody);
-			})
+			.doOnNext(NLPClientService::errorLog)
 			.then(Mono.error(new RestClientException("NLP Server communication failure")));
 	}
 
@@ -82,18 +85,18 @@ public class NLPClientService {
 		try {
 			NLPResponseDto responseDto = objectMapper.readValue(responseBody, NLPResponseDto.class);
 			if (responseDto.getChoices() == null || responseDto.getChoices().isEmpty()) {
-				log.error("응답 대답(content) 키가 없습니다.");
+				errorLog("응답 대답(content) 키가 없습니다.");
 				return Mono.error(new FailNLPException());
 			}
 			String keyword = responseDto.getChoices().get(0).getMessage().getContent();
-			log.debug("NLP Result: " + keyword);
-			if(keyword == null || keyword.isBlank()){
-				log.error("content 키는 존재하지만 값이 비어 있습니다.");
+			log.debug("NLP Result: {}", keyword);
+			if (keyword == null || keyword.isBlank()) {
+				errorLog("content 키는 존재하지만 값이 비어 있습니다.");
 				return Mono.error(new NullNLPException());
 			}
 			return Mono.just(keyword);
 		} catch (JsonProcessingException e) {
-			log.error("Failed to parse NLP server response", e);
+			errorLog(e.getMessage());
 			return Mono.error(new FailNLPException());
 		}
 	}

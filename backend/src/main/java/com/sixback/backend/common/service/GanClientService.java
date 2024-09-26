@@ -3,7 +3,6 @@ package com.sixback.backend.common.service;
 import java.io.IOException;
 
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -29,9 +28,14 @@ public class GanClientService {
 	private final WebClient ganWebClient;
 	private final ObjectMapper objectMapper;
 
+	private static void errorLog(String errorBody) {
+		// 에러 응답 본문을 콘솔에 출력
+		log.error("GAN Server Error Response: {}", errorBody);
+	}
+
 	public Mono<String> sendRequest(GanRequestDto ganRequestDto) {
 		// Multipart 요청을 위한 Body 생성
-		MultiValueMap<String, Object> body = creatBody(ganRequestDto);
+		MultiValueMap<String, Object> body = createBody(ganRequestDto);
 		return ganWebClient.post()
 			.uri("/ai/makeup")
 			.bodyValue(body)
@@ -42,7 +46,7 @@ public class GanClientService {
 			.flatMap(this::parseMakeupImage);
 	}
 
-	public MultiValueMap<String, Object> creatBody(GanRequestDto ganRequestDto) {
+	public MultiValueMap<String, Object> createBody(GanRequestDto ganRequestDto) {
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 		// 파일 데이터가 포함된 ByteArrayResource 생성
 		ByteArrayResource resource = multipartFileToByteArray(ganRequestDto.getInputImage());
@@ -68,10 +72,7 @@ public class GanClientService {
 
 	private Mono<Throwable> handleErrorResponse(ClientResponse clientResponse) {
 		return clientResponse.bodyToMono(String.class)
-			.doOnNext(errorBody -> {
-				// 에러 응답 본문을 콘솔에 출력
-				log.error("GAN Server Error Response: " + errorBody);
-			})
+			.doOnNext(GanClientService::errorLog)
 			.then(Mono.error(new FailGanException()));
 	}
 
@@ -81,7 +82,7 @@ public class GanClientService {
 			String makeupImage = root.path("data").path("makeupImage").asText();
 			return Mono.just(makeupImage);
 		} catch (JsonProcessingException e) {
-			log.error("Failed to parse GAN server response", e);
+			errorLog(e.getMessage());
 			return Mono.error(new FailGanException());
 		}
 	}

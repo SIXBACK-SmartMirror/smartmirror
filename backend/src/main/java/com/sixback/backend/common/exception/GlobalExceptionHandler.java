@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sixback.backend.common.dto.ResponseDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -133,7 +134,6 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(new ResponseDto<>("D00", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-
 	/**
 	 * 외부 API 통신 실패
 	 * @param e
@@ -143,5 +143,16 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<?> apiFailException(RestClientException e) {
 		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("H00", null), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	/**
+	 * 파싱 실패
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(JsonProcessingException.class)
+	public ResponseEntity<?> JsonProcessingException(JsonProcessingException e) {
+		log.error(e.getMessage());
+		return new ResponseEntity<>(new ResponseDto<>("D01", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
