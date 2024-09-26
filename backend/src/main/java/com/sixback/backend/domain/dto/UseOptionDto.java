@@ -26,13 +26,13 @@ public class UseOptionDto {
 	// Json 형태로 toString()
 	@Override
 	public String toString() {
-		return String.format("""
+		return """
 			{
 			"option_id": %d,
 			"goods_name": "%s",
 			"option_name": "%s",
 			"option_image": "%s"
 			}
-			""", optionId, goodsName, optionName, optionImage);
+			""".formatted(optionId, goodsName, optionName, optionImage);
 	}
 }
