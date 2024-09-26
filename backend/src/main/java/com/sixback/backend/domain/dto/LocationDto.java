@@ -26,12 +26,12 @@ public class LocationDto {
 	// Json 형태로 toString()
 	@Override
 	public String toString() {
-		return String.format("""
+		return """
 			{
 			"name":"%s",
 			"row":%d,
 			"col":%d,
 			}
-			""", name, row, col);
+			""".formatted(name, row, col);
 	}
 }

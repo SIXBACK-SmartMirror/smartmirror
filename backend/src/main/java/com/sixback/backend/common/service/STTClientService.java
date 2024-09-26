@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -35,9 +34,14 @@ public class STTClientService {
 	@Value("${spring.data.stt.model}")
 	private String STT_MODEL;
 
-	public Mono<String> sendRequest(MultipartFile autioFile) {
+	private static void errorLog(String errorBody) {
+		// 에러 응답 본문을 콘솔에 출력
+		log.error("STT Server Error Response: {}", errorBody);
+	}
+
+	public Mono<String> sendRequest(MultipartFile audioFile) {
 		// Multipart 요청을 위한 Body 생성
-		MultiValueMap<String, Object> body = creatBody(autioFile);
+		MultiValueMap<String, Object> body = creatBody(audioFile);
 		return sttWebClient.post()
 			.uri(STT_API_URI)
 			.bodyValue(body)
@@ -48,10 +52,10 @@ public class STTClientService {
 			.flatMap(this::parseSTTResult);
 	}
 
-	public MultiValueMap<String, Object> creatBody(MultipartFile autioFile) {
+	public MultiValueMap<String, Object> creatBody(MultipartFile audioFile) {
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 		// 파일 데이터가 포함된 ByteArrayResource 생성
-		ByteArrayResource resource = multipartFileToByteArray(autioFile);
+		ByteArrayResource resource = multipartFileToByteArray(audioFile);
 		// 요청 본문 구성
 		body.add("file", resource); // 요청 본문에 파일 추가
 		body.add("model", STT_MODEL);
@@ -59,13 +63,13 @@ public class STTClientService {
 		return body;
 	}
 
-	public ByteArrayResource multipartFileToByteArray(MultipartFile autioFile) {
+	public ByteArrayResource multipartFileToByteArray(MultipartFile audioFile) {
 		try {
-			return new ByteArrayResource(autioFile.getBytes()) {
+			return new ByteArrayResource(audioFile.getBytes()) {
 				@Override
 				public String getFilename() {
 					// 파일 이름 제공
-					return autioFile.getOriginalFilename();
+					return audioFile.getOriginalFilename();
 				}
 			};
 		} catch (IOException ex) {
@@ -74,11 +78,9 @@ public class STTClientService {
 	}
 
 	private Mono<Throwable> handleErrorResponse(ClientResponse clientResponse) {
+		// 에러 응답 본문을 콘솔에 출력
 		return clientResponse.bodyToMono(String.class)
-			.doOnNext(errorBody -> {
-				// 에러 응답 본문을 콘솔에 출력
-				log.error("STT Server Error Response: " + errorBody);
-			})
+			.doOnNext(STTClientService::errorLog)
 			.then(Mono.error(new RestClientException("STT Server communication failure")));
 	}
 
@@ -88,18 +90,18 @@ public class STTClientService {
 			JsonNode textNode = root.path("text");
 			if (textNode.isMissingNode()) {
 				// text 키가 존재하지 않을 때
-				log.error("text 키가 없습니다.");
+				errorLog("text 키가 없습니다.");
 				return Mono.error(new FailSTTException());
 			} else if (textNode.asText().isBlank()) {
 				// text 키가 존재하지만 값이 빈 문자열일 때
-				log.error("text 키는 존재하지만 값이 비어 있습니다.");
+				errorLog("text 키는 존재하지만 값이 비어 있습니다.");
 				return Mono.error(new NullSTTException());
 			}
 			String sttResult = textNode.asText();
-			log.debug("STT Result: " + sttResult);
+			log.debug("STT Result: {}", sttResult);
 			return Mono.just(sttResult);
 		} catch (JsonProcessingException e) {
-			log.error("Failed to parse STT server response", e);
+			errorLog(e.getMessage());
 			return Mono.error(new FailSTTException());
 		}
 	}

@@ -9,11 +9,11 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
 import com.sixback.backend.domain.dto.GoodsDto;
-import com.sixback.backend.domain.entity.Goods;
-import com.sixback.backend.domain.entity.GoodsOption;
-import com.sixback.backend.domain.dto.UseOptionDetailDto;
 import com.sixback.backend.domain.dto.OptionInfoDto;
+import com.sixback.backend.domain.dto.UseOptionDetailDto;
+import com.sixback.backend.domain.entity.Goods;
 import com.sixback.backend.domain.entity.GoodsOption;
 
 public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> {
@@ -50,7 +50,7 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 		         b.brandNameKr
 		     )
 		    from GoodsOption o
-		       join o.goods g  
+		       join o.goods g
 		       join g.brand b
 		       join g.type t
 		    where g.isPossible = true

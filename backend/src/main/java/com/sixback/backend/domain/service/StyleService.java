@@ -61,16 +61,12 @@ public class StyleService {
 				.inputImage(virtualMakeupReqDto.getInputImage())
 				.styleImage(style.getStyleImage())
 				.build())
-			.flatMap(makeupImage ->
-				createQRImage().map(qrImage ->
-					StyleResultDto.builder()
-						.styleId(style.getStyleId())
-						.goodsOptionList(style.getGoodsOptionList())
-						.makeupImage(makeupImage)
-						.qrImage(qrImage)
-						.build()
-				)
-			);
+			.flatMap(makeupImage -> createQRImage().map(qrImage -> StyleResultDto.builder()
+				.styleId(style.getStyleId())
+				.goodsOptionList(style.getGoodsOptionList())
+				.makeupImage(makeupImage)
+				.qrImage(qrImage)
+				.build()));
 	}
 
 	public Mono<StyleResultDto> testAIcreateVirtualMakeup(Long marketId, VirtualMakeupReqDto virtualMakeupReqDto) {
@@ -80,16 +76,12 @@ public class StyleService {
 				.inputImage(virtualMakeupReqDto.getInputImage())
 				.styleImage("https://i.ibb.co/Dg0DFfb/XMY-014.png")
 				.build())
-			.flatMap(makeupImage ->
-				createQRImage().map(qrImage ->
-					StyleResultDto.builder()
-						.styleId(1L)
-						.goodsOptionList(List.of())
-						.makeupImage(makeupImage)
-						.qrImage(qrImage)
-						.build()
-				)
-			);
+			.flatMap(makeupImage -> createQRImage().map(qrImage -> StyleResultDto.builder()
+				.styleId(1L)
+				.goodsOptionList(List.of())
+				.makeupImage(makeupImage)
+				.qrImage(qrImage)
+				.build()));
 	}
 
 	public StyleResultDto testCreatVirtualMakeup(Long marketId, VirtualMakeupReqDto virtualMakeupReqDto) {
@@ -145,11 +137,9 @@ public class StyleService {
 
 	public UseOptionDetailDto findByOptionId(Long marketId, Long styleId, Long optionId) {
 		// 스타일 식별 번호 & 옵션 ID 검증
-		Style style = styleRepository.findByStyleIdAndOptionId(styleId, optionId)
-			.orElseThrow(StyleUseOptionNotFoundException::new);
+		styleRepository.findByStyleIdAndOptionId(styleId, optionId).orElseThrow(StyleUseOptionNotFoundException::new);
 		// 사용된 상품 정보 가져 오기
-		UseOptionDetailDto useOptionDetailDto = goodsOptionRepository.findTopByMarketIdAndOptionId(marketId, optionId)
+		return goodsOptionRepository.findTopByMarketIdAndOptionId(marketId, optionId)
 			.orElseThrow(OptionNotFoundException::new);
-		return useOptionDetailDto;
 	}
 }

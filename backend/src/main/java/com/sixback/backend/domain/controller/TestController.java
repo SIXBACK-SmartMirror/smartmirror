@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @GetMapping("/api-test")
-    public static String getTest() {
-        return "OK";
-    }
+	@GetMapping("/api-test")
+	public static String getTest() {
+		return "OK";
+	}
 }
