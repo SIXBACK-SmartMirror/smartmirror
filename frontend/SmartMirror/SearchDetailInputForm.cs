@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using SmartMirror.Helpers;
 using SmartMirror.Models;
 using System.Net.Http;
 using System.Windows.Forms;
@@ -11,6 +12,10 @@ namespace SmartMirror
         private GoodsData goodsData;
         private JObject jsonOptions; // JSON 데이터를 저장할 변수
         private Panel panelContainer;
+
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
+        private Screen[] screens = Screen.AllScreens;
 
         public SearchDetailInputForm(SearchDetailOutputForm outputForm, GoodsData goodsData, string options)
         {
@@ -113,7 +118,7 @@ namespace SmartMirror
                 optionStock.Text = selectedOption["inMarket"].ToObject<bool>()
                                     ? (selectedOption["stock"].ToObject<int>() == 0 ? "품절" : $"{selectedOption["stock"]}개")
                                     : "미판매";
-                string optionImageUrl = selectedOption["optionImage"].ToString(); 
+                string optionImageUrl = selectedOption["optionImage"].ToString();
 
                 try
                 {
@@ -130,6 +135,44 @@ namespace SmartMirror
                 {
                     optionImg.Image = Image.FromFile("placeholder.png");
                 }
+            }
+        }
+
+        private void reasearch_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            // 스크린 설정 호출
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
+
+            SearchOutputForm searchOutputForm = new SearchOutputForm();
+            SearchInputForm inputForm = new SearchInputForm(searchOutputForm);
+
+            FormHelper.SwitchToForm(inputForm, searchOutputForm, primaryScreen, secondaryScreen);
+
+            if (outputForm != null && !outputForm.IsDisposed)
+            {
+                outputForm.Hide();
+            }
+        }
+
+        private void home_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            // 스크린 설정 호출
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
+
+            MainOutputForm mainOutputForm = new MainOutputForm();
+            MainInputForm inputForm = new MainInputForm(mainOutputForm);
+
+            FormHelper.SwitchToForm(inputForm, mainOutputForm, primaryScreen, secondaryScreen);
+
+            if (outputForm != null && !outputForm.IsDisposed)
+            {
+                outputForm.Hide();
             }
         }
     }
