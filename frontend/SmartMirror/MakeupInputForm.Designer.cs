@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MakeupInputForm));
             HomeBtn = new Panel();
             pictureBox1 = new PictureBox();
             label9 = new Label();
@@ -50,17 +51,20 @@
             panel4 = new Panel();
             panel7 = new Panel();
             panel8 = new Panel();
+            pictureBox6 = new PictureBox();
             HomeBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             filmingBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             usingBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            panel5.SuspendLayout();
             panel6.SuspendLayout();
             panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             SuspendLayout();
             // 
             // HomeBtn
@@ -217,6 +221,7 @@
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel5.BackColor = Color.FromArgb(130, 220, 40);
+            panel5.Controls.Add(pictureBox6);
             panel5.Location = new Point(-2, -2);
             panel5.Margin = new Padding(2);
             panel5.Name = "panel5";
@@ -327,6 +332,17 @@
             panel8.Size = new Size(684, 60);
             panel8.TabIndex = 4;
             // 
+            // pictureBox6
+            // 
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(14, 14);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(61, 59);
+            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox6.TabIndex = 8;
+            pictureBox6.TabStop = false;
+            pictureBox6.Click += pictureBox6_Click;
+            // 
             // MakeupInputForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -352,6 +368,7 @@
             usingBtn.ResumeLayout(false);
             usingBtn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            panel5.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
@@ -359,6 +376,7 @@
             panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -387,5 +405,6 @@
         private Panel panel9;
         private Label label8;
         private Label label9;
+        private PictureBox pictureBox6;
     }
 }

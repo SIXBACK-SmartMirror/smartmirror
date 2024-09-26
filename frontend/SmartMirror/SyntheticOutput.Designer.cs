@@ -37,11 +37,11 @@
             // 
             // syntheticImg
             // 
-            syntheticImg.Anchor = AnchorStyles.None;
-            syntheticImg.Location = new Point(29, 88);
+            syntheticImg.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            syntheticImg.Location = new Point(189, 33);
             syntheticImg.Name = "syntheticImg";
-            syntheticImg.Size = new Size(1000, 794);
-            syntheticImg.SizeMode = PictureBoxSizeMode.AutoSize;
+            syntheticImg.Size = new Size(727, 726);
+            syntheticImg.SizeMode = PictureBoxSizeMode.CenterImage;
             syntheticImg.TabIndex = 4;
             syntheticImg.TabStop = false;
             syntheticImg.UseWaitCursor = true;
@@ -49,9 +49,9 @@
             // goodsOptionList
             // 
             goodsOptionList.Anchor = AnchorStyles.None;
-            goodsOptionList.Location = new Point(29, 957);
+            goodsOptionList.Location = new Point(41, 1021);
             goodsOptionList.Name = "goodsOptionList";
-            goodsOptionList.Size = new Size(1000, 272);
+            goodsOptionList.Size = new Size(1012, 788);
             goodsOptionList.TabIndex = 5;
             // 
             // panel1
@@ -59,9 +59,9 @@
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.Controls.Add(syntheticImg);
             panel1.Controls.Add(goodsOptionList);
-            panel1.Location = new Point(263, 293);
+            panel1.Location = new Point(262, 170);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1093, 1292);
+            panel1.Size = new Size(1093, 1849);
             panel1.TabIndex = 6;
             // 
             // SyntheticOutput
@@ -78,7 +78,6 @@
             Load += SyntheticOutput_Load;
             ((System.ComponentModel.ISupportInitialize)syntheticImg).EndInit();
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
