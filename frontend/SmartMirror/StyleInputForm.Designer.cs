@@ -39,18 +39,21 @@
             panel4 = new Panel();
             panel7 = new Panel();
             panel8 = new Panel();
+            pictureBox1 = new PictureBox();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel5.BackColor = Color.FromArgb(130, 220, 40);
+            panel5.Controls.Add(pictureBox1);
             panel5.Controls.Add(pictureBox6);
             panel5.Location = new Point(-2, -2);
             panel5.Margin = new Padding(2);
@@ -158,6 +161,17 @@
             panel8.Size = new Size(684, 60);
             panel8.TabIndex = 4;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(14, 92);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(61, 59);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
+            // 
             // StyleInputForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -182,6 +196,7 @@
             panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -197,5 +212,6 @@
         private Panel panel8;
         private Panel panel9;
         private PictureBox pictureBox6;
+        private PictureBox pictureBox1;
     }
 }

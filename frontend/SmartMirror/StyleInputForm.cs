@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using SmartMirror.Models;
 
 namespace SmartMirror
 {
@@ -20,37 +21,26 @@ namespace SmartMirror
         private int outputMonitor = 1;
         private int inputMonitor = 2;
         private Screen[] screens = Screen.AllScreens;
-        public String[] SyntheticResponseList;
+        //public String[] SyntheticResponseList;
+        //public StyleData styleData = new StyleData();
+        public StyleData[] SyntheticResponseList;
 
 
-        //SearchOutputForm outputForm;
-
-        //public StyleInputForm(SearchOutputForm outputForm)
         public StyleInputForm()
 
         {
-            //this.outputForm = outputForm;
             InitializeComponent();
-            SyntheticResponseList = new string[100];
-            this.VisibleChanged += new EventHandler(Form_VisibleChanged);
-            //SyntheticResponseList = new string[100];
-            //Console.WriteLine("메이크업 선택 창 또 뜸");
-            //Console.WriteLine(SyntheticResponseList[0]);
-            //Console.WriteLine(SyntheticResponseList[1]);
-            //Console.WriteLine(SyntheticResponseList[2]);
-            //Console.WriteLine(SyntheticResponseList[3]);
-            //Console.WriteLine(SyntheticResponseList[4]);
-
+            SyntheticResponseList = new StyleData[20];
         }
 
-        private void Form_VisibleChanged(object sender, EventArgs e)
+
+        public void arrayRest()
         {
-            if (this.Visible) // 폼이 다시 보여질 때
-            {
-                SyntheticResponseList = new string[100]; // 배열 초기화
-                Console.WriteLine("배열이 다시 초기화되었습니다.");
-            }
+            SyntheticResponseList = new StyleData[20]; // 배열 초기화
+            Console.WriteLine("배열이 초기화");
         }
+
+
         private async void StyleInputForm_Load(object sender, EventArgs e)
         {
             Console.WriteLine("스타일 인풋 폼 로드");
@@ -59,7 +49,7 @@ namespace SmartMirror
             // img url, 스타일 명, 상품 리스트와 페이지
             HttpClient client = new HttpClient();
 
-            String apiUrl = "http://192.168.100.147:8080/smartmirrorApi/market/1/styles?page=0&size=10";
+            String apiUrl = "http://192.168.100.147:8080/smartMirrorApi/market/1/styles?page=0&size=10";
 
             try
             {
@@ -149,16 +139,8 @@ namespace SmartMirror
 
         private void style_Click(int styleNum)
         {
-
-            Console.WriteLine("@@@@@@@@@@@@@@@@@@@");
-            if (SyntheticResponseList[styleNum] != null)
-            {
-            Console.WriteLine("이미지 내용어ㅗ엉");
-
-            }
-                    
-
-
+            MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
+            openMakeupOutputForm.Hide();
 
             SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
             if (openSyntheticOutput != null)
@@ -177,6 +159,14 @@ namespace SmartMirror
 
         private void pictureBox6_Click(object sender, EventArgs e)
         {
+
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            if (openSyntheticOutput != null)
+            {
+                openSyntheticOutput.Close();
+            }
+
+
             this.Hide();
 
             MakeupOutputForm openedForm = Application.OpenForms["MakeupOutputFOrm"] as MakeupOutputForm;
@@ -187,6 +177,21 @@ namespace SmartMirror
 
             openMainInputForm.Show();
             openMainOutForm.Show();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
+            openMakeupOutputForm.Show();
+
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            if (openSyntheticOutput != null)
+            {
+                openSyntheticOutput.Close();
+            }
+            MakeupInputForm openMakeupInputForm = Application.OpenForms["MakeupInputForm"] as MakeupInputForm;
+            this.Hide();
+            openMakeupInputForm.Show();
         }
     }
 

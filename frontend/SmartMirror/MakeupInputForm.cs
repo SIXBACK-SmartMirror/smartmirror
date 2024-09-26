@@ -31,6 +31,11 @@ namespace SmartMirror
             //{
             //    openStyleInputForm.SyntheticResponseList = new string[100];
             //}
+            StyleInputForm openStyleInputForm = Application.OpenForms["StyleInputForm"] as StyleInputForm;
+            if (openStyleInputForm != null)
+            {
+                openStyleInputForm.arrayRest();
+            }
             Console.WriteLine("필름 버튼 클릭 성공");
             outputForm.CaptureImage();
         }
@@ -39,7 +44,7 @@ namespace SmartMirror
         private void usingBtn_Click(object sender, EventArgs e)
         {
             StyleInputForm openStyleInputForm = Application.OpenForms["StyleInputForm"] as StyleInputForm;
-            if (openStyleInputForm != null && !openStyleInputForm.Visible) 
+            if (openStyleInputForm != null && !openStyleInputForm.Visible)
             {
                 Console.WriteLine("합성하기 다시 클릭");
                 this.Hide();
@@ -47,9 +52,9 @@ namespace SmartMirror
             }
             else
             {
-            StyleInputForm styleInputForm = new StyleInputForm();
-            this.Hide();
-            styleInputForm.Show();
+                StyleInputForm styleInputForm = new StyleInputForm();
+                this.Hide();
+                styleInputForm.Show();
             }
 
         }
@@ -77,6 +82,14 @@ namespace SmartMirror
             usingBtn.Region = new Region(path);
         }
 
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MainInputForm openMainInputForm = Application.OpenForms["MainInputForm"] as MainInputForm;
+            openMainInputForm.Show();
 
+            MainOutputForm openMainOutputForm = Application.OpenForms["MainOutputForm"] as MainOutputForm;
+            openMainOutputForm.Show();
+        }
     }
 }
