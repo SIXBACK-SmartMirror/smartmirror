@@ -33,6 +33,7 @@ public class WebClientConfig {
 	public WebClient ganWebClient(WebClient.Builder webClientBuilder) {
 		return webClientBuilder
 			.baseUrl(GAN_API_URL)
+			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE)
 			.build();
 	}
 
@@ -52,7 +53,7 @@ public class WebClientConfig {
 		return webClientBuilder
 			.baseUrl(API_URL)
 			.defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + API_KEY)
-			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE)
+			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 			.build();
 	}
 }

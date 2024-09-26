@@ -51,7 +51,6 @@ public class NLPClientService {
 		System.out.println(body);
 		return nlpWebClient.post()
 			.uri(CHAT_API_URI)
-			.contentType(MediaType.APPLICATION_JSON)
 			.bodyValue(body)
 			.retrieve()
 			.onStatus(status -> !status.is2xxSuccessful(),

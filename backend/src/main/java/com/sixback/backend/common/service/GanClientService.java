@@ -34,7 +34,6 @@ public class GanClientService {
 		MultiValueMap<String, Object> body = creatBody(ganRequestDto);
 		return ganWebClient.post()
 			.uri("/ai/makeup")
-			.contentType(MediaType.MULTIPART_FORM_DATA)
 			.bodyValue(body)
 			.retrieve()
 			.onStatus(status -> !status.is2xxSuccessful(),
