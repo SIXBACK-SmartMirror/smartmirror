@@ -53,7 +53,7 @@ public class NLPClientService {
 	public Mono<String> sendRequest(String sttResult) {
 		// Multipart 요청을 위한 Body 생성
 		NLPProductExtractionDto body = creatBody(sttResult);
-		System.out.println(body);
+		log.debug("body = {}",body);
 		return nlpWebClient.post()
 			.uri(CHAT_API_URI)
 			.bodyValue(body)
@@ -71,7 +71,7 @@ public class NLPClientService {
 			.model(CHAT_MODEL)
 			.messages(List.of(systemMessage, userMessage))
 			.temperature(TEMPERATURE)
-			.maxCompletionTokens(MAX_COMPLETION_TOKENS).build();
+			.max_completion_tokens(MAX_COMPLETION_TOKENS).build();
 	}
 
 	private Mono<Throwable> handleErrorResponse(ClientResponse clientResponse) {
