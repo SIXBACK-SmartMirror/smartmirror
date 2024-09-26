@@ -40,7 +40,6 @@ public class STTClientService {
 		MultiValueMap<String, Object> body = creatBody(autioFile);
 		return sttWebClient.post()
 			.uri(STT_API_URI)
-			.contentType(MediaType.MULTIPART_FORM_DATA)
 			.bodyValue(body)
 			.retrieve()
 			.onStatus(status -> !status.is2xxSuccessful(),
@@ -97,6 +96,7 @@ public class STTClientService {
 				return Mono.error(new NullSTTException());
 			}
 			String sttResult = textNode.asText();
+			log.debug("STT Result: " + sttResult);
 			return Mono.just(sttResult);
 		} catch (JsonProcessingException e) {
 			log.error("Failed to parse STT server response", e);
