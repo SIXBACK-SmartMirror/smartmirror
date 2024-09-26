@@ -13,7 +13,7 @@ namespace SmartMirror.Helpers
         {
             GraphicsPath path = new GraphicsPath();
 
-            int cornerRadius = 15;
+            int cornerRadius = 10;
 
             // 좌상단
             path.AddArc(new Rectangle(0, 0, cornerRadius, cornerRadius), 180, 90);
