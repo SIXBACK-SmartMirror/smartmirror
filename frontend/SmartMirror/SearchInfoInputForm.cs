@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Net.Http;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
+using SmartMirror.Config;
 using SmartMirror.Helpers;
 using SmartMirror.Models;
 
@@ -223,7 +224,7 @@ namespace SmartMirror
         private async void Panel_Click(GoodsData goodsData)
         {
 
-            string baseUrl = "http://192.168.100.147:8080/smartmirrorApi/market/1/goods";
+            string baseUrl = $"{ApiConfig.url}/1/goods";
             string urlWithParams = $"{baseUrl}/{goodsData.Id}";
 
             try
