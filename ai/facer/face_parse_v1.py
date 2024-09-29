@@ -16,6 +16,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 # 주피터 노트북에서 실행
 # os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 # os.environ["CUDA_VISIBLE_DEVICES"] = "6"
+print(device)
 
 @app.post("/ai/custom")
 async def parse_face(inputImage: UploadFile = File(...), lip_color: str = "151,58,68"):
