@@ -18,10 +18,15 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 # os.environ["CUDA_VISIBLE_DEVICES"] = "6"
 
 @app.post("/ai/custom")
-async def parse_face(image_file: UploadFile = File(...), lip_color: str = "151,58,68"):
+async def parse_face(inputImage: UploadFile = File(...), lip_color: str = "151,58,68"):
     # 이미지를 읽어서 numpy 배열로 변환
-    image_bytes = await image_file.read()
+    image_bytes = await inputImage.read()
     image = Image.open(io.BytesIO(image_bytes))
+
+    # 이미지가 RGBA 형식일 경우 RGB로 변환
+    if image.mode == 'RGBA':
+        image = image.convert('RGB')
+
     image = np.array(image)
 
     # 얼굴 감지
