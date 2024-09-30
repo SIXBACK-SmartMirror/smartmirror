@@ -36,7 +36,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(device)
 
 # 얼굴 세그멘테이션 및 색상 변경 함수
-def apply_color_changes(image_np, seg_result, eyebrowColor=None, skinColor=None, lipColor=None, lipMode="none"):
+def apply_color_changes(image_np, seg_result, eyebrowColor=None, skinColor=None, lipColor=None, lipMode=None):
     # 피부 및 코 색상 변경
     if skinColor is not None:
         skin_class = 1  # 피부 클래스 번호
@@ -63,7 +63,7 @@ def apply_color_changes(image_np, seg_result, eyebrowColor=None, skinColor=None,
         right_eyebrow_mask = seg_result == right_eyebrow_class
 
         # 기존 색과 새로운 색을 혼합 (alpha=0.5)
-        alpha = 0.5
+        alpha = 0.82
         eyebrow_color_expanded = np.tile(eyebrowColor, (np.count_nonzero(left_eyebrow_mask), 1))
         image_np[left_eyebrow_mask] = cv2.addWeighted(image_np[left_eyebrow_mask].astype(np.float32), alpha, eyebrow_color_expanded.astype(np.float32), 1 - alpha, 0)
         
@@ -71,7 +71,7 @@ def apply_color_changes(image_np, seg_result, eyebrowColor=None, skinColor=None,
         image_np[right_eyebrow_mask] = cv2.addWeighted(image_np[right_eyebrow_mask].astype(np.float32), alpha, eyebrow_color_expanded.astype(np.float32), 1 - alpha, 0)
 
     # 입술 색상 변경 (풀 립 또는 그라데이션)
-    if lipColor is not None:
+    if lipMode is not None and lipColor is not None:
         upper_lip_class = 7  # 윗입술 클래스 번호
         lower_lip_class = 9  # 아랫입술 클래스 번호
         upper_lip_mask = seg_result == upper_lip_class
@@ -79,7 +79,7 @@ def apply_color_changes(image_np, seg_result, eyebrowColor=None, skinColor=None,
 
         if lipMode == "full":
             # 풀 립 색상 변경 (기존 색과 새로운 색을 혼합)
-            alpha = 0.5
+            alpha = 0.6
             lip_color_expanded = np.tile(lipColor, (np.count_nonzero(upper_lip_mask), 1))
             image_np[upper_lip_mask] = cv2.addWeighted(image_np[upper_lip_mask].astype(np.float32), alpha, lip_color_expanded.astype(np.float32), 1 - alpha, 0)
 
@@ -99,7 +99,7 @@ def apply_color_changes(image_np, seg_result, eyebrowColor=None, skinColor=None,
     return image_np
 
 @app.post("/ai/custom")
-async def parse_face(inputImage: UploadFile = File(...), eyebrowColor: str = None, skinColor: str = None, lipColor: str = None, lipMode: str = "none"):
+async def parse_face(inputImage: UploadFile = File(...), eyebrowColor: str = None, skinColor: str = None, lipColor: str = None, lipMode: str = None):
     # 이미지를 읽어서 numpy 배열로 변환
     image_bytes = await inputImage.read()
     image = Image.open(io.BytesIO(image_bytes))
@@ -134,9 +134,9 @@ async def parse_face(inputImage: UploadFile = File(...), eyebrowColor: str = Non
         image_np = (image_np * 255).astype(np.uint8)
 
     # 색상 값을 처리
-    eyebrowColor = np.array([int(x) for x in eyebrowColor.split(',')], dtype=np.float32)
-    skinColor = np.array([int(x) for x in skinColor.split(',')], dtype=np.float32)
-    lipColor = np.array([int(x) for x in lipColor.split(',')], dtype=np.float32)
+    eyebrowColor = np.array([int(x) for x in eyebrowColor.split(',')], dtype=np.float32) if eyebrowColor else None
+    skinColor = np.array([int(x) for x in skinColor.split(',')], dtype=np.float32) if skinColor else None
+    lipColor = np.array([int(x) for x in lipColor.split(',')], dtype=np.float32) if lipColor else None
 
     # 색상 변경 적용
     colored_image = apply_color_changes(image_np, seg_result, eyebrowColor, skinColor, lipColor, lipMode)
@@ -149,4 +149,4 @@ async def parse_face(inputImage: UploadFile = File(...), eyebrowColor: str = Non
     img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
 
     # return JSONResponse(content={"status": "success", "image": img_str})
-    return create_response("A00", {"customImage": img_str}, status_code=200)
+    return create_response("A00", {"makeupImage": img_str}, status_code=200)
