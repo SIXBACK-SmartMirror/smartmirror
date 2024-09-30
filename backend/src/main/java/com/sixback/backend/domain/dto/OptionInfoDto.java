@@ -1,14 +1,21 @@
 package com.sixback.backend.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public interface OptionInfoDto {
-	@JsonIgnore
+	interface useOptionView {
+	}
+
+	@JsonView(useOptionView.class)
 	Long getOptionId();
 
-	@JsonIgnore
+	@JsonView(useOptionView.class)
+	String getGoodsName();
+
+	@JsonView(useOptionView.class)
 	String getOptionImage();
 
 	@JsonIgnore
