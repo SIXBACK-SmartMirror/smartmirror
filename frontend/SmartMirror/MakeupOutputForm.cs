@@ -118,7 +118,24 @@ namespace SmartMirror
                 {
                     this.topComent.Text = "촬칵";
                     is_taken = true;
-                    string outputPath = Path.Combine(@"C:\Users\SSAFY\Desktop\capture", "captured_image.png");
+
+                    // 프로젝트 실행 경로를 가져옴
+                    string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+                    // 프로젝트 내의 'capture' 폴더를 경로에 추가
+                    string captureFolder = Path.Combine(basePath, "capture");
+
+                    // 폴더가 없으면 생성
+                    if (!Directory.Exists(captureFolder))
+                    {
+                        Directory.CreateDirectory(captureFolder);
+                    }
+
+                    // 파일 경로 설정
+                    string outputPath = Path.Combine(captureFolder, "captured_image.png");
+
+
+                    //string outputPath = Path.Combine(@"C:\Users\SSAFY\Desktop\capture", "captured_image.png");
 
                     // 좌우 반전
                     Cv2.Flip(_image, _image, FlipMode.Y);
