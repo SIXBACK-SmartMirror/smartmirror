@@ -166,10 +166,10 @@ async def makeup(inputImage: UploadFile = File(...), styleImage: str = Form(...)
     output_img_pil = Image.fromarray(output_img.astype(np.uint8))
     
     # 원본 비율 유지하며 리사이즈 (긴 쪽이 800)
-    output_img_pil_resized = resize_with_aspect_ratio(output_img_pil, 800)
+    output_img_pil_resized = resize_with_aspect_ratio(output_img_pil, 500)
 
     # 패딩 추가하여 800x800 정사각형 이미지로 만들기
-    output_img_pil = add_padding_to_square(output_img_pil_resized, 800)
+    output_img_pil = add_padding_to_square(output_img_pil_resized, 500)
     
     # 이미지 저장
     img_byte_arr = io.BytesIO()
