@@ -38,8 +38,8 @@
             label4 = new Label();
             panel4 = new Panel();
             panel7 = new Panel();
-            panel6 = new Panel();
             panel17 = new Panel();
+            button1 = new Button();
             panel3 = new Panel();
             img = new PictureBox();
             panel8 = new Panel();
@@ -58,7 +58,6 @@
             panel16.SuspendLayout();
             panel15.SuspendLayout();
             panel7.SuspendLayout();
-            panel6.SuspendLayout();
             panel17.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)img).BeginInit();
@@ -181,29 +180,30 @@
             panel7.Size = new Size(32, 35);
             panel7.TabIndex = 7;
             // 
-            // panel6
-            // 
-            panel6.Anchor = AnchorStyles.None;
-            panel6.AutoScroll = true;
-            panel6.BackColor = Color.White;
-            panel6.Controls.Add(panel17);
-            panel6.Location = new Point(100, 80);
-            panel6.Margin = new Padding(2);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(1366, 916);
-            panel6.TabIndex = 6;
-            // 
             // panel17
             // 
+            panel17.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel17.Controls.Add(button1);
             panel17.Controls.Add(panel3);
             panel17.Controls.Add(panel1);
-            panel17.Location = new Point(23, 17);
+            panel17.Location = new Point(130, 113);
             panel17.Name = "panel17";
             panel17.Size = new Size(1311, 684);
             panel17.TabIndex = 4;
             // 
+            // button1
+            // 
+            button1.Location = new Point(978, 489);
+            button1.Name = "button1";
+            button1.Size = new Size(291, 131);
+            button1.TabIndex = 4;
+            button1.Text = "위치 확인";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // panel3
             // 
+            panel3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             panel3.Controls.Add(img);
             panel3.Controls.Add(panel8);
             panel3.Location = new Point(32, 18);
@@ -336,9 +336,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(1470, 1000);
+            Controls.Add(panel17);
             Controls.Add(panel7);
             Controls.Add(label4);
-            Controls.Add(panel6);
             Controls.Add(panel5);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(2);
@@ -353,7 +353,6 @@
             panel15.ResumeLayout(false);
             panel15.PerformLayout();
             panel7.ResumeLayout(false);
-            panel6.ResumeLayout(false);
             panel17.ResumeLayout(false);
             panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)img).EndInit();
@@ -368,40 +367,40 @@
 
         #endregion
         private Panel panel5;
-        private Label label4;
-        private Panel panel4;
-        private Panel panel7;
-        private Panel panel1;
         private Panel panel13;
         private Panel panel12;
         private Panel panel11;
         private Panel panel10;
         private Panel panel9;
-        private Panel panel3;
-        private PictureBox optionImg;
         private Label goodsDiscountPrice;
         private Label goodsPrice;
         private Label goodsName;
         private Label brandNameKr;
-        private Label brand;
-        private Label name;
-        private Label price;
-        private Label discountPrice;
         private PictureBox pictureBox2;
         private Panel panel15;
         private Label label8;
         private Panel panel16;
         private Label research;
         private PictureBox pictureBox4;
-        private Panel panel6;
-        private Panel panel8;
-        private PictureBox img;
-        private ComboBox comboBox1;
-        private Label optionStock;
-        private Label optionName;
-        private Label optionPrice;
-        private Panel panel17;
         private Panel panel2;
         private Label home;
+        private Label label4;
+        private Panel panel4;
+        private Panel panel7;
+        private Panel panel17;
+        private Panel panel3;
+        private PictureBox img;
+        private Panel panel8;
+        private ComboBox comboBox1;
+        private Label discountPrice;
+        private Label price;
+        private Label name;
+        private Label brand;
+        private Panel panel1;
+        private Label optionPrice;
+        private Label optionStock;
+        private Label optionName;
+        private PictureBox optionImg;
+        private Button button1;
     }
 }

@@ -17,6 +17,8 @@ namespace SmartMirror
         private int inputMonitor = 2;
         private Screen[] screens = Screen.AllScreens;
 
+        private bool flag = false;
+
         public SearchDetailInputForm(SearchDetailOutputForm outputForm, GoodsData goodsData, string options)
         {
             InitializeComponent();
@@ -174,6 +176,13 @@ namespace SmartMirror
             {
                 outputForm.Hide();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            flag = !flag;
+            outputForm.panel2.Visible = flag;
+            outputForm.title.Visible = flag;
         }
     }
 }

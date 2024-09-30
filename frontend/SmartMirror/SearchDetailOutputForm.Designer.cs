@@ -30,9 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchDetailOutputForm));
             title = new Label();
-            panel1 = new Panel();
-            label1 = new Label();
-            pictureBox2 = new PictureBox();
             panel2 = new Panel();
             L = new Panel();
             label13 = new Label();
@@ -59,8 +56,6 @@
             C = new Panel();
             label4 = new Label();
             pictureBox1 = new PictureBox();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel2.SuspendLayout();
             L.SuspendLayout();
             J.SuspendLayout();
@@ -87,40 +82,9 @@
             title.Name = "title";
             title.Size = new Size(1182, 102);
             title.TabIndex = 1;
-            title.Text = "필요한 상품을 검색해 주세요";
+            title.Text = "상품 위치를 확인해 주세요";
             title.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel1
-            // 
-            panel1.Anchor = AnchorStyles.Top;
-            panel1.BackColor = SystemColors.ControlLightLight;
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(pictureBox2);
-            panel1.Location = new Point(109, 164);
-            panel1.Margin = new Padding(2);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(928, 110);
-            panel1.TabIndex = 2;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("맑은 고딕", 17F);
-            label1.Location = new Point(75, 33);
-            label1.Margin = new Padding(2, 0, 2, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(0, 46);
-            label1.TabIndex = 3;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Location = new Point(835, 19);
-            pictureBox2.Margin = new Padding(2);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(68, 68);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
+            title.Visible = false;
             // 
             // panel2
             // 
@@ -142,6 +106,7 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1130, 831);
             panel2.TabIndex = 3;
+            panel2.Visible = false;
             // 
             // L
             // 
@@ -401,16 +366,12 @@
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(1200, 1920);
             Controls.Add(panel2);
-            Controls.Add(panel1);
             Controls.Add(title);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(2);
             Name = "SearchDetailOutputForm";
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel2.ResumeLayout(false);
             L.ResumeLayout(false);
             L.PerformLayout();
@@ -442,11 +403,8 @@
 
         #endregion
 
-        private Label title;
-        private Panel panel1;
-        private PictureBox pictureBox2;
-        private Label label1;
-        private Panel panel2;
+        public Label title;
+        public Panel panel2;
         private PictureBox pictureBox1;
         private Panel D;
         private Panel C;
