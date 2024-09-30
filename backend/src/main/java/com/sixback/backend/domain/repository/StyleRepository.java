@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.sixback.backend.domain.dto.OptionInfoDto;
 import com.sixback.backend.domain.dto.StyleInfoDto;
 import com.sixback.backend.domain.entity.Style;
@@ -44,7 +43,6 @@ public interface StyleRepository extends JpaRepository<Style, Long> {
 		LEFT JOIN Stock s ON s.market_id = :marketId AND s.option_id = jt.option_id
 		GROUP BY jt.option_id, jt.option_name, jt.goods_name, jt.option_image, s.location
 		""", nativeQuery = true)
-	@JsonView(OptionInfoDto.useOptionView.class)
 	List<OptionInfoDto> findAllUseOptionInfoList(@Param("marketId") Long marketId, @Param("styleId") Long styleId);
 
 	@Query(value = """
