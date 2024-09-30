@@ -12,5 +12,8 @@ namespace SmartMirror.Models
         public string goodsName { get; set; }
         public string optionName { get; set; }
         public string optionImage { get; set; }
+        public bool isInMarket { get; set; }
+        public string location { get; set; }
+        public int stock { get; set; }
     }
 }

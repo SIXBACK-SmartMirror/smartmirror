@@ -139,6 +139,13 @@ namespace SmartMirror
 
         private void style_Click(int styleNum)
         {
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            this.leftBtn.Visible = true;
+            this.rightBtn.Visible = true;
+
+            location.Visible = true;
+
+
             MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
             openMakeupOutputForm.Hide();
 
@@ -192,6 +199,29 @@ namespace SmartMirror
             MakeupInputForm openMakeupInputForm = Application.OpenForms["MakeupInputForm"] as MakeupInputForm;
             this.Hide();
             openMakeupInputForm.Show();
+        }
+
+        private void leftBtn_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("leftBTn 클릭");
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            openSyntheticOutput.changePage(0);
+        }
+
+        private void rightBtn_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("rightBtn 클릭");
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            openSyntheticOutput.changePage(1);
+        }
+
+        private void location_Click(object sender, EventArgs e)
+        {
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            if (openSyntheticOutput != null)
+            {
+                openSyntheticOutput.visbleLocation();
+            }
         }
     }
 

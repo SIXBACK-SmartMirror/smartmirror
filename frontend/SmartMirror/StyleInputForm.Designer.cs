@@ -30,8 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StyleInputForm));
             panel5 = new Panel();
+            location = new PictureBox();
+            pictureBox1 = new PictureBox();
             pictureBox6 = new PictureBox();
             panel6 = new Panel();
+            panel1 = new Panel();
+            rightBtn = new PictureBox();
+            leftBtn = new PictureBox();
             panel9 = new Panel();
             pictureBox3 = new PictureBox();
             label6 = new Label();
@@ -39,20 +44,24 @@
             panel4 = new Panel();
             panel7 = new Panel();
             panel8 = new Panel();
-            pictureBox1 = new PictureBox();
             panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)location).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel6.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)rightBtn).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)leftBtn).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel5.BackColor = Color.FromArgb(130, 220, 40);
+            panel5.Controls.Add(location);
             panel5.Controls.Add(pictureBox1);
             panel5.Controls.Add(pictureBox6);
             panel5.Location = new Point(-2, -2);
@@ -60,6 +69,29 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(89, 740);
             panel5.TabIndex = 5;
+            // 
+            // location
+            // 
+            location.Image = (Image)resources.GetObject("location.Image");
+            location.Location = new Point(14, 166);
+            location.Name = "location";
+            location.Size = new Size(61, 52);
+            location.SizeMode = PictureBoxSizeMode.StretchImage;
+            location.TabIndex = 2;
+            location.TabStop = false;
+            location.Visible = false;
+            location.Click += location_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(14, 92);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(61, 59);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // pictureBox6
             // 
@@ -76,12 +108,48 @@
             // 
             panel6.Anchor = AnchorStyles.None;
             panel6.BackColor = Color.White;
+            panel6.Controls.Add(panel1);
             panel6.Controls.Add(panel9);
             panel6.Location = new Point(104, 135);
             panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
             panel6.Size = new Size(989, 582);
             panel6.TabIndex = 6;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(rightBtn);
+            panel1.Controls.Add(leftBtn);
+            panel1.Location = new Point(40, 461);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(906, 110);
+            panel1.TabIndex = 5;
+            // 
+            // rightBtn
+            // 
+            rightBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            rightBtn.Image = (Image)resources.GetObject("rightBtn.Image");
+            rightBtn.Location = new Point(550, 3);
+            rightBtn.Name = "rightBtn";
+            rightBtn.Size = new Size(118, 104);
+            rightBtn.SizeMode = PictureBoxSizeMode.StretchImage;
+            rightBtn.TabIndex = 1;
+            rightBtn.TabStop = false;
+            rightBtn.Visible = false;
+            rightBtn.Click += rightBtn_Click;
+            // 
+            // leftBtn
+            // 
+            leftBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            leftBtn.Image = (Image)resources.GetObject("leftBtn.Image");
+            leftBtn.Location = new Point(209, 6);
+            leftBtn.Name = "leftBtn";
+            leftBtn.Size = new Size(118, 104);
+            leftBtn.SizeMode = PictureBoxSizeMode.StretchImage;
+            leftBtn.TabIndex = 0;
+            leftBtn.TabStop = false;
+            leftBtn.Visible = false;
+            leftBtn.Click += leftBtn_Click;
             // 
             // panel9
             // 
@@ -90,7 +158,7 @@
             panel9.Location = new Point(40, 42);
             panel9.Margin = new Padding(2);
             panel9.Name = "panel9";
-            panel9.Size = new Size(906, 496);
+            panel9.Size = new Size(906, 401);
             panel9.TabIndex = 4;
             // 
             // pictureBox3
@@ -161,17 +229,6 @@
             panel8.Size = new Size(684, 60);
             panel8.TabIndex = 4;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(14, 92);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(61, 59);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
-            // 
             // StyleInputForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -190,13 +247,17 @@
             WindowState = FormWindowState.Maximized;
             Load += StyleInputForm_Load;
             panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)location).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             panel6.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)rightBtn).EndInit();
+            ((System.ComponentModel.ISupportInitialize)leftBtn).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -213,5 +274,9 @@
         private Panel panel9;
         private PictureBox pictureBox6;
         private PictureBox pictureBox1;
+        private Panel panel1;
+        private PictureBox leftBtn;
+        private PictureBox rightBtn;
+        private PictureBox location;
     }
 }
