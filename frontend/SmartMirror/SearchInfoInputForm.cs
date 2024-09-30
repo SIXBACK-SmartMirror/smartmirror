@@ -245,7 +245,7 @@ namespace SmartMirror
                             inputMonitor = 0;
                         }
 
-                        SearchDetailOutputForm searchDetailOutputForm = new SearchDetailOutputForm();
+                        SearchDetailOutputForm searchDetailOutputForm = new SearchDetailOutputForm(responseData);
 
                         Screen secondaryScreen = Screen.AllScreens[outputMonitor];
                         searchDetailOutputForm.StartPosition = FormStartPosition.Manual;
