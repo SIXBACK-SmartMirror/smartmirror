@@ -12,7 +12,7 @@ namespace SmartMirror
         }
 
         // locationList 데이터를 받아 패널을 업데이트하는 메서드
-        private void HighlightPanelsBasedOnLocation(string jsonResponse)
+        private async void HighlightPanelsBasedOnLocation(string jsonResponse)
         {
             try
             {
@@ -41,7 +41,13 @@ namespace SmartMirror
                     {
                         Console.WriteLine(panel.Name);
 
-                        panel.BackColor = stock > 0 ? Color.FromArgb(130, 220, 40) : Color.Yellow;
+                        while (true)
+                        {
+                            panel.BackColor = stock > 0 ? Color.FromArgb(130, 220, 40) : Color.Yellow;
+                            await Task.Delay(500);
+                            panel.BackColor = Color.FromArgb(231, 231, 231);
+                            await Task.Delay(200);
+                        }
                     }
                 }
             }
