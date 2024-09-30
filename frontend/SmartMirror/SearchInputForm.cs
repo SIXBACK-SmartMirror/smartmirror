@@ -46,7 +46,7 @@ namespace SmartMirror
             outputForm.textBox1.Focus();
         }
 
-        public void textBox1_KeyDown(object sender, KeyEventArgs e)
+        public async void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -54,15 +54,15 @@ namespace SmartMirror
                 e.Handled = true; // 이벤트 처리 완료
                 e.SuppressKeyPress = true; // Enter 키 입력을 텍스트 박스에 전달하지 않음
 
+                string apiResponse = await SearchApi.CallSearchApi(outputForm.textBox1.Text, 0);
+
                 // API 호출 및 화면 전환
-                change();
+                change(apiResponse);
             }
         }
 
-        private async void change()
+        private void change(string apiResponse)
         {
-            string apiResponse = await SearchApi.CallSearchApi(outputForm.textBox1.Text, 0);
-
             if (apiResponse != null)
             {
                 var screens = Screen.AllScreens;
@@ -87,7 +87,7 @@ namespace SmartMirror
             ShowOnScreenKeyboard();
         }
 
-        private void voice_Click(object sender, EventArgs e)
+        private async void voice_Click(object sender, EventArgs e)
         {
 
             if (!isRecording)
@@ -101,6 +101,10 @@ namespace SmartMirror
                 label5.Text = "음성으로 물건 찾기";
                 label2.Text = "음성 검색";
                 audioRecorder.StopRecording();
+
+                await Task.Delay(100);
+                string result = await audioRecorder.SendPostRequestWithRecordedAudio();
+                change(result);
             }
 
             isRecording = !isRecording;
