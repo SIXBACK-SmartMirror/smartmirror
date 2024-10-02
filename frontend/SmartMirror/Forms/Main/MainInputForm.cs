@@ -96,19 +96,57 @@ namespace SmartMirror
 
         private void makeup_Click(object sender, EventArgs e)
         {
-            var screens = Screen.AllScreens;
-            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
-
-            MakeupOutputForm makeupOutputForm = new MakeupOutputForm();
-            MakeupInputForm makeupInputForm = new MakeupInputForm(makeupOutputForm);
-
-            FormHelper.SwitchToForm(makeupInputForm, makeupOutputForm, primaryScreen, secondaryScreen);
-
-            this.Hide();
-
-            if (outputForm != null && !outputForm.IsDisposed)
+            if (screens.Length == 2)
             {
+                inputMonitor = 0; // 2개의 모니터 중 첫 번째로 설정
+            }
+
+            // primary와 secondary 스크린 설정
+            Screen primaryScreen = screens[inputMonitor];
+            Screen secondaryScreen = screens[outputMonitor];
+
+            MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
+
+            if (openMakeupOutputForm == null)
+            {
+                MakeupOutputForm makeupOutputForm = new MakeupOutputForm();
+                makeupOutputForm.StartPosition = FormStartPosition.Manual;
+                makeupOutputForm.Location = secondaryScreen.Bounds.Location;
+                makeupOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+                Screen mirror = Screen.AllScreens[outputMonitor];
+
+                Console.WriteLine("연결");
+                makeupOutputForm.Show();
                 outputForm.Hide();
+
+                MakeupInputForm inputForm = new MakeupInputForm(makeupOutputForm);
+                inputForm.StartPosition = FormStartPosition.Manual;
+                inputForm.Location = primaryScreen.Bounds.Location;
+                inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                inputForm.Show();
+
+                this.Hide();
+            }
+            else
+            {
+                // MaininputForm 숨기기
+                this.Hide();
+                // MainoutForm 숨기기
+                outputForm.Hide();
+
+                openMakeupOutputForm.StartPosition = FormStartPosition.Manual;
+                openMakeupOutputForm.Location = secondaryScreen.Bounds.Location;
+                openMakeupOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+                openMakeupOutputForm.Show();
+                openMakeupOutputForm.CaptureImage();
+
+                // makeupinput  
+                MakeupInputForm openMakeupInputForm = Application.OpenForms["MakeupInputForm"] as MakeupInputForm;
+                openMakeupInputForm.StartPosition = FormStartPosition.Manual;
+                openMakeupInputForm.Location = primaryScreen.Bounds.Location;
+                openMakeupInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                openMakeupInputForm.Show();
             }
         }
     }
