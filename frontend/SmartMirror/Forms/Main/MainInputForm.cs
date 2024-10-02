@@ -40,8 +40,6 @@ namespace SmartMirror
 
         private void panel2_Click(object sender, EventArgs e)
         {
-            this.Hide();
-
             var screens = Screen.AllScreens;
             var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
 
@@ -49,6 +47,8 @@ namespace SmartMirror
             SearchInputForm searchInputForm = new SearchInputForm(searchOutputForm);
 
             FormHelper.SwitchToForm(searchInputForm, searchOutputForm, primaryScreen, secondaryScreen);
+
+            this.Hide();
 
             if (outputForm != null && !outputForm.IsDisposed)
             {
@@ -62,10 +62,11 @@ namespace SmartMirror
             int panelHeight = search.Height;
 
             GraphicsPath path = BoarderStyle.RoundSquare(panelWidth, panelHeight);
-        
+
             mirror.Region = new Region(path);
             search.Region = new Region(path);
             makeup.Region = new Region(path);
+            custom.Region = new Region(path);
         }
 
         private void panel1_Click(object sender, EventArgs e)
@@ -95,41 +96,19 @@ namespace SmartMirror
 
         private void makeup_Click(object sender, EventArgs e)
         {
-            MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
-            if (openMakeupOutputForm == null)
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
+
+            MakeupOutputForm makeupOutputForm = new MakeupOutputForm();
+            MakeupInputForm makeupInputForm = new MakeupInputForm(makeupOutputForm);
+
+            FormHelper.SwitchToForm(makeupInputForm, makeupOutputForm, primaryScreen, secondaryScreen);
+
+            this.Hide();
+
+            if (outputForm != null && !outputForm.IsDisposed)
             {
-                int monitorIndex = 1;
-                MakeupOutputForm makeupOutputForm = new MakeupOutputForm();
-
-                Screen mirror = Screen.AllScreens[monitorIndex];
-
-                makeupOutputForm.StartPosition = FormStartPosition.Manual;
-                makeupOutputForm.Location = mirror.Bounds.Location;
-
-                // MakeupInform show
-                Console.WriteLine("연결");
-                makeupOutputForm.Show();
-
-                // MaininputForm 숨기기
-                this.Hide();
-                // MainoutForm 숨기기
                 outputForm.Hide();
-
-                MakeupInputForm inputForm = new MakeupInputForm(makeupOutputForm);
-                //inputForm.Owner = this;
-                inputForm.Show();
-            }
-            else
-            {
-                // MaininputForm 숨기기
-                this.Hide();
-                // MainoutForm 숨기기
-                outputForm.Hide();
-                // makeupout  
-                openMakeupOutputForm.Show();
-                // makeupinput  
-                MakeupInputForm openMakeupInputForm = Application.OpenForms["MakeupInputForm"] as MakeupInputForm;
-                openMakeupInputForm.Show();
             }
         }
     }

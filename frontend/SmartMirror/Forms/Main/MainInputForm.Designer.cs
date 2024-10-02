@@ -49,7 +49,7 @@
             panel2 = new Panel();
             pictureBox7 = new PictureBox();
             pictureBox6 = new PictureBox();
-            panel1 = new Panel();
+            custom = new Panel();
             label10 = new Label();
             pictureBox5 = new PictureBox();
             label11 = new Label();
@@ -71,7 +71,7 @@
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            panel1.SuspendLayout();
+            custom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             mirror.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -103,6 +103,7 @@
             label5.Size = new Size(283, 36);
             label5.TabIndex = 6;
             label5.Text = "상품, 브랜드 이름 검색";
+            label5.Click += panel2_Click;
             // 
             // pictureBox2
             // 
@@ -114,6 +115,7 @@
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 5;
             pictureBox2.TabStop = false;
+            pictureBox2.Click += panel2_Click;
             // 
             // label2
             // 
@@ -126,6 +128,7 @@
             label2.Size = new Size(197, 54);
             label2.TabIndex = 1;
             label2.Text = "상품 찾기";
+            label2.Click += panel2_Click;
             // 
             // makeup
             // 
@@ -152,6 +155,7 @@
             label7.Size = new Size(276, 36);
             label7.TabIndex = 7;
             label7.Text = "정해진 화장 적용 기능";
+            label7.Click += makeup_Click;
             // 
             // pictureBox4
             // 
@@ -163,6 +167,7 @@
             pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 6;
             pictureBox4.TabStop = false;
+            pictureBox4.Click += makeup_Click;
             // 
             // label3
             // 
@@ -175,6 +180,7 @@
             label3.Size = new Size(237, 54);
             label3.TabIndex = 2;
             label3.Text = "원클릭 화장";
+            label3.Click += makeup_Click;
             // 
             // panel5
             // 
@@ -227,7 +233,7 @@
             panel6.Anchor = AnchorStyles.None;
             panel6.BackColor = Color.FromArgb(248, 248, 248);
             panel6.Controls.Add(panel2);
-            panel6.Controls.Add(panel1);
+            panel6.Controls.Add(custom);
             panel6.Controls.Add(mirror);
             panel6.Controls.Add(search);
             panel6.Controls.Add(makeup);
@@ -267,17 +273,19 @@
             pictureBox6.TabIndex = 0;
             pictureBox6.TabStop = false;
             // 
-            // panel1
+            // custom
             // 
-            panel1.BackColor = Color.White;
-            panel1.Controls.Add(label10);
-            panel1.Controls.Add(pictureBox5);
-            panel1.Controls.Add(label11);
-            panel1.Location = new Point(569, 444);
-            panel1.Margin = new Padding(2);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(471, 362);
-            panel1.TabIndex = 8;
+            custom.BackColor = Color.White;
+            custom.Controls.Add(label10);
+            custom.Controls.Add(pictureBox5);
+            custom.Controls.Add(label11);
+            custom.Location = new Point(569, 444);
+            custom.Margin = new Padding(2);
+            custom.Name = "custom";
+            custom.Size = new Size(471, 362);
+            custom.TabIndex = 8;
+            custom.Click += makeup_Click;
+            custom.Paint += panel_Paint;
             // 
             // label10
             // 
@@ -338,6 +346,7 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += panel1_Click;
             // 
             // label9
             // 
@@ -350,6 +359,7 @@
             label9.Size = new Size(128, 36);
             label9.TabIndex = 8;
             label9.Text = "화면 끄기";
+            label9.Click += panel1_Click;
             // 
             // label1
             // 
@@ -362,6 +372,7 @@
             label1.Size = new Size(180, 54);
             label1.TabIndex = 1;
             label1.Text = "거울 ON";
+            label1.Click += panel1_Click;
             // 
             // label4
             // 
@@ -425,8 +436,8 @@
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            custom.ResumeLayout(false);
+            custom.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             mirror.ResumeLayout(false);
             mirror.PerformLayout();
@@ -453,7 +464,7 @@
         private Panel panel8;
         private Label label5;
         private Label label7;
-        private Panel panel1;
+        private Panel custom;
         private Label label10;
         private PictureBox pictureBox5;
         private Label label11;
