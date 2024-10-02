@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using SmartMirror.Models;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Reflection.Emit;
 
 namespace SmartMirror
 {
@@ -39,7 +32,7 @@ namespace SmartMirror
             panel1.Region = new Region(path);
 
             // 초록색 테두리 그리기
-            Pen greenPen = new Pen(Color.Green, 5); // 초록색, 두께 5의 테두리
+            Pen greenPen = new Pen(Color.Black, 5); // 초록색, 두께 5의 테두리
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias; // 테두리의 부드러운 렌더링
          
             e.Graphics.DrawPath(greenPen, path);

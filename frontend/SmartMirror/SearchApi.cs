@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartMirror.Config;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace SmartMirror
     {
         public static async Task<string> CallSearchApi(string keyword, int page)
         {
-            string baseUrl = "http://192.168.100.147:8080/smartmirrorApi/market/1/goods";
+            string baseUrl = $"{ApiConfig.url}/1/goods";
             string urlWithParams = $"{baseUrl}?keyword={keyword}&page={page}&size=9";
 
             try
@@ -29,7 +30,7 @@ namespace SmartMirror
             catch (HttpRequestException httpEx)
             {
                 // HTTP 요청과 관련된 오류 처리
-                MessageBox.Show($"HTTP 요청 실패: {httpEx.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"검색 결과가 없어요!: {httpEx.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
             catch (TaskCanceledException timeoutEx)
