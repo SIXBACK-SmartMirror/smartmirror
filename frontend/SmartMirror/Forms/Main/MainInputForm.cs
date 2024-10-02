@@ -10,11 +10,32 @@ namespace SmartMirror
         private int outputMonitor = 1;
         private int inputMonitor = 2;
         private Screen[] screens = Screen.AllScreens;
+        private System.Windows.Forms.Timer timer;
+        private bool isPictureBox7Visible;
 
         public MainInputForm(MainOutputForm outputForm)
         {
             InitializeComponent();
             this.outputForm = outputForm;
+
+            // Timer 초기화 및 설정
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 3000; // 3초 간격
+            timer.Tick += Timer_Tick; // Tick 이벤트에 핸들러 추가
+            timer.Start(); // 타이머 시작
+
+            isPictureBox7Visible = true;
+        }
+
+        // 타이머 Tick 이벤트 핸들러
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            // PictureBox7과 PictureBox6의 Visible 속성을 반대로 설정하여 전환
+            pictureBox7.Visible = isPictureBox7Visible;
+            pictureBox6.Visible = !isPictureBox7Visible;
+
+            // 다음 상태를 위해 isPictureBox7Visible 값을 반전
+            isPictureBox7Visible = !isPictureBox7Visible;
         }
 
         private void panel2_Click(object sender, EventArgs e)

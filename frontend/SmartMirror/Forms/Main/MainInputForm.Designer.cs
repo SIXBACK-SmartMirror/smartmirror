@@ -33,10 +33,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainInputForm));
-            mirror = new Panel();
-            pictureBox1 = new PictureBox();
-            label9 = new Label();
-            label1 = new Label();
             search = new Panel();
             label5 = new Label();
             pictureBox2 = new PictureBox();
@@ -50,13 +46,20 @@
             pictureBox3 = new PictureBox();
             label6 = new Label();
             panel6 = new Panel();
-            panel9 = new Panel();
-            label8 = new Label();
+            panel2 = new Panel();
+            pictureBox7 = new PictureBox();
+            pictureBox6 = new PictureBox();
+            panel1 = new Panel();
+            label10 = new Label();
+            pictureBox5 = new PictureBox();
+            label11 = new Label();
+            mirror = new Panel();
+            pictureBox1 = new PictureBox();
+            label9 = new Label();
+            label1 = new Label();
             label4 = new Label();
             panel4 = new Panel();
             panel7 = new Panel();
-            mirror.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             makeup.SuspendLayout();
@@ -65,58 +68,15 @@
             panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel6.SuspendLayout();
-            panel9.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            mirror.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel7.SuspendLayout();
             SuspendLayout();
-            // 
-            // mirror
-            // 
-            mirror.BackColor = Color.White;
-            mirror.Controls.Add(pictureBox1);
-            mirror.Controls.Add(label9);
-            mirror.Controls.Add(label1);
-            mirror.Location = new Point(59, 75);
-            mirror.Margin = new Padding(2);
-            mirror.Name = "mirror";
-            mirror.Size = new Size(364, 330);
-            mirror.TabIndex = 0;
-            mirror.Click += panel1_Click;
-            mirror.Paint += panel_Paint;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(254, 220);
-            pictureBox1.Margin = new Padding(2);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(69, 69);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 4;
-            pictureBox1.TabStop = false;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
-            label9.ForeColor = Color.Black;
-            label9.Location = new Point(30, 80);
-            label9.Margin = new Padding(2, 0, 2, 0);
-            label9.Name = "label9";
-            label9.Size = new Size(128, 36);
-            label9.TabIndex = 8;
-            label9.Text = "화면 끄기";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("맑은 고딕", 20F, FontStyle.Bold);
-            label1.ForeColor = Color.Black;
-            label1.Location = new Point(17, 14);
-            label1.Margin = new Padding(2, 0, 2, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(180, 54);
-            label1.TabIndex = 1;
-            label1.Text = "거울 ON";
             // 
             // search
             // 
@@ -124,10 +84,10 @@
             search.Controls.Add(label5);
             search.Controls.Add(pictureBox2);
             search.Controls.Add(label2);
-            search.Location = new Point(490, 75);
+            search.Location = new Point(569, 43);
             search.Margin = new Padding(2);
             search.Name = "search";
-            search.Size = new Size(364, 330);
+            search.Size = new Size(471, 362);
             search.TabIndex = 2;
             search.Click += panel2_Click;
             search.Paint += panel_Paint;
@@ -147,11 +107,11 @@
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(254, 220);
+            pictureBox2.Location = new Point(379, 258);
             pictureBox2.Margin = new Padding(2);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(69, 69);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 5;
             pictureBox2.TabStop = false;
             // 
@@ -169,14 +129,14 @@
             // 
             // makeup
             // 
-            makeup.BackColor = Color.White;
+            makeup.BackColor = Color.FromArgb(130, 220, 40);
             makeup.Controls.Add(label7);
             makeup.Controls.Add(pictureBox4);
             makeup.Controls.Add(label3);
-            makeup.Location = new Point(924, 75);
+            makeup.Location = new Point(49, 444);
             makeup.Margin = new Padding(2);
             makeup.Name = "makeup";
-            makeup.Size = new Size(364, 330);
+            makeup.Size = new Size(471, 362);
             makeup.TabIndex = 3;
             makeup.Click += makeup_Click;
             makeup.Paint += panel_Paint;
@@ -185,22 +145,22 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
-            label7.ForeColor = Color.Black;
+            label7.ForeColor = Color.White;
             label7.Location = new Point(30, 80);
             label7.Margin = new Padding(2, 0, 2, 0);
             label7.Name = "label7";
-            label7.Size = new Size(189, 36);
+            label7.Size = new Size(276, 36);
             label7.TabIndex = 7;
-            label7.Text = "AI로 화장 체험";
+            label7.Text = "정해진 화장 적용 기능";
             // 
             // pictureBox4
             // 
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(254, 220);
+            pictureBox4.Location = new Point(379, 258);
             pictureBox4.Margin = new Padding(2);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(69, 69);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 6;
             pictureBox4.TabStop = false;
             // 
@@ -208,13 +168,13 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("맑은 고딕", 20F, FontStyle.Bold);
-            label3.ForeColor = Color.Black;
+            label3.ForeColor = Color.White;
             label3.Location = new Point(17, 14);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(197, 54);
+            label3.Size = new Size(237, 54);
             label3.TabIndex = 2;
-            label3.Text = "가상 화장";
+            label3.Text = "원클릭 화장";
             // 
             // panel5
             // 
@@ -266,7 +226,8 @@
             // 
             panel6.Anchor = AnchorStyles.None;
             panel6.BackColor = Color.FromArgb(248, 248, 248);
-            panel6.Controls.Add(panel9);
+            panel6.Controls.Add(panel2);
+            panel6.Controls.Add(panel1);
             panel6.Controls.Add(mirror);
             panel6.Controls.Add(search);
             panel6.Controls.Add(makeup);
@@ -276,27 +237,131 @@
             panel6.Size = new Size(1373, 848);
             panel6.TabIndex = 6;
             // 
-            // panel9
+            // panel2
             // 
-            panel9.BackColor = Color.FromArgb(224, 224, 224);
-            panel9.Controls.Add(label8);
-            panel9.Location = new Point(59, 476);
-            panel9.Margin = new Padding(2);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(1230, 286);
-            panel9.TabIndex = 4;
+            panel2.Controls.Add(pictureBox7);
+            panel2.Controls.Add(pictureBox6);
+            panel2.Location = new Point(1058, 43);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(271, 763);
+            panel2.TabIndex = 8;
             // 
-            // label8
+            // pictureBox7
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("맑은 고딕", 15F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            label8.ForeColor = Color.White;
-            label8.Location = new Point(497, 131);
-            label8.Margin = new Padding(2, 0, 2, 0);
-            label8.Name = "label8";
-            label8.Size = new Size(280, 41);
-            label8.TabIndex = 2;
-            label8.Text = "여기에는 광고 넣기";
+            pictureBox7.Image = (Image)resources.GetObject("pictureBox7.Image");
+            pictureBox7.Location = new Point(18, 3);
+            pictureBox7.Name = "pictureBox7";
+            pictureBox7.Size = new Size(250, 763);
+            pictureBox7.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox7.TabIndex = 8;
+            pictureBox7.TabStop = false;
+            pictureBox7.Visible = false;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(18, 3);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(250, 763);
+            pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox6.TabIndex = 0;
+            pictureBox6.TabStop = false;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.White;
+            panel1.Controls.Add(label10);
+            panel1.Controls.Add(pictureBox5);
+            panel1.Controls.Add(label11);
+            panel1.Location = new Point(569, 444);
+            panel1.Margin = new Padding(2);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(471, 362);
+            panel1.TabIndex = 8;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
+            label10.ForeColor = Color.Black;
+            label10.Location = new Point(30, 80);
+            label10.Margin = new Padding(2, 0, 2, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(302, 36);
+            label10.TabIndex = 7;
+            label10.Text = "직접 선택하는 화장 기능";
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
+            pictureBox5.Location = new Point(379, 258);
+            pictureBox5.Margin = new Padding(2);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(69, 69);
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox5.TabIndex = 6;
+            pictureBox5.TabStop = false;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("맑은 고딕", 20F, FontStyle.Bold);
+            label11.ForeColor = Color.Black;
+            label11.Location = new Point(17, 14);
+            label11.Margin = new Padding(2, 0, 2, 0);
+            label11.Name = "label11";
+            label11.Size = new Size(237, 54);
+            label11.TabIndex = 2;
+            label11.Text = "커스텀 화장";
+            // 
+            // mirror
+            // 
+            mirror.BackColor = Color.White;
+            mirror.Controls.Add(pictureBox1);
+            mirror.Controls.Add(label9);
+            mirror.Controls.Add(label1);
+            mirror.Location = new Point(49, 43);
+            mirror.Margin = new Padding(2);
+            mirror.Name = "mirror";
+            mirror.Size = new Size(471, 362);
+            mirror.TabIndex = 0;
+            mirror.Click += panel1_Click;
+            mirror.Paint += panel_Paint;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(379, 258);
+            pictureBox1.Margin = new Padding(2);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(69, 69);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 4;
+            pictureBox1.TabStop = false;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
+            label9.ForeColor = Color.Black;
+            label9.Location = new Point(30, 80);
+            label9.Margin = new Padding(2, 0, 2, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(128, 36);
+            label9.TabIndex = 8;
+            label9.Text = "화면 끄기";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("맑은 고딕", 20F, FontStyle.Bold);
+            label1.ForeColor = Color.Black;
+            label1.Location = new Point(17, 14);
+            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(180, 54);
+            label1.TabIndex = 1;
+            label1.Text = "거울 ON";
             // 
             // label4
             // 
@@ -346,9 +411,6 @@
             Margin = new Padding(2);
             Name = "MainInputForm";
             Text = "Form1";
-            mirror.ResumeLayout(false);
-            mirror.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             search.ResumeLayout(false);
             search.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -360,22 +422,25 @@
             panel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel6.ResumeLayout(false);
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
+            panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            mirror.ResumeLayout(false);
+            mirror.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel7.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Panel mirror;
-        private Label label1;
         private Panel search;
         private Label label2;
         private Panel makeup;
         private Label label3;
-        private PictureBox pictureBox1;
         private Panel panel5;
         private Panel panel6;
         private Label label6;
@@ -388,8 +453,16 @@
         private Panel panel8;
         private Label label5;
         private Label label7;
-        private Panel panel9;
-        private Label label8;
+        private Panel panel1;
+        private Label label10;
+        private PictureBox pictureBox5;
+        private Label label11;
+        private Panel mirror;
+        private PictureBox pictureBox1;
         private Label label9;
+        private Label label1;
+        private PictureBox pictureBox7;
+        private PictureBox pictureBox6;
+        private Panel panel2;
     }
 }
