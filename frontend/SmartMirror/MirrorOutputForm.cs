@@ -13,7 +13,7 @@ namespace SmartMirror
             InitializeComponent();
 
             timer = new System.Windows.Forms.Timer();
-            timer.Interval = 2000; // 2초마다 실행
+            timer.Interval = 5000; // 5초마다 실행
             timer.Tick += new EventHandler(OnTimerTick);
             timer.Start();
 
@@ -25,6 +25,7 @@ namespace SmartMirror
         {
             title.Visible = !title.Visible;
             pictureBox1.Visible = !pictureBox1.Visible;
+            pictureBox3.Visible = !pictureBox3.Visible;
 
             if (title.Visible)
             {
