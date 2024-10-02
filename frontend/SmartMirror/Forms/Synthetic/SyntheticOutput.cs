@@ -18,6 +18,7 @@ using System.Security.Policy;
 using static OpenCvSharp.XImgProc.CvXImgProc;
 using Newtonsoft.Json.Linq;
 using SmartMirror.Models;
+using SmartMirror.Config;
 
 
 
@@ -66,7 +67,7 @@ namespace SmartMirror
 
                 // 파일 경로 설정
                 string filePath = Path.Combine(captureFolder, "captured_image.png");
-                string apiUrl = "http://192.168.100.147:8080/smartMirrorApi/market/1/styles";
+                string apiUrl = $"{ApiConfig.url}/1/styles";
 
                 using (var client = new HttpClient())
                 using (var form = new MultipartFormDataContent())
