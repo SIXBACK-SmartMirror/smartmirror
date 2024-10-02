@@ -1,6 +1,6 @@
 ﻿namespace SmartMirror
 {
-    partial class StyleInputForm
+    partial class CustomsMakeupInputForm
     {
         /// <summary>
         /// Required designer variable.
@@ -26,11 +26,18 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+        //private void InitializeComponent()
+        //{
+        //    this.components = new System.ComponentModel.Container();
+        //    this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        //    this.ClientSize = new System.Drawing.Size(800, 450);
+        //    this.Text = "CustomsMakeupInputForm";
+        //}
+
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StyleInputForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomsMakeupInputForm));
             panel5 = new Panel();
-            location = new PictureBox();
             pictureBox1 = new PictureBox();
             pictureBox6 = new PictureBox();
             panel6 = new Panel();
@@ -45,7 +52,6 @@
             panel7 = new Panel();
             panel8 = new Panel();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)location).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel6.SuspendLayout();
@@ -61,7 +67,6 @@
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel5.BackColor = Color.FromArgb(130, 220, 40);
-            panel5.Controls.Add(location);
             panel5.Controls.Add(pictureBox1);
             panel5.Controls.Add(pictureBox6);
             panel5.Location = new Point(-2, -2);
@@ -69,18 +74,6 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(89, 740);
             panel5.TabIndex = 5;
-            // 
-            // location
-            // 
-            location.Image = (Image)resources.GetObject("location.Image");
-            location.Location = new Point(14, 166);
-            location.Name = "location";
-            location.Size = new Size(61, 52);
-            location.SizeMode = PictureBoxSizeMode.StretchImage;
-            location.TabIndex = 2;
-            location.TabStop = false;
-            location.Visible = false;
-            location.Click += location_Click;
             // 
             // pictureBox1
             // 
@@ -128,7 +121,6 @@
             // rightBtn
             // 
             rightBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            rightBtn.Image = (Image)resources.GetObject("rightBtn.Image");
             rightBtn.Location = new Point(550, 3);
             rightBtn.Name = "rightBtn";
             rightBtn.Size = new Size(118, 104);
@@ -136,12 +128,10 @@
             rightBtn.TabIndex = 1;
             rightBtn.TabStop = false;
             rightBtn.Visible = false;
-            rightBtn.Click += rightBtn_Click;
             // 
             // leftBtn
             // 
             leftBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            leftBtn.Image = (Image)resources.GetObject("leftBtn.Image");
             leftBtn.Location = new Point(209, 6);
             leftBtn.Name = "leftBtn";
             leftBtn.Size = new Size(118, 104);
@@ -149,7 +139,6 @@
             leftBtn.TabIndex = 0;
             leftBtn.TabStop = false;
             leftBtn.Visible = false;
-            leftBtn.Click += leftBtn_Click;
             // 
             // panel9
             // 
@@ -229,7 +218,7 @@
             panel8.Size = new Size(684, 60);
             panel8.TabIndex = 4;
             // 
-            // StyleInputForm
+            // CustomsMakeupInputForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -242,12 +231,11 @@
             Controls.Add(panel5);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(2);
-            Name = "StyleInputForm";
+            Name = "CustomsMakeupInputForm";
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
-            Load += StyleInputForm_Load;
+            Load += CustomsMakeupInputForm_Load;
             panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)location).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             panel6.ResumeLayout(false);
@@ -277,6 +265,11 @@
         private Panel panel1;
         private PictureBox leftBtn;
         private PictureBox rightBtn;
-        private PictureBox location;
     }
 }
+
+
+
+
+
+

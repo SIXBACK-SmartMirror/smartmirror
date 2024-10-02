@@ -10,27 +10,46 @@ using System.Windows.Forms;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using SmartMirror.Models;
 
 namespace SmartMirror
 {
+
     public partial class StyleInputForm : Form
     {
         int makeupStyle = -1;
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
+        private Screen[] screens = Screen.AllScreens;
+        //public String[] SyntheticResponseList;
+        //public StyleData styleData = new StyleData();
+        public StyleData[] SyntheticResponseList;
+
 
         public StyleInputForm()
+
         {
             InitializeComponent();
+            SyntheticResponseList = new StyleData[20];
         }
- 
+
+
+        public void arrayRest()
+        {
+            SyntheticResponseList = new StyleData[20]; // 배열 초기화
+            Console.WriteLine("배열이 초기화");
+        }
+
 
         private async void StyleInputForm_Load(object sender, EventArgs e)
         {
+            Console.WriteLine("스타일 인풋 폼 로드");
             // api 호출해서 메이크업 스타일 사진 받아오기
             // makeup img 변경
-            // img url, 스타일 명, 상뭎 리스트와 페이지
+            // img url, 스타일 명, 상품 리스트와 페이지
             HttpClient client = new HttpClient();
 
-            String apiUrl = "http://192.168.100.147:8080/smartmirrorApi/market/1/styles?page=0&size=5";
+            String apiUrl = "http://192.168.100.147:8080/smartMirrorApi/market/1/styles?page=0&size=10";
 
             try
             {
@@ -38,7 +57,7 @@ namespace SmartMirror
                 response.EnsureSuccessStatusCode();
 
                 String responseBody = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseBody);
+                //Console.WriteLine(responseBody);
 
                 JObject responseJson = JObject.Parse(responseBody);
 
@@ -79,7 +98,7 @@ namespace SmartMirror
                     try
                     {
                         Image image = Image.FromStream(await client.GetStreamAsync(styleImage));
-                        button.Image = new Bitmap(image, new Size(120, 120)); // 이미지를 크기에 맞게 조정
+                        button.Image = new Bitmap(image, new Size(110, 120)); // 이미지를 크기에 맞게 조정
                         button.ImageAlign = ContentAlignment.TopCenter;
                     }
                     catch (Exception ex)
@@ -120,32 +139,91 @@ namespace SmartMirror
 
         private void style_Click(int styleNum)
         {
-            // MaininputForm 숨기기
-            this.Hide();
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            this.leftBtn.Visible = true;
+            this.rightBtn.Visible = true;
 
-            this.synthaticOutputStart(styleNum);
-        }
+            location.Visible = true;
 
 
-        private void synthaticOutputStart(int styleNum)
-        {
+            MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
+            openMakeupOutputForm.Hide();
+
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            if (openSyntheticOutput != null)
+            {
+                openSyntheticOutput.Close();
+            }
             int outputMonitorIndex = 1;
-            int inputMonitorIndex = 0;
 
             Screen output = Screen.AllScreens[outputMonitorIndex];
             SyntheticOutput syntheticOutput = new SyntheticOutput(styleNum); // 나중에 수정 해야함
             syntheticOutput.StartPosition = FormStartPosition.Manual;
             syntheticOutput.Location = output.Bounds.Location;
             syntheticOutput.Show();
-
-            Screen input = Screen.AllScreens[inputMonitorIndex];
-            SyntheticInput syntheticInput = new SyntheticInput(styleNum); // 나중에 수정 해야함
-            syntheticInput.StartPosition = FormStartPosition.Manual;
-            syntheticInput.Location = input.Bounds.Location;
-            syntheticInput.Show();
-
         }
 
 
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            if (openSyntheticOutput != null)
+            {
+                openSyntheticOutput.Close();
+            }
+
+
+            this.Hide();
+
+            MakeupOutputForm openedForm = Application.OpenForms["MakeupOutputFOrm"] as MakeupOutputForm;
+            openedForm.Hide();
+
+            MainInputForm openMainInputForm = Application.OpenForms["MainInputForm"] as MainInputForm;
+            MainOutputForm openMainOutForm = Application.OpenForms["MainOutputForm"] as MainOutputForm;
+
+            openMainInputForm.Show();
+            openMainOutForm.Show();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
+            openMakeupOutputForm.Show();
+
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            if (openSyntheticOutput != null)
+            {
+                openSyntheticOutput.Close();
+            }
+            MakeupInputForm openMakeupInputForm = Application.OpenForms["MakeupInputForm"] as MakeupInputForm;
+            this.Hide();
+            openMakeupInputForm.Show();
+        }
+
+        private void leftBtn_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("leftBTn 클릭");
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            openSyntheticOutput.changePage(0);
+        }
+
+        private void rightBtn_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("rightBtn 클릭");
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            openSyntheticOutput.changePage(1);
+        }
+
+        private void location_Click(object sender, EventArgs e)
+        {
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            if (openSyntheticOutput != null)
+            {
+                openSyntheticOutput.visbleLocation();
+            }
+        }
     }
+
+
 }
