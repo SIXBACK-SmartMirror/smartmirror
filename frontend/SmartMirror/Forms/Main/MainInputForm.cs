@@ -72,32 +72,29 @@ namespace SmartMirror
             isClose = !isClose;
         }
 
-        // @@@@@@@@@@@@@@@@@@@
-        //@@@@@@@@@@@@@@@@@@@@@@@@
-        // 혜민 코드 같이 수정
         private void makeup_Click(object sender, EventArgs e)
         {
             MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
             if (openMakeupOutputForm == null)
             {
                 int monitorIndex = 1;
-                MakeupOutputForm outputForm = new MakeupOutputForm();
+                MakeupOutputForm makeupOutputForm = new MakeupOutputForm();
 
                 Screen mirror = Screen.AllScreens[monitorIndex];
 
-                outputForm.StartPosition = FormStartPosition.Manual;
-                outputForm.Location = mirror.Bounds.Location;
+                makeupOutputForm.StartPosition = FormStartPosition.Manual;
+                makeupOutputForm.Location = mirror.Bounds.Location;
 
                 // MakeupInform show
                 Console.WriteLine("연결");
-                outputForm.Show();
+                makeupOutputForm.Show();
 
                 // MaininputForm 숨기기
                 this.Hide();
                 // MainoutForm 숨기기
-                mainOutputForm.Hide();
+                outputForm.Hide();
 
-                MakeupInputForm inputForm = new MakeupInputForm(outputForm);
+                MakeupInputForm inputForm = new MakeupInputForm(makeupOutputForm);
                 //inputForm.Owner = this;
                 inputForm.Show();
             }
@@ -106,16 +103,13 @@ namespace SmartMirror
                 // MaininputForm 숨기기
                 this.Hide();
                 // MainoutForm 숨기기
-                mainOutputForm.Hide();
+                outputForm.Hide();
                 // makeupout  
                 openMakeupOutputForm.Show();
                 // makeupinput  
                 MakeupInputForm openMakeupInputForm = Application.OpenForms["MakeupInputForm"] as MakeupInputForm;
                 openMakeupInputForm.Show();
             }
-
-
-
         }
     }
 }

@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using SmartMirror.Models;
+using SmartMirror.Config;
 
 namespace SmartMirror
 {
-
     public partial class StyleInputForm : Form
     {
         int makeupStyle = -1;
@@ -25,9 +14,7 @@ namespace SmartMirror
         //public StyleData styleData = new StyleData();
         public StyleData[] SyntheticResponseList;
 
-
         public StyleInputForm()
-
         {
             InitializeComponent();
             SyntheticResponseList = new StyleData[20];
@@ -49,7 +36,7 @@ namespace SmartMirror
             // img url, 스타일 명, 상품 리스트와 페이지
             HttpClient client = new HttpClient();
 
-            String apiUrl = "http://192.168.100.147:8080/smartMirrorApi/market/1/styles?page=0&size=10";
+            String apiUrl = $"{ApiConfig.url}/1/styles?page=0&size=10";
 
             try
             {
@@ -76,8 +63,6 @@ namespace SmartMirror
                     Console.WriteLine(style["styleName"]);
                     String styleName = style["styleName"].ToString();
                     String styleImage = style["styleImage"].ToString();
-
-
 
                     // 버튼 생성
                     Button button = new Button();
@@ -131,15 +116,9 @@ namespace SmartMirror
             {
                 Console.WriteLine(ex.ToString());
             }
-
-
-
         }
-
-
         private void style_Click(int styleNum)
         {
-            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             this.leftBtn.Visible = true;
             this.rightBtn.Visible = true;
 
@@ -162,17 +141,13 @@ namespace SmartMirror
             syntheticOutput.Location = output.Bounds.Location;
             syntheticOutput.Show();
         }
-
-
         private void pictureBox6_Click(object sender, EventArgs e)
         {
-
             SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
             if (openSyntheticOutput != null)
             {
                 openSyntheticOutput.Close();
             }
-
 
             this.Hide();
 
@@ -224,6 +199,4 @@ namespace SmartMirror
             }
         }
     }
-
-
 }
