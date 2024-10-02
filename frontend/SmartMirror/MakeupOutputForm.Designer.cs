@@ -61,12 +61,12 @@
             // 
             // topComent
             // 
-            topComent.Anchor = AnchorStyles.Top;
+            topComent.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             topComent.Font = new Font("맑은 고딕", 30F);
             topComent.ForeColor = SystemColors.ButtonHighlight;
-            topComent.Location = new Point(589, 39);
+            topComent.Location = new Point(460, 39);
             topComent.Name = "topComent";
-            topComent.Size = new Size(447, 67);
+            topComent.Size = new Size(754, 67);
             topComent.TabIndex = 2;
             topComent.Text = "카메라를 봐주세요";
             topComent.TextAlign = ContentAlignment.MiddleCenter;
@@ -93,6 +93,7 @@
             Controls.Add(pictureBox1);
             ForeColor = Color.White;
             Name = "MakeupOutputForm";
+            WindowState = FormWindowState.Maximized;
             Load += MakeupOutputForm_Load;
             ((System.ComponentModel.ISupportInitialize)streamingBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
