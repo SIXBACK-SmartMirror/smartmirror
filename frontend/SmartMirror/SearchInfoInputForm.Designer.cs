@@ -201,7 +201,7 @@
             panel8.Location = new Point(101, 25);
             panel8.Margin = new Padding(2);
             panel8.Name = "panel8";
-            panel8.Size = new Size(760, 72);
+            panel8.Size = new Size(1101, 72);
             panel8.TabIndex = 4;
             // 
             // label7
@@ -222,7 +222,7 @@
             panel6.Location = new Point(100, 173);
             panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1400, 823);
+            panel6.Size = new Size(1408, 823);
             panel6.TabIndex = 6;
             // 
             // SearchInfoInputForm
@@ -264,7 +264,6 @@
         private Panel panel4;
         private Panel panel7;
         private Panel panel8;
-        private Panel panel1;
         private Panel panel13;
         private Panel panel12;
         private Panel panel11;
