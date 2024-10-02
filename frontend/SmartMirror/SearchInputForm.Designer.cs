@@ -68,7 +68,7 @@ namespace SmartMirror
             // 
             // mirror
             // 
-            mirror.BackColor = Color.FromArgb(176, 98, 193);
+            mirror.BackColor = Color.FromArgb(130, 220, 40);
             mirror.Controls.Add(pictureBox1);
             mirror.Controls.Add(label9);
             mirror.Controls.Add(label1);
@@ -83,10 +83,10 @@ namespace SmartMirror
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(272, 206);
+            pictureBox1.Location = new Point(254, 220);
             pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(63, 69);
+            pictureBox1.Size = new Size(69, 69);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
@@ -117,7 +117,7 @@ namespace SmartMirror
             // 
             // voice
             // 
-            voice.BackColor = Color.FromArgb(85, 171, 217);
+            voice.BackColor = Color.White;
             voice.Controls.Add(label5);
             voice.Controls.Add(pictureBox2);
             voice.Controls.Add(label2);
@@ -133,21 +133,21 @@ namespace SmartMirror
             // 
             label5.AutoSize = true;
             label5.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
-            label5.ForeColor = Color.White;
+            label5.ForeColor = Color.Black;
             label5.Location = new Point(30, 80);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
             label5.Size = new Size(241, 36);
             label5.TabIndex = 6;
-            label5.Text = "음성으로 물건 찾기";
+            label5.Text = "음성으로 상품 찾기";
             // 
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(272, 206);
+            pictureBox2.Location = new Point(254, 220);
             pictureBox2.Margin = new Padding(2);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(63, 69);
+            pictureBox2.Size = new Size(69, 69);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 5;
             pictureBox2.TabStop = false;
@@ -156,7 +156,7 @@ namespace SmartMirror
             // 
             label2.AutoSize = true;
             label2.Font = new Font("맑은 고딕", 20F, FontStyle.Bold);
-            label2.ForeColor = Color.White;
+            label2.ForeColor = Color.Black;
             label2.Location = new Point(17, 14);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
@@ -166,7 +166,7 @@ namespace SmartMirror
             // 
             // keybaord
             // 
-            keybaord.BackColor = Color.FromArgb(155, 234, 240);
+            keybaord.BackColor = Color.FromArgb(130, 220, 40);
             keybaord.Controls.Add(label7);
             keybaord.Controls.Add(pictureBox4);
             keybaord.Controls.Add(label3);
@@ -188,15 +188,15 @@ namespace SmartMirror
             label7.Name = "label7";
             label7.Size = new Size(241, 36);
             label7.TabIndex = 7;
-            label7.Text = "키보드로 물건 찾기";
+            label7.Text = "키보드로 상품 찾기";
             // 
             // pictureBox4
             // 
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(272, 206);
+            pictureBox4.Location = new Point(254, 220);
             pictureBox4.Margin = new Padding(2);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(63, 69);
+            pictureBox4.Size = new Size(69, 69);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 6;
             pictureBox4.TabStop = false;
@@ -226,7 +226,7 @@ namespace SmartMirror
             // panel6
             // 
             panel6.Anchor = AnchorStyles.None;
-            panel6.BackColor = Color.White;
+            panel6.BackColor = Color.FromArgb(248, 248, 248);
             panel6.Controls.Add(panel9);
             panel6.Controls.Add(mirror);
             panel6.Controls.Add(voice);
@@ -263,10 +263,10 @@ namespace SmartMirror
             // 
             pictureBox3.Anchor = AnchorStyles.Left;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(19, 11);
+            pictureBox3.Location = new Point(13, 41);
             pictureBox3.Margin = new Padding(2);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(53, 53);
+            pictureBox3.Size = new Size(20, 20);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 1;
             pictureBox3.TabStop = false;
@@ -275,13 +275,13 @@ namespace SmartMirror
             // 
             label6.Anchor = AnchorStyles.Left;
             label6.AutoSize = true;
-            label6.Font = new Font("맑은 고딕", 20F, FontStyle.Bold);
-            label6.Location = new Point(82, 11);
+            label6.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            label6.Location = new Point(33, 37);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
-            label6.Size = new Size(197, 54);
+            label6.Size = new Size(52, 28);
             label6.TabIndex = 0;
-            label6.Text = "물건 찾기";
+            label6.Text = "상품";
             // 
             // label4
             // 
@@ -322,10 +322,10 @@ namespace SmartMirror
             panel8.BackColor = Color.White;
             panel8.Controls.Add(label6);
             panel8.Controls.Add(pictureBox3);
-            panel8.Location = new Point(97, 69);
+            panel8.Location = new Point(2, 84);
             panel8.Margin = new Padding(2);
             panel8.Name = "panel8";
-            panel8.Size = new Size(760, 75);
+            panel8.Size = new Size(100, 100);
             panel8.TabIndex = 4;
             // 
             // SearchInputForm
