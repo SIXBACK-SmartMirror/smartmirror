@@ -180,9 +180,16 @@ namespace SmartMirror
 
         private void button1_Click(object sender, EventArgs e)
         {
-            flag = !flag;
+            if(!flag)
+            {
+                button1.Text = "위치 켜기";
+            }
+            else
+            {
+                button1.Text = "위치 끄기";
+            }
             outputForm.panel2.Visible = flag;
-            outputForm.title.Visible = flag;
+            flag = !flag;
         }
     }
 }

@@ -84,7 +84,6 @@
             title.TabIndex = 1;
             title.Text = "상품 위치를 확인해 주세요";
             title.TextAlign = ContentAlignment.MiddleCenter;
-            title.Visible = false;
             // 
             // panel2
             // 
@@ -106,7 +105,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1130, 831);
             panel2.TabIndex = 3;
-            panel2.Visible = false;
             // 
             // L
             // 

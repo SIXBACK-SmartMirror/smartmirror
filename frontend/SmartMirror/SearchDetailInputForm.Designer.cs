@@ -197,7 +197,7 @@
             button1.Name = "button1";
             button1.Size = new Size(291, 131);
             button1.TabIndex = 4;
-            button1.Text = "위치 확인";
+            button1.Text = "위치 끄기";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
