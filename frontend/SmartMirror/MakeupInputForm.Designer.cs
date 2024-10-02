@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            HomeBtn = new Panel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MakeupInputForm));
+            customsMakeup = new Panel();
             pictureBox1 = new PictureBox();
             label9 = new Label();
             label1 = new Label();
@@ -41,6 +42,7 @@
             pictureBox4 = new PictureBox();
             label3 = new Label();
             panel5 = new Panel();
+            pictureBox6 = new PictureBox();
             panel6 = new Panel();
             panel9 = new Panel();
             label8 = new Label();
@@ -50,12 +52,14 @@
             panel4 = new Panel();
             panel7 = new Panel();
             panel8 = new Panel();
-            HomeBtn.SuspendLayout();
+            customsMakeup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             filmingBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             usingBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel6.SuspendLayout();
             panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -63,24 +67,26 @@
             panel8.SuspendLayout();
             SuspendLayout();
             // 
-            // HomeBtn
+            // customsMakeup
             // 
-            HomeBtn.BackColor = Color.FromArgb(176, 98, 193);
-            HomeBtn.Controls.Add(pictureBox1);
-            HomeBtn.Controls.Add(label9);
-            HomeBtn.Controls.Add(label1);
-            HomeBtn.Location = new Point(240, 87);
-            HomeBtn.Margin = new Padding(2);
-            HomeBtn.Name = "HomeBtn";
-            HomeBtn.Size = new Size(179, 154);
-            HomeBtn.TabIndex = 0;
-            HomeBtn.Paint += panel_Paint;
+            customsMakeup.Anchor = AnchorStyles.None;
+            customsMakeup.BackColor = Color.FromArgb(176, 98, 193);
+            customsMakeup.Controls.Add(pictureBox1);
+            customsMakeup.Controls.Add(label9);
+            customsMakeup.Controls.Add(label1);
+            customsMakeup.Location = new Point(357, 30);
+            customsMakeup.Margin = new Padding(2);
+            customsMakeup.Name = "customsMakeup";
+            customsMakeup.Size = new Size(231, 215);
+            customsMakeup.TabIndex = 0;
+            customsMakeup.Click += customsMakeup_Click;
+            customsMakeup.Paint += panel_Paint;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.free_sticker_computer_7943655;
             pictureBox1.InitialImage = null;
-            pictureBox1.Location = new Point(111, 91);
+            pictureBox1.Location = new Point(144, 140);
             pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(57, 55);
@@ -93,7 +99,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("맑은 고딕", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
             label9.ForeColor = Color.White;
-            label9.Location = new Point(1, 48);
+            label9.Location = new Point(5, 48);
             label9.Margin = new Padding(2, 0, 2, 0);
             label9.Name = "label9";
             label9.Size = new Size(178, 19);
@@ -114,14 +120,15 @@
             // 
             // filmingBtn
             // 
+            filmingBtn.Anchor = AnchorStyles.None;
             filmingBtn.BackColor = Color.FromArgb(85, 171, 217);
             filmingBtn.Controls.Add(label5);
             filmingBtn.Controls.Add(pictureBox2);
             filmingBtn.Controls.Add(label2);
-            filmingBtn.Location = new Point(28, 87);
+            filmingBtn.Location = new Point(57, 30);
             filmingBtn.Margin = new Padding(2);
             filmingBtn.Name = "filmingBtn";
-            filmingBtn.Size = new Size(179, 154);
+            filmingBtn.Size = new Size(234, 215);
             filmingBtn.TabIndex = 2;
             filmingBtn.Click += filmingBtn_Click;
             filmingBtn.Paint += panel_Paint;
@@ -141,7 +148,7 @@
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.free_icon_photo_11943305;
-            pictureBox2.Location = new Point(111, 91);
+            pictureBox2.Location = new Point(153, 140);
             pictureBox2.Margin = new Padding(2);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(57, 55);
@@ -163,14 +170,15 @@
             // 
             // usingBtn
             // 
+            usingBtn.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             usingBtn.BackColor = Color.FromArgb(155, 234, 240);
             usingBtn.Controls.Add(label7);
             usingBtn.Controls.Add(pictureBox4);
             usingBtn.Controls.Add(label3);
-            usingBtn.Location = new Point(453, 87);
+            usingBtn.Location = new Point(663, 30);
             usingBtn.Margin = new Padding(2);
             usingBtn.Name = "usingBtn";
-            usingBtn.Size = new Size(179, 154);
+            usingBtn.Size = new Size(234, 215);
             usingBtn.TabIndex = 3;
             usingBtn.Click += usingBtn_Click;
             usingBtn.Paint += panel_Paint;
@@ -190,7 +198,7 @@
             // pictureBox4
             // 
             pictureBox4.Image = Properties.Resources.free_icon_makeup_5732023;
-            pictureBox4.Location = new Point(111, 91);
+            pictureBox4.Location = new Point(157, 140);
             pictureBox4.Margin = new Padding(2);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(57, 55);
@@ -212,35 +220,49 @@
             // 
             // panel5
             // 
-            panel5.Anchor = AnchorStyles.Top;
+            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel5.BackColor = Color.FromArgb(130, 220, 40);
+            panel5.Controls.Add(pictureBox6);
             panel5.Location = new Point(-2, -2);
             panel5.Margin = new Padding(2);
             panel5.Name = "panel5";
-            panel5.Size = new Size(89, 512);
+            panel5.Size = new Size(89, 671);
             panel5.TabIndex = 5;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(14, 14);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(61, 59);
+            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox6.TabIndex = 8;
+            pictureBox6.TabStop = false;
+            pictureBox6.Click += pictureBox6_Click;
             // 
             // panel6
             // 
+            panel6.Anchor = AnchorStyles.None;
             panel6.BackColor = Color.White;
             panel6.Controls.Add(panel9);
-            panel6.Controls.Add(HomeBtn);
             panel6.Controls.Add(filmingBtn);
+            panel6.Controls.Add(customsMakeup);
             panel6.Controls.Add(usingBtn);
-            panel6.Location = new Point(88, 55);
+            panel6.Location = new Point(87, 116);
             panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
-            panel6.Size = new Size(684, 445);
+            panel6.Size = new Size(950, 553);
             panel6.TabIndex = 6;
             // 
             // panel9
             // 
+            panel9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel9.BackColor = Color.FromArgb(224, 224, 224);
             panel9.Controls.Add(label8);
-            panel9.Location = new Point(47, 272);
+            panel9.Location = new Point(57, 272);
             panel9.Margin = new Padding(2);
             panel9.Name = "panel9";
-            panel9.Size = new Size(584, 131);
+            panel9.Size = new Size(840, 239);
             panel9.TabIndex = 4;
             // 
             // label8
@@ -257,7 +279,6 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.Anchor = AnchorStyles.None;
             pictureBox3.Image = Properties.Resources.free_sticker_makeup_11601337;
             pictureBox3.Location = new Point(17, 18);
             pictureBox3.Margin = new Padding(2);
@@ -280,11 +301,12 @@
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
             label4.BackColor = Color.White;
             label4.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
             label4.ForeColor = Color.FromArgb(255, 120, 120);
-            label4.Location = new Point(612, 14);
+            label4.Location = new Point(878, 14);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
             label4.Size = new Size(139, 28);
@@ -302,10 +324,10 @@
             // 
             // panel7
             // 
-            panel7.Anchor = AnchorStyles.Top;
+            panel7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel7.BackColor = Color.FromArgb(130, 220, 40);
             panel7.Controls.Add(panel4);
-            panel7.Location = new Point(577, 14);
+            panel7.Location = new Point(843, 14);
             panel7.Margin = new Padding(2);
             panel7.Name = "panel7";
             panel7.Size = new Size(29, 28);
@@ -327,7 +349,7 @@
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(771, 500);
+            ClientSize = new Size(1037, 659);
             Controls.Add(panel8);
             Controls.Add(panel7);
             Controls.Add(label4);
@@ -337,8 +359,9 @@
             Margin = new Padding(2);
             Name = "MakeupInputForm";
             Text = "Form1";
-            HomeBtn.ResumeLayout(false);
-            HomeBtn.PerformLayout();
+            WindowState = FormWindowState.Maximized;
+            customsMakeup.ResumeLayout(false);
+            customsMakeup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             filmingBtn.ResumeLayout(false);
             filmingBtn.PerformLayout();
@@ -346,6 +369,8 @@
             usingBtn.ResumeLayout(false);
             usingBtn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             panel6.ResumeLayout(false);
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
@@ -359,7 +384,7 @@
 
         #endregion
 
-        private Panel HomeBtn;
+        private Panel customsMakeup;
         private Label label1;
         private Panel filmingBtn;
         private Label label2;
@@ -381,5 +406,6 @@
         private Panel panel9;
         private Label label8;
         private Label label9;
+        private PictureBox pictureBox6;
     }
 }

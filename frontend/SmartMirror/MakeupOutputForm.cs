@@ -37,6 +37,7 @@ namespace SmartMirror
         {
             thread = new Thread(new ThreadStart(CaptureVideo));
             thread.Start();
+            this.CaptureImage();
         }
 
         public void CaptureVideo()
@@ -67,6 +68,7 @@ namespace SmartMirror
         //}
         public void CaptureImage()
         {
+
             if (is_taken)
             {
                 Console.WriteLine("송출 키고, 사진 뺌");
@@ -79,6 +81,28 @@ namespace SmartMirror
             timer.Tick += new EventHandler(count_down);
             timer.Interval = 1000;
             timer.Start();
+
+            //if (time == 2 || time == 1 || time == 0)
+            //{
+            //    Console.WriteLine("????");
+            //    Console.WriteLine(time);
+                
+            //}
+            //else if (is_taken)
+            //{
+            //    Console.WriteLine("송출 키고, 사진 뺌");
+            //    this.captureImg.Image.Dispose();
+            //    this.captureImg.Image = null;
+            //    this.streamingBox.Visible = true;
+            //    this.captureImg.Visible = false;
+            //}
+            //else
+            //{
+            //    timer = new System.Windows.Forms.Timer();
+            //    timer.Tick += new EventHandler(count_down);
+            //    timer.Interval = 1000;
+            //    timer.Start();
+            //}
 
         }
 
@@ -94,7 +118,24 @@ namespace SmartMirror
                 {
                     this.topComent.Text = "촬칵";
                     is_taken = true;
-                    string outputPath = Path.Combine(@"C:\Users\SSAFY\Desktop\capture", "captured_image.png");
+
+                    // 프로젝트 실행 경로를 가져옴
+                    string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+                    // 프로젝트 내의 'capture' 폴더를 경로에 추가
+                    string captureFolder = Path.Combine(basePath, "capture");
+
+                    // 폴더가 없으면 생성
+                    if (!Directory.Exists(captureFolder))
+                    {
+                        Directory.CreateDirectory(captureFolder);
+                    }
+
+                    // 파일 경로 설정
+                    string outputPath = Path.Combine(captureFolder, "captured_image.png");
+
+
+                    //string outputPath = Path.Combine(@"C:\Users\SSAFY\Desktop\capture", "captured_image.png");
 
                     // 좌우 반전
                     Cv2.Flip(_image, _image, FlipMode.Y);
