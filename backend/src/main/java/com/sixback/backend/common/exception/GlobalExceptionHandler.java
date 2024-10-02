@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sixback.backend.common.dto.ResponseDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(CustomServerException.class)
 	public ResponseEntity<?> handleCustomServerException(CustomServerException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>(e.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -38,6 +41,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(CustomClientException.class)
 	public ResponseEntity<?> handleCustomClientException(CustomClientException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>(e.getMessage(), null), HttpStatus.NOT_FOUND);
 	}
 
@@ -47,8 +51,9 @@ public class GlobalExceptionHandler {
 	 * @param e 사용자 지정 예외.
 	 * @return
 	 */
-	@ExceptionHandler(CustomFileException.class)
-	public ResponseEntity<?> handleCustomFileException(CustomFileException e) {
+	@ExceptionHandler(CustomInputException.class)
+	public ResponseEntity<?> handleCustomFileException(CustomInputException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>(e.getMessage(), null), HttpStatus.BAD_REQUEST);
 	}
 
@@ -70,6 +75,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(IOException.class)
 	public ResponseEntity<?> FileIOException(IOException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("F00", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -80,6 +86,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("I00", null), HttpStatus.BAD_REQUEST);
 	}
 
@@ -90,6 +97,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(HandlerMethodValidationException.class)
 	public ResponseEntity<?> handleValidationException(HandlerMethodValidationException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("I01", null), HttpStatus.BAD_REQUEST);
 	}
 
@@ -100,6 +108,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(EmptyResultDataAccessException.class)
 	public ResponseEntity<?> noDataException(EmptyResultDataAccessException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("C00", null), HttpStatus.NOT_FOUND);
 	}
 
@@ -110,6 +119,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<?> integrityViolationException(DataIntegrityViolationException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("D00", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -120,7 +130,29 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(DataAccessException.class)
 	public ResponseEntity<?> dataException(DataAccessException e) {
+		log.error(e.getMessage());
 		return new ResponseEntity<>(new ResponseDto<>("D00", null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	/**
+	 * 외부 API 통신 실패
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(RestClientException.class)
+	public ResponseEntity<?> apiFailException(RestClientException e) {
+		log.error(e.getMessage());
+		return new ResponseEntity<>(new ResponseDto<>("H00", null), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	/**
+	 * 파싱 실패
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(JsonProcessingException.class)
+	public ResponseEntity<?> JsonProcessingException(JsonProcessingException e) {
+		log.error(e.getMessage());
+		return new ResponseEntity<>(new ResponseDto<>("D01", null), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }

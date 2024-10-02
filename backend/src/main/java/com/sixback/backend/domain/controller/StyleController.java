@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sixback.backend.common.dto.ResponseDto;
 import com.sixback.backend.domain.dto.StyleInfoListDto;
-import com.sixback.backend.domain.dto.StyleResultDto;
 import com.sixback.backend.domain.dto.VirtualMakeupReqDto;
 import com.sixback.backend.domain.service.StyleService;
 
@@ -34,9 +33,8 @@ public class StyleController {
 	// 화장 스타일 목록 조회
 	@GetMapping
 	public ResponseEntity<?> findAllStyle(@PathVariable("marketId") Long marketId,
-		@Min(0) @RequestParam("page") int page,
-		@Min(1) @RequestParam("size") int size) {
-		StyleInfoListDto styleInfoListDto = new StyleInfoListDto(styleService.findAllStyle(marketId, page, size));
+		@Min(0) @RequestParam("page") int page, @Min(1) @RequestParam("size") int size) {
+		StyleInfoListDto styleInfoListDto = styleService.findAllStyle(marketId, page, size);
 		return new ResponseEntity<>(new ResponseDto<>("A00", styleInfoListDto), HttpStatus.OK);
 	}
 
@@ -48,19 +46,26 @@ public class StyleController {
 			.map(styleResultDto -> new ResponseEntity<>(new ResponseDto<>("A00", styleResultDto), HttpStatus.OK));
 	}
 
-	@PostMapping(value = "/test", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<?> testCreatVirtualMakeup(@PathVariable("marketId") Long marketId,
-		@Valid @ModelAttribute VirtualMakeupReqDto virtualMakeupReqDto) {
-		log.debug(String.format("request : marketId = %d\nbody = %s", marketId, virtualMakeupReqDto));
-		StyleResultDto styleResultDto = styleService.testCreatVirtualMakeup(marketId, virtualMakeupReqDto);
-		return new ResponseEntity<>(new ResponseDto<>("A00", styleResultDto), HttpStatus.OK);
-	}
+	// @PostMapping(value = "/test", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	// public ResponseEntity<?> testCreatVirtualMakeup(@PathVariable("marketId") Long marketId,
+	// 	@Valid @ModelAttribute VirtualMakeupReqDto virtualMakeupReqDto) {
+	// 	log.debug(String.format("request : marketId = %d\nbody = %s", marketId, virtualMakeupReqDto));
+	// 	StyleResultDto styleResultDto = styleService.testCreatVirtualMakeup(marketId, virtualMakeupReqDto);
+	// 	return new ResponseEntity<>(new ResponseDto<>("A00", styleResultDto), HttpStatus.OK);
+	// }
+	//
+	// @PostMapping(value = "/testAi", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	// public Mono<ResponseEntity<?>> testAICreatVirtualMakeup(@PathVariable("marketId") Long marketId,
+	// 	@Valid @ModelAttribute VirtualMakeupReqDto virtualMakeupReqDto) {
+	// 	return styleService.testAIcreateVirtualMakeup(marketId, virtualMakeupReqDto)
+	// 		.map(styleResultDto -> new ResponseEntity<>(new ResponseDto<>("A00", styleResultDto), HttpStatus.OK));
+	// }
 
-	@PostMapping(value = "/testAi", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public Mono<ResponseEntity<?>> testAICreatVirtualMakeup(@PathVariable("marketId") Long marketId,
-		@Valid @ModelAttribute VirtualMakeupReqDto virtualMakeupReqDto) {
-		return styleService.testAIcreateVirtualMakeup(marketId, virtualMakeupReqDto)
-			.map(styleResultDto -> new ResponseEntity<>(new ResponseDto<>("A00", styleResultDto), HttpStatus.OK));
+	// 현재 스타일에 사용된 모든 상품 위치 또는 특정 상품 상세 정보 확인
+	@GetMapping("/{styleId}")
+	public ResponseEntity<?> findUseOptionInfo(@PathVariable("marketId") Long marketId,
+		@PathVariable("styleId") Long styleId, @RequestParam(value = "optionId", required = false) Long optionId) {
+		Object useOptionInfo = styleService.findUseGoodsOptionInfo(marketId, styleId, optionId);
+		return new ResponseEntity<>(new ResponseDto<>("A00", useOptionInfo), HttpStatus.OK);
 	}
-
 }
