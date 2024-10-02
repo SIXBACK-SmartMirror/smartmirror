@@ -72,9 +72,6 @@ namespace SmartMirror
             isClose = !isClose;
         }
 
-        // @@@@@@@@@@@@@@@@@@@
-        //@@@@@@@@@@@@@@@@@@@@@@@@
-        // 혜민 코드 같이 수정
         private void makeup_Click(object sender, EventArgs e)
         {
             MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
