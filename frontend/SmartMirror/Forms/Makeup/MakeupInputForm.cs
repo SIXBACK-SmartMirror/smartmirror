@@ -1,15 +1,5 @@
-using Microsoft.VisualBasic.Devices;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using SmartMirror.Helpers;
 
 namespace SmartMirror
 {
@@ -56,12 +46,12 @@ namespace SmartMirror
 
         private void panel_Paint(object sender, PaintEventArgs e)
         {
-            int panelWidth = HomeBtn.Width;
-            int panelHeight = HomeBtn.Height;
+            int panelWidth = filmingBtn.Width;
+            int panelHeight = filmingBtn.Height;
 
             GraphicsPath path = BoarderStyle.RoundSquare(panelWidth, panelHeight);
 
-            HomeBtn.Region = new Region(path);
+            customsMakeup.Region = new Region(path);
             filmingBtn.Region = new Region(path);
             usingBtn.Region = new Region(path);
         }
