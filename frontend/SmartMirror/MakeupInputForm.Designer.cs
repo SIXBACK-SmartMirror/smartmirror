@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MakeupInputForm));
-            HomeBtn = new Panel();
+            customsMakeup = new Panel();
             pictureBox1 = new PictureBox();
             label9 = new Label();
             label1 = new Label();
@@ -42,6 +42,7 @@
             pictureBox4 = new PictureBox();
             label3 = new Label();
             panel5 = new Panel();
+            pictureBox6 = new PictureBox();
             panel6 = new Panel();
             panel9 = new Panel();
             label8 = new Label();
@@ -51,35 +52,35 @@
             panel4 = new Panel();
             panel7 = new Panel();
             panel8 = new Panel();
-            pictureBox6 = new PictureBox();
-            HomeBtn.SuspendLayout();
+            customsMakeup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             filmingBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             usingBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel6.SuspendLayout();
             panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             SuspendLayout();
             // 
-            // HomeBtn
+            // customsMakeup
             // 
-            HomeBtn.Anchor = AnchorStyles.None;
-            HomeBtn.BackColor = Color.FromArgb(176, 98, 193);
-            HomeBtn.Controls.Add(pictureBox1);
-            HomeBtn.Controls.Add(label9);
-            HomeBtn.Controls.Add(label1);
-            HomeBtn.Location = new Point(57, 30);
-            HomeBtn.Margin = new Padding(2);
-            HomeBtn.Name = "HomeBtn";
-            HomeBtn.Size = new Size(231, 215);
-            HomeBtn.TabIndex = 0;
-            HomeBtn.Paint += panel_Paint;
+            customsMakeup.Anchor = AnchorStyles.None;
+            customsMakeup.BackColor = Color.FromArgb(176, 98, 193);
+            customsMakeup.Controls.Add(pictureBox1);
+            customsMakeup.Controls.Add(label9);
+            customsMakeup.Controls.Add(label1);
+            customsMakeup.Location = new Point(357, 30);
+            customsMakeup.Margin = new Padding(2);
+            customsMakeup.Name = "customsMakeup";
+            customsMakeup.Size = new Size(231, 215);
+            customsMakeup.TabIndex = 0;
+            customsMakeup.Click += customsMakeup_Click;
+            customsMakeup.Paint += panel_Paint;
             // 
             // pictureBox1
             // 
@@ -124,7 +125,7 @@
             filmingBtn.Controls.Add(label5);
             filmingBtn.Controls.Add(pictureBox2);
             filmingBtn.Controls.Add(label2);
-            filmingBtn.Location = new Point(361, 30);
+            filmingBtn.Location = new Point(57, 30);
             filmingBtn.Margin = new Padding(2);
             filmingBtn.Name = "filmingBtn";
             filmingBtn.Size = new Size(234, 215);
@@ -228,13 +229,24 @@
             panel5.Size = new Size(89, 671);
             panel5.TabIndex = 5;
             // 
+            // pictureBox6
+            // 
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(14, 14);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(61, 59);
+            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox6.TabIndex = 8;
+            pictureBox6.TabStop = false;
+            pictureBox6.Click += pictureBox6_Click;
+            // 
             // panel6
             // 
             panel6.Anchor = AnchorStyles.None;
             panel6.BackColor = Color.White;
             panel6.Controls.Add(panel9);
             panel6.Controls.Add(filmingBtn);
-            panel6.Controls.Add(HomeBtn);
+            panel6.Controls.Add(customsMakeup);
             panel6.Controls.Add(usingBtn);
             panel6.Location = new Point(87, 116);
             panel6.Margin = new Padding(2);
@@ -332,17 +344,6 @@
             panel8.Size = new Size(684, 60);
             panel8.TabIndex = 4;
             // 
-            // pictureBox6
-            // 
-            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(14, 14);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(61, 59);
-            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox6.TabIndex = 8;
-            pictureBox6.TabStop = false;
-            pictureBox6.Click += pictureBox6_Click;
-            // 
             // MakeupInputForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -359,8 +360,8 @@
             Name = "MakeupInputForm";
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
-            HomeBtn.ResumeLayout(false);
-            HomeBtn.PerformLayout();
+            customsMakeup.ResumeLayout(false);
+            customsMakeup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             filmingBtn.ResumeLayout(false);
             filmingBtn.PerformLayout();
@@ -369,6 +370,7 @@
             usingBtn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             panel6.ResumeLayout(false);
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
@@ -376,14 +378,13 @@
             panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Panel HomeBtn;
+        private Panel customsMakeup;
         private Label label1;
         private Panel filmingBtn;
         private Label label2;
