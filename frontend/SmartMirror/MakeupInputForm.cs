@@ -65,8 +65,8 @@ namespace SmartMirror
             int cornerRadius = 15;
 
             // 패널의 크기
-            int panelWidth = HomeBtn.Width;
-            int panelHeight = HomeBtn.Height;
+            int panelWidth = customsMakeup.Width;
+            int panelHeight = customsMakeup.Height;
 
             // GraphicsPath를 사용해 둥근 모서리 경로를 생성
             GraphicsPath path = new GraphicsPath();
@@ -77,7 +77,7 @@ namespace SmartMirror
             path.CloseFigure();
 
             // 패널의 모양을 둥근 모서리로 설정
-            HomeBtn.Region = new Region(path);
+            customsMakeup.Region = new Region(path);
             filmingBtn.Region = new Region(path);
             usingBtn.Region = new Region(path);
         }
@@ -90,6 +90,24 @@ namespace SmartMirror
 
             MainOutputForm openMainOutputForm = Application.OpenForms["MainOutputForm"] as MainOutputForm;
             openMainOutputForm.Show();
+        }
+
+        private void customsMakeup_Click(object sender, EventArgs e)
+        {
+            CustomsMakeupInputForm openCustomsMakeupInputForm = Application.OpenForms["CustomsMakeupInputForm"] as CustomsMakeupInputForm;
+            if (openCustomsMakeupInputForm != null && !openCustomsMakeupInputForm.Visible)
+            {
+                Console.WriteLine("커스텀 화장 다시 클릭");
+                this.Hide();
+                openCustomsMakeupInputForm.Show();
+            }
+            else
+            {
+                CustomsMakeupInputForm customsMakeupInputForm = new CustomsMakeupInputForm();
+                this.Hide();
+                customsMakeupInputForm.Show();
+            }
+
         }
     }
 }
