@@ -11,7 +11,7 @@ public class GroupOptionId implements Serializable {
 	private Goods goods;
 	// 기획에 포함된 상품 식별번호
 	private GoodsOption option;
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)

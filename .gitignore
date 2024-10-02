@@ -402,6 +402,7 @@ out/
 
 ## Custom
 application-local.properties
+.env
 
 # Python virtual environments
 venv/
