@@ -117,4 +117,50 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 	""", nativeQuery = true)
 	List<OptionInfoDto> findAllOptionByGoodsId(@Param("marketId") Long marketId, @Param("goodsId") Long goodsId);
 
+	@Query(value = """
+				WITH RankedOptions AS (
+		                  SELECT\s
+		                      o.color_rgb,
+		                      o.color_hsv,
+		                      o.release_at,
+		                      o.option_id,
+		                      g.goods_name,
+		                      o.option_name,
+		                      o.option_image,
+		                      CASE WHEN s.stock_id IS NOT NULL THEN TRUE ELSE FALSE END AS is_in_market_raw,
+		                      s.location as location_raw,
+		                      COALESCE(s.count, 0) AS stock,
+		                      pt.type_name AS option_type_name_raw,
+		                      ROW_NUMBER() OVER (PARTITION BY pt.type_id ORDER BY o.release_at DESC) AS rn
+		                  FROM goods_option o
+		                  JOIN goods g ON g.goods_id = o.goods_id
+		                  JOIN goods_type AS ct ON g.type_id = ct.type_id
+		                  JOIN goods_type AS pt ON ct.parent_id = pt.type_id
+		                  LEFT JOIN stock s ON s.option_id = o.option_id
+		                      AND s.market_id = 1
+		                      AND s.is_possible = 1
+		                  WHERE g.is_possible = 1
+		                      AND o.color_rgb IS NOT NULL
+		                      AND (
+		                          pt.type_id IN (5)
+		                          OR ct.type_id IN (15, 16)
+		                          OR ct.type_id IN (17)
+		                      )
+		              )
+		              SELECT color_rgb as option_color,
+		                     option_id,
+		                     goods_name,
+		                     option_name,
+		                     option_image,
+		                     is_in_market_raw,
+		                     location_raw,
+		                     option_type_name_raw,
+		                     stock
+		              FROM RankedOptions
+		              WHERE rn > :offset AND rn <= (:offset + :size)
+		              ORDER BY option_type_name_raw, color_hsv, release_at DESC
+		""",
+          nativeQuery = true
+	)
+	List<OptionInfoDto> findAllCustomOption(@Param("size") int size, @Param("offset") int offset);
 }
