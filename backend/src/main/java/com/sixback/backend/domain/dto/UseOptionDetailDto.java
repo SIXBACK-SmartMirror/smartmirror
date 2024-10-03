@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UseOptionDetailDto {
 	String brandNameKr;
-	Long optionPrice;
+	String goodsName;
+	String optionName;
+	long optionPrice;
 	long optionDiscountPrice;
 	boolean isInMarket;
 	int stock;

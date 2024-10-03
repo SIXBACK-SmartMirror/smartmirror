@@ -21,6 +21,8 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 	@Query("""
 		    SELECT new com.sixback.backend.domain.dto.UseOptionDetailDto(
 		            b.brandNameKr,
+		            g.goodsName,
+		            o.optionName,
 		            o.optionPrice,
 		            CAST(o.optionPrice * (1 - o.optionDiscount) AS long),
 		            CASE WHEN s.location IS NOT NULL THEN true ELSE false END,
@@ -116,5 +118,28 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 			stock DESC;
 	""", nativeQuery = true)
 	List<OptionInfoDto> findAllOptionByGoodsId(@Param("marketId") Long marketId, @Param("goodsId") Long goodsId);
+
+	@EntityGraph(attributePaths = {"goods", "goods.brand"})
+	@Query("""
+		    SELECT new com.sixback.backend.domain.dto.UseOptionDetailDto(
+		            b.brandNameKr,
+		            g.goodsName,
+		            o.optionName,
+		            o.optionPrice,
+		            CAST(o.optionPrice * (1 - o.optionDiscount) AS long),
+		            CASE WHEN s.stockId IS NOT NULL THEN true ELSE false END,
+		           	CAST(coalesce(s.count, 0) AS int),
+		            s.location
+		        )
+		    FROM GoodsOption o
+		    JOIN o.goods g ON o.optionId in :optionId
+		    JOIN g.brand b
+		    LEFT JOIN Stock s ON s.market.marketId = :marketId
+		        AND s.option.optionId = o.optionId
+		    ORDER BY SUM(CASE WHEN s.isSelling = false THEN 1 ELSE 0 END) DESC
+		    LIMIT 1
+		""")
+	List<UseOptionDetailDto> findAllUseOptionId(@Param("marketId") Long marketId,
+		@Param("optionIdList") List<Long> optionIdList);
 
 }
