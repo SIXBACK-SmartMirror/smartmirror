@@ -42,8 +42,8 @@ public class CustomService {
 		marketService.validateMarket(marketId);
 		return facerClientService.sendRequest(customMakeupReqDto)
 			.map(result -> CustomResultDto.builder()
-			.makeupImage(result)  // sendRequest에서 반환된 String 값을 result에 넣음
-			.build());
+				.makeupImage(result)  // sendRequest에서 반환된 String 값을 result에 넣음
+				.build());
 	}
 
 	public void validateFileSize(MultipartFile file) {
