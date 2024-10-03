@@ -49,6 +49,16 @@ public class GoodsOption {
 	@Size(min = 1, max = 100)
 	private String optionName;
 
+	// 상품 옵션명
+	@Column(columnDefinition = "varchar(15)")
+	@Size(max = 15)
+	private String colorRgb;
+
+	// 상품 옵션명
+	@Column(columnDefinition = "varchar(15)")
+	@Size(max = 15)
+	private String colorHsv;
+
 	// 옵션 이미지 URL
 	@Column(columnDefinition = "varchar(255)")
 	@Size(max = 255)
