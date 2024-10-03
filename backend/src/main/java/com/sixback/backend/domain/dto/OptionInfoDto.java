@@ -45,8 +45,6 @@ public interface OptionInfoDto {
 		};
 	}
 
-	;
-
 	String getOptionName();
 
 	int getStock();
