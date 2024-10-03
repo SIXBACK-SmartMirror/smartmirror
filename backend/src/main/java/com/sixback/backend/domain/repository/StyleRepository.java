@@ -28,9 +28,9 @@ public interface StyleRepository extends JpaRepository<Style, Long> {
 		    jt.option_name as option_name,
 		    jt.goods_name as goods_name,
 		    jt.option_image as option_image,
-		    CASE WHEN s.location IS NOT NULL THEN true ELSE false END AS is_in_market_raw,
+		    CASE WHEN s.stock_id IS NOT NULL THEN true ELSE false END AS is_in_market_raw,
 		    s.location as location_raw,
-		    SUM(CASE WHEN s.is_selling = 0 THEN 1 ELSE 0 END) AS stock
+		    COALESCE(s.count, 0) as stock
 		FROM Style st
 		JOIN JSON_TABLE(st.goods_option_list, '$[*]'
 		    COLUMNS(
@@ -41,7 +41,6 @@ public interface StyleRepository extends JpaRepository<Style, Long> {
 		    	)
 		) AS jt ON st.style_id = :styleId
 		LEFT JOIN Stock s ON s.market_id = :marketId AND s.option_id = jt.option_id
-		GROUP BY jt.option_id, jt.option_name, jt.goods_name, jt.option_image, s.location
 		""", nativeQuery = true)
 	List<OptionInfoDto> findAllUseOptionInfoList(@Param("marketId") Long marketId, @Param("styleId") Long styleId);
 
