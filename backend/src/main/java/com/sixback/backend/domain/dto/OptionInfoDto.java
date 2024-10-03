@@ -18,6 +18,8 @@ public interface OptionInfoDto {
 	@JsonView(useOptionView.class)
 	String getOptionImage();
 
+	String getOptionColor();
+
 	@JsonIgnore
 	Long getOptionPrice();
 
@@ -29,6 +31,21 @@ public interface OptionInfoDto {
 
 	@JsonIgnore
 	Integer getIsInMarketRaw(); // 내부적으로 사용
+
+	@JsonIgnore
+	String getOptionTypeNameRaw();
+
+	@JsonIgnore
+	default String getCustomOptionTypeName() {
+		String optionTypeName = getOptionTypeNameRaw();
+		return switch (optionTypeName) {
+			case "아이메이크업" -> "eyebrowList";
+			case "베이스메이크업" -> "skinList";
+			default -> "lipList";
+		};
+	}
+
+	;
 
 	String getOptionName();
 
