@@ -31,7 +31,7 @@ public interface StyleRepository extends JpaRepository<Style, Long> {
 		    CASE WHEN s.stock_id IS NOT NULL THEN true ELSE false END AS is_in_market_raw,
 		    s.location as location_raw,
 		    COALESCE(s.count, 0) as stock
-		FROM Style st
+		FROM style st
 		JOIN JSON_TABLE(st.goods_option_list, '$[*]'
 		    COLUMNS(
 		        option_id INT PATH '$.option_id',
