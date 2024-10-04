@@ -76,7 +76,7 @@ public class GoodsService {
 
 	public SearchResultDto findAllGoodsByKeyword(String keyword, int page, int size) {
 		// 화장 스타일 식별번호 순으로 정렬
-		Pageable pageable = PageRequest.of(page, size, Sort.by("goods.releaseAt").descending());
+		Pageable pageable = PageRequest.of(page, size, Sort.by("release_at").descending());
 		Page<GoodsDto> goodsDtoPage = goodsOptionRepository.findAllGoodsByKeyword(keyword, pageable);
 		return new SearchResultDto(keyword, goodsDtoPage);
 	}
@@ -106,7 +106,7 @@ public class GoodsService {
 
 	// 정규 표현식을 사용하여 특수문자 제거
 	private String removeSpecialCharacters(String input) {
-		String result = input.replaceAll("[^a-zA-Z0-9가-힣\\s]", "");
+		String result = input.replaceAll("[^a-zA-Z0-9가-힣\\s]", "").trim();
 		if (result.isBlank()) {
 			throw new NullNLPException();
 		}
