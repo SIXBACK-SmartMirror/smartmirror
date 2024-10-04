@@ -36,8 +36,8 @@ public class GoodsType {
 	// 상품 타입 식별번호
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(columnDefinition = "tinyint", nullable = false)
-	private Byte typeId;
+	@Column(columnDefinition = "smallint unsigned", nullable = false)
+	private Integer typeId;
 
 	// 상품 타입 이름
 	@Column(columnDefinition = "varchar(30)", nullable = false)
