@@ -41,9 +41,10 @@
             // streamingBox
             // 
             streamingBox.Anchor = AnchorStyles.None;
-            streamingBox.Location = new Point(306, 284);
+            streamingBox.Location = new Point(340, 355);
+            streamingBox.Margin = new Padding(3, 4, 3, 4);
             streamingBox.Name = "streamingBox";
-            streamingBox.Size = new Size(1000, 794);
+            streamingBox.Size = new Size(1111, 992);
             streamingBox.TabIndex = 0;
             streamingBox.TabStop = false;
             // 
@@ -52,9 +53,10 @@
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(174, 1300);
+            pictureBox1.Location = new Point(118, 1602);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(307, 409);
+            pictureBox1.Size = new Size(341, 511);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
@@ -64,9 +66,9 @@
             topComent.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             topComent.Font = new Font("맑은 고딕", 30F);
             topComent.ForeColor = SystemColors.ButtonHighlight;
-            topComent.Location = new Point(460, 39);
+            topComent.Location = new Point(311, 11);
             topComent.Name = "topComent";
-            topComent.Size = new Size(754, 67);
+            topComent.Size = new Size(1182, 102);
             topComent.TabIndex = 2;
             topComent.Text = "카메라를 봐주세요";
             topComent.TextAlign = ContentAlignment.MiddleCenter;
@@ -74,24 +76,26 @@
             // captureImg
             // 
             captureImg.Anchor = AnchorStyles.None;
-            captureImg.Location = new Point(306, 284);
+            captureImg.Location = new Point(340, 355);
+            captureImg.Margin = new Padding(3, 4, 3, 4);
             captureImg.Name = "captureImg";
-            captureImg.Size = new Size(1000, 794);
+            captureImg.Size = new Size(1111, 992);
             captureImg.TabIndex = 3;
             captureImg.TabStop = false;
             captureImg.Visible = false;
             // 
             // MakeupOutputForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
-            ClientSize = new Size(1600, 2122);
+            ClientSize = new Size(1778, 2530);
             Controls.Add(captureImg);
             Controls.Add(topComent);
             Controls.Add(streamingBox);
             Controls.Add(pictureBox1);
             ForeColor = Color.White;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "MakeupOutputForm";
             WindowState = FormWindowState.Maximized;
             Load += MakeupOutputForm_Load;
