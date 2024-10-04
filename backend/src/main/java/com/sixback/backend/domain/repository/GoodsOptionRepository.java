@@ -51,10 +51,10 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 			JOIN brand b ON g.brand_id = b.brand_id
 			JOIN goods_type t ON g.type_id = t.type_id
 		WHERE g.is_possible = true
-			AND (MATCH(o.option_name) AGAINST('이니' IN BOOLEAN MODE)
-				OR MATCH(t.type_name) AGAINST('이니' IN BOOLEAN MODE)
-				OR MATCH(g.goods_name) AGAINST('이니' IN BOOLEAN MODE)
-				OR MATCH(b.brand_name_kr, b.brand_name_eng) AGAINST('이니' IN BOOLEAN MODE))
+			AND (MATCH(o.option_name) AGAINST(:keyword IN BOOLEAN MODE)
+				OR MATCH(t.type_name) AGAINST(:keyword IN BOOLEAN MODE)
+				OR MATCH(g.goods_name) AGAINST(:keyword IN BOOLEAN MODE)
+				OR MATCH(b.brand_name_kr, b.brand_name_eng) AGAINST(:keyword IN BOOLEAN MODE))
 		""", nativeQuery = true,
 		countQuery = """
 			select count(distinct g.goods_id)
@@ -63,10 +63,10 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 				JOIN brand b ON g.brand_id = b.brand_id
 				JOIN goods_type t ON g.type_id = t.type_id
 			WHERE g.is_possible = true
-				AND (MATCH(o.option_name) AGAINST('이니' IN BOOLEAN MODE)
-					OR MATCH(t.type_name) AGAINST('이니' IN BOOLEAN MODE)
-					OR MATCH(g.goods_name) AGAINST('이니' IN BOOLEAN MODE)
-					OR MATCH(b.brand_name_kr, b.brand_name_eng) AGAINST('이니' IN BOOLEAN MODE))
+				AND (MATCH(o.option_name) AGAINST(:keyword IN BOOLEAN MODE)
+					OR MATCH(t.type_name) AGAINST(:keyword IN BOOLEAN MODE)
+					OR MATCH(g.goods_name) AGAINST(:keyword IN BOOLEAN MODE)
+					OR MATCH(b.brand_name_kr, b.brand_name_eng) AGAINST(:keyword IN BOOLEAN MODE))
 		""")
 	Page<GoodsDto> findAllGoodsByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
