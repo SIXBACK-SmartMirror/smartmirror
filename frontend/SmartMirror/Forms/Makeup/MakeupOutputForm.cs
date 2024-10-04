@@ -14,7 +14,7 @@ namespace SmartMirror
 {
     public partial class MakeupOutputForm : Form
     {
-        VideoCapture _capture = new VideoCapture(1);
+        VideoCapture _capture = new VideoCapture(0); // 노트북 카메라
         Mat _image = new Mat();
 
         private System.Windows.Forms.Timer timer;
@@ -62,10 +62,6 @@ namespace SmartMirror
             }
         }
 
-        //public void VideoClosing(object sender, EventArgs e)
-        //{
-        //    thread.Abort();
-        //}
         public void CaptureImage()
         {
 
@@ -81,29 +77,6 @@ namespace SmartMirror
             timer.Tick += new EventHandler(count_down);
             timer.Interval = 1000;
             timer.Start();
-
-            //if (time == 2 || time == 1 || time == 0)
-            //{
-            //    Console.WriteLine("????");
-            //    Console.WriteLine(time);
-                
-            //}
-            //else if (is_taken)
-            //{
-            //    Console.WriteLine("송출 키고, 사진 뺌");
-            //    this.captureImg.Image.Dispose();
-            //    this.captureImg.Image = null;
-            //    this.streamingBox.Visible = true;
-            //    this.captureImg.Visible = false;
-            //}
-            //else
-            //{
-            //    timer = new System.Windows.Forms.Timer();
-            //    timer.Tick += new EventHandler(count_down);
-            //    timer.Interval = 1000;
-            //    timer.Start();
-            //}
-
         }
 
         private void count_down(object sender, EventArgs e)
@@ -149,8 +122,6 @@ namespace SmartMirror
                     this.captureImg.SizeMode = this.streamingBox.SizeMode;
                     this.streamingBox.Visible = false;
                     this.captureImg.Visible = true;
-
-
 
                     //MessageBox.Show($"이미지가 {outputPath}에 저장되었습니다.");
                     //streamingBox.Image = Image.FromFile(outputPath);

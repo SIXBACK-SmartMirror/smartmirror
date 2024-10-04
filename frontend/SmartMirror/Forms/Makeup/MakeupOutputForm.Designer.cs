@@ -103,9 +103,9 @@
 
         #endregion
 
-        private PictureBox streamingBox;
-        private PictureBox pictureBox1;
-        private Label topComent;
-        private PictureBox captureImg;
+        public PictureBox streamingBox;
+        public PictureBox pictureBox1;
+        public Label topComent;
+        public PictureBox captureImg;
     }
 }
