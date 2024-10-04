@@ -106,7 +106,7 @@ public class GoodsService {
 
 	// 정규 표현식을 사용하여 특수문자 제거
 	private String removeSpecialCharacters(String input) {
-		String result = input.replaceAll("[^a-zA-Z0-9가-힣\\s]", "");
+		String result = input.replaceAll("[^a-zA-Z0-9가-힣\\s]", "").trim();
 		if (result.isBlank()) {
 			throw new NullNLPException();
 		}
