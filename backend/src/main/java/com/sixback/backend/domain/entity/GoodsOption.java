@@ -14,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -49,6 +51,16 @@ public class GoodsOption {
 	@Size(min = 1, max = 100)
 	private String optionName;
 
+	// 상품 옵션명
+	@Column(columnDefinition = "varchar(15)")
+	@Size(max = 15)
+	private String colorRgb;
+
+	// 상품 옵션명
+	@Column(columnDefinition = "varchar(15)")
+	@Size(max = 15)
+	private String colorHsv;
+
 	// 옵션 이미지 URL
 	@Column(columnDefinition = "varchar(255)")
 	@Size(max = 255)
@@ -60,7 +72,8 @@ public class GoodsOption {
 
 	// 할인율
 	@Column(columnDefinition = "float default 0", nullable = false)
-	@Size(max = 1)
+	@Min(0)
+	@Max(1)
 	@Builder.Default
 	private float optionDiscount = 0;
 

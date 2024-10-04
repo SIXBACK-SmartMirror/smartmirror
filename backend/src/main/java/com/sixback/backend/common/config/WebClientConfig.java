@@ -17,6 +17,8 @@ public class WebClientConfig {
 	private String API_URL;
 	@Value("${spring.data.gan.url}")
 	private String GAN_API_URL;
+	@Value("${spring.data.facer.url}")
+	private String FACER_API_URL;
 
 	// Base configuration for WebClient
 	@Bean
@@ -33,6 +35,15 @@ public class WebClientConfig {
 	public WebClient ganWebClient(WebClient.Builder webClientBuilder) {
 		return webClientBuilder
 			.baseUrl(GAN_API_URL)
+			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE)
+			.build();
+	}
+
+	// WebClient for Facer server
+	@Bean
+	public WebClient facerWebClient(WebClient.Builder webClientBuilder) {
+		return webClientBuilder
+			.baseUrl(FACER_API_URL)
 			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE)
 			.build();
 	}
