@@ -193,6 +193,7 @@
             // 
             // button1
             // 
+            button1.Font = new Font("맑은 고딕", 14F, FontStyle.Regular, GraphicsUnit.Point, 129);
             button1.Location = new Point(978, 489);
             button1.Name = "button1";
             button1.Size = new Size(291, 131);
@@ -234,11 +235,11 @@
             // 
             // comboBox1
             // 
-            comboBox1.Font = new Font("맑은 고딕", 12F, FontStyle.Regular, GraphicsUnit.Point, 129);
+            comboBox1.Font = new Font("맑은 고딕", 20F);
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(30, 312);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(484, 40);
+            comboBox1.Size = new Size(484, 62);
             comboBox1.TabIndex = 4;
             comboBox1.Text = "상품을 선택해주세요";
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
@@ -246,40 +247,44 @@
             // discountPrice
             // 
             discountPrice.AutoSize = true;
-            discountPrice.Font = new Font("맑은 고딕", 16F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            discountPrice.Font = new Font("맑은 고딕", 20F, FontStyle.Bold, GraphicsUnit.Point, 129);
             discountPrice.ForeColor = Color.FromArgb(236, 0, 6);
-            discountPrice.Location = new Point(144, 146);
+            discountPrice.Location = new Point(204, 146);
             discountPrice.Name = "discountPrice";
-            discountPrice.Size = new Size(0, 45);
+            discountPrice.Size = new Size(217, 54);
             discountPrice.TabIndex = 3;
+            discountPrice.Text = "18,000원~";
             // 
             // price
             // 
             price.AutoSize = true;
-            price.Font = new Font("맑은 고딕", 11F, FontStyle.Strikeout, GraphicsUnit.Point, 129);
+            price.Font = new Font("맑은 고딕", 15F, FontStyle.Strikeout, GraphicsUnit.Point, 129);
             price.ForeColor = Color.Gray;
             price.Location = new Point(30, 158);
             price.Name = "price";
-            price.Size = new Size(0, 30);
+            price.Size = new Size(161, 41);
             price.TabIndex = 2;
+            price.Text = "10,000원~";
             // 
             // name
             // 
             name.AutoSize = true;
-            name.Font = new Font("맑은 고딕", 16F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            name.Font = new Font("맑은 고딕", 20F, FontStyle.Bold, GraphicsUnit.Point, 129);
             name.Location = new Point(30, 66);
             name.Name = "name";
-            name.Size = new Size(0, 45);
+            name.Size = new Size(183, 54);
             name.TabIndex = 1;
+            name.Text = "립글로스";
             // 
             // brand
             // 
             brand.AutoSize = true;
-            brand.Font = new Font("맑은 고딕", 11F, FontStyle.Regular, GraphicsUnit.Point, 129);
+            brand.Font = new Font("맑은 고딕", 15F, FontStyle.Regular, GraphicsUnit.Point, 129);
             brand.Location = new Point(30, 19);
             brand.Name = "brand";
-            brand.Size = new Size(0, 30);
+            brand.Size = new Size(168, 41);
             brand.TabIndex = 0;
+            brand.Text = "이니스프리";
             // 
             // panel1
             // 
@@ -296,36 +301,39 @@
             // optionPrice
             // 
             optionPrice.AutoSize = true;
-            optionPrice.Font = new Font("맑은 고딕", 11F, FontStyle.Bold);
-            optionPrice.Location = new Point(734, 51);
+            optionPrice.Font = new Font("맑은 고딕", 15F, FontStyle.Bold);
+            optionPrice.Location = new Point(706, 42);
             optionPrice.Name = "optionPrice";
-            optionPrice.Size = new Size(0, 30);
+            optionPrice.Size = new Size(141, 41);
             optionPrice.TabIndex = 6;
+            optionPrice.Text = "18,000원";
             // 
             // optionStock
             // 
             optionStock.AutoSize = true;
-            optionStock.Font = new Font("맑은 고딕", 11F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            optionStock.Font = new Font("맑은 고딕", 15F, FontStyle.Bold);
             optionStock.ForeColor = Color.FromArgb(130, 220, 40);
-            optionStock.Location = new Point(456, 51);
+            optionStock.Location = new Point(459, 46);
             optionStock.Name = "optionStock";
-            optionStock.Size = new Size(0, 30);
+            optionStock.Size = new Size(65, 41);
             optionStock.TabIndex = 5;
+            optionStock.Text = "3개";
             // 
             // optionName
             // 
             optionName.AutoSize = true;
-            optionName.Font = new Font("맑은 고딕", 11F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            optionName.Location = new Point(135, 51);
+            optionName.Font = new Font("맑은 고딕", 15F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            optionName.Location = new Point(135, 46);
             optionName.Name = "optionName";
-            optionName.Size = new Size(0, 30);
+            optionName.Size = new Size(179, 41);
             optionName.TabIndex = 4;
+            optionName.Text = "클래식 레드";
             // 
             // optionImg
             // 
-            optionImg.Location = new Point(39, 36);
+            optionImg.Location = new Point(28, 26);
             optionImg.Name = "optionImg";
-            optionImg.Size = new Size(63, 63);
+            optionImg.Size = new Size(80, 80);
             optionImg.SizeMode = PictureBoxSizeMode.StretchImage;
             optionImg.TabIndex = 3;
             optionImg.TabStop = false;
