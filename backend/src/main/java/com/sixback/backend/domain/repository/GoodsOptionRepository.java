@@ -24,7 +24,7 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 		            o.optionPrice,
 		            CAST(o.optionPrice * (1 - o.optionDiscount) AS long),
 		            CASE WHEN s.location IS NOT NULL THEN true ELSE false END,
-		           	CAST(SUM(CASE WHEN s.isSelling = false THEN 1 ELSE 0 END) AS int ),
+		           	CAST(COALESCE(s.count, 0) AS int ),
 		            s.location
 		        )
 		    FROM GoodsOption o
@@ -32,8 +32,7 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 		    JOIN g.brand b
 		    LEFT JOIN Stock s ON s.market.marketId = :marketId
 		        AND s.option.optionId = o.optionId
-		    GROUP BY o.optionId, b.brandNameKr, o.optionPrice, o.optionDiscount, s.location
-		    ORDER BY SUM(CASE WHEN s.isSelling = false THEN 1 ELSE 0 END) DESC
+		    ORDER BY COALESCE(s.count, 0) DESC
 		    LIMIT 1
 		""")
 	Optional<UseOptionDetailDto> findTopByMarketIdAndOptionId(@Param("marketId") Long marketId,
@@ -85,14 +84,14 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 		""")
 	Optional<Goods> findByValidGoodsId(Long goodsId);
 
-@Query(value = """
+	@Query(value = """
 		SELECT co.option_id,
 			o.option_name,
 			o.option_image,
 			o.option_price,
 			o.option_price * CAST((1 - o.option_discount) AS DECIMAL(10, 2)) AS option_discount_price,
-			CASE WHEN MAX(s.market_id) IS NOT NULL THEN TRUE ELSE FALSE END AS is_in_market_raw,
-			COUNT(CASE WHEN s.is_selling = 0 THEN 1 END) AS stock,
+			CASE WHEN s.stock_id IS NOT NULL THEN true ELSE false END AS is_in_market_raw,
+			COALESCE(s.count, 0) as stock,
 			s.location as location_raw
 		FROM (SELECT go.goods_id, go.option_id, FALSE AS isGroup
 				FROM goods_option go
@@ -102,14 +101,7 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 				FROM group_option gro
 				WHERE gro.goods_id = :goodsId) as co
 		LEFT JOIN goods_option o ON o.option_id = co.option_id
-		LEFT JOIN stock s ON s.option_id = co.option_id AND s.market_id = :marketId
-		GROUP BY co.option_id,
-			co.isGroup,
-			o.option_name,
-			o.option_image,
-			o.option_price,
-			o.option_discount,
-			s.location
+		LEFT JOIN stock s ON s.option_id = co.option_id AND s.market_id = :marketId AND s.is_possible = 1
 		ORDER BY
 			(CASE WHEN stock > 0 THEN 1 ELSE 0 END) DESC,
 			co.isGroup,
