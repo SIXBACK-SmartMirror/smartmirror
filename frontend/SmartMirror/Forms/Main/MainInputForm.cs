@@ -118,7 +118,6 @@ namespace SmartMirror
 
                 Console.WriteLine("연결");
                 makeupOutputForm.Show();
-                outputForm.Hide();
 
                 MakeupInputForm inputForm = new MakeupInputForm(makeupOutputForm);
                 inputForm.StartPosition = FormStartPosition.Manual;
@@ -127,14 +126,10 @@ namespace SmartMirror
                 inputForm.Show();
 
                 this.Hide();
+                outputForm.Hide();
             }
             else
             {
-                // MaininputForm 숨기기
-                this.Hide();
-                // MainoutForm 숨기기
-                outputForm.Hide();
-
                 openMakeupOutputForm.StartPosition = FormStartPosition.Manual;
                 openMakeupOutputForm.Location = secondaryScreen.Bounds.Location;
                 openMakeupOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
@@ -147,6 +142,11 @@ namespace SmartMirror
                 openMakeupInputForm.Location = primaryScreen.Bounds.Location;
                 openMakeupInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
                 openMakeupInputForm.Show();
+
+                // MaininputForm 숨기기
+                this.Hide();
+                // MainoutForm 숨기기
+                outputForm.Hide();
             }
         }
     }

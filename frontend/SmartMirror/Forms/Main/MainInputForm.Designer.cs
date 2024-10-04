@@ -208,7 +208,7 @@
             // 
             pictureBox3.Anchor = AnchorStyles.Left;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(13, 41);
+            pictureBox3.Location = new Point(11, 41);
             pictureBox3.Margin = new Padding(2);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(20, 20);
@@ -221,7 +221,7 @@
             label6.Anchor = AnchorStyles.Left;
             label6.AutoSize = true;
             label6.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
-            label6.Location = new Point(33, 37);
+            label6.Location = new Point(34, 37);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
             label6.Size = new Size(52, 28);
@@ -231,7 +231,7 @@
             // panel6
             // 
             panel6.Anchor = AnchorStyles.None;
-            panel6.BackColor = Color.FromArgb(248, 248, 248);
+            panel6.BackColor = Color.FromArgb(249, 249, 249);
             panel6.Controls.Add(panel2);
             panel6.Controls.Add(custom);
             panel6.Controls.Add(mirror);
