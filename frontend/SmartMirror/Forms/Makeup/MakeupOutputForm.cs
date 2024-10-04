@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using OpenCvSharp;
+﻿using OpenCvSharp;
+using System.Media;
 
 
 namespace SmartMirror
@@ -21,16 +13,22 @@ namespace SmartMirror
         private int time = 3;
         private bool is_taken = false;
 
+        private SoundPlayer player;
+        private SoundPlayer player2;
+        private Thread thread;
 
         public MakeupOutputForm()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
+
+            var audioStream = new MemoryStream(Properties.Resources.picture);
+            player = new SoundPlayer(audioStream);
+
+            var audioStream2 = new MemoryStream(Properties.Resources.beep2);
+            player2 = new SoundPlayer(audioStream2);
         }
-
-        Thread thread;
-
 
 
         private void MakeupOutputForm_Load(object sender, EventArgs e)
@@ -89,8 +87,9 @@ namespace SmartMirror
                 _capture.Read(_image);
                 if (!_image.Empty()) // 이미지가 비어있지 않으면
                 {
-                    this.topComent.Text = "촬칵";
+                    this.topComent.Text = "찰칵";
                     is_taken = true;
+                    player.Play();
 
                     // 프로젝트 실행 경로를 가져옴
                     string basePath = AppDomain.CurrentDomain.BaseDirectory;
@@ -138,6 +137,7 @@ namespace SmartMirror
             {
                 Console.WriteLine(time);
                 this.topComent.Text = time.ToString();
+                player2.Play();
                 time--;
             }
         }
