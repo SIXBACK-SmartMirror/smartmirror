@@ -40,7 +40,7 @@ public interface StyleRepository extends JpaRepository<Style, Long> {
 		    	option_image VARCHAR(255) PATH '$.option_image'
 		    	)
 		) AS jt ON st.style_id = :styleId
-		LEFT JOIN Stock s ON s.market_id = :marketId AND s.option_id = jt.option_id
+		LEFT JOIN stock s ON s.market_id = :marketId AND s.option_id = jt.option_id
 		""", nativeQuery = true)
 	List<OptionInfoDto> findAllUseOptionInfoList(@Param("marketId") Long marketId, @Param("styleId") Long styleId);
 
