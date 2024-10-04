@@ -8,6 +8,11 @@ namespace SmartMirror
         private MakeupOutputForm outputForm;
         private StyleInputForm styleInputForm;
 
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
+
+        private bool flag = false;
+
         public MakeupInputForm(MakeupOutputForm outputForm)
         {
             this.outputForm = outputForm;
@@ -22,7 +27,7 @@ namespace SmartMirror
             {
                 openStyleInputForm.arrayRest();
             }
-            
+
             Console.WriteLine("필름 버튼 클릭 성공");
             outputForm.CaptureImage();
         }
@@ -51,7 +56,6 @@ namespace SmartMirror
 
             GraphicsPath path = BoarderStyle.RoundSquare(panelWidth, panelHeight);
 
-            customsMakeup.Region = new Region(path);
             filmingBtn.Region = new Region(path);
             usingBtn.Region = new Region(path);
         }
@@ -81,6 +85,33 @@ namespace SmartMirror
                 this.Hide();
                 customsMakeupInputForm.Show();
             }
+        }
+
+        private void mirror_Click(object sender, EventArgs e)
+        {
+            outputForm.pictureBox1.Visible = flag;
+            outputForm.captureImg.Visible = flag;
+            outputForm.topComent.Visible = flag;
+            outputForm.streamingBox.Visible = flag;
+            flag = !flag;
+        }
+
+        private void home_Click(object sender, EventArgs e)
+        {
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
+
+            MainOutputForm mainOutputForm = new MainOutputForm();
+            MainInputForm inputForm = new MainInputForm(mainOutputForm);
+
+            FormHelper.SwitchToForm(inputForm, mainOutputForm, primaryScreen, secondaryScreen);
+
+            if (outputForm != null && !outputForm.IsDisposed)
+            {
+                outputForm.Hide();
+            }
+
+            this.Hide();
         }
     }
 }
