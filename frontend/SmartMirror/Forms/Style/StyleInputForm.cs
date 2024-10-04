@@ -20,13 +20,11 @@ namespace SmartMirror
             SyntheticResponseList = new StyleData[20];
         }
 
-
         public void arrayRest()
         {
             SyntheticResponseList = new StyleData[20]; // 배열 초기화
             Console.WriteLine("배열이 초기화");
         }
-
 
         private async void StyleInputForm_Load(object sender, EventArgs e)
         {
@@ -78,7 +76,6 @@ namespace SmartMirror
                     // 버튼에 클릭 이벤트 추가
                     button.Click += (s, args) => style_Click(int.Parse(style["styleId"].ToString())); // 클릭 시 styleNum을 전달
 
-
                     // 이미지를 버튼에 추가
                     try
                     {
@@ -109,26 +106,22 @@ namespace SmartMirror
                     }
                     panel9.Controls.Add(button);
                 }
-
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
         }
+
         private void style_Click(int styleNum)
         {
-            this.leftBtn.Visible = true;
-            this.rightBtn.Visible = true;
-
             location.Visible = true;
-
 
             MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
             openMakeupOutputForm.Hide();
 
             SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+
             if (openSyntheticOutput != null)
             {
                 openSyntheticOutput.Close();
@@ -141,6 +134,7 @@ namespace SmartMirror
             syntheticOutput.Location = output.Bounds.Location;
             syntheticOutput.Show();
         }
+
         private void pictureBox6_Click(object sender, EventArgs e)
         {
             SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
@@ -161,19 +155,58 @@ namespace SmartMirror
             openMainOutForm.Show();
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void camera_Click(object sender, EventArgs e)
         {
-            MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
-            openMakeupOutputForm.Show();
-
-            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
-            if (openSyntheticOutput != null)
+            if (screens.Length == 2)
             {
-                openSyntheticOutput.Close();
+                inputMonitor = 0; // 2개의 모니터 중 첫 번째로 설정
             }
-            MakeupInputForm openMakeupInputForm = Application.OpenForms["MakeupInputForm"] as MakeupInputForm;
-            this.Hide();
-            openMakeupInputForm.Show();
+
+            // primary와 secondary 스크린 설정
+            Screen primaryScreen = screens[inputMonitor];
+            Screen secondaryScreen = screens[outputMonitor];
+
+            MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
+
+            if (openMakeupOutputForm == null)
+            {
+                MakeupOutputForm makeupOutputForm = new MakeupOutputForm();
+                makeupOutputForm.StartPosition = FormStartPosition.Manual;
+                makeupOutputForm.Location = secondaryScreen.Bounds.Location;
+                makeupOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+                Screen mirror = Screen.AllScreens[outputMonitor];
+
+                Console.WriteLine("연결");
+                makeupOutputForm.Show();
+
+                MakeupInputForm inputForm = new MakeupInputForm(makeupOutputForm);
+                inputForm.StartPosition = FormStartPosition.Manual;
+                inputForm.Location = primaryScreen.Bounds.Location;
+                inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                inputForm.Show();
+
+                this.Hide();
+                //outputForm.Hide();
+            }
+            else
+            {
+                openMakeupOutputForm.StartPosition = FormStartPosition.Manual;
+                openMakeupOutputForm.Location = secondaryScreen.Bounds.Location;
+                openMakeupOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+                openMakeupOutputForm.Show();
+                openMakeupOutputForm.CaptureImage();
+
+                // makeupinput  
+                MakeupInputForm openMakeupInputForm = Application.OpenForms["MakeupInputForm"] as MakeupInputForm;
+                openMakeupInputForm.StartPosition = FormStartPosition.Manual;
+                openMakeupInputForm.Location = primaryScreen.Bounds.Location;
+                openMakeupInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                openMakeupInputForm.Show();
+
+                // MaininputForm 숨기기
+                this.Hide();
+            }
         }
 
         private void leftBtn_Click(object sender, EventArgs e)
