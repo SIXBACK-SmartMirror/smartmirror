@@ -145,4 +145,10 @@
   <data name="speak" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\speak.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="picture" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picture.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="beep2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\beep2.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
