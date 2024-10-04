@@ -76,7 +76,7 @@ public class GoodsService {
 
 	public SearchResultDto findAllGoodsByKeyword(String keyword, int page, int size) {
 		// 화장 스타일 식별번호 순으로 정렬
-		Pageable pageable = PageRequest.of(page, size, Sort.by("goods.releaseAt").descending());
+		Pageable pageable = PageRequest.of(page, size, Sort.by("release_at").descending());
 		Page<GoodsDto> goodsDtoPage = goodsOptionRepository.findAllGoodsByKeyword(keyword, pageable);
 		return new SearchResultDto(keyword, goodsDtoPage);
 	}
