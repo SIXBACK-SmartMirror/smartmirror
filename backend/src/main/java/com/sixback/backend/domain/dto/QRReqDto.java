@@ -19,5 +19,5 @@ public class QRReqDto {
 	@NotNull
 	private List<Long> optionIdList;
 	@NotNull
-	private String resultImage; // Base64
+	private String makeupImage; // Base64
 }
