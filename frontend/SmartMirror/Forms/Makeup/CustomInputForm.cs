@@ -1,9 +1,9 @@
+﻿using SmartMirror.Helpers;
 using System.Drawing.Drawing2D;
-using SmartMirror.Helpers;
 
 namespace SmartMirror
 {
-    public partial class MakeupInputForm : Form
+    public partial class CustomInputForm : Form
     {
         private MakeupOutputForm outputForm;
         private StyleInputForm styleInputForm;
@@ -13,7 +13,7 @@ namespace SmartMirror
 
         private bool flag = false;
 
-        public MakeupInputForm(MakeupOutputForm outputForm)
+        public CustomInputForm(MakeupOutputForm outputForm)
         {
             InitializeComponent();
 
@@ -55,7 +55,7 @@ namespace SmartMirror
                 openStyleInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
 
                 Console.WriteLine("합성하기 다시 클릭");
-                this.Hide();
+                Hide();
                 openStyleInputForm.Show();
             }
             else
@@ -66,7 +66,7 @@ namespace SmartMirror
                 styleInputForm.Location = primaryScreen.Bounds.Location;
                 styleInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
 
-                this.Hide();
+                Hide();
                 styleInputForm.Show();
             }
         }
@@ -88,13 +88,13 @@ namespace SmartMirror
             if (openCustomsMakeupInputForm != null && !openCustomsMakeupInputForm.Visible)
             {
                 Console.WriteLine("커스텀 화장 다시 클릭");
-                this.Hide();
+                Hide();
                 openCustomsMakeupInputForm.Show();
             }
             else
             {
                 CustomsMakeupInputForm customsMakeupInputForm = new CustomsMakeupInputForm();
-                this.Hide();
+                Hide();
                 customsMakeupInputForm.Show();
             }
         }
@@ -120,7 +120,7 @@ namespace SmartMirror
                 outputForm.Hide();
             }
 
-            this.Hide();
+            Hide();
         }
     }
 }

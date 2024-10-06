@@ -33,6 +33,7 @@
             pictureBox1 = new PictureBox();
             topComent = new Label();
             captureImg = new PictureBox();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)streamingBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)captureImg).BeginInit();
@@ -53,7 +54,7 @@
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(118, 1602);
+            pictureBox1.Location = new Point(266, 1593);
             pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(341, 511);
@@ -84,12 +85,22 @@
             captureImg.TabStop = false;
             captureImg.Visible = false;
             // 
+            // panel1
+            // 
+            panel1.Location = new Point(167, 187);
+            panel1.Margin = new Padding(2);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(292, 133);
+            panel1.TabIndex = 5;
+            panel1.Visible = false;
+            // 
             // MakeupOutputForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(1778, 2530);
+            Controls.Add(panel1);
             Controls.Add(captureImg);
             Controls.Add(topComent);
             Controls.Add(streamingBox);
@@ -107,9 +118,10 @@
 
         #endregion
 
-        public PictureBox streamingBox;
-        public PictureBox pictureBox1;
+        private PictureBox streamingBox;
+        private PictureBox pictureBox1;
         public Label topComent;
-        public PictureBox captureImg;
+        private PictureBox captureImg;
+        public Panel panel1;
     }
 }
