@@ -24,6 +24,7 @@ import com.sixback.backend.common.exception.ExpiredQRException;
 import com.sixback.backend.common.exception.FailDecodeBase64Exception;
 import com.sixback.backend.common.exception.FailGenerateQrException;
 import com.sixback.backend.common.exception.MismatchMarketId;
+import com.sixback.backend.common.service.RedisService;
 import com.sixback.backend.domain.dto.QRDto;
 import com.sixback.backend.domain.dto.QRReqDto;
 import com.sixback.backend.domain.dto.ResultPageDTO;
@@ -41,6 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 public class QrService {
 
 	private final MarketService marketService;
+	private final RedisService redisService;
 	private final GoodsOptionRepository goodsOptionRepository;
 
 	@Value("${spring.data.qr.redis.ttl.seconds}")
@@ -68,7 +70,7 @@ public class QrService {
 	}
 
 	private String generateQrUrl(QRReqDto qrReqDto) {
-		String token = "";
+		String token = redisService.storeQrData(qrReqDto, redisQrTtlSeconds);
 		return "%s/%d/result?user=%s".formatted(qrBaseUrl, qrReqDto.getMarketId(), token);
 	}
 
@@ -115,8 +117,7 @@ public class QrService {
 	}
 
 	private QRReqDto getTokenInfo(Long marketId, String token) {
-		QRReqDto qrReqDto = null;
-		if(qrReqDto.getMarketId() != null && marketId.equals(qrReqDto.getMarketId()))
+		QRReqDto qrReqDto = redisService.getData(token, QRReqDto.class);
 		if (qrReqDto == null) {
 			throw new ExpiredQRException();
 		}
