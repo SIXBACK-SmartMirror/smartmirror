@@ -65,7 +65,7 @@ public class QrService {
 
 	private String generateQrUrl(QRReqDto qrReqDto) {
 		String token = "";
-		return "{}/{}/result?user={}".formatted(qrBaseUrl, qrReqDto.getMarketId(), token);
+		return "%s/%d/result?user=%s".formatted(qrBaseUrl, qrReqDto.getMarketId(), token);
 	}
 
 	private String generateQRImageBytes(String content) {
@@ -110,7 +110,7 @@ public class QrService {
 
 	private QRReqDto getTokenInfo(Long marketId, String token) {
 		QRReqDto qrReqDto = null;
-		if(marketId != qrReqDto.getMarketId())
+		if(qrReqDto.getMarketId() != null && marketId.equals(qrReqDto.getMarketId()))
 			throw new MismatchMarketId();
 		return qrReqDto;
 	}
