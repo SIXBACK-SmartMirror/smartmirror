@@ -42,7 +42,7 @@ namespace SmartMirror
             label10 = new Label();
             panel2 = new Panel();
             label12 = new Label();
-            panel1 = new Panel();
+            mirror = new Panel();
             label11 = new Label();
             panel6 = new Panel();
             pictureBox5 = new PictureBox();
@@ -54,7 +54,7 @@ namespace SmartMirror
             panel5.SuspendLayout();
             home.SuspendLayout();
             panel2.SuspendLayout();
-            panel1.SuspendLayout();
+            mirror.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -83,6 +83,7 @@ namespace SmartMirror
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 5;
             pictureBox2.TabStop = false;
+            pictureBox2.Click += voice_Click;
             // 
             // label2
             // 
@@ -95,6 +96,7 @@ namespace SmartMirror
             label2.Size = new Size(197, 54);
             label2.TabIndex = 1;
             label2.Text = "음성 검색";
+            label2.Click += voice_Click;
             // 
             // keybaord
             // 
@@ -119,6 +121,7 @@ namespace SmartMirror
             pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 6;
             pictureBox4.TabStop = false;
+            pictureBox4.Click += panel3_Click;
             // 
             // label3
             // 
@@ -131,6 +134,7 @@ namespace SmartMirror
             label3.Size = new Size(237, 54);
             label3.TabIndex = 2;
             label3.Text = "키보드 검색";
+            label3.Click += panel3_Click;
             // 
             // panel5
             // 
@@ -138,7 +142,7 @@ namespace SmartMirror
             panel5.BackColor = Color.FromArgb(115, 210, 44);
             panel5.Controls.Add(home);
             panel5.Controls.Add(panel2);
-            panel5.Controls.Add(panel1);
+            panel5.Controls.Add(mirror);
             panel5.Location = new Point(-2, -2);
             panel5.Margin = new Padding(2);
             panel5.Name = "panel5";
@@ -193,15 +197,16 @@ namespace SmartMirror
             label12.TabIndex = 0;
             label12.Text = "메뉴";
             // 
-            // panel1
+            // mirror
             // 
-            panel1.BackColor = Color.FromArgb(213, 250, 183);
-            panel1.Controls.Add(label11);
-            panel1.Location = new Point(2, 284);
-            panel1.Margin = new Padding(2);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(100, 100);
-            panel1.TabIndex = 12;
+            mirror.BackColor = Color.FromArgb(213, 250, 183);
+            mirror.Controls.Add(label11);
+            mirror.Location = new Point(2, 284);
+            mirror.Margin = new Padding(2);
+            mirror.Name = "mirror";
+            mirror.Size = new Size(100, 100);
+            mirror.TabIndex = 12;
+            mirror.Click += mirror_Click;
             // 
             // label11
             // 
@@ -215,6 +220,7 @@ namespace SmartMirror
             label11.Size = new Size(52, 28);
             label11.TabIndex = 0;
             label11.Text = "거울";
+            label11.Click += mirror_Click;
             // 
             // panel6
             // 
@@ -273,8 +279,8 @@ namespace SmartMirror
             home.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            mirror.ResumeLayout(false);
+            mirror.PerformLayout();
             panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -294,7 +300,7 @@ namespace SmartMirror
         private Label label10;
         private Panel panel2;
         private Label label12;
-        private Panel panel1;
+        private Panel mirror;
         private Label label11;
         private PictureBox pictureBox1;
         private PictureBox pictureBox5;
