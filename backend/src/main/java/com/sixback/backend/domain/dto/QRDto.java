@@ -12,5 +12,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class QRDto {
-	byte [] qrImageBytes;
+	String qrImage;
 }
