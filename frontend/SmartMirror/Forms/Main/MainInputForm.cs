@@ -75,20 +75,16 @@ namespace SmartMirror
 
             if (!isClose)
             {
-                label9.Text = "화면 켜기";
-                label1.Text = "거울 OFF";
+                label9.Text = "화면 끄기";
+                label1.Text = "거울 ON";
                 mirror.BackColor = Color.Gray;
-                label9.ForeColor = Color.White;
-                label1.ForeColor = Color.White;
                 outputForm.panel1.Visible = true;
             }
             else
             {
-                label9.Text = "화면 끄기";
-                label1.Text = "거울 ON";
-                mirror.BackColor = Color.White;
-                label9.ForeColor = Color.Black;
-                label1.ForeColor = Color.Black;
+                label9.Text = "화면 켜기";
+                label1.Text = "거울 OFF";
+                mirror.BackColor = Color.FromArgb(224, 224, 224);
                 outputForm.panel1.Visible = false;
             }
             isClose = !isClose;
