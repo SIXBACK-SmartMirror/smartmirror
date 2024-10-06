@@ -49,6 +49,8 @@ dependencies {
 
     implementation 'com.google.zxing:core:3.5.1'
     implementation 'com.google.zxing:javase:3.5.1'
+
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.15'
 }
 
 tasks.named('test') {
