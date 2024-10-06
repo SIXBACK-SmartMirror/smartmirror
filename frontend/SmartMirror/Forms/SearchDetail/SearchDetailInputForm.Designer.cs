@@ -29,15 +29,14 @@
         private void InitializeComponent()
         {
             panel5 = new Panel();
-            panel2 = new Panel();
-            home = new Label();
-            panel16 = new Panel();
-            research = new Label();
-            panel15 = new Panel();
-            label8 = new Label();
-            label4 = new Label();
-            panel4 = new Panel();
-            panel7 = new Panel();
+            panel6 = new Panel();
+            label10 = new Label();
+            panel14 = new Panel();
+            label12 = new Label();
+            mirror = new Panel();
+            label11 = new Label();
+            panel18 = new Panel();
+            label6 = new Label();
             panel17 = new Panel();
             button1 = new Button();
             panel3 = new Panel();
@@ -54,10 +53,10 @@
             optionName = new Label();
             optionImg = new PictureBox();
             panel5.SuspendLayout();
-            panel2.SuspendLayout();
-            panel16.SuspendLayout();
-            panel15.SuspendLayout();
-            panel7.SuspendLayout();
+            panel6.SuspendLayout();
+            panel14.SuspendLayout();
+            mirror.SuspendLayout();
+            panel18.SuspendLayout();
             panel17.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)img).BeginInit();
@@ -69,116 +68,113 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel5.BackColor = Color.FromArgb(130, 220, 40);
-            panel5.Controls.Add(panel2);
-            panel5.Controls.Add(panel16);
-            panel5.Controls.Add(panel15);
+            panel5.BackColor = Color.FromArgb(115, 210, 44);
+            panel5.Controls.Add(panel6);
+            panel5.Controls.Add(panel14);
+            panel5.Controls.Add(mirror);
+            panel5.Controls.Add(panel18);
             panel5.Location = new Point(-2, -2);
             panel5.Margin = new Padding(2);
             panel5.Name = "panel5";
             panel5.Size = new Size(99, 1015);
             panel5.TabIndex = 5;
             // 
-            // panel2
+            // panel6
             // 
-            panel2.BackColor = Color.FromArgb(224, 224, 224);
-            panel2.Controls.Add(home);
-            panel2.Location = new Point(0, 371);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(100, 100);
-            panel2.TabIndex = 10;
+            panel6.BackColor = Color.FromArgb(213, 250, 183);
+            panel6.Controls.Add(label10);
+            panel6.Location = new Point(2, 184);
+            panel6.Margin = new Padding(2);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(100, 100);
+            panel6.TabIndex = 20;
+            panel6.Click += home_Click;
             // 
-            // home
+            // label10
             // 
-            home.Anchor = AnchorStyles.None;
-            home.AutoSize = true;
-            home.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            home.ForeColor = Color.Black;
-            home.Location = new Point(35, 33);
-            home.Name = "home";
-            home.Size = new Size(32, 28);
-            home.TabIndex = 0;
-            home.Text = "홈";
-            home.TextAlign = ContentAlignment.MiddleCenter;
-            home.Click += home_Click;
+            label10.Anchor = AnchorStyles.Left;
+            label10.AutoSize = true;
+            label10.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
+            label10.ForeColor = Color.FromArgb(115, 210, 44);
+            label10.Location = new Point(33, 37);
+            label10.Margin = new Padding(2, 0, 2, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(32, 28);
+            label10.TabIndex = 0;
+            label10.Text = "홈";
+            label10.Click += home_Click;
             // 
-            // panel16
+            // panel14
             // 
-            panel16.BackColor = Color.FromArgb(224, 224, 224);
-            panel16.Controls.Add(research);
-            panel16.Location = new Point(0, 271);
-            panel16.Name = "panel16";
-            panel16.Size = new Size(100, 100);
-            panel16.TabIndex = 9;
+            panel14.BackColor = Color.FromArgb(115, 210, 44);
+            panel14.Controls.Add(label12);
+            panel14.ForeColor = Color.FromArgb(213, 250, 183);
+            panel14.Location = new Point(2, 84);
+            panel14.Margin = new Padding(2);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(100, 100);
+            panel14.TabIndex = 18;
             // 
-            // research
+            // label12
             // 
-            research.Anchor = AnchorStyles.None;
-            research.AutoSize = true;
-            research.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            research.ForeColor = Color.Black;
-            research.Location = new Point(11, 34);
-            research.Name = "research";
-            research.Size = new Size(72, 28);
-            research.TabIndex = 0;
-            research.Text = "재검색";
-            research.TextAlign = ContentAlignment.MiddleCenter;
-            research.Click += reasearch_Click;
+            label12.Anchor = AnchorStyles.Left;
+            label12.AutoSize = true;
+            label12.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
+            label12.Location = new Point(24, 37);
+            label12.Margin = new Padding(2, 0, 2, 0);
+            label12.Name = "label12";
+            label12.Size = new Size(52, 28);
+            label12.TabIndex = 0;
+            label12.Text = "메뉴";
             // 
-            // panel15
+            // mirror
             // 
-            panel15.BackColor = Color.White;
-            panel15.Controls.Add(label8);
-            panel15.Location = new Point(0, 171);
-            panel15.Name = "panel15";
-            panel15.Size = new Size(100, 100);
-            panel15.TabIndex = 9;
+            mirror.BackColor = Color.FromArgb(213, 250, 183);
+            mirror.Controls.Add(label11);
+            mirror.Location = new Point(2, 284);
+            mirror.Margin = new Padding(2);
+            mirror.Name = "mirror";
+            mirror.Size = new Size(100, 100);
+            mirror.TabIndex = 19;
+            mirror.Click += mirror_Click;
             // 
-            // label8
+            // label11
             // 
-            label8.Anchor = AnchorStyles.None;
-            label8.AutoSize = true;
-            label8.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            label8.Location = new Point(24, 37);
-            label8.Name = "label8";
-            label8.Size = new Size(52, 28);
-            label8.TabIndex = 0;
-            label8.Text = "결과";
-            label8.TextAlign = ContentAlignment.MiddleCenter;
+            label11.Anchor = AnchorStyles.Left;
+            label11.AutoSize = true;
+            label11.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
+            label11.ForeColor = Color.FromArgb(115, 210, 44);
+            label11.Location = new Point(25, 37);
+            label11.Margin = new Padding(2, 0, 2, 0);
+            label11.Name = "label11";
+            label11.Size = new Size(52, 28);
+            label11.TabIndex = 0;
+            label11.Text = "거울";
+            label11.Click += mirror_Click;
             // 
-            // label4
+            // panel18
             // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.BackColor = Color.White;
-            label4.Font = new Font("맑은 고딕", 15F, FontStyle.Bold);
-            label4.ForeColor = Color.FromArgb(255, 120, 120);
-            label4.Location = new Point(1250, 17);
-            label4.Margin = new Padding(2, 0, 2, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(209, 41);
-            label4.TabIndex = 2;
-            label4.Text = "올브영 구미점";
+            panel18.BackColor = Color.FromArgb(213, 250, 183);
+            panel18.Controls.Add(label6);
+            panel18.Location = new Point(2, 384);
+            panel18.Name = "panel18";
+            panel18.Size = new Size(100, 100);
+            panel18.TabIndex = 17;
+            panel18.Click += reasearch_Click;
             // 
-            // panel4
+            // label6
             // 
-            panel4.BackColor = Color.FromArgb(255, 120, 120);
-            panel4.Location = new Point(13, 4);
-            panel4.Margin = new Padding(2);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(13, 18);
-            panel4.TabIndex = 4;
-            // 
-            // panel7
-            // 
-            panel7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            panel7.BackColor = Color.FromArgb(130, 220, 40);
-            panel7.Controls.Add(panel4);
-            panel7.Location = new Point(1217, 21);
-            panel7.Margin = new Padding(2);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(32, 35);
-            panel7.TabIndex = 7;
+            label6.Anchor = AnchorStyles.None;
+            label6.AutoSize = true;
+            label6.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            label6.ForeColor = Color.FromArgb(115, 210, 44);
+            label6.Location = new Point(16, 35);
+            label6.Name = "label6";
+            label6.Size = new Size(72, 28);
+            label6.TabIndex = 0;
+            label6.Text = "재검색";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
+            label6.Click += reasearch_Click;
             // 
             // panel17
             // 
@@ -345,8 +341,6 @@
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(1470, 1000);
             Controls.Add(panel17);
-            Controls.Add(panel7);
-            Controls.Add(label4);
             Controls.Add(panel5);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(2);
@@ -354,13 +348,14 @@
             Text = "Form1";
             Load += SearchDetailInputForm_Load;
             panel5.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            panel16.ResumeLayout(false);
-            panel16.PerformLayout();
-            panel15.ResumeLayout(false);
-            panel15.PerformLayout();
-            panel7.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            panel14.ResumeLayout(false);
+            panel14.PerformLayout();
+            mirror.ResumeLayout(false);
+            mirror.PerformLayout();
+            panel18.ResumeLayout(false);
+            panel18.PerformLayout();
             panel17.ResumeLayout(false);
             panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)img).EndInit();
@@ -370,7 +365,6 @@
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)optionImg).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -385,16 +379,7 @@
         private Label goodsName;
         private Label brandNameKr;
         private PictureBox pictureBox2;
-        private Panel panel15;
-        private Label label8;
-        private Panel panel16;
-        private Label research;
         private PictureBox pictureBox4;
-        private Panel panel2;
-        private Label home;
-        private Label label4;
-        private Panel panel4;
-        private Panel panel7;
         private Panel panel17;
         private Panel panel3;
         private PictureBox img;
@@ -410,5 +395,13 @@
         private Label optionName;
         private PictureBox optionImg;
         private Button button1;
+        private Panel panel6;
+        private Label label10;
+        private Panel panel14;
+        private Label label12;
+        private Panel mirror;
+        private Label label11;
+        private Panel panel18;
+        private Label label6;
     }
 }

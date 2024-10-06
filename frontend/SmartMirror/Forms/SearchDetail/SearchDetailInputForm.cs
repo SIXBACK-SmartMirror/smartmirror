@@ -15,9 +15,9 @@ namespace SmartMirror
 
         private int outputMonitor = 1;
         private int inputMonitor = 2;
-        private Screen[] screens = Screen.AllScreens;
 
         private bool flag = false;
+        private bool flag2 = false;
 
         public SearchDetailInputForm(SearchDetailOutputForm outputForm, GoodsData goodsData, string options)
         {
@@ -190,6 +190,12 @@ namespace SmartMirror
             }
             outputForm.panel2.Visible = flag;
             flag = !flag;
+        }
+
+        private void mirror_Click(object sender, EventArgs e)
+        {
+            outputForm.panel3.Visible = flag2;
+            flag2 = !flag2;
         }
     }
 }
