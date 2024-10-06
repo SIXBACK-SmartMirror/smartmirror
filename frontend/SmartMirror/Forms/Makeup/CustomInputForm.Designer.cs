@@ -94,7 +94,7 @@
             // 
             // usingBtn
             // 
-            usingBtn.BackColor = Color.FromArgb(140, 217, 77);
+            usingBtn.BackColor = Color.FromArgb(134, 147, 250);
             usingBtn.Controls.Add(pictureBox4);
             usingBtn.Controls.Add(label3);
             usingBtn.Location = new Point(681, 343);
@@ -258,7 +258,7 @@
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 
-            // CustomMakeupInputForm
+            // CustomInputForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -268,7 +268,7 @@
             Controls.Add(panel5);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(2);
-            Name = "CustomMakeupInputForm";
+            Name = "CustomInputForm";
             Text = "Form1";
             filmingBtn.ResumeLayout(false);
             filmingBtn.PerformLayout();
