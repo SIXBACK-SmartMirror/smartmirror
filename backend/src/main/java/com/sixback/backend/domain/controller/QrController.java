@@ -38,7 +38,7 @@ public class QrController {
 	@GetMapping
 	public String getResultPage(@PathVariable("marketId") Long marketId, @RequestParam("user") String token, Model model) {
 		try {
-			ResultPageDTO result = qrService.getProductInfo(marketId, token);
+			ResultPageDTO result = qrService.getOptionInfoList(marketId, token);
 			model.addAttribute("result", result);
 			return "result-page";
 		} catch (Exception e) {
