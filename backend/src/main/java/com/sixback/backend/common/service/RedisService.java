@@ -25,7 +25,7 @@ public class RedisService {
 	private final RedisTemplate<String, Object> redisTemplate;
 	private final ObjectMapper objectMapper;
 
-	@Value("${URL_SALT}")
+	@Value("${spring.data.qr.url.salt}")
 	private String urlSalt;
 	private static final int KEY_LENGTH = 32;
 
