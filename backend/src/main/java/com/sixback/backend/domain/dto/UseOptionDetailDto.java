@@ -11,6 +11,7 @@ public class UseOptionDetailDto {
 	String brandNameKr;
 	String goodsName;
 	String optionName;
+	String optionImage;
 	long optionPrice;
 	long optionDiscountPrice;
 	boolean isInMarket;
