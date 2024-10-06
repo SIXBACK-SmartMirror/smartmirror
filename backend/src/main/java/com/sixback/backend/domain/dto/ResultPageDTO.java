@@ -16,6 +16,6 @@ import lombok.Setter;
 public class ResultPageDTO {
 	private String marketName;
 	private List<UseOptionDetailDto> goodsList;
-	private String resultImage;
+	private String makeupImage;
 	private String blueprintImage;
 }
