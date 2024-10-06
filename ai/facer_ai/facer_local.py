@@ -18,8 +18,8 @@ import facer
 # CUDA 설정
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 # 주피터 노트북에서 실행
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "6"
+# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "6"
 print(device)
 
 # 로그 설정: ERROR 이상의 로그만 출력
@@ -74,7 +74,6 @@ def apply_color_changes(image_np, seg_result, eyebrowColor=None, skinColor=None,
 
     # 눈썹 색상 변경
     if eyebrowColor is not None:
-        print("eyebrow change")
         left_eyebrow_class = 2  # 왼쪽 눈썹 클래스 번호
         right_eyebrow_class = 3  # 오른쪽 눈썹 클래스 번호
         left_eyebrow_mask = seg_result == left_eyebrow_class
