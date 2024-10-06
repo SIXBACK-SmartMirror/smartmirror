@@ -4,9 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
@@ -77,19 +74,12 @@ public class QrService {
 	private String generateQRImageBytes(String content) {
 		int size = 300;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
 		try {
 			QRCodeWriter qrCodeWriter = new QRCodeWriter();
-
-			// 힌트 설정 (버전 설정 없이 자동 결정)
-			Map<EncodeHintType, Object> hints = new HashMap<>();
-			hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");  // 문자 인코딩 설정 (선택 사항)
-
 			// BitMatrix 생성 (버전을 자동으로 결정)
-			BitMatrix bitMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, size, size, hints);
+			BitMatrix bitMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, size, size);
 			BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
 			ImageIO.write(qrImage, "PNG", baos);
-
 		} catch (WriterException e) {
 			log.error("generateQR error WriterException : {}", e.getMessage());
 			throw new FailGenerateQrException();
@@ -97,7 +87,7 @@ public class QrService {
 			log.error("generateQR error IOException : {}", e.getMessage());
 			throw new FailGenerateQrException();
 		}
-		return null;
+		return Base64.getEncoder().encodeToString(baos.toByteArray());
 	}
 
 	public ResultPageDTO getOptionInfoList(Long marketId, String token) {
@@ -106,7 +96,8 @@ public class QrService {
 		// 토큰 검증 및 디코딩
 		QRReqDto qrReqDto = getTokenInfo(marketId, token);
 
-		List<UseOptionDetailDto> goodsList = goodsOptionRepository.findAllUseOptionId(marketId, qrReqDto.getOptionIdList());
+		List<UseOptionDetailDto> goodsList = goodsOptionRepository.findAllUseOptionId(marketId,
+			qrReqDto.getOptionIdList());
 
 		return ResultPageDTO.builder()
 			.marketName(market.getMarketName())
