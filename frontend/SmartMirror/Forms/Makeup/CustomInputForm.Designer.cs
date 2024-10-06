@@ -1,6 +1,6 @@
 ﻿namespace SmartMirror
 {
-    partial class MakeupInputForm
+    partial class CustomInputForm
     {
         /// <summary>
         /// Required designer variable.
@@ -20,15 +20,9 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MakeupInputForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomInputForm));
             filmingBtn = new Panel();
             pictureBox2 = new PictureBox();
             label2 = new Label();
@@ -44,7 +38,7 @@
             label6 = new Label();
             panel6 = new Panel();
             panel1 = new Panel();
-            pictureBox3 = new PictureBox();
+            pictureBox5 = new PictureBox();
             pictureBox1 = new PictureBox();
             filmingBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -56,7 +50,7 @@
             panel8.SuspendLayout();
             panel6.SuspendLayout();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -238,21 +232,21 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(pictureBox3);
+            panel1.Controls.Add(pictureBox5);
             panel1.Location = new Point(27, 26);
             panel1.Name = "panel1";
             panel1.Size = new Size(425, 158);
             panel1.TabIndex = 8;
             // 
-            // pictureBox3
+            // pictureBox5
             // 
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(3, 3);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(334, 135);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 7;
-            pictureBox3.TabStop = false;
+            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
+            pictureBox5.Location = new Point(3, 3);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(334, 135);
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox5.TabIndex = 9;
+            pictureBox5.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -264,7 +258,7 @@
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 
-            // MakeupInputForm
+            // CustomMakeupInputForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -274,7 +268,7 @@
             Controls.Add(panel5);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(2);
-            Name = "MakeupInputForm";
+            Name = "CustomMakeupInputForm";
             Text = "Form1";
             filmingBtn.ResumeLayout(false);
             filmingBtn.PerformLayout();
@@ -291,12 +285,11 @@
             panel8.PerformLayout();
             panel6.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
-        #endregion
         private Panel filmingBtn;
         private Label label2;
         private Panel usingBtn;
@@ -314,7 +307,7 @@
         private Label label8;
         private Panel home;
         private Label label10;
-        private PictureBox pictureBox3;
         private Panel panel1;
+        private PictureBox pictureBox5;
     }
 }
