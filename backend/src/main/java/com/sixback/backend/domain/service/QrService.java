@@ -43,6 +43,8 @@ public class QrService {
 	private final MarketService marketService;
 	private final GoodsOptionRepository goodsOptionRepository;
 
+	@Value("${spring.data.qr.redis.ttl.seconds}")
+	private long redisQrTtlSeconds;
 	@Value("${spring.data.qr.base.url}")
 	private String qrBaseUrl;
 
