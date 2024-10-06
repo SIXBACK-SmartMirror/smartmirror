@@ -92,7 +92,7 @@ public class QrService {
 		return null;
 	}
 
-	public ResultPageDTO getProductInfo(Long marketId, String token) {
+	public ResultPageDTO getOptionInfoList(Long marketId, String token) {
 		// 마켓 id 검증
 		Market market = marketService.validateMarket(marketId);
 		// 토큰 검증 및 디코딩
