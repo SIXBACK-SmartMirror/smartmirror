@@ -16,11 +16,14 @@ namespace SmartMirror
 
         private int outputMonitor = 1;
         private int inputMonitor = 2;
-        private Screen[] screens = Screen.AllScreens;
+
+        bool flag;
 
         public SearchInputForm(SearchOutputForm outputForm)
         {
             InitializeComponent();
+
+            outputForm.panel3.Dock = DockStyle.Fill;
             this.outputForm = outputForm;
             outputForm.textBox1.KeyDown += textBox1_KeyDown;
 
@@ -123,6 +126,12 @@ namespace SmartMirror
             {
                 outputForm.Hide();
             }
+        }
+
+        private void mirror_Click(object sender, EventArgs e)
+        {
+            outputForm.panel3.Visible = flag;
+            flag = !flag;
         }
     }
 }
