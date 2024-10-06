@@ -20,10 +20,12 @@ import com.sixback.backend.domain.service.QrService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/market/{marketId}/result")
+@Slf4j
 public class QrController {
 
 	private final QrService qrService;
@@ -42,6 +44,7 @@ public class QrController {
 			model.addAttribute("result", result);
 			return "result-page";
 		} catch (Exception e) {
+			log.error("getResultPage error : {}", e.getMessage());
 			return "redirect:/error";
 		}
 	}
