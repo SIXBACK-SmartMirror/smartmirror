@@ -56,6 +56,7 @@
             C = new Panel();
             label4 = new Label();
             pictureBox1 = new PictureBox();
+            panel3 = new Panel();
             panel2.SuspendLayout();
             L.SuspendLayout();
             J.SuspendLayout();
@@ -356,6 +357,15 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
+            // panel3
+            // 
+            panel3.Location = new Point(93, 226);
+            panel3.Margin = new Padding(2);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(323, 233);
+            panel3.TabIndex = 6;
+            panel3.Visible = false;
+            // 
             // SearchDetailOutputForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -363,6 +373,7 @@
             AutoSize = true;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(1200, 1920);
+            Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(title);
             FormBorderStyle = FormBorderStyle.None;
@@ -428,5 +439,6 @@
         private Label label13;
         private Label label11;
         private Label label12;
+        public Panel panel3;
     }
 }

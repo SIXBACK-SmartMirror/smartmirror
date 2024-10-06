@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Drawing;
-using System.Net.Http;
-using System.Windows.Forms;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using SmartMirror.Config;
 using SmartMirror.Helpers;
 using SmartMirror.Models;
-using System.Collections.Generic;
 
 
 namespace SmartMirror
@@ -25,6 +19,8 @@ namespace SmartMirror
         private Screen[] screens = Screen.AllScreens;
         private SearchInfoOutputForm outputForm;
 
+        private bool flag;
+
         public SearchInfoInputForm(string apiResponse, SearchInfoOutputForm outputForm)
         {
             InitializeComponent();
@@ -39,6 +35,8 @@ namespace SmartMirror
             // API 결과를 처리 및 UI 표시
             DisplayApiResponse(apiResponse);
             DisplayApiResponse2(apiResponse);
+
+            outputForm.panel3.Dock = DockStyle.Fill;
         }
 
         // 페이지 번호 버튼 패널 초기화
@@ -441,6 +439,12 @@ namespace SmartMirror
             {
                 outputForm.Hide();
             }
+        }
+
+        private void mirror_Click(object sender, EventArgs e)
+        {
+            outputForm.panel3.Visible = flag;
+            flag = !flag;
         }
     }
 }
