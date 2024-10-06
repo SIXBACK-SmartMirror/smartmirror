@@ -238,7 +238,7 @@
             custom.Name = "custom";
             custom.Size = new Size(471, 426);
             custom.TabIndex = 8;
-            custom.Click += makeup_Click;
+            custom.Click += custom_Click;
             custom.Paint += panel_Paint;
             // 
             // label10
@@ -252,6 +252,7 @@
             label10.Size = new Size(302, 36);
             label10.TabIndex = 7;
             label10.Text = "직접 선택하는 화장 기능";
+            label10.Click += custom_Click;
             // 
             // pictureBox5
             // 
@@ -263,6 +264,7 @@
             pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox5.TabIndex = 6;
             pictureBox5.TabStop = false;
+            pictureBox5.Click += custom_Click;
             // 
             // label11
             // 
@@ -275,6 +277,7 @@
             label11.Size = new Size(237, 54);
             label11.TabIndex = 2;
             label11.Text = "커스텀 화장";
+            label11.Click += custom_Click;
             // 
             // mirror
             // 

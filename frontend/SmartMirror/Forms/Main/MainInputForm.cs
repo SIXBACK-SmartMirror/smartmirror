@@ -1,5 +1,6 @@
 ﻿using SmartMirror.Helpers;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace SmartMirror
 {
@@ -142,6 +143,79 @@ namespace SmartMirror
                 // MaininputForm 숨기기
                 this.Hide();
                 // MainoutForm 숨기기
+                outputForm.Hide();
+            }
+        }
+
+        private void custom_Click(object sender, EventArgs e)
+        {
+            if (screens.Length == 2)
+            {
+                inputMonitor = 0; // 2개의 모니터 중 첫 번째로 설정
+            }
+
+            // primary와 secondary 스크린 설정
+            Screen primaryScreen = screens[inputMonitor];
+            Screen secondaryScreen = screens[outputMonitor];
+
+            // MakeupOutputForm이 이미 열려있는지 확인
+            MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
+
+            // MakeupOutputForm이 null이면 새로 생성
+            if (openMakeupOutputForm == null)
+            {
+                MakeupOutputForm makeupOutputForm = new MakeupOutputForm();
+                makeupOutputForm.StartPosition = FormStartPosition.Manual;
+                makeupOutputForm.Location = secondaryScreen.Bounds.Location;
+                makeupOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+                // MakeupOutputForm을 화면에 표시
+                Console.WriteLine("연결");
+                makeupOutputForm.Show();
+
+                // CustomInputForm 생성 및 표시
+                CustomInputForm inputForm = new CustomInputForm(makeupOutputForm);
+                inputForm.StartPosition = FormStartPosition.Manual;
+                inputForm.Location = primaryScreen.Bounds.Location;
+                inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                inputForm.Show();
+
+                // 현재 폼과 outputForm 숨기기
+                this.Hide();
+                outputForm.Hide();
+            }
+            else
+            {
+                // 이미 열려있는 MakeupOutputForm이 있는 경우 위치 및 크기 설정 후 표시
+                openMakeupOutputForm.StartPosition = FormStartPosition.Manual;
+                openMakeupOutputForm.Location = secondaryScreen.Bounds.Location;
+                openMakeupOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+                openMakeupOutputForm.Show();
+                openMakeupOutputForm.CaptureImage(); // 기존 폼에 새로 촬영 명령
+
+                // 이미 열려있는 CustomInputForm 찾기
+                CustomInputForm openMakeupInputForm = Application.OpenForms["CustomInputForm"] as CustomInputForm;
+
+                // openMakeupInputForm이 null이면 새로 생성
+                if (openMakeupInputForm == null)
+                {
+                    openMakeupInputForm = new CustomInputForm(openMakeupOutputForm);
+                    openMakeupInputForm.StartPosition = FormStartPosition.Manual;
+                    openMakeupInputForm.Location = primaryScreen.Bounds.Location;
+                    openMakeupInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                    openMakeupInputForm.Show();
+                }
+                else
+                {
+                    // CustomInputForm이 이미 열려 있으면 위치 및 크기 설정 후 표시
+                    openMakeupInputForm.StartPosition = FormStartPosition.Manual;
+                    openMakeupInputForm.Location = primaryScreen.Bounds.Location;
+                    openMakeupInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                    openMakeupInputForm.Show();
+                }
+
+                // 현재 폼과 outputForm 숨기기
+                this.Hide();
                 outputForm.Hide();
             }
         }
