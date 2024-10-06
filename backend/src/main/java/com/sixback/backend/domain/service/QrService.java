@@ -20,7 +20,9 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.sixback.backend.common.exception.FailDecodeBase64;
+import com.sixback.backend.common.exception.ExpiredQRException;
+import com.sixback.backend.common.exception.FailDecodeBase64Exception;
+import com.sixback.backend.common.exception.FailGenerateQrException;
 import com.sixback.backend.common.exception.MismatchMarketId;
 import com.sixback.backend.domain.dto.QRDto;
 import com.sixback.backend.domain.dto.QRReqDto;
@@ -47,7 +49,7 @@ public class QrService {
 	public QRDto generateQRCode(Long marketId, QRReqDto qrReqDto) {
 		// base64 검증
 		if (!isValidBase64Image(qrReqDto.getMakeupImage())) {
-			throw new FailDecodeBase64();
+			throw new FailDecodeBase64Exception();
 		}
 		// 마켓 id 검증
 		marketService.validateMarket(marketId);
@@ -86,8 +88,10 @@ public class QrService {
 
 		} catch (WriterException e) {
 			log.error("generateQR error WriterException : {}", e.getMessage());
+			throw new FailGenerateQrException();
 		} catch (IOException e) {
 			log.error("generateQR error IOException : {}", e.getMessage());
+			throw new FailGenerateQrException();
 		}
 		return null;
 	}
@@ -111,7 +115,12 @@ public class QrService {
 	private QRReqDto getTokenInfo(Long marketId, String token) {
 		QRReqDto qrReqDto = null;
 		if(qrReqDto.getMarketId() != null && marketId.equals(qrReqDto.getMarketId()))
+		if (qrReqDto == null) {
+			throw new ExpiredQRException();
+		}
+		if (qrReqDto.getMarketId() == null || !marketId.equals(qrReqDto.getMarketId())) {
 			throw new MismatchMarketId();
+		}
 		return qrReqDto;
 	}
 
