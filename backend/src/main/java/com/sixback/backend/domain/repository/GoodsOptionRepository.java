@@ -54,6 +54,7 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 				OR MATCH(t.type_name) AGAINST(:keyword IN BOOLEAN MODE)
 				OR MATCH(g.goods_name) AGAINST(:keyword IN BOOLEAN MODE)
 				OR MATCH(b.brand_name_kr, b.brand_name_eng) AGAINST(:keyword IN BOOLEAN MODE))
+		group by g.goods_id;
 		""", nativeQuery = true,
 		countQuery = """
 			select count(distinct g.goods_id)
