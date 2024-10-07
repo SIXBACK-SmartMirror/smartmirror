@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SmartMirror.Helpers;
 using SmartMirror.Models;
-using System.Net.Http;
-using System.Windows.Forms;
 
 namespace SmartMirror
 {
@@ -32,15 +30,20 @@ namespace SmartMirror
             // 패널 초기화
             InitializePanelContainer();
 
-            PopulateComboBox(this.jsonOptions);
+            PopulatePanelWithOptions(this.jsonOptions);
         }
 
         private void SearchDetailInputForm_Load(object sender, EventArgs e)
         {
             brand.Text = goodsData.BrandName;
+            outputForm.brand.Text = goodsData.BrandName;
+
             name.Text = goodsData.GoodsName;
-            price.Text = $"{int.Parse(goodsData.GoodsPrice):N0}원~";
-            discountPrice.Text = $"{int.Parse(goodsData.GoodsDiscountPrice):N0}원~";
+            outputForm.name.Text = goodsData.GoodsName;
+
+            outputForm.price.Text = $"{int.Parse(goodsData.GoodsPrice):N0}원~";
+
+            outputForm.discountPrice.Text = $"{int.Parse(goodsData.GoodsDiscountPrice):N0}원~";
 
             try
             {
@@ -49,13 +52,13 @@ namespace SmartMirror
                     var imageBytes = client.GetByteArrayAsync(goodsData.GoodsImage).Result;
                     using (var ms = new System.IO.MemoryStream(imageBytes))
                     {
-                        img.Image = Image.FromStream(ms);
+                        outputForm.img.Image = Image.FromStream(ms);
                     }
                 }
             }
             catch (Exception)
             {
-                img.Image = Image.FromFile("placeholder.png"); // 기본 이미지 설정
+                outputForm.img.Image = Image.FromFile("placeholder.png");
             }
         }
 
@@ -70,34 +73,110 @@ namespace SmartMirror
             this.Controls.Add(panelContainer);
         }
 
-        private void PopulateComboBox(JObject jsonResponse)
+        private void PopulatePanelWithOptions(JObject jsonResponse)
         {
+            // 기존 Panel 초기화
+            panel1.Controls.Clear();
+            panel1.AutoScroll = true; // 스크롤 가능하도록 설정
+
             // JSON 데이터에서 optionDtoList 항목을 가져옴
             var optionList = jsonResponse["data"]["optionDtoList"];
 
-            // optionName 항목을 ComboBox에 추가
+            int yPosition = 0; // 각 패널의 위치를 조절하기 위한 y 좌표
+
+            // optionDtoList의 항목을 Panel로 추가
             foreach (var option in optionList)
             {
                 string optionName = option["optionName"].ToString();
-                comboBox1.Items.Add(optionName);
+                int optionId = (int)option["optionId"];
+
+                // 항목을 나타낼 Panel 생성
+                Panel optionPanel = new Panel();
+                optionPanel.Size = new Size(panel1.Width - 20, 50); // 패널 크기 설정
+                optionPanel.Location = new Point(0, yPosition); // 위치 설정
+                optionPanel.BackColor = Color.Gray;
+                optionPanel.Margin = new Padding(5); // 여백 설정
+                optionPanel.Tag = optionId; // Panel의 Tag에 optionId를 저장하여 나중에 참조 가능
+
+                // Panel 내부의 Label 생성
+                Label optionLabel = new Label();
+                optionLabel.Text = optionName;
+                optionLabel.Dock = DockStyle.Fill;
+                optionLabel.TextAlign = ContentAlignment.MiddleCenter;
+                optionLabel.ForeColor = Color.Black;
+
+                // Panel에 Label 추가
+                optionPanel.Controls.Add(optionLabel);
+
+                // Panel 클릭 이벤트 핸들러 추가
+                optionPanel.Click += OptionPanel_Click;
+                optionLabel.Click += OptionPanel_Click; // Label 클릭 시에도 같은 핸들러 사용
+
+
+                // Panel을 패널1에 추가
+                panel1.Controls.Add(optionPanel);
+
+                // 다음 Panel 위치 설정을 위한 yPosition 조정
+                yPosition += optionPanel.Height + 10; // 패널의 높이와 간격만큼 y 좌표 증가
             }
 
-            // 콤보박스에서 첫 번째 항목을 기본 선택
-            if (comboBox1.Items.Count > 0)
+            // 기본적으로 첫 번째 항목 선택
+            if (panel1.Controls.Count > 0)
             {
-                comboBox1.SelectedIndex = 0;
+                SelectOptionPanel((Panel)panel1.Controls[0]);
+            }
+        }
+
+        // 각 Panel 클릭 이벤트 핸들러
+        private void OptionPanel_Click(object sender, EventArgs e)
+        {
+            // 클릭된 객체가 Panel이 아닌 경우 (예: Label), 부모 Panel을 가져옴
+            Panel clickedPanel = sender as Panel ?? ((Control)sender).Parent as Panel;
+
+            // clickedPanel이 null인지 확인
+            if (clickedPanel == null)
+            {
+                MessageBox.Show("클릭된 패널이 null입니다. 확인해보세요.");
+                return;
             }
 
-            // 콤보박스 선택 이벤트 핸들러 연결
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 선택된 항목을 시각적으로 구분하기 위해 색상 변경
+            SelectOptionPanel(clickedPanel);
+
+            // Panel 내부의 Label을 가져옴
+            Label optionLabel = clickedPanel.Controls.OfType<Label>().FirstOrDefault();
+
+            // Label의 Text 값을 string으로 가져옴
+            if (optionLabel != null)
+            {
+                string labelText = optionLabel.Text;
+                CreateAndShowPanelForSelectedOption(labelText);
+            }
         }
 
-        // 콤보박스 선택 이벤트 핸들러
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+
+        // 선택된 Panel을 시각적으로 표시하는 메서드
+        private void SelectOptionPanel(Panel selectedPanel)
         {
-            string selectedOption = comboBox1.SelectedItem.ToString();
-            CreateAndShowPanelForSelectedOption(selectedOption);
+            if (selectedPanel == null)
+            {
+                MessageBox.Show("선택된 패널이 없습니다. 패널이 null입니다.");
+                return;
+            }
+
+            // 모든 패널의 배경색을 초기화
+            foreach (Control control in panel1.Controls)
+            {
+                if (control is Panel)
+                {
+                    control.BackColor = Color.WhiteSmoke;
+                }
+            }
+
+            // 선택된 패널의 배경색을 변경하여 시각적으로 구분
+            selectedPanel.BackColor = Color.LightBlue;
         }
+
 
         // 패널을 생성하고 표시하는 메서드
         private void CreateAndShowPanelForSelectedOption(string selectedOptionName)
@@ -115,11 +194,13 @@ namespace SmartMirror
             if (selectedOption != null)
             {
 
-                optionName.Text = selectedOption["optionName"].ToString();
-                optionPrice.Text = $"{int.Parse(selectedOption["optionDiscountPrice"].ToString()):N0}원";
-                optionStock.Text = selectedOption["inMarket"].ToObject<bool>()
+                outputForm.optionName.Text = selectedOption["optionName"].ToString();
+                outputForm.optionPrice.Text = $"{int.Parse(selectedOption["optionDiscountPrice"].ToString()):N0}원";
+                outputForm.optionStock.Text = selectedOption["inMarket"].ToObject<bool>()
                                     ? (selectedOption["stock"].ToObject<int>() == 0 ? "품절" : $"{selectedOption["stock"]}개")
                                     : "미판매";
+
+
                 string optionImageUrl = selectedOption["optionImage"].ToString();
 
                 try
@@ -129,13 +210,13 @@ namespace SmartMirror
                         var imageBytes = client.GetByteArrayAsync(optionImageUrl).Result;
                         using (var ms = new System.IO.MemoryStream(imageBytes))
                         {
-                            optionImg.Image = Image.FromStream(ms);
+                            outputForm.optionImg.Image = Image.FromStream(ms);
                         }
                     }
                 }
                 catch (Exception)
                 {
-                    optionImg.Image = Image.FromFile("placeholder.png");
+                    outputForm.optionImg.Image = Image.FromFile("placeholder.png");
                 }
             }
         }
