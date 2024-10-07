@@ -14,6 +14,7 @@ import requests
 import sys
 import facer.util as faceru
 import facer
+import dlib
 
 # CUDA 설정
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -50,6 +51,40 @@ class CustomHTTPException(HTTPException):
 @app.exception_handler(CustomHTTPException)
 async def custom_http_exception_handler(request: Request, exc: CustomHTTPException):
     return create_response(exc.code, None, status_code=exc.status_code)
+
+# 얼굴 탐지기 및 랜드마크 모델 로드 (dlib 사용)
+detector = dlib.get_frontal_face_detector()
+
+# 크롭 후 리사이즈
+def resize_image(image, target_size=(500, 500)):
+    return cv2.resize(image, target_size, interpolation=cv2.INTER_AREA)
+
+# 얼굴 전처리 및 자르기 함수
+def detect_and_crop_largest_face(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    dets = detector(gray, 1)  # 얼굴 탐지
+    if len(dets) == 0:
+        raise CustomHTTPException(code="G05", status_code=400, detail="No face detected")
+
+    # 가장 큰 얼굴 탐지
+    largest_face = max(dets, key=lambda rect: rect.width() * rect.height())
+    
+    # 얼굴 크기 조절: 크기가 너무 작으면 무시
+    if largest_face.width() * largest_face.height() < 1000:
+        raise CustomHTTPException(code="G05", status_code=400, detail="Detected face is too small")
+
+    # 얼굴 주변으로 이미지 자르기
+    margin = 0.6  # 얼굴 주위로 60% 여유 공간을 둠
+    x1 = max(0, int(largest_face.left() - margin * largest_face.width()))
+    y1 = max(0, int(largest_face.top() - margin * largest_face.height()))
+    x2 = min(image.shape[1], int(largest_face.right() + margin * largest_face.width()))
+    y2 = min(image.shape[0], int(largest_face.bottom() + margin * largest_face.height()))
+
+    cropped_image = image[y1:y2, x1:x2]
+
+    # 크롭된 이미지를 패딩 또는 리사이즈
+    cropped_image = resize_image(cropped_image, target_size=(500, 500))  # 크기를 리사이즈하기
+    return cropped_image
 
 # 얼굴 세그멘테이션 및 색상 변경 함수
 def apply_color_changes(image_np, seg_result, eyebrowColor=None, skinColor=None, lipColor=None, lipMode=None):
@@ -129,13 +164,16 @@ async def parse_face(inputImage: UploadFile = File(...), eyebrowColor: str = For
         if image.mode == 'RGBA':
             image = image.convert('RGB')
         image = np.array(image)
+
+        # 얼굴 탐지 및 가장 큰 얼굴 자르기
+        image = detect_and_crop_largest_face(image)
+
     except UnidentifiedImageError:
         # 이미지 형식이 잘못된 경우 예외 처리
         raise CustomHTTPException(code="F00", status_code=400, detail="Invalid input image format")
     except Exception as e:
         # 기타 예외 처리
         raise CustomHTTPException(code="G00", status_code=500, detail="Error reading input image")
-    
 
     try:
         image_tensor = faceru.hwc2bchw(torch.from_numpy(image).to(torch.float32)).to(device=device)
