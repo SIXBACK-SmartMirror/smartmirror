@@ -8,6 +8,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
@@ -47,13 +48,14 @@ public class RedisConfig {
 		// Redis 연결
 		redisTemplate.setConnectionFactory(redisConnectionFactory());
 
-		// Key-Value 형태로 직렬화를 수행
+		// Key는 String으로 직렬화
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
-		redisTemplate.setValueSerializer(new StringRedisSerializer());
+		// Value는 JSON으로 직렬화 (객체 저장)
+		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
 
 		// Hash Key-Value 형태로 직렬화를 수행
 		redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-		redisTemplate.setHashValueSerializer(new StringRedisSerializer());
+		redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
 
 		// 기본적으로 직렬화를 수행
 		redisTemplate.setDefaultSerializer(new StringRedisSerializer());
