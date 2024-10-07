@@ -43,25 +43,25 @@ namespace SmartMirror
         private void InitializePageButtonsPanel()
         {
             pageButtonsPanel = new FlowLayoutPanel();
-            pageButtonsPanel.Location = new Point(600, 910);  // 페이지 버튼 위치 설정
-            pageButtonsPanel.Size = new Size(800, 50);        // 페이지 버튼 크기 설정
+            pageButtonsPanel.Location = new Point(panel6.Left + 30, panel6.Bottom + 20); // panel6 바로 아래에 위치하도록 설정
+            pageButtonsPanel.Size = new Size(panel6.Width, 55); // panel6의 가로 너비에 맞춤
             pageButtonsPanel.FlowDirection = FlowDirection.LeftToRight; // 버튼을 가로로 배치
+            pageButtonsPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right; // 창 크기 변경에 따라 위치와 크기 조정
             Controls.Add(pageButtonsPanel);
         }
 
         private List<GoodsData> ApiResponse(string apiResponse)
         {
-             List<GoodsData> goodsDataList = new List<GoodsData>();
+            List<GoodsData> goodsDataList = new List<GoodsData>();
 
-             // API 응답을 JSON으로 파싱
-             JObject jsonResponse = JObject.Parse(apiResponse);
+            // API 응답을 JSON으로 파싱
+            JObject jsonResponse = JObject.Parse(apiResponse);
 
             // API 응답에서 필요한 데이터 추출 (예: 검색된 상품 목록)
             var goodsList = jsonResponse["data"]["goodsList"]["content"];
 
             // 검색 키워드 추출 및 total 라벨에 반영
             currentKeyword = jsonResponse["data"]["searchKeyword"].ToString();
-            total.Text = $"'{currentKeyword}'에 대한 검색결과";
             outputForm.total.Text = currentKeyword;
 
             // 총 개수와 페이지 크기 표시 (label7)
@@ -124,14 +124,14 @@ namespace SmartMirror
         // API 응답 데이터를 처리하여 UI에 표시하는 메서드
         private void DisplayApiResponse2(string apiResponse)
         {
-            // 기존 상품 목록 및 페이지 버튼 초기화
+            // 기존 상품 목록 및 페이지  버튼 초기화
             panel6.Controls.Clear();
             pageButtonsPanel.Controls.Clear();
 
             // 동적으로 패널을 추가하여 상품 정보 표시
             int panelIndex = 0;
             int itemsPerRow = 3;  // 한 줄에 배치할 아이템 수
-            int panelSpacing = 15; // 패널 간격 설정
+            int panelSpacing = 50; // 패널 간격 설정
 
             List<GoodsData> goodsData = ApiResponse(apiResponse);
 
@@ -164,7 +164,7 @@ namespace SmartMirror
             {
                 Button pageButton = new Button();
                 pageButton.Text = (i + 1).ToString();  // 페이지 번호로 텍스트 설정
-                pageButton.Size = new Size(50, 40);    // 버튼 크기 설정
+                pageButton.Size = new Size(50, 50);    // 버튼 크기 설정
                 pageButton.Tag = i;                   // 페이지 번호를 Tag로 저장
                 pageButton.Click += PageButton_Click; // 버튼 클릭 이벤트 연결
                 pageButtonsPanel.Controls.Add(pageButton);
@@ -270,49 +270,34 @@ namespace SmartMirror
         // 상품 패널을 생성하는 메서드
         private Panel CreateGoodsPanel2(GoodsData goodsData)
         {
+            // Panel 설정
             Panel panel = new Panel();
-            panel.Size = new Size(309, 342);
+            panel.Size = new Size(229, 272);
+            panel.Padding = new Padding(0); // 패널 자체의 여백 제거
 
-            // 상품 이름 Label
-            Label goodsNameLabel = new Label();
-            goodsNameLabel.Text = goodsData.GoodsName;
-            goodsNameLabel.Location = new Point(0, 287);
-            goodsNameLabel.Size = new Size(309, 25);
-            goodsNameLabel.TextAlign = ContentAlignment.MiddleCenter; // 상품 이름을 중앙에 배치
-            panel.Controls.Add(goodsNameLabel);
+            // TableLayoutPanel 설정
+            TableLayoutPanel tableLayoutPanel = new TableLayoutPanel();
+            tableLayoutPanel.Dock = DockStyle.Fill; // TableLayoutPanel을 Panel 크기에 맞게 설정
+            tableLayoutPanel.ColumnCount = 1; // 기본적으로 한 열에 배치
+            tableLayoutPanel.RowCount = 3; // 이미지, 브랜드 이름, 상품 이름
 
-            // 브랜드 이름 Label
-            Label brandLabel = new Label();
-            brandLabel.Text = goodsData.BrandName;
-            brandLabel.Location = new Point(0, 262);
-            brandLabel.Size = new Size(309, 25);
-            brandLabel.TextAlign = ContentAlignment.MiddleCenter; // 브랜드 이름 중앙에 배치
-            panel.Controls.Add(brandLabel);
+            // RowStyle 설정: 여백을 줄이기 위해 각 행의 높이를 조정
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 70F)); // 이미지 크기를 70%로 설정
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 15F)); // 브랜드 이름 크기 15%
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 15F)); // 상품 이름 크기 15%
 
-            // 상품 가격 Label
-            Label priceLabel = new Label();
-            priceLabel.Text = $"{int.Parse(goodsData.GoodsPrice):N0}원~";
-            priceLabel.Location = new Point(80, 312);
-            priceLabel.Size = new Size(80, 25);
-            priceLabel.ForeColor = Color.Gray;
-            priceLabel.Font = new Font(priceLabel.Font, FontStyle.Strikeout);
-            panel.Controls.Add(priceLabel);
+            tableLayoutPanel.Margin = new Padding(0); // TableLayoutPanel의 여백 제거
+            tableLayoutPanel.Padding = new Padding(0); // TableLayoutPanel의 패딩 제거
 
-            // 할인 가격 Label
-            Label discountPriceLabel = new Label();
-            discountPriceLabel.Text = $"{int.Parse(goodsData.GoodsDiscountPrice):N0}원~";
-            discountPriceLabel.Location = new Point(160, 312);
-            discountPriceLabel.Size = new Size(80, 25);
-            discountPriceLabel.ForeColor = Color.Red;
-            panel.Controls.Add(discountPriceLabel);
-
-            // 상품 이미지 PictureBox
+            // 상품 이미지 PictureBox 설정
             PictureBox pictureBox = new PictureBox();
-            pictureBox.Size = new Size(220, 220);
-            pictureBox.Location = new Point(30, 13);
-            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox.Size = new Size(200, 200); // 이미지 크기를 200x200으로 설정
+            pictureBox.Dock = DockStyle.None; // 이미지 크기를 고정된 크기로 설정
+            pictureBox.Margin = new Padding(0); // 이미지의 여백 제거
+            pictureBox.Padding = new Padding(0); // 이미지의 패딩 제거
+            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage; // 이미지 크기 비율에 맞게 설정
+            pictureBox.Anchor = AnchorStyles.None; // 중앙에 배치되도록 Anchor 설정
 
-            // 이미지 로드 (임시로 placeholder 이미지 설정)
             try
             {
                 using (HttpClient client = new HttpClient())
@@ -328,15 +313,28 @@ namespace SmartMirror
             {
                 pictureBox.Image = Image.FromFile("placeholder.png"); // 기본 이미지 설정
             }
+            tableLayoutPanel.Controls.Add(pictureBox, 0, 0);
 
-            panel.Controls.Add(pictureBox);
+            // 브랜드 이름 Label 설정
+            Label brandLabel = new Label();
+            brandLabel.Text = goodsData.BrandName;
+            brandLabel.Dock = DockStyle.Fill;
+            brandLabel.TextAlign = ContentAlignment.MiddleCenter; // 중앙 정렬
+            brandLabel.Margin = new Padding(0); // 여백 제거
+            tableLayoutPanel.Controls.Add(brandLabel, 0, 1);
 
+            // 상품 이름 Label 설정
+            Label goodsNameLabel = new Label();
+            goodsNameLabel.Text = goodsData.GoodsName;
+            goodsNameLabel.Dock = DockStyle.Fill;
+            goodsNameLabel.TextAlign = ContentAlignment.MiddleCenter; // 중앙 정렬
+            goodsNameLabel.Margin = new Padding(0); // 여백 제거
+            tableLayoutPanel.Controls.Add(goodsNameLabel, 0, 2);
 
-            //panel.Click += (sender, e) => Panel_Click(goodsData);
-            //goodsNameLabel.Click += (sender, e) => Panel_Click(goodsData);
-            //brandLabel.Click += (sender, e) => Panel_Click(goodsData);
-            //priceLabel.Click += (sender, e) => Panel_Click(goodsData);
-            //discountPriceLabel.Click += (sender, e) => Panel_Click(goodsData);
+            // TableLayoutPanel을 Panel에 추가
+            panel.Controls.Add(tableLayoutPanel);
+
+            // 클릭 이벤트 연결
             pictureBox.Click += (sender, e) => Panel_Click(goodsData);
 
             return panel;
