@@ -176,21 +176,25 @@ async def parse_face(inputImage: UploadFile = File(...), eyebrowColor: str = For
         raise CustomHTTPException(code="G00", status_code=500, detail="Error reading input image")
 
     try:
-        image_tensor = faceru.hwc2bchw(torch.from_numpy(image).to(torch.float32)).to(device=device)
         # 얼굴 감지 및 세그멘테이션
+        image_tensor = faceru.hwc2bchw(torch.from_numpy(image).to(torch.float32)).to(device=device)
         face_detector = facer.face_detector('retinaface/mobilenet', device=device)
+
         with torch.inference_mode():
             faces = face_detector(image_tensor)
+
         # 얼굴 세그멘테이션
         face_parser = facer.face_parser('farl/lapa/448', device=device)
         with torch.inference_mode():
             faces = face_parser(image_tensor, faces)
+
         # 세그멘테이션 맵 추출
         seg_logits = faces['seg']['logits']
         seg_probs = seg_logits.softmax(dim=1)
         seg_result = seg_probs.argmax(dim=1).squeeze().cpu().numpy()
+
         # 원본 이미지 numpy로 변환 (0~1 범위라면 0~255로 변환)
-        image_np = image_tensor.squeeze().permute(1, 2, 0).cpu().numpy() # cpu?
+        image_np = image_tensor.squeeze().permute(1, 2, 0).cpu().numpy() 
         if image_np.max() <= 1:
             image_np = (image_np * 255).astype(np.uint8)
 
