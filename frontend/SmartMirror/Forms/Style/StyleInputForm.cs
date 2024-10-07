@@ -1,18 +1,21 @@
 ﻿using Newtonsoft.Json.Linq;
 using SmartMirror.Models;
 using SmartMirror.Config;
+using SmartMirror.Helpers;
 
 namespace SmartMirror
 {
     public partial class StyleInputForm : Form
     {
         int makeupStyle = -1;
+
         private int outputMonitor = 1;
         private int inputMonitor = 2;
         private Screen[] screens = Screen.AllScreens;
-        //public String[] SyntheticResponseList;
-        //public StyleData styleData = new StyleData();
+
         public StyleData[] SyntheticResponseList;
+
+        private bool flag;
 
         public StyleInputForm()
         {
@@ -135,28 +138,33 @@ namespace SmartMirror
             syntheticOutput.Show();
         }
 
-        private void pictureBox6_Click(object sender, EventArgs e)
+        private void home_Click(object sender, EventArgs e)
         {
+            location.Visible = false;
+
             SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
-            if (openSyntheticOutput != null)
+
+            // 스크린 설정 호출
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
+
+            MainOutputForm mainOutputForm = new MainOutputForm();
+            MainInputForm inputForm = new MainInputForm(mainOutputForm);
+
+            FormHelper.SwitchToForm(inputForm, mainOutputForm, primaryScreen, secondaryScreen);
+
+            if (openSyntheticOutput != null && !openSyntheticOutput.IsDisposed)
             {
-                openSyntheticOutput.Close();
+                openSyntheticOutput.Hide();
             }
 
             this.Hide();
-
-            MakeupOutputForm openedForm = Application.OpenForms["MakeupOutputFOrm"] as MakeupOutputForm;
-            openedForm.Hide();
-
-            MainInputForm openMainInputForm = Application.OpenForms["MainInputForm"] as MainInputForm;
-            MainOutputForm openMainOutForm = Application.OpenForms["MainOutputForm"] as MainOutputForm;
-
-            openMainInputForm.Show();
-            openMainOutForm.Show();
         }
 
         private void camera_Click(object sender, EventArgs e)
         {
+            location.Visible = false;
+
             if (screens.Length == 2)
             {
                 inputMonitor = 0; // 2개의 모니터 중 첫 번째로 설정
@@ -230,6 +238,15 @@ namespace SmartMirror
             {
                 openSyntheticOutput.visbleLocation();
             }
+        }
+
+        private void mirror_Click(object sender, EventArgs e)
+        {
+            SyntheticOutput openSyntheticOutput = Application.OpenForms["SyntheticOutput"] as SyntheticOutput;
+            openSyntheticOutput.panel3.Dock = DockStyle.Fill;
+            openSyntheticOutput.panel3.Visible = flag;
+
+            flag = !flag;
         }
     }
 }
