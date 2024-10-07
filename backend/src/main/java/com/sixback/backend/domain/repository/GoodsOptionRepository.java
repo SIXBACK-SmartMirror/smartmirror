@@ -21,6 +21,9 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 	@Query("""
 		    SELECT new com.sixback.backend.domain.dto.UseOptionDetailDto(
 		            b.brandNameKr,
+		            g.goodsName,
+		            o.optionName,
+		            o.optionImage,
 		            o.optionPrice,
 		            CAST(o.optionPrice * (1 - o.optionDiscount) AS long),
 		            CASE WHEN s.location IS NOT NULL THEN true ELSE false END,
@@ -106,8 +109,7 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 
 	@Query(value = """
 				WITH RankedOptions AS (
-		                  SELECT\s
-		                      o.color_rgb,
+		                  SELECT o.color_rgb,
 		                      o.color_hsv,
 		                      o.release_at,
 		                      o.option_id,
@@ -150,4 +152,26 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
           nativeQuery = true
 	)
 	List<OptionInfoDto> findAllCustomOption(@Param("size") int size, @Param("offset") int offset);
+
+	@EntityGraph(attributePaths = {"goods", "goods.brand"})
+	@Query("""
+		    SELECT new com.sixback.backend.domain.dto.UseOptionDetailDto(
+		            b.brandNameKr,
+		            g.goodsName,
+		            o.optionName,
+		            o.optionImage,
+		            o.optionPrice,
+		            CAST(o.optionPrice * (1 - o.optionDiscount) AS long),
+		            CASE WHEN s.stockId IS NOT NULL THEN true ELSE false END,
+		           	CAST(coalesce(s.count, 0) AS int),
+		            s.location
+		        )
+		    FROM GoodsOption o
+		    JOIN o.goods g ON o.optionId in :optionIdList
+		    JOIN g.brand b
+		    LEFT JOIN Stock s ON s.market.marketId = :marketId
+		        AND s.option.optionId = o.optionId
+		""")
+	List<UseOptionDetailDto> findAllUseOptionId(@Param("marketId") Long marketId, List<Long> optionIdList);
+
 }
