@@ -18,7 +18,6 @@ namespace SmartMirror
             InitializeComponent();
 
             this.outputForm = outputForm;
-            outputForm.panel1.Dock = DockStyle.Fill;
         }
 
         private void filmingBtn_Click(object sender, EventArgs e)
@@ -101,7 +100,11 @@ namespace SmartMirror
 
         private void mirror_Click(object sender, EventArgs e)
         {
-            outputForm.panel1.Visible = flag;
+            outputForm.captureImg.Visible = flag;
+            outputForm.pictureBox1.Visible = flag;
+            outputForm.streamingBox.Visible = flag;
+            outputForm.topComent.Visible = flag;
+
             flag = !flag;
         }
 
