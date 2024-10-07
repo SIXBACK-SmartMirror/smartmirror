@@ -57,6 +57,18 @@
             label4 = new Label();
             pictureBox1 = new PictureBox();
             panel3 = new Panel();
+            panel4 = new Panel();
+            panel5 = new Panel();
+            optionPrice = new Label();
+            optionStock = new Label();
+            optionName = new Label();
+            optionImg = new PictureBox();
+            img = new PictureBox();
+            panel8 = new Panel();
+            discountPrice = new Label();
+            price = new Label();
+            name = new Label();
+            brand = new Label();
             panel2.SuspendLayout();
             L.SuspendLayout();
             J.SuspendLayout();
@@ -71,6 +83,11 @@
             D.SuspendLayout();
             C.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel4.SuspendLayout();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)optionImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)img).BeginInit();
+            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // title
@@ -102,7 +119,7 @@
             panel2.Controls.Add(D);
             panel2.Controls.Add(C);
             panel2.Controls.Add(pictureBox1);
-            panel2.Location = new Point(31, 577);
+            panel2.Location = new Point(31, 132);
             panel2.Name = "panel2";
             panel2.Size = new Size(1130, 831);
             panel2.TabIndex = 3;
@@ -359,12 +376,141 @@
             // 
             // panel3
             // 
-            panel3.Location = new Point(93, 226);
+            panel3.Location = new Point(1086, 25);
             panel3.Margin = new Padding(2);
             panel3.Name = "panel3";
-            panel3.Size = new Size(323, 233);
+            panel3.Size = new Size(75, 44);
             panel3.TabIndex = 6;
             panel3.Visible = false;
+            // 
+            // panel4
+            // 
+            panel4.Anchor = AnchorStyles.Top;
+            panel4.Controls.Add(panel5);
+            panel4.Controls.Add(img);
+            panel4.Controls.Add(panel8);
+            panel4.Location = new Point(31, 1016);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(1130, 593);
+            panel4.TabIndex = 4;
+            // 
+            // panel5
+            // 
+            panel5.BorderStyle = BorderStyle.FixedSingle;
+            panel5.Controls.Add(optionPrice);
+            panel5.Controls.Add(optionStock);
+            panel5.Controls.Add(optionName);
+            panel5.Controls.Add(optionImg);
+            panel5.Location = new Point(62, 401);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(981, 149);
+            panel5.TabIndex = 5;
+            // 
+            // optionPrice
+            // 
+            optionPrice.AutoSize = true;
+            optionPrice.Font = new Font("맑은 고딕", 15F, FontStyle.Bold);
+            optionPrice.ForeColor = Color.White;
+            optionPrice.Location = new Point(737, 50);
+            optionPrice.Name = "optionPrice";
+            optionPrice.Size = new Size(141, 41);
+            optionPrice.TabIndex = 6;
+            optionPrice.Text = "18,000원";
+            // 
+            // optionStock
+            // 
+            optionStock.AutoSize = true;
+            optionStock.Font = new Font("맑은 고딕", 15F, FontStyle.Bold);
+            optionStock.ForeColor = Color.FromArgb(130, 220, 40);
+            optionStock.Location = new Point(466, 50);
+            optionStock.Name = "optionStock";
+            optionStock.Size = new Size(65, 41);
+            optionStock.TabIndex = 5;
+            optionStock.Text = "3개";
+            // 
+            // optionName
+            // 
+            optionName.AutoSize = true;
+            optionName.Font = new Font("맑은 고딕", 15F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            optionName.ForeColor = Color.White;
+            optionName.Location = new Point(135, 50);
+            optionName.Name = "optionName";
+            optionName.Size = new Size(179, 41);
+            optionName.TabIndex = 4;
+            optionName.Text = "클래식 레드";
+            // 
+            // optionImg
+            // 
+            optionImg.Location = new Point(28, 30);
+            optionImg.Name = "optionImg";
+            optionImg.Size = new Size(80, 80);
+            optionImg.SizeMode = PictureBoxSizeMode.Zoom;
+            optionImg.TabIndex = 3;
+            optionImg.TabStop = false;
+            // 
+            // img
+            // 
+            img.Location = new Point(62, 21);
+            img.Name = "img";
+            img.Size = new Size(276, 348);
+            img.SizeMode = PictureBoxSizeMode.Zoom;
+            img.TabIndex = 0;
+            img.TabStop = false;
+            // 
+            // panel8
+            // 
+            panel8.Controls.Add(discountPrice);
+            panel8.Controls.Add(price);
+            panel8.Controls.Add(name);
+            panel8.Controls.Add(brand);
+            panel8.Location = new Point(371, 21);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(720, 348);
+            panel8.TabIndex = 1;
+            // 
+            // discountPrice
+            // 
+            discountPrice.AutoSize = true;
+            discountPrice.Font = new Font("맑은 고딕", 20F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            discountPrice.ForeColor = Color.FromArgb(236, 0, 6);
+            discountPrice.Location = new Point(291, 212);
+            discountPrice.Name = "discountPrice";
+            discountPrice.Size = new Size(217, 54);
+            discountPrice.TabIndex = 3;
+            discountPrice.Text = "18,000원~";
+            // 
+            // price
+            // 
+            price.AutoSize = true;
+            price.Font = new Font("맑은 고딕", 15F, FontStyle.Strikeout, GraphicsUnit.Point, 129);
+            price.ForeColor = Color.Gray;
+            price.Location = new Point(54, 223);
+            price.Name = "price";
+            price.Size = new Size(161, 41);
+            price.TabIndex = 2;
+            price.Text = "10,000원~";
+            // 
+            // name
+            // 
+            name.AutoSize = true;
+            name.Font = new Font("맑은 고딕", 20F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            name.ForeColor = Color.White;
+            name.Location = new Point(47, 120);
+            name.Name = "name";
+            name.Size = new Size(183, 54);
+            name.TabIndex = 1;
+            name.Text = "립글로스";
+            // 
+            // brand
+            // 
+            brand.AutoSize = true;
+            brand.Font = new Font("맑은 고딕", 15F, FontStyle.Regular, GraphicsUnit.Point, 129);
+            brand.ForeColor = Color.White;
+            brand.Location = new Point(47, 44);
+            brand.Name = "brand";
+            brand.Size = new Size(168, 41);
+            brand.TabIndex = 0;
+            brand.Text = "이니스프리";
             // 
             // SearchDetailOutputForm
             // 
@@ -373,6 +519,7 @@
             AutoSize = true;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(1200, 1920);
+            Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(title);
@@ -407,6 +554,13 @@
             C.ResumeLayout(false);
             C.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel4.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)optionImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)img).EndInit();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -440,5 +594,17 @@
         private Label label11;
         private Label label12;
         public Panel panel3;
+        private Panel panel4;
+        public PictureBox img;
+        private Panel panel8;
+        public Label discountPrice;
+        public Label price;
+        public Label name;
+        public Label brand;
+        private Panel panel5;
+        public Label optionPrice;
+        public Label optionStock;
+        public Label optionName;
+        public PictureBox optionImg;
     }
 }
