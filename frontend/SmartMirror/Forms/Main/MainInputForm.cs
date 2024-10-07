@@ -16,6 +16,15 @@ namespace SmartMirror
             InitializeComponent();
             this.outputForm = outputForm;
         }
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = 0x02000000;
+                return cp;
+            }
+        }
 
         private void panel2_Click(object sender, EventArgs e)
         {
@@ -106,6 +115,7 @@ namespace SmartMirror
                 outputForm.Hide();
                 // makeupout  
                 openMakeupOutputForm.Show();
+                openMakeupOutputForm.CaptureImage();
                 // makeupinput  
                 MakeupInputForm openMakeupInputForm = Application.OpenForms["MakeupInputForm"] as MakeupInputForm;
                 openMakeupInputForm.Show();

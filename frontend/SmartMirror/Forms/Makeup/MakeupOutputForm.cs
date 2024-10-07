@@ -14,7 +14,7 @@ namespace SmartMirror
 {
     public partial class MakeupOutputForm : Form
     {
-        VideoCapture _capture = new VideoCapture(1);
+        VideoCapture _capture = new VideoCapture(0);
         Mat _image = new Mat();
 
         private System.Windows.Forms.Timer timer;
