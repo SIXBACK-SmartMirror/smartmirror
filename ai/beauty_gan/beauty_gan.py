@@ -113,7 +113,7 @@ def resize_with_aspect_ratio(image, target_size):
     return image.resize((new_width, new_height), Image.ANTIALIAS)
 
 def add_padding_to_square(image, target_size, fill_color=(255, 255, 255)):
-    # 이미지를 중앙에 배치하고 나머지 공간을 채워서 정사각형(800x800)으로 맞추기
+    # 이미지를 중앙에 배치하고 나머지 공간을 채워서 정사각형으로 맞추기
     width, height = image.size
     new_image = Image.new("RGB", (target_size, target_size), fill_color)
     new_image.paste(image, ((target_size - width) // 2, (target_size - height) // 2))
@@ -165,10 +165,10 @@ async def makeup(inputImage: UploadFile = File(...), styleImage: str = Form(...)
     # 이미지를 바이너리로 변환
     output_img_pil = Image.fromarray(output_img.astype(np.uint8))
     
-    # 원본 비율 유지하며 리사이즈 (긴 쪽이 800)
+    # 원본 비율 유지하며 리사이즈 (긴 쪽이 500)
     output_img_pil_resized = resize_with_aspect_ratio(output_img_pil, 500)
 
-    # 패딩 추가하여 800x800 정사각형 이미지로 만들기
+    # 패딩 추가하여 500x500 정사각형 이미지로 만들기
     output_img_pil = add_padding_to_square(output_img_pil_resized, 500)
     
     # 이미지 저장
