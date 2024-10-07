@@ -20,20 +20,19 @@ public class LogService {
     private final ProductLogRepository productLogRepository;
 
     // 화장 스타일 로그 저장
-    public void saveMakeupStyleLog(String event, Long styleId, Long marketId, Map<String, Object> additionalInfo) {
+    public void saveMakeupStyleLog(String event, Long styleId, Long marketId) {
         MakeupStyleLog logEntity = MakeupStyleLog.builder()
                 .event(event)
                 .styleId(styleId)
                 .marketId(marketId)
                 .timestamp(LocalDateTime.now())  // 현재 시간으로 저장
-                .additionalInfo(additionalInfo)
                 .build();
 
         makeupStyleLogRepository.save(logEntity);  // MongoDB에 저장
     }
 
     // 커스텀 합성 로그 저장
-    public void saveMakeupCustomLog(String event, Long marketId, String eyebrowColor, String skinColor, String lipColor, String lipMode, Map<String, Object> additionalInfo) {
+    public void saveMakeupCustomLog(String event, Long marketId, String eyebrowColor, String skinColor, String lipColor, String lipMode) {
         MakeupCustomLog logEntity = MakeupCustomLog.builder()
                 .event(event)
                 .marketId(marketId)
@@ -42,23 +41,20 @@ public class LogService {
                 .lipColor(lipColor)
                 .lipMode(lipMode)
                 .timestamp(LocalDateTime.now())  // 현재 시간으로 저장
-                .additionalInfo(additionalInfo)
                 .build();
 
         makeupCustomLogRepository.save(logEntity);  // MongoDB에 저장
     }
 
     // 제품 입출고 로그 저장
-    public void saveProductLog(String event, Long stockId, int quantity, Long marketId, Map<String, String> location, String description, Map<String, Object> additionalInfo) {
+    public void saveProductLog(String event, Long optionId, int quantity, Long marketId, String description) {
         ProductLog logEntity = ProductLog.builder()
                 .event(event)
-                .stockId(stockId)
+                .optionId(optionId)
                 .quantity(quantity)
                 .marketId(marketId)
-                .location(location)
                 .timestamp(LocalDateTime.now())  // 현재 시간으로 저장
                 .description(description)
-                .additionalInfo(additionalInfo)
                 .build();
 
         productLogRepository.save(logEntity);  // MongoDB에 저장

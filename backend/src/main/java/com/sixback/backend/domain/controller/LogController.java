@@ -24,21 +24,21 @@ public class LogController {
     @PostMapping("/custom")
     public void createCustomMakeup(@PathVariable("marketId") Long marketId) {
         // 로그 저장
-        logService.saveMakeupCustomLog("custom_synthesis", marketId, "96,89,83", "239,204,172", "151,58,68", "full", Map.of());
+        logService.saveMakeupCustomLog("custom_makeup", marketId, "96,89,83", "239,204,172", "151,58,68", "full");
         log.info("custom");
     }
 
     // 스타일 메이크업 로그 저장
     @PostMapping("/style")
     public void saveStyleLog(@PathVariable("marketId") Long marketId) {
-        logService.saveMakeupStyleLog("style_synthesis", 123L, marketId, Map.of());
+        logService.saveMakeupStyleLog("style_makeup", 123L, marketId);
         log.info("Style makeup log saved");
     }
 
     // 제품 입출고 로그 저장
     @PostMapping("/product")
     public void saveProductLog(@PathVariable("marketId") Long marketId) {
-        logService.saveProductLog("stock_in", 1L, 100, marketId, Map.of("name", "A", "row", "0", "col", "0"), "New stock in", Map.of());
+        logService.saveProductLog("stock_in", 1L, 100, marketId, "New stock in");
         log.info("Product log saved");
     }
 }
