@@ -96,16 +96,19 @@ def apply_color_changes(image_np, seg_result, eyebrowColor=None, skinColor=None,
         skin_mask = seg_result == skin_class
         nose_mask = seg_result == nose_class
 
-        # 기존 색과 새로운 색을 혼합 (alpha=0.8)
-        alpha_face = 0.8
-        skin_color_expanded = np.tile(skinColor, (np.count_nonzero(skin_mask), 1))
-        nose_color_expanded = np.tile(skinColor, (np.count_nonzero(nose_mask), 1))
-
-        # 피부 색상 변경
-        image_np[skin_mask] = cv2.addWeighted(image_np[skin_mask].astype(np.float32), alpha_face, skin_color_expanded.astype(np.float32), 1 - alpha_face, 0)
-        
-        # 코 색상 변경
-        image_np[nose_mask] = cv2.addWeighted(image_np[nose_mask].astype(np.float32), alpha_face, nose_color_expanded.astype(np.float32), 1 - alpha_face, 0)
+        # 피부와 코가 인식되지 않는 경우 건너뛰기
+        if np.count_nonzero(skin_mask) == 0 and np.count_nonzero(nose_mask) == 0:
+            print("Skin and nose not detected, skipping skin color change.")
+        else:
+            # 기존 색과 새로운 색을 혼합 
+            alpha_face = 0.85
+            if np.count_nonzero(skin_mask) > 0:
+                skin_color_expanded = np.tile(skinColor, (np.count_nonzero(skin_mask), 1))
+                image_np[skin_mask] = cv2.addWeighted(image_np[skin_mask].astype(np.float32), alpha_face, skin_color_expanded.astype(np.float32), 1 - alpha_face, 0)
+            
+            if np.count_nonzero(nose_mask) > 0:
+                nose_color_expanded = np.tile(skinColor, (np.count_nonzero(nose_mask), 1))
+                image_np[nose_mask] = cv2.addWeighted(image_np[nose_mask].astype(np.float32), alpha_face, nose_color_expanded.astype(np.float32), 1 - alpha_face, 0)
 
     # 눈썹 색상 변경
     if eyebrowColor is not None:
@@ -114,13 +117,19 @@ def apply_color_changes(image_np, seg_result, eyebrowColor=None, skinColor=None,
         left_eyebrow_mask = seg_result == left_eyebrow_class
         right_eyebrow_mask = seg_result == right_eyebrow_class
 
-        # 기존 색과 새로운 색을 혼합 (alpha=0.5)
-        alpha = 0.82
-        eyebrow_color_expanded = np.tile(eyebrowColor, (np.count_nonzero(left_eyebrow_mask), 1))
-        image_np[left_eyebrow_mask] = cv2.addWeighted(image_np[left_eyebrow_mask].astype(np.float32), alpha, eyebrow_color_expanded.astype(np.float32), 1 - alpha, 0)
-        
-        eyebrow_color_expanded = np.tile(eyebrowColor, (np.count_nonzero(right_eyebrow_mask), 1))
-        image_np[right_eyebrow_mask] = cv2.addWeighted(image_np[right_eyebrow_mask].astype(np.float32), alpha, eyebrow_color_expanded.astype(np.float32), 1 - alpha, 0)
+        # 눈썹이 인식되지 않는 경우 건너뛰기
+        if np.count_nonzero(left_eyebrow_mask) == 0 and np.count_nonzero(right_eyebrow_mask) == 0:
+            print("Eyebrows not detected, skipping eyebrow color change.")
+        else:
+            # 기존 색과 새로운 색을 혼합 (alpha=0.5)
+            alpha = 0.82
+            if np.count_nonzero(left_eyebrow_mask) > 0:
+                eyebrow_color_expanded = np.tile(eyebrowColor, (np.count_nonzero(left_eyebrow_mask), 1))
+                image_np[left_eyebrow_mask] = cv2.addWeighted(image_np[left_eyebrow_mask].astype(np.float32), alpha, eyebrow_color_expanded.astype(np.float32), 1 - alpha, 0)
+
+            if np.count_nonzero(right_eyebrow_mask) > 0:
+                eyebrow_color_expanded = np.tile(eyebrowColor, (np.count_nonzero(right_eyebrow_mask), 1))
+                image_np[right_eyebrow_mask] = cv2.addWeighted(image_np[right_eyebrow_mask].astype(np.float32), alpha, eyebrow_color_expanded.astype(np.float32), 1 - alpha, 0)
 
     # 입술 색상 변경 (풀 립 또는 그라데이션)
     if lipMode is not None and lipColor is not None:
@@ -128,24 +137,33 @@ def apply_color_changes(image_np, seg_result, eyebrowColor=None, skinColor=None,
         lower_lip_class = 9  # 아랫입술 클래스 번호
         upper_lip_mask = seg_result == upper_lip_class
         lower_lip_mask = seg_result == lower_lip_class
-        if lipMode == "full":
-            # 풀 립 색상 변경 (기존 색과 새로운 색을 혼합)
-            alpha = 0.6
-            lip_color_expanded = np.tile(lipColor, (np.count_nonzero(upper_lip_mask), 1))
-            image_np[upper_lip_mask] = cv2.addWeighted(image_np[upper_lip_mask].astype(np.float32), alpha, lip_color_expanded.astype(np.float32), 1 - alpha, 0)
+        
+        # 입술이 인식되지 않는 경우 건너뛰기
+        if np.count_nonzero(upper_lip_mask) == 0 and np.count_nonzero(lower_lip_mask) == 0:
+            print("Lips not detected, skipping lip color change.")
+        else:
+            if lipMode == "full":
+                print("full lip")
+                # 풀 립 색상 변경 (기존 색과 새로운 색을 혼합)
+                alpha = 0.6
+                if np.count_nonzero(upper_lip_mask) > 0:
+                    lip_color_expanded = np.tile(lipColor, (np.count_nonzero(upper_lip_mask), 1))
+                    image_np[upper_lip_mask] = cv2.addWeighted(image_np[upper_lip_mask].astype(np.float32), alpha, lip_color_expanded.astype(np.float32), 1 - alpha, 0)
+                
+                if np.count_nonzero(lower_lip_mask) > 0:
+                    lip_color_expanded = np.tile(lipColor, (np.count_nonzero(lower_lip_mask), 1))
+                    image_np[lower_lip_mask] = cv2.addWeighted(image_np[lower_lip_mask].astype(np.float32), alpha, lip_color_expanded.astype(np.float32), 1 - alpha, 0)
 
-            lip_color_expanded = np.tile(lipColor, (np.count_nonzero(lower_lip_mask), 1))
-            image_np[lower_lip_mask] = cv2.addWeighted(image_np[lower_lip_mask].astype(np.float32), alpha, lip_color_expanded.astype(np.float32), 1 - alpha, 0)
+            elif lipMode == "gradient":
+                print("gradient lip")
+                # 그라데이션 립 효과 적용
+                lip_mask = upper_lip_mask | lower_lip_mask
+                dist_transform = cv2.distanceTransform(lip_mask.astype(np.uint8), cv2.DIST_L2, 5)
+                grad_mask = cv2.normalize(dist_transform, None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
 
-        elif lipMode == "gradient":
-            # 그라데이션 립 효과 적용
-            lip_mask = upper_lip_mask | lower_lip_mask
-            dist_transform = cv2.distanceTransform(lip_mask.astype(np.uint8), cv2.DIST_L2, 5)
-            grad_mask = cv2.normalize(dist_transform, None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
-
-            # 기존 색상과 그라데이션 마스크를 혼합하여 입술 색상 적용
-            for i in range(3):  # BGR 채널
-                image_np[:, :, i] = image_np[:, :, i] * (1 - grad_mask) + lipColor[i] * grad_mask
+                # 기존 색상과 그라데이션 마스크를 혼합하여 입술 색상 적용
+                for i in range(3):  # BGR 채널
+                    image_np[:, :, i] = image_np[:, :, i] * (1 - grad_mask) + lipColor[i] * grad_mask
 
     return image_np
 
