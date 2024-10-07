@@ -59,6 +59,7 @@
             C = new Panel();
             label4 = new Label();
             pictureBox1 = new PictureBox();
+            panel3 = new Panel();
             ((System.ComponentModel.ISupportInitialize)syntheticImg).BeginInit();
             goodsOptionList1.SuspendLayout();
             panel1.SuspendLayout();
@@ -393,12 +394,22 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
+            // panel3
+            // 
+            panel3.Location = new Point(59, 1266);
+            panel3.Margin = new Padding(2);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(156, 233);
+            panel3.TabIndex = 9;
+            panel3.Visible = false;
+            // 
             // SyntheticOutput
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(1778, 2586);
+            Controls.Add(panel3);
             Controls.Add(locationImg);
             Controls.Add(panel1);
             ForeColor = Color.White;
@@ -471,5 +482,6 @@
         private Panel C;
         private Label label4;
         private PictureBox pictureBox1;
+        public Panel panel3;
     }
 }

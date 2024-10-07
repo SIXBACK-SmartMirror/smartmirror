@@ -43,7 +43,6 @@
             panel8 = new Panel();
             label6 = new Label();
             panel6 = new Panel();
-            panel1 = new Panel();
             pictureBox3 = new PictureBox();
             pictureBox1 = new PictureBox();
             filmingBtn.SuspendLayout();
@@ -55,7 +54,6 @@
             mirror.SuspendLayout();
             panel8.SuspendLayout();
             panel6.SuspendLayout();
-            panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -226,7 +224,7 @@
             // 
             panel6.Anchor = AnchorStyles.None;
             panel6.BackColor = Color.White;
-            panel6.Controls.Add(panel1);
+            panel6.Controls.Add(pictureBox3);
             panel6.Controls.Add(pictureBox1);
             panel6.Controls.Add(filmingBtn);
             panel6.Controls.Add(usingBtn);
@@ -236,18 +234,10 @@
             panel6.Size = new Size(1373, 998);
             panel6.TabIndex = 6;
             // 
-            // panel1
-            // 
-            panel1.Controls.Add(pictureBox3);
-            panel1.Location = new Point(27, 26);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(425, 158);
-            panel1.TabIndex = 8;
-            // 
             // pictureBox3
             // 
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(3, 3);
+            pictureBox3.Location = new Point(23, 25);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(334, 135);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
@@ -290,7 +280,6 @@
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
             panel6.ResumeLayout(false);
-            panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -315,6 +304,5 @@
         private Panel home;
         private Label label10;
         private PictureBox pictureBox3;
-        private Panel panel1;
     }
 }
