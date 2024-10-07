@@ -15,9 +15,8 @@ public class MakeupStyleLog {
 
     @Id
     private String logId;  // MongoDB에서 자동 생성될 로그 ID
-    private String event;  // "style_synthesis" 또는 "qr_generation"
+    private String event;  // "style_makeup" 또는 "qr_generation"
     private Long styleId;  // 화장 스타일 식별자
     private Long marketId; // 매장 ID
     private LocalDateTime timestamp;  // 이벤트 발생 시간 (자동 생성)
-    private Map<String, Object> additionalInfo;  // 추가 정보 (필요시 저장)
 }

@@ -15,12 +15,11 @@ public class MakeupCustomLog {
 
     @Id
     private String logId;  // MongoDB에서 자동 생성될 로그 ID
-    private String event;  // "custom_synthesis" 또는 "qr_generation"
+    private String event;  // "custom_makeup" 또는 "qr_generation"
     private Long marketId; // 매장 ID
     private String eyebrowColor;  // 눈썹 색상
     private String skinColor;  // 피부 색상
     private String lipColor;  // 입술 색상
     private String lipMode;  // "full" 또는 "gradient"
     private LocalDateTime timestamp;  // 이벤트 발생 시간 (자동 생성)
-    private Map<String, Object> additionalInfo;  // 추가 정보 (필요시 저장)
 }
