@@ -30,214 +30,192 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StyleInputForm));
             panel5 = new Panel();
-            location = new PictureBox();
-            pictureBox1 = new PictureBox();
-            pictureBox6 = new PictureBox();
-            panel6 = new Panel();
             panel1 = new Panel();
-            rightBtn = new PictureBox();
-            leftBtn = new PictureBox();
-            panel9 = new Panel();
-            pictureBox3 = new PictureBox();
-            label6 = new Label();
-            label4 = new Label();
-            panel4 = new Panel();
-            panel7 = new Panel();
+            label3 = new Label();
+            panel3 = new Panel();
+            label2 = new Label();
             panel8 = new Panel();
+            label12 = new Label();
+            panel10 = new Panel();
+            label11 = new Label();
+            location = new PictureBox();
+            panel6 = new Panel();
+            pictureBox3 = new PictureBox();
+            panel9 = new Panel();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)location).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            panel6.SuspendLayout();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)rightBtn).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)leftBtn).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            panel7.SuspendLayout();
+            panel3.SuspendLayout();
             panel8.SuspendLayout();
+            panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)location).BeginInit();
+            panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel5.BackColor = Color.FromArgb(130, 220, 40);
-            panel5.Controls.Add(location);
-            panel5.Controls.Add(pictureBox1);
-            panel5.Controls.Add(pictureBox6);
+            panel5.Controls.Add(panel1);
+            panel5.Controls.Add(panel3);
+            panel5.Controls.Add(panel8);
+            panel5.Controls.Add(panel10);
             panel5.Location = new Point(-2, -2);
             panel5.Margin = new Padding(2);
             panel5.Name = "panel5";
-            panel5.Size = new Size(89, 740);
+            panel5.Size = new Size(99, 1015);
             panel5.TabIndex = 5;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(213, 250, 183);
+            panel1.Controls.Add(label3);
+            panel1.Location = new Point(2, 184);
+            panel1.Margin = new Padding(2);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(100, 100);
+            panel1.TabIndex = 20;
+            panel1.Click += home_Click;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Left;
+            label3.AutoSize = true;
+            label3.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
+            label3.ForeColor = Color.FromArgb(115, 210, 44);
+            label3.Location = new Point(33, 37);
+            label3.Margin = new Padding(2, 0, 2, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(32, 28);
+            label3.TabIndex = 0;
+            label3.Text = "홈";
+            label3.Click += home_Click;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(213, 250, 183);
+            panel3.Controls.Add(label2);
+            panel3.Location = new Point(2, 384);
+            panel3.Margin = new Padding(2);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(100, 100);
+            panel3.TabIndex = 10;
+            panel3.Click += camera_Click;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Left;
+            label2.AutoSize = true;
+            label2.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
+            label2.ForeColor = Color.FromArgb(115, 210, 44);
+            label2.Location = new Point(16, 35);
+            label2.Margin = new Padding(2, 0, 2, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(72, 28);
+            label2.TabIndex = 0;
+            label2.Text = "재촬영";
+            label2.Click += camera_Click;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.FromArgb(115, 210, 44);
+            panel8.Controls.Add(label12);
+            panel8.ForeColor = Color.FromArgb(213, 250, 183);
+            panel8.Location = new Point(2, 84);
+            panel8.Margin = new Padding(2);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(100, 100);
+            panel8.TabIndex = 18;
+            // 
+            // label12
+            // 
+            label12.Anchor = AnchorStyles.Left;
+            label12.AutoSize = true;
+            label12.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
+            label12.Location = new Point(24, 37);
+            label12.Margin = new Padding(2, 0, 2, 0);
+            label12.Name = "label12";
+            label12.Size = new Size(52, 28);
+            label12.TabIndex = 0;
+            label12.Text = "메뉴";
+            // 
+            // panel10
+            // 
+            panel10.BackColor = Color.FromArgb(213, 250, 183);
+            panel10.Controls.Add(label11);
+            panel10.Location = new Point(2, 284);
+            panel10.Margin = new Padding(2);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(100, 100);
+            panel10.TabIndex = 19;
+            panel10.Click += mirror_Click;
+            // 
+            // label11
+            // 
+            label11.Anchor = AnchorStyles.Left;
+            label11.AutoSize = true;
+            label11.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
+            label11.ForeColor = Color.FromArgb(115, 210, 44);
+            label11.Location = new Point(25, 37);
+            label11.Margin = new Padding(2, 0, 2, 0);
+            label11.Name = "label11";
+            label11.Size = new Size(52, 28);
+            label11.TabIndex = 0;
+            label11.Text = "거울";
+            label11.Click += mirror_Click;
             // 
             // location
             // 
             location.Image = (Image)resources.GetObject("location.Image");
-            location.Location = new Point(14, 166);
+            location.Location = new Point(977, 40);
+            location.Margin = new Padding(3, 4, 3, 4);
             location.Name = "location";
-            location.Size = new Size(61, 52);
-            location.SizeMode = PictureBoxSizeMode.StretchImage;
+            location.Size = new Size(369, 160);
+            location.SizeMode = PictureBoxSizeMode.Zoom;
             location.TabIndex = 2;
             location.TabStop = false;
             location.Visible = false;
             location.Click += location_Click;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(14, 92);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(61, 59);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
-            // 
-            // pictureBox6
-            // 
-            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(14, 14);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(61, 59);
-            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox6.TabIndex = 0;
-            pictureBox6.TabStop = false;
-            pictureBox6.Click += pictureBox6_Click;
-            // 
             // panel6
             // 
             panel6.Anchor = AnchorStyles.None;
             panel6.BackColor = Color.White;
-            panel6.Controls.Add(panel1);
+            panel6.Controls.Add(location);
+            panel6.Controls.Add(pictureBox3);
             panel6.Controls.Add(panel9);
-            panel6.Location = new Point(104, 135);
+            panel6.Location = new Point(101, -2);
             panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
-            panel6.Size = new Size(989, 582);
+            panel6.Size = new Size(1373, 998);
             panel6.TabIndex = 6;
             // 
-            // panel1
+            // pictureBox3
             // 
-            panel1.Controls.Add(rightBtn);
-            panel1.Controls.Add(leftBtn);
-            panel1.Location = new Point(40, 461);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(906, 110);
-            panel1.TabIndex = 5;
-            // 
-            // rightBtn
-            // 
-            rightBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            rightBtn.Image = (Image)resources.GetObject("rightBtn.Image");
-            rightBtn.Location = new Point(550, 3);
-            rightBtn.Name = "rightBtn";
-            rightBtn.Size = new Size(118, 104);
-            rightBtn.SizeMode = PictureBoxSizeMode.StretchImage;
-            rightBtn.TabIndex = 1;
-            rightBtn.TabStop = false;
-            rightBtn.Visible = false;
-            rightBtn.Click += rightBtn_Click;
-            // 
-            // leftBtn
-            // 
-            leftBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            leftBtn.Image = (Image)resources.GetObject("leftBtn.Image");
-            leftBtn.Location = new Point(209, 6);
-            leftBtn.Name = "leftBtn";
-            leftBtn.Size = new Size(118, 104);
-            leftBtn.SizeMode = PictureBoxSizeMode.StretchImage;
-            leftBtn.TabIndex = 0;
-            leftBtn.TabStop = false;
-            leftBtn.Visible = false;
-            leftBtn.Click += leftBtn_Click;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(23, 25);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(334, 135);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 8;
+            pictureBox3.TabStop = false;
             // 
             // panel9
             // 
             panel9.AutoScroll = true;
-            panel9.BackColor = Color.WhiteSmoke;
-            panel9.Location = new Point(40, 42);
+            panel9.BackColor = Color.White;
+            panel9.Location = new Point(48, 221);
             panel9.Margin = new Padding(2);
             panel9.Name = "panel9";
-            panel9.Size = new Size(906, 401);
+            panel9.Size = new Size(1265, 746);
             panel9.TabIndex = 4;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.Anchor = AnchorStyles.None;
-            pictureBox3.Image = Properties.Resources.free_sticker_makeup_11601337;
-            pictureBox3.Location = new Point(17, 18);
-            pictureBox3.Margin = new Padding(2);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(33, 28);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 1;
-            pictureBox3.TabStop = false;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("맑은 고딕", 15F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            label6.Location = new Point(57, 14);
-            label6.Margin = new Padding(2, 0, 2, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(399, 35);
-            label6.TabIndex = 0;
-            label6.Text = "메이크업 스타일을 선택해 주세요.";
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.BackColor = Color.White;
-            label4.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
-            label4.ForeColor = Color.FromArgb(255, 120, 120);
-            label4.Location = new Point(954, 14);
-            label4.Margin = new Padding(2, 0, 2, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(139, 28);
-            label4.TabIndex = 2;
-            label4.Text = "올브영 구미점";
-            // 
-            // panel4
-            // 
-            panel4.BackColor = Color.FromArgb(255, 120, 120);
-            panel4.Location = new Point(12, 3);
-            panel4.Margin = new Padding(2);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(12, 14);
-            panel4.TabIndex = 4;
-            // 
-            // panel7
-            // 
-            panel7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            panel7.BackColor = Color.FromArgb(130, 220, 40);
-            panel7.Controls.Add(panel4);
-            panel7.Location = new Point(919, 14);
-            panel7.Margin = new Padding(2);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(29, 28);
-            panel7.TabIndex = 7;
-            // 
-            // panel8
-            // 
-            panel8.BackColor = Color.White;
-            panel8.Controls.Add(label6);
-            panel8.Controls.Add(pictureBox3);
-            panel8.Location = new Point(87, 55);
-            panel8.Margin = new Padding(2);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(684, 60);
-            panel8.TabIndex = 4;
             // 
             // StyleInputForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(1113, 728);
-            Controls.Add(panel8);
-            Controls.Add(panel7);
-            Controls.Add(label4);
+            ClientSize = new Size(1470, 1000);
             Controls.Add(panel6);
             Controls.Add(panel5);
             FormBorderStyle = FormBorderStyle.None;
@@ -247,36 +225,33 @@
             WindowState = FormWindowState.Maximized;
             Load += StyleInputForm_Load;
             panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)location).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            panel6.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)rightBtn).EndInit();
-            ((System.ComponentModel.ISupportInitialize)leftBtn).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            panel7.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
+            panel10.ResumeLayout(false);
+            panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)location).EndInit();
+            panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
         private Panel panel5;
         private Panel panel6;
-        private Label label6;
-        private PictureBox pictureBox3;
-        private Label label4;
-        private Panel panel4;
-        private Panel panel7;
-        private Panel panel8;
         private Panel panel9;
-        private PictureBox pictureBox6;
-        private PictureBox pictureBox1;
-        private Panel panel1;
-        private PictureBox leftBtn;
-        private PictureBox rightBtn;
         private PictureBox location;
+        private Panel panel3;
+        private Label label2;
+        private Panel panel1;
+        private Label label3;
+        private Panel panel8;
+        private Label label12;
+        private Panel panel10;
+        private Label label11;
+        private PictureBox pictureBox3;
     }
 }
