@@ -121,6 +121,7 @@ public class QrService {
 	}
 
 	private boolean isValidBase64Image(String base64String) {
+		log.debug("base64(partial) = {}", base64String.substring(0, 10));
 		try {
 			Base64.getDecoder().decode(base64String);
 			return true;
