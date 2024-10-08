@@ -8,10 +8,16 @@ namespace SmartMirror
         private MakeupOutputForm outputForm;
         private StyleInputForm styleInputForm;
 
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
+
+        private bool flag = false;
+
         public MakeupInputForm(MakeupOutputForm outputForm)
         {
-            this.outputForm = outputForm;
             InitializeComponent();
+
+            this.outputForm = outputForm;
         }
 
         private void filmingBtn_Click(object sender, EventArgs e)
@@ -22,23 +28,43 @@ namespace SmartMirror
             {
                 openStyleInputForm.arrayRest();
             }
-            
+
             Console.WriteLine("필름 버튼 클릭 성공");
             outputForm.CaptureImage();
         }
 
         private void usingBtn_Click(object sender, EventArgs e)
         {
+            var screens = Screen.AllScreens;
+
+            if (screens.Length == 2)
+            {
+                inputMonitor = 0; // 2개의 모니터 중 첫 번째로 설정
+            }
+
+            Screen primaryScreen = screens[inputMonitor];
+
+
             StyleInputForm openStyleInputForm = Application.OpenForms["StyleInputForm"] as StyleInputForm;
+
             if (openStyleInputForm != null && !openStyleInputForm.Visible)
             {
+                openStyleInputForm.StartPosition = FormStartPosition.Manual;
+                openStyleInputForm.Location = primaryScreen.Bounds.Location;
+                openStyleInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+
                 Console.WriteLine("합성하기 다시 클릭");
                 this.Hide();
                 openStyleInputForm.Show();
             }
             else
             {
+                outputForm.topComent.Text = "메이크업 스타일을 선택해 주세요";
                 StyleInputForm styleInputForm = new StyleInputForm();
+                styleInputForm.StartPosition = FormStartPosition.Manual;
+                styleInputForm.Location = primaryScreen.Bounds.Location;
+                styleInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+
                 this.Hide();
                 styleInputForm.Show();
             }
@@ -51,19 +77,8 @@ namespace SmartMirror
 
             GraphicsPath path = BoarderStyle.RoundSquare(panelWidth, panelHeight);
 
-            customsMakeup.Region = new Region(path);
             filmingBtn.Region = new Region(path);
             usingBtn.Region = new Region(path);
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            MainInputForm openMainInputForm = Application.OpenForms["MainInputForm"] as MainInputForm;
-            openMainInputForm.Show();
-
-            MainOutputForm openMainOutputForm = Application.OpenForms["MainOutputForm"] as MainOutputForm;
-            openMainOutputForm.Show();
         }
 
         private void customsMakeup_Click(object sender, EventArgs e)
@@ -81,6 +96,34 @@ namespace SmartMirror
                 this.Hide();
                 customsMakeupInputForm.Show();
             }
+        }
+
+        private void mirror_Click(object sender, EventArgs e)
+        {
+            outputForm.captureImg.Visible = flag;
+            outputForm.pictureBox1.Visible = flag;
+            outputForm.streamingBox.Visible = flag;
+            outputForm.topComent.Visible = flag;
+
+            flag = !flag;
+        }
+
+        private void home_Click(object sender, EventArgs e)
+        {
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
+
+            MainOutputForm mainOutputForm = new MainOutputForm();
+            MainInputForm inputForm = new MainInputForm(mainOutputForm);
+
+            FormHelper.SwitchToForm(inputForm, mainOutputForm, primaryScreen, secondaryScreen);
+
+            if (outputForm != null && !outputForm.IsDisposed)
+            {
+                outputForm.Hide();
+            }
+
+            this.Hide();
         }
     }
 }

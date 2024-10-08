@@ -46,15 +46,24 @@ public class FacerClientService {
 			.flatMap(this::parseMakeupImage);
 	}
 
+	// 각 값이 null이 아닐 경우에만 추가하는 메서드
+	private void addIfNotNull(MultiValueMap<String, Object> body, String key, Object value) {
+		if (value != null) {
+			body.add(key, value);
+		}
+	}
+
 	public MultiValueMap<String, Object> createBody(CustomMakeupReqDto customMakeupReqDto) {
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+		log.debug("customMakeupReqDto = {}", customMakeupReqDto);
 		// 파일 데이터가 포함된 ByteArrayResource 생성
 		ByteArrayResource resource = multipartFileToByteArray(customMakeupReqDto.getInputImage());
 		// 요청 본문 구성
 		body.add("inputImage", resource); // 요청 본문에 파일 추가
-		body.add("eyebrowColor", customMakeupReqDto.getEyebrowColor());
-		body.add("skinColor", customMakeupReqDto.getSkinColor());
-		body.add("lipColor", customMakeupReqDto.getLipColor());
+		// eyebrowColor, skinColor, lipColor는 null이 아닐 경우에만 추가
+		addIfNotNull(body, "eyebrowColor", customMakeupReqDto.getEyebrowColor());
+		addIfNotNull(body, "skinColor", customMakeupReqDto.getSkinColor());
+		addIfNotNull(body, "lipColor", customMakeupReqDto.getLipColor());
 		body.add("lipMode", customMakeupReqDto.getLipMode());
 		log.debug("body = {}", body);
 		return body;

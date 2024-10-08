@@ -20,5 +20,5 @@ public class CustomMakeupReqDto {
 	private String eyebrowColor;
 	private String skinColor;
 	private String lipColor;
-	private String lipMode;
+	private String lipMode = "full"; // 기본값 설정
 }
