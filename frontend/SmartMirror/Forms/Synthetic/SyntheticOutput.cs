@@ -1,21 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
-using System.Net;
+﻿
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text.Json;
-using System.Security.Policy;
-using static OpenCvSharp.XImgProc.CvXImgProc;
 using Newtonsoft.Json.Linq;
 using SmartMirror.Models;
 using SmartMirror.Config;
@@ -33,13 +17,11 @@ namespace SmartMirror
         {
             InitializeComponent();
             this.styleNum = styleNum;
-
         }
 
         private async void SyntheticOutput_Load(object sender, EventArgs e)
         {
             await Synthetic(styleNum);
-
         }
 
         // Synthetic 메서드 내에서 goodsOptionList UI 구성 부분 추가
@@ -134,8 +116,8 @@ namespace SmartMirror
 
                             if (isInMarket)
                             {
-                            location = goodsOption["location"]["name"].ToString();
-                            goodoOptionData.location = location;
+                                location = goodsOption["location"]["name"].ToString();
+                                goodoOptionData.location = location;
                             }
 
                             var stock = (int)goodsOption["stock"];
@@ -179,7 +161,6 @@ namespace SmartMirror
                             panelIndex++;
 
                         }
-
 
                         //foreach (var goodsOption in responseJson["data"]["goodsOptionList"])
                         //{
@@ -283,7 +264,6 @@ namespace SmartMirror
                     panelIndex++;
                 }
 
-
                 //foreach (GoodsOptionData goodsOptionData in goodsOptionDatas)
                 //{
                 //    // goodsOption을 표시할 패널 생성
@@ -310,11 +290,8 @@ namespace SmartMirror
                 //    // 패널이 추가된 후 다음 패널을 위한 Y 좌표 증가
                 //    panelIndex++;
                 //}
-
-
             }
         }
-
 
         public void changePage (int index)
         {
@@ -330,7 +307,6 @@ namespace SmartMirror
                 goodsOptionList1.Visible = false;
                 goodsOptionList2.Visible = true;
             }
-
         }
 
         public void visbleLocation()
@@ -345,25 +321,12 @@ namespace SmartMirror
             }
         }
 
-
         // goodsOptionList의 각 항목을 패널로 생성하는 메서드
         private Panel CreateGoodsOptionPanel(string goodsName, string optionName, string optionImage, bool isInMarket, string location, int stock)
         {
             Panel panel = new Panel();
             panel.Size = new Size(700, 140); // 패널 크기 설정
-            //panel.BorderStyle = BorderStyle.FixedSingle;
             panel.BorderStyle = BorderStyle.None; // 기본 테두리 제거
-
-            //panel.Paint += (s, e) =>
-            //{
-            //    var graphics = e.Graphics;
-            //    Pen pen = new Pen(Color.Gray, 1); // 상, 하 테두리 색상 및 두께 설정
-            //    // 상 테두리
-            //    graphics.DrawLine(pen, new Point(0, 0), new Point(panel.Width, 0));
-            //    // 하 테두리
-            //    graphics.DrawLine(pen, new Point(0, panel.Height - 1), new Point(panel.Width, panel.Height - 1));
-            //};
-
 
             // 옵션 이미지 PictureBox 생성
             PictureBox pictureBox = new PictureBox();
@@ -416,23 +379,18 @@ namespace SmartMirror
             optionDetailLabel.Size = new Size(500, 30);
             optionDetailLabel.Font = new Font(optionNameLabel.Font.FontFamily, 15, FontStyle.Bold);
 
-
-
             // 패널에 컨트롤 추가
             panel.Controls.Add(pictureBox);
             panel.Controls.Add(goodsNameLabel);
             panel.Controls.Add(optionNameLabel);
             panel.Controls.Add(optionDetailLabel);
 
-
             return panel;
         }
 
         private Image GetUrlImage(string url)
         {
-
             byte[] imageBytes = Convert.FromBase64String(url);
-
 
             using (MemoryStream memstr = new MemoryStream(imageBytes))
             {
@@ -440,6 +398,5 @@ namespace SmartMirror
                 return img;
             }
         }
-
     }
 }
