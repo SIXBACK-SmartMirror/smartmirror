@@ -36,6 +36,7 @@
             pictureBox2 = new PictureBox();
             panel6 = new Panel();
             label7 = new Label();
+            panel3 = new Panel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -122,6 +123,15 @@
             label7.TabIndex = 8;
             label7.Text = "총";
             // 
+            // panel3
+            // 
+            panel3.Location = new Point(842, 299);
+            panel3.Margin = new Padding(2);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(323, 233);
+            panel3.TabIndex = 9;
+            panel3.Visible = false;
+            // 
             // SearchInfoOutputForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -129,6 +139,7 @@
             AutoSize = true;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(1200, 1920);
+            Controls.Add(panel3);
             Controls.Add(label7);
             Controls.Add(panel6);
             Controls.Add(panel1);
@@ -154,5 +165,6 @@
         public Panel panel6;
         public Label label7;
         public Label total;
+        public Panel panel3;
     }
 }

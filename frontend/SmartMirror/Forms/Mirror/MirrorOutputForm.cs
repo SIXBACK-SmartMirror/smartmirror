@@ -19,6 +19,7 @@ namespace SmartMirror
 
             var audioStream = new MemoryStream(Properties.Resources.speak);
             player = new SoundPlayer(audioStream);
+            player.Play();
         }
 
         private void OnTimerTick(object sender, EventArgs e)
