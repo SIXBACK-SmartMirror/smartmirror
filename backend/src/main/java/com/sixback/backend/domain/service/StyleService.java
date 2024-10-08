@@ -118,13 +118,6 @@ public class StyleService {
 	// 		.build();
 	// }
 
-	public Mono<String> createQRImage() {
-		String base64Image = """
-			""";
-		base64Image = base64Image.replaceAll("\\s+", "");
-		return Mono.just(base64Image);
-	}
-
 	public void validateFileSize(MultipartFile file) {
 		if (file.getSize() < 0) {
 			throw new EmptyFileException();

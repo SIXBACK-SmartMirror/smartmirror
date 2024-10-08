@@ -1,19 +1,17 @@
 package com.sixback.backend.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class GoodsDto {
-	private Long goodsId;
-	private String goodsImage;
-	private String goodsName;
-	private Long goodsPrice;
-	private Long goodsDiscountPrice;
-	private String brandNameKr;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public interface GoodsDto {
+	Long getGoodsId();
+	String getGoodsImage();
+	String getGoodsName();
+	Long getGoodsPrice();
+	Long getGoodsDiscountPrice();
+	String getBrandNameKr();
+	@JsonIgnore
+	LocalDateTime getLatestReleaseAt();
 }
+
