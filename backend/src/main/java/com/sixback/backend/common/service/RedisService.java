@@ -34,12 +34,12 @@ public class RedisService {
 
 	public <T> T getData(String key, Class<T> clazz) {
 		Object value = redisTemplate.opsForValue().get(key);
-		log.debug("get {} - value : {}", key, value);
 		// value가 null인 경우를 처리
 		if (value == null) {
 			log.warn("No value found for key: {}", key);
 			return null;
 		}
+		log.debug("get {} value ok", key);
 		// LinkedHashMap을 T 타입으로 변환
 		return objectMapper.convertValue(value, clazz);
 	}
