@@ -51,4 +51,11 @@ public interface StyleRepository extends JpaRepository<Style, Long> {
 			AND JSON_CONTAINS(s.goods_option_list, CONCAT('{"option_id":', :optionId, '}')) = TRUE
 		""", nativeQuery = true)
 	Optional<Style> findByStyleIdAndOptionId(Long styleId, Long optionId);
+
+	@Query(value = """
+		SELECT s
+		FROM Style s
+		WHERE s.styleId != :styleId
+	""")
+	List<Style> findNotStyleId(Long styleId);
 }
