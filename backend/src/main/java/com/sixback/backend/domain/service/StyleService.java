@@ -42,8 +42,9 @@ public class StyleService {
 
 	private final MarketService marketService;
 	private final GanClientService ganClientService;
-	private final StyleRepository styleRepository;
 	private final RedisService redisService;
+	private final LogService logService;
+	private final StyleRepository styleRepository;
 	private final GoodsOptionRepository goodsOptionRepository;
 
 	@Value("${spring.data.style.redis.ttl.seconds}")
@@ -67,6 +68,8 @@ public class StyleService {
 		// 스타일 식별 번호 검증
 		Style style = styleRepository.findById(virtualMakeupReqDto.getStyleId())
 			.orElseThrow(StyleNotFoundException::new);
+		// 화장 스타일 로그 저장
+		logService.saveMakeupStyleLog("style_makeup", virtualMakeupReqDto.getStyleId(), marketId);
 
 		// 사용된 상품 정보 조회 (비동기 처리)
 		Mono<List<OptionInfoDto>> useOptionInfoListMono = Mono.fromCallable(() ->
@@ -200,8 +203,8 @@ public class StyleService {
 			// 기존 generateKey 메서드 활용
 			return redisService.generateKey(STYLE_PREFIX, baseString);
 		} catch (IOException e) {
-			log.error("{}", e.getMessage());
-			throw new RuntimeException("Failed to read input image file", e);
+			log.error("Failed to read input image file {}", e.getMessage());
+			throw new RuntimeException(e);
 		}
 	}
 }
