@@ -1,36 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using OpenCvSharp;
+using System.Media;
 
 
 namespace SmartMirror
 {
     public partial class MakeupOutputForm : Form
     {
-        VideoCapture _capture = new VideoCapture(0);
+        VideoCapture _capture = new VideoCapture(0); // 노트북 카메라
         Mat _image = new Mat();
 
         private System.Windows.Forms.Timer timer;
         private int time = 3;
         private bool is_taken = false;
 
+        private SoundPlayer player;
+        private SoundPlayer player2;
+        private Thread thread;
 
         public MakeupOutputForm()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
+
+            var audioStream = new MemoryStream(Properties.Resources.picture);
+            player = new SoundPlayer(audioStream);
+
+            var audioStream2 = new MemoryStream(Properties.Resources.beep2);
+            player2 = new SoundPlayer(audioStream2);
         }
-
-        Thread thread;
-
 
 
         private void MakeupOutputForm_Load(object sender, EventArgs e)
@@ -62,10 +60,6 @@ namespace SmartMirror
             }
         }
 
-        //public void VideoClosing(object sender, EventArgs e)
-        //{
-        //    thread.Abort();
-        //}
         public void CaptureImage()
         {
 
@@ -81,29 +75,6 @@ namespace SmartMirror
             timer.Tick += new EventHandler(count_down);
             timer.Interval = 1000;
             timer.Start();
-
-            //if (time == 2 || time == 1 || time == 0)
-            //{
-            //    Console.WriteLine("????");
-            //    Console.WriteLine(time);
-                
-            //}
-            //else if (is_taken)
-            //{
-            //    Console.WriteLine("송출 키고, 사진 뺌");
-            //    this.captureImg.Image.Dispose();
-            //    this.captureImg.Image = null;
-            //    this.streamingBox.Visible = true;
-            //    this.captureImg.Visible = false;
-            //}
-            //else
-            //{
-            //    timer = new System.Windows.Forms.Timer();
-            //    timer.Tick += new EventHandler(count_down);
-            //    timer.Interval = 1000;
-            //    timer.Start();
-            //}
-
         }
 
         private void count_down(object sender, EventArgs e)
@@ -116,8 +87,9 @@ namespace SmartMirror
                 _capture.Read(_image);
                 if (!_image.Empty()) // 이미지가 비어있지 않으면
                 {
-                    this.topComent.Text = "촬칵";
+                    this.topComent.Text = "찰칵";
                     is_taken = true;
+                    player.Play();
 
                     // 프로젝트 실행 경로를 가져옴
                     string basePath = AppDomain.CurrentDomain.BaseDirectory;
@@ -150,8 +122,6 @@ namespace SmartMirror
                     this.streamingBox.Visible = false;
                     this.captureImg.Visible = true;
 
-
-
                     //MessageBox.Show($"이미지가 {outputPath}에 저장되었습니다.");
                     //streamingBox.Image = Image.FromFile(outputPath);
                 }
@@ -167,6 +137,7 @@ namespace SmartMirror
             {
                 Console.WriteLine(time);
                 this.topComent.Text = time.ToString();
+                player2.Play();
                 time--;
             }
         }
