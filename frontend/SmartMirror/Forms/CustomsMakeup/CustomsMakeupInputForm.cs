@@ -570,7 +570,7 @@ namespace SmartMirror
             panel9.BackColor = Color.WhiteSmoke;
 
             liplabel.ForeColor = Color.Black;
-            eyebrowListLabel.ForeColor = Color.White; 
+            eyebrowListLabel.ForeColor = Color.White;
             skinListLabel.ForeColor = Color.Black;
         }
 
@@ -586,7 +586,7 @@ namespace SmartMirror
 
             liplabel.ForeColor = Color.Black;
             eyebrowListLabel.ForeColor = Color.Black;
-            skinListLabel.ForeColor = Color.White; 
+            skinListLabel.ForeColor = Color.White;
         }
 
         private async void makeupStart_Click(object sender, EventArgs e)
@@ -617,6 +617,7 @@ namespace SmartMirror
                 }
                 QR.Visible = true;
                 QRpicture.Visible = true;
+                pictureBox2.Visible = true;
 
 
                 Form openMakeupOutputForm = formFinder.findForm("MakeupOutputForm");
