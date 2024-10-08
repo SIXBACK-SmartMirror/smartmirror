@@ -203,8 +203,8 @@ public class StyleService {
 			// 기존 generateKey 메서드 활용
 			return redisService.generateKey(STYLE_PREFIX, baseString);
 		} catch (IOException e) {
-			log.error("{}", e.getMessage());
-			throw new RuntimeException("Failed to read input image file", e);
+			log.error("Failed to read input image file {}", e.getMessage());
+			throw new RuntimeException(e);
 		}
 	}
 }
