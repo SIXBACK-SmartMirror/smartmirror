@@ -60,6 +60,10 @@
             skin = new Panel();
             panel6 = new Panel();
             clickplease = new PictureBox();
+            search = new Panel();
+            label5 = new Label();
+            pictureBox2 = new PictureBox();
+            label1 = new Label();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             panel8.SuspendLayout();
@@ -75,6 +79,8 @@
             makeupStart.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)clickplease).BeginInit();
+            search.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // panel5
@@ -394,12 +400,60 @@
             clickplease.TabStop = false;
             clickplease.Visible = false;
             // 
+            // search
+            // 
+            search.BackColor = Color.FromArgb(130, 220, 40);
+            search.Controls.Add(label5);
+            search.Controls.Add(pictureBox2);
+            search.Controls.Add(label1);
+            search.Location = new Point(543, 95);
+            search.Margin = new Padding(2);
+            search.Name = "search";
+            search.Size = new Size(328, 264);
+            search.TabIndex = 10;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(27, 64);
+            label5.Margin = new Padding(2, 0, 2, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(241, 30);
+            label5.TabIndex = 6;
+            label5.Text = "상품, 브랜드 이름 검색";
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(229, 176);
+            pictureBox2.Margin = new Padding(2);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(62, 55);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 5;
+            pictureBox2.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("맑은 고딕", 20F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(15, 11);
+            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(168, 46);
+            label1.TabIndex = 1;
+            label1.Text = "상품 찾기";
+            // 
             // CustomsMakeupInputForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(1323, 800);
+            Controls.Add(search);
             Controls.Add(label2);
             Controls.Add(pictureBox1);
             Controls.Add(panel7);
@@ -432,6 +486,9 @@
             makeupStart.PerformLayout();
             panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)clickplease).EndInit();
+            search.ResumeLayout(false);
+            search.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -465,6 +522,10 @@
         private PictureBox clickplease;
         private PictureBox QR;
         private PictureBox QRpicture;
+        private Panel search;
+        private Label label5;
+        private PictureBox pictureBox2;
+        private Label label1;
     }
 }
 

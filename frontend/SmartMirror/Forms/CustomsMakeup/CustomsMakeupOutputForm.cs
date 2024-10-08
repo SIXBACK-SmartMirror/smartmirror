@@ -302,12 +302,6 @@ namespace SmartMirror
                 {
                     form.Add(new StringContent(syntheticPath), "makeupImage");
 
-                    //int[] optionIdList = new int[chooseGoodsList.Length];
-                    //for (int i = 0; i < chooseGoodsList.Length; i++)
-                    //{
-                    //    optionIdList[i] = chooseGoodsList[i].optionId;
-                    //}
-
                     string optionIdList = "";
                     for (int i = 0; i < chooseGoodsList.Length; i++)
                     {
@@ -320,21 +314,8 @@ namespace SmartMirror
                             optionIdList = optionIdList + $"{chooseGoodsList[i].optionId},";
                         }
                     }
-                    Console.WriteLine(optionIdList);
 
-
-
-                    form.Add(new StringContent(optionIdList), "makeupImage");
-
-                    //string optionIdListJson = JsonConvert.SerializeObject(optionIdList);
-
-                    //var content = new StringContent(optionIdListJson, Encoding.UTF8, "application/json");
-                    //form.Add(content);
-
-                    //form.Add(new StringContent(optionIdList), "optionIdList");
-                    //form.Add(new StringContent(optionIdListJson, Encoding.UTF8, "application/json"), "optionIdList");
-
-
+                    form.Add(new StringContent(optionIdList), "optionIdList");
 
                     // POST 요청 전송
                     HttpResponseMessage response = await client.PostAsync(apiUrl, form);
@@ -349,10 +330,11 @@ namespace SmartMirror
                         string responseBody = await response.Content.ReadAsStringAsync();
                         JObject responseJson = JObject.Parse(responseBody);
 
-                        qrImg = responseJson["data"]["qrImageBase64"].ToString();
+                        qrImg = responseJson["data"]["qrImage"].ToString();
                         QRpicture.Image = GetUrlImage(qrImg);
                         Console.WriteLine("이미지 로드 성공");
                         QRpicture.Visible = true;
+
 
                     }
                     else
