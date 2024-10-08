@@ -305,13 +305,16 @@ namespace SmartMirror
                     string optionIdList = "";
                     for (int i = 0; i < chooseGoodsList.Length; i++)
                     {
-                        if (i+1 == chooseGoodsList.Length)
+                        if (chooseGoodsList[i] != null)
                         {
-                            optionIdList = optionIdList + $"{chooseGoodsList[i].optionId}";
-                        }
-                        else
-                        {
-                            optionIdList = optionIdList + $"{chooseGoodsList[i].optionId},";
+                            if (i + 1 == chooseGoodsList.Length)
+                            {
+                                optionIdList = optionIdList + $"{chooseGoodsList[i].optionId}";
+                            }
+                            else
+                            {
+                                optionIdList = optionIdList + $"{chooseGoodsList[i].optionId},";
+                            }
                         }
                     }
 
