@@ -45,28 +45,28 @@ namespace SmartMirror
             Screen primaryScreen = screens[inputMonitor];
 
 
-            StyleInputForm openStyleInputForm = Application.OpenForms["StyleInputForm"] as StyleInputForm;
+            CustomsMakeupInputForm customsMakeupInputForm = Application.OpenForms["CustomsMakeupInputForm"] as CustomsMakeupInputForm;
 
-            if (openStyleInputForm != null && !openStyleInputForm.Visible)
+            if (customsMakeupInputForm != null && !customsMakeupInputForm.Visible)
             {
-                openStyleInputForm.StartPosition = FormStartPosition.Manual;
-                openStyleInputForm.Location = primaryScreen.Bounds.Location;
-                openStyleInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                customsMakeupInputForm.StartPosition = FormStartPosition.Manual;
+                customsMakeupInputForm.Location = primaryScreen.Bounds.Location;
+                customsMakeupInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
 
                 Console.WriteLine("합성하기 다시 클릭");
                 Hide();
-                openStyleInputForm.Show();
+                customsMakeupInputForm.Show();
             }
             else
             {
                 outputForm.topComent.Text = "메이크업 스타일을 선택해 주세요";
-                StyleInputForm styleInputForm = new StyleInputForm();
-                styleInputForm.StartPosition = FormStartPosition.Manual;
-                styleInputForm.Location = primaryScreen.Bounds.Location;
-                styleInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                CustomsMakeupInputForm makeupInputForm = new CustomsMakeupInputForm();
+                makeupInputForm.StartPosition = FormStartPosition.Manual;
+                makeupInputForm.Location = primaryScreen.Bounds.Location;
+                makeupInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
 
                 Hide();
-                styleInputForm.Show();
+                makeupInputForm.Show();
             }
         }
 
