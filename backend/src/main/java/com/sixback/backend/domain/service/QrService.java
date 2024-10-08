@@ -47,6 +47,8 @@ public class QrService {
 	@Value("${spring.data.qr.base.url}")
 	private String qrBaseUrl;
 
+	private final String QR_PREFIX = "QR";
+
 	public QRDto generateQRCode(Long marketId, QRReqDto qrReqDto) {
 		// base64 검증
 		if (!isValidBase64Image(qrReqDto.getMakeupImage())) {
@@ -67,7 +69,7 @@ public class QrService {
 	}
 
 	private String generateQrUrl(QRReqDto qrReqDto) {
-		String token = redisService.storeQrData(qrReqDto, redisQrTtlSeconds);
+		String token = storeQrData(qrReqDto, redisQrTtlSeconds);
 		return "%s/%d/result?user=%s".formatted(qrBaseUrl, qrReqDto.getMarketId(), token);
 	}
 
@@ -125,5 +127,21 @@ public class QrService {
 		} catch (IllegalArgumentException e) {
 			return false;
 		}
+	}
+
+	public String storeQrData(QRReqDto qrReqDto, long redisQrTtlSeconds) {
+		String baseString = "%d%s%s".formatted(qrReqDto.getMarketId(),
+			qrReqDto.getOptionIdListString(),
+			qrReqDto.getMakeupImage());
+		String key = redisService.generateKey(QR_PREFIX, baseString);
+
+		// 키가 존재하면 만료 시간만 갱신
+		if (redisService.existData(key)) {
+			redisService.setExpire(key, redisQrTtlSeconds);
+		} else {
+			redisService.setDataExpire(key, qrReqDto, redisQrTtlSeconds);
+		}
+		log.debug("Redis Set(Update) OR Key");
+		return key;
 	}
 }

@@ -1,7 +1,10 @@
 package com.sixback.backend.domain.service;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +18,7 @@ import com.sixback.backend.common.exception.OptionNotFoundException;
 import com.sixback.backend.common.exception.StyleNotFoundException;
 import com.sixback.backend.common.exception.StyleUseOptionNotFoundException;
 import com.sixback.backend.common.service.GanClientService;
+import com.sixback.backend.common.service.RedisService;
 import com.sixback.backend.domain.dto.OptionInfoDto;
 import com.sixback.backend.domain.dto.StyleInfoDto;
 import com.sixback.backend.domain.dto.StyleInfoListDto;
@@ -39,7 +43,13 @@ public class StyleService {
 	private final MarketService marketService;
 	private final GanClientService ganClientService;
 	private final StyleRepository styleRepository;
+	private final RedisService redisService;
 	private final GoodsOptionRepository goodsOptionRepository;
+
+	@Value("${spring.data.style.redis.ttl.seconds}")
+	private long redisStyleCacheSeconds;
+
+	private final String STYLE_PREFIX = "STYLE";
 
 	public StyleInfoListDto findAllStyle(Long marketId, int page, int size) {
 		// 매장 유효성 검사
@@ -57,23 +67,34 @@ public class StyleService {
 		// 스타일 식별 번호 검증
 		Style style = styleRepository.findById(virtualMakeupReqDto.getStyleId())
 			.orElseThrow(StyleNotFoundException::new);
+
 		// 사용된 상품 정보 조회 (비동기 처리)
 		Mono<List<OptionInfoDto>> useOptionInfoListMono = Mono.fromCallable(() ->
 			styleRepository.findAllUseOptionInfoList(marketId, style.getStyleId())
 		).subscribeOn(Schedulers.boundedElastic());  // 블로킹 작업을 별도 스레드에서 실행;
-		// 가상 화장 합성 요청
-		Mono<String> makeupImageMono = ganClientService.sendRequest(
-			GanRequestDto.builder()
-				.inputImage(virtualMakeupReqDto.getInputImage())
-				.styleImage(style.getStyleImage())
-				.build()
+
+		String cacheKey = generateCacheKey(marketId, style.getStyleId(), virtualMakeupReqDto);
+		// RedisService를 사용하여 캐시된 이미지 확인 후, 없으면 GAN 서비스 호출
+		Mono<String> makeupImageMono = Mono.fromCallable(() ->
+			redisService.getData(cacheKey, String.class)
+		).switchIfEmpty(
+			ganClientService.sendRequest(
+				GanRequestDto.builder()
+					.inputImage(virtualMakeupReqDto.getInputImage())
+					.styleImage(style.getStyleImage())
+					.build()
+			).doOnNext(result ->
+				redisService.setDataExpire(cacheKey, result, redisStyleCacheSeconds)
+			)
 		);
 
 		// 두 작업 병렬 처리 후 결과를 조합
 		return Mono.zip(useOptionInfoListMono, makeupImageMono)
 			.flatMap(tuple -> {
 				List<OptionInfoDto> useOptionInfoList = tuple.getT1(); // DB 조회 결과
-				String makeupImage = tuple.getT2(); // GAN AI 서버 응답
+				String makeupImage = tuple.getT2(); // 캐시 또는 GAN AI 서버 응답
+				log.debug("useOptionInfoList = {}", useOptionInfoList);
+				log.debug("makeupImage = {}", makeupImage);
 				return Mono.just(StyleResultDto.builder()
 					.styleId(style.getStyleId())
 					.goodsOptionList(useOptionInfoList)
@@ -146,5 +167,41 @@ public class StyleService {
 		// 사용된 상품 정보 가져 오기
 		return goodsOptionRepository.findTopByMarketIdAndOptionId(marketId, optionId)
 			.orElseThrow(OptionNotFoundException::new);
+	}
+
+	public void prefetchOtherStyles(Long marketId, VirtualMakeupReqDto virtualMakeupReqDto) {
+		List<Style> otherStyles = styleRepository.findNotStyleId(virtualMakeupReqDto.getStyleId());
+
+		for (Style otherStyle : otherStyles) {
+			// 비동기로 각 스타일에 대한 합성 요청 처리
+			ganClientService.sendRequest(GanRequestDto.builder()
+					.inputImage(virtualMakeupReqDto.getInputImage())
+					.styleImage(otherStyle.getStyleImage())
+					.build())
+				.flatMap(makeupImage -> {
+					// 결과를 캐시
+					String cacheKey = generateCacheKey(marketId, otherStyle.getStyleId(), virtualMakeupReqDto);
+					redisService.setDataExpire(cacheKey, makeupImage, redisStyleCacheSeconds);
+					return Mono.empty();
+				}).subscribe(); // 비동기적으로 실행
+		}
+	}
+
+	private String generateCacheKey(Long marketId, Long styleId, VirtualMakeupReqDto virtualMakeupReqDto) {
+		try {
+			// 기존 포맷에 맞춰 baseString 생성
+			if(virtualMakeupReqDto.getInputImageBase64() == null) {
+				byte[] bytes = virtualMakeupReqDto.getInputImage().getBytes();
+				String base64 = Base64.getEncoder().encodeToString(bytes);
+				virtualMakeupReqDto.setInputImageBase64(base64);
+			}
+			String baseString = "%d%d%s".formatted(marketId, styleId, virtualMakeupReqDto.getInputImageBase64());
+			log.debug("baseString: {}", baseString);
+			// 기존 generateKey 메서드 활용
+			return redisService.generateKey(STYLE_PREFIX, baseString);
+		} catch (IOException e) {
+			log.error("{}", e.getMessage());
+			throw new RuntimeException("Failed to read input image file", e);
+		}
 	}
 }
