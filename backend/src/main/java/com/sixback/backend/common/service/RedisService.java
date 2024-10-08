@@ -53,7 +53,7 @@ public class RedisService {
 	}
 
 	public void setDataExpire(String key, Object value, long duration) {
-		log.debug("setDataExpire: data = {}", value);
+		log.debug("setDataExpire: key = {}", key);
 		ValueOperations<String, Object> ops = redisTemplate.opsForValue();
 		Duration expireDuration = Duration.ofMillis(duration);
 		// 객체를 JSON 문자열로 변환하여 저장
