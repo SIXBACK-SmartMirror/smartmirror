@@ -46,6 +46,8 @@ public class QrService {
 	private long redisQrTtlSeconds;
 	@Value("${spring.data.qr.base.url}")
 	private String qrBaseUrl;
+	
+	private String QR_PREFIX = "QR";
 
 	public QRDto generateQRCode(Long marketId, QRReqDto qrReqDto) {
 		// base64 검증
