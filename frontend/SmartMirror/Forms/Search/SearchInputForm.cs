@@ -16,11 +16,14 @@ namespace SmartMirror
 
         private int outputMonitor = 1;
         private int inputMonitor = 2;
-        private Screen[] screens = Screen.AllScreens;
+
+        bool flag;
 
         public SearchInputForm(SearchOutputForm outputForm)
         {
             InitializeComponent();
+
+            outputForm.panel3.Dock = DockStyle.Fill;
             this.outputForm = outputForm;
             outputForm.textBox1.KeyDown += textBox1_KeyDown;
 
@@ -35,7 +38,6 @@ namespace SmartMirror
             GraphicsPath path = BoarderStyle.RoundSquare(panelWidth, panelHeight);
 
             // 패널의 모양을 둥근 모서리로 설정
-            mirror.Region = new Region(path);
             voice.Region = new Region(path);
             keybaord.Region = new Region(path);
         }
@@ -93,12 +95,10 @@ namespace SmartMirror
             if (!isRecording)
             {
                 label2.Text = "녹음 중지";
-                label5.Text = "'OO' 찾아줘~";
                 audioRecorder.StartRecording();
             }
             else
             {
-                label5.Text = "음성으로 물건 찾기";
                 label2.Text = "음성 검색";
                 audioRecorder.StopRecording();
 
@@ -110,7 +110,7 @@ namespace SmartMirror
             isRecording = !isRecording;
         }
 
-        private void mirror_Click(object sender, EventArgs e)
+        private void home_Click(object sender, EventArgs e)
         {
             this.Hide();
 
@@ -126,6 +126,12 @@ namespace SmartMirror
             {
                 outputForm.Hide();
             }
+        }
+
+        private void mirror_Click(object sender, EventArgs e)
+        {
+            outputForm.panel3.Visible = flag;
+            flag = !flag;
         }
     }
 }

@@ -81,6 +81,16 @@ namespace SmartMirror.Properties {
         }
         
         /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] beep2 {
+            get {
+                object obj = ResourceManager.GetObject("beep2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
         internal static System.Drawing.Bitmap free_icon_home_5544292 {
@@ -127,6 +137,16 @@ namespace SmartMirror.Properties {
             get {
                 object obj = ResourceManager.GetObject("free-sticker-makeup-11601337", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] picture {
+            get {
+                object obj = ResourceManager.GetObject("picture", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
