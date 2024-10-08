@@ -31,6 +31,8 @@ namespace SmartMirror
             InitializePanelContainer();
 
             PopulatePanelWithOptions(this.jsonOptions);
+
+            outputForm.panel3.Dock = DockStyle.Fill;
         }
 
         private void SearchDetailInputForm_Load(object sender, EventArgs e)
