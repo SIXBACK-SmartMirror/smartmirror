@@ -27,7 +27,6 @@ public class RedisService {
 	private static final int KEY_LENGTH = 32;
 
 	public String generateKey(String prefix, String baseString) {
-		log.debug("generate key Base: {}", baseString);
 		String dataToHash = "%s%s".formatted(baseString, SALT);
 		return "%s:%s".formatted(prefix, DigestUtils.sha256Hex(dataToHash).substring(0, KEY_LENGTH));
 	}
