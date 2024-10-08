@@ -45,9 +45,7 @@ public class StyleController {
 		@Valid @ModelAttribute VirtualMakeupReqDto virtualMakeupReqDto) {
 		return styleService.createVirtualMakeup(marketId, virtualMakeupReqDto)
 			.map(styleResultDto -> new ResponseEntity<>(new ResponseDto<>("A00", styleResultDto), HttpStatus.OK))
-			.doOnSuccess(response -> {
-				styleService.prefetchOtherStyles(marketId, virtualMakeupReqDto);
-			});
+			.doOnSuccess(response -> styleService.prefetchOtherStyles(marketId, virtualMakeupReqDto));
 	}
 
 	// @PostMapping(value = "/test", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
