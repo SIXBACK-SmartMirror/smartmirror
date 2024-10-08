@@ -10,7 +10,6 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sixback.backend.domain.dto.QRReqDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,26 +26,10 @@ public class RedisService {
 	private String SALT;
 	private static final int KEY_LENGTH = 32;
 
-	public String storeQrData(QRReqDto qrReqDto, long redisQrTtlSeconds) {
-		String key = generateQrKey(qrReqDto);
-		// 키가 존재하면 만료 시간만 갱신
-		if (existData(key)) {
-			setExpire(key, redisQrTtlSeconds);
-		} else {
-			setDataExpire(key, qrReqDto, redisQrTtlSeconds);
-		}
-		log.debug("Redis Set(Update) OR Key");
-		return key;
-	}
-
-	private String generateQrKey(QRReqDto qrReqDto) {
-		log.debug("gernerate Start");
-		String baseString = "%d%s%s".formatted(qrReqDto.getMarketId(),
-			qrReqDto.getOptionIdListString(),
-			qrReqDto.getMakeupImage());
-		log.debug("generateBase: {}", baseString);
-		String dataToHash = "%s%s".formatted(baseString, urlSalt);
-		return DigestUtils.sha256Hex(dataToHash).substring(0, KEY_LENGTH);
+	public String generateKey(String prefix, String baseString) {
+		log.debug("generate key Base: {}", baseString);
+		String dataToHash = "%s%s".formatted(baseString, SALT);
+		return "%s:%s".formatted(prefix, DigestUtils.sha256Hex(dataToHash).substring(0, KEY_LENGTH));
 	}
 
 	public <T> T getData(String key, Class<T> clazz) {
