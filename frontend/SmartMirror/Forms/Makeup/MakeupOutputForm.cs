@@ -1,4 +1,4 @@
-﻿using OpenCvSharp;
+using OpenCvSharp;
 using System.Media;
 
 
