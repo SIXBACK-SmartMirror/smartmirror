@@ -23,8 +23,8 @@ public class RedisService {
 	private final RedisTemplate<String, Object> redisTemplate;
 	private final ObjectMapper objectMapper;
 
-	@Value("${spring.data.qr.url.salt}")
-	private String urlSalt;
+	@Value("${spring.data.hash.salt}")
+	private String SALT;
 	private static final int KEY_LENGTH = 32;
 
 	public String storeQrData(QRReqDto qrReqDto, long redisQrTtlSeconds) {
