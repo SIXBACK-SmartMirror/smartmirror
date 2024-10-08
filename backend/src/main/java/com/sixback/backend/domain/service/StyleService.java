@@ -96,8 +96,6 @@ public class StyleService {
 			.flatMap(tuple -> {
 				List<OptionInfoDto> useOptionInfoList = tuple.getT1(); // DB 조회 결과
 				String makeupImage = tuple.getT2(); // 캐시 또는 GAN AI 서버 응답
-				log.debug("useOptionInfoList = {}", useOptionInfoList);
-				log.debug("makeupImage = {}", makeupImage);
 				return Mono.just(StyleResultDto.builder()
 					.styleId(style.getStyleId())
 					.goodsOptionList(useOptionInfoList)
