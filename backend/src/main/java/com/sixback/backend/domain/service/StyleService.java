@@ -41,6 +41,11 @@ public class StyleService {
 	private final StyleRepository styleRepository;
 	private final GoodsOptionRepository goodsOptionRepository;
 
+	@Value("${spring.data.style.redis.ttl.seconds}")
+	private long redisStyleCacheSeconds;
+
+	private final String STYLE_PREFIX = "STYLE";
+
 	public StyleInfoListDto findAllStyle(Long marketId, int page, int size) {
 		// 매장 유효성 검사
 		marketService.validateMarket(marketId);
