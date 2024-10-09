@@ -130,6 +130,7 @@
             home.Name = "home";
             home.Size = new Size(100, 100);
             home.TabIndex = 9;
+            home.Click += home_Click;
             // 
             // label10
             // 
@@ -143,6 +144,7 @@
             label10.Size = new Size(32, 28);
             label10.TabIndex = 0;
             label10.Text = "홈";
+            label10.Click += home_Click;
             // 
             // mirror
             // 
@@ -213,6 +215,7 @@
             panel12.Name = "panel12";
             panel12.Size = new Size(217, 83);
             panel12.TabIndex = 3;
+            panel12.Click += lipListLabel_Click;
             // 
             // liplabel
             // 
@@ -235,6 +238,7 @@
             panel9.Name = "panel9";
             panel9.Size = new Size(217, 83);
             panel9.TabIndex = 3;
+            panel9.Click += skinListLabel_Click;
             // 
             // skinListLabel
             // 
@@ -256,6 +260,7 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(217, 83);
             panel3.TabIndex = 2;
+            panel3.Click += eyebrowListLabel_Click;
             // 
             // eyebrowListLabel
             // 

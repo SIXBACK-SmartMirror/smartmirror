@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using SmartMirror.Config;
+using SmartMirror.Helpers;
 using SmartMirror.Models;
 
 
@@ -23,10 +24,11 @@ namespace SmartMirror
         private int inputMonitor = 2;
         private Screen[] screens = Screen.AllScreens;
 
-
         public int lipGoodsIndex = -1;
         public int eyeGoodsIndex = -1;
         public int skinGoodsIndex = -1;
+
+        private bool flag;
 
         public CustomsMakeupInputForm()
         {
@@ -365,6 +367,8 @@ namespace SmartMirror
 
         public void chooseGoods_click(CustomsGoodsData customsGood, int buttonCount)
         {
+            flag = false;
+
             // 현재 clickList에 있는 버튼과 일치하는지 확인하고 제거
             Control controlToRemove = null;
 
@@ -632,6 +636,26 @@ namespace SmartMirror
             {
                 openCustomsMakeupOutputForm.qr_click(chooseGoodsList);
             }
+        }
+
+        private void home_Click(object sender, EventArgs e)
+        {
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
+
+            MainOutputForm mainOutputForm = new MainOutputForm();
+            MainInputForm inputForm = new MainInputForm(mainOutputForm);
+
+            FormHelper.SwitchToForm(inputForm, mainOutputForm, primaryScreen, secondaryScreen);
+
+            CustomsMakeupOutputForm openCustomsMakeupOutputForm = Application.OpenForms["CustomsMakeupOutputForm"] as CustomsMakeupOutputForm;
+
+            if (openCustomsMakeupOutputForm != null && !openCustomsMakeupOutputForm.IsDisposed)
+            {
+                openCustomsMakeupOutputForm.Hide();
+            }
+
+            Close();
         }
     }
 }
