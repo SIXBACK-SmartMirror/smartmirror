@@ -617,6 +617,8 @@ namespace SmartMirror
                 else
                 {
                     openCustomsMakeupOutputForm.apiRequest(chooseGoodsList);
+                    openCustomsMakeupOutputForm.QRpicture.Visible = false;
+                    openCustomsMakeupOutputForm.syntheticImg.Visible = true;
                     openCustomsMakeupOutputForm.Show();
                 }
                 QR.Visible = true;

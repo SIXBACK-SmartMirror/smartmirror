@@ -293,66 +293,58 @@ namespace SmartMirror
 
         public async void qr_click(CustomsGoodsData[] chooseGoodsList)
         {
-            if (qrImg  == null)
+            string apiUrl = $"{ApiConfig.url}/1/result/generate-qr ";
+
+            using (var client = new HttpClient())
+            using (var form = new MultipartFormDataContent())
             {
-                string apiUrl = $"{ApiConfig.url}/1/result/generate-qr ";
+                form.Add(new StringContent(syntheticPath), "makeupImage");
 
-                using (var client = new HttpClient())
-                using (var form = new MultipartFormDataContent())
+                string optionIdList = "";
+                for (int i = 0; i < chooseGoodsList.Length; i++)
                 {
-                    form.Add(new StringContent(syntheticPath), "makeupImage");
-
-                    string optionIdList = "";
-                    for (int i = 0; i < chooseGoodsList.Length; i++)
+                    if (chooseGoodsList[i] != null)
                     {
-                        if (chooseGoodsList[i] != null)
+                        if (i + 1 == chooseGoodsList.Length)
                         {
-                            if (i + 1 == chooseGoodsList.Length)
-                            {
-                                optionIdList = optionIdList + $"{chooseGoodsList[i].optionId}";
-                            }
-                            else
-                            {
-                                optionIdList = optionIdList + $"{chooseGoodsList[i].optionId},";
-                            }
+                            optionIdList = optionIdList + $"{chooseGoodsList[i].optionId}";
+                        }
+                        else
+                        {
+                            optionIdList = optionIdList + $"{chooseGoodsList[i].optionId},";
                         }
                     }
+                }
 
-                    form.Add(new StringContent(optionIdList), "optionIdList");
+                form.Add(new StringContent(optionIdList), "optionIdList");
 
-                    // POST 요청 전송
-                    HttpResponseMessage response = await client.PostAsync(apiUrl, form);
-
-
-                    // 응답 처리
-                    if (response.IsSuccessStatusCode)
-                    {
-
-                        Console.WriteLine("전송 성공");
-
-                        string responseBody = await response.Content.ReadAsStringAsync();
-                        JObject responseJson = JObject.Parse(responseBody);
-
-                        qrImg = responseJson["data"]["qrImage"].ToString();
-                        QRpicture.Image = GetUrlImage(qrImg);
-                        Console.WriteLine("이미지 로드 성공");
-                        QRpicture.Visible = true;
+                // POST 요청 전송
+                HttpResponseMessage response = await client.PostAsync(apiUrl, form);
 
 
-                    }
-                    else
-                    {
-                        Console.WriteLine($"전송 실패: {response.StatusCode}");
-                        // 다시 선택해 주세요 만들기
-                        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                    }
+                // 응답 처리
+                if (response.IsSuccessStatusCode)
+                {
+
+                    Console.WriteLine("전송 성공");
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    JObject responseJson = JObject.Parse(responseBody);
+
+                    qrImg = responseJson["data"]["qrImage"].ToString();
+                    QRpicture.Image = GetUrlImage(qrImg);
+                    Console.WriteLine("이미지 로드 성공");
+                    QRpicture.Visible = true;
+
+
+                }
+                else
+                {
+                    Console.WriteLine($"전송 실패: {response.StatusCode}");
+                    // 다시 선택해 주세요 만들기
+                    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                 }
             }
-            else
-            {
-                QRpicture.Image = GetUrlImage(qrImg);
-            }
-
 
             if (syntheticImg.Visible)
             {
@@ -365,9 +357,6 @@ namespace SmartMirror
                 syntheticImg.Visible = true;
                 QRpicture.Visible = false;
             }
-
-
-
         }
     }
 }
