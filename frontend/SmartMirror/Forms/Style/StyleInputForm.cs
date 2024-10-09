@@ -158,7 +158,7 @@ namespace SmartMirror
                 openSyntheticOutput.Hide();
             }
 
-            this.Hide();
+            this.Close();
         }
 
         private void camera_Click(object sender, EventArgs e)
