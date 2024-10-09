@@ -132,9 +132,9 @@ public interface GoodsOptionRepository extends JpaRepository<GoodsOption, Long> 
 		                  WHERE g.is_possible = 1
 		                      AND o.color_rgb IS NOT NULL
 		                      AND (
-		                          pt.type_id IN (5)
-		                          OR ct.type_id IN (15, 16)
-		                          OR ct.type_id IN (17)
+		                          pt.type_id IN (61)
+		                          OR ct.type_id IN (68, 69)
+		                          OR ct.type_id IN (82)
 		                      )
 		              )
 		              SELECT color_rgb as option_color,
