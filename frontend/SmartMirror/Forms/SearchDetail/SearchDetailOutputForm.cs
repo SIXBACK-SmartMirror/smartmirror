@@ -11,6 +11,7 @@ namespace SmartMirror
             HighlightPanelsBasedOnLocation(responseData);
         }
 
+
         // locationList 데이터를 받아 패널을 업데이트하는 메서드
         private async void HighlightPanelsBasedOnLocation(string jsonResponse)
         {
