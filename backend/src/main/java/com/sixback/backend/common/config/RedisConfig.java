@@ -11,9 +11,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/**
+ * Redis 초기 설정 config
+ */
 @Configuration
 @EnableCaching
 public class RedisConfig {
+
 	@Value("${spring.data.redis.host}")
 	private String host;
 
@@ -24,7 +28,7 @@ public class RedisConfig {
 	private String password;
 
 	/**
-	 * Redis 와의 연결을 위한 Connection을 생성
+	 * Redis 와의 연결을 위한 Connection을 생성.
 	 *
 	 * @return new LettuceConnectionFactory(redisConfig)
 	 */
@@ -36,8 +40,8 @@ public class RedisConfig {
 	}
 
 	/**
-	 * Redis 데이터 처리를 위한 템플릿을 구성
-	 * 해당 구성된 RedisTemplate을 통해서 데이터 통신으로 처리되는 대한 직렬화를 수행
+	 * Redis 데이터 처리를 위한 템플릿을 구성.
+	 * 해당 구성된 RedisTemplate을 통해서 데이터 통신으로 처리되는 대한 직렬화를 수행.
 	 *
 	 * @return redisTemplate
 	 */
@@ -55,6 +59,7 @@ public class RedisConfig {
 
 		// Hash Key-Value 형태로 직렬화를 수행
 		redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+		// Value는 JSON으로 직렬화 (객체 저장)
 		redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
 
 		// 기본적으로 직렬화를 수행
