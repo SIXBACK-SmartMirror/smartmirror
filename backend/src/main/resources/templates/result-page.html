@@ -115,7 +115,9 @@
                 <div class="goods-name" th:text="${'['+item.brandNameKr+'] '+item.goodsName}">Goods Name</div>
                 <div class="option-name" th:text="${item.optionName}">Option Name</div>
                 <div class="goods-details">
-                    재고: <span th:text="${item.stock}">0</span> <span th:text="'/ 위치: ' + ${item.location.name} + '매대'"></span>
+                    재고: <span th:text="${item.stock}+' / '">0</span>
+                    <span th:if="${item.location != null}" th:text="'위치: ' + ${item.location.name} + '매대'"></span>
+                    <span th:if="${item.location == null}" th:text="미판매"></span>
                 </div>
             </div>
         </div>
