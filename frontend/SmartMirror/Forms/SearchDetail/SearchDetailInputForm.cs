@@ -35,6 +35,16 @@ namespace SmartMirror
             outputForm.panel3.Dock = DockStyle.Fill;
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = 0x02000000;
+                return cp;
+            }
+        }
+
         private void SearchDetailInputForm_Load(object sender, EventArgs e)
         {
             // 기존 라벨 속성 설정

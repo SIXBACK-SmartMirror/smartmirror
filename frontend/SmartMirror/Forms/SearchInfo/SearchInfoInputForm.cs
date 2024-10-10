@@ -39,6 +39,16 @@ namespace SmartMirror
             outputForm.panel3.Dock = DockStyle.Fill;
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = 0x02000000;
+                return cp;
+            }
+        }
+
         // 페이지 번호 버튼 패널 초기화
         private void InitializePageButtonsPanel()
         {
