@@ -55,7 +55,7 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel5.BackColor = Color.FromArgb(130, 220, 40);
+            panel5.BackColor = Color.FromArgb(115, 210, 44);
             panel5.Controls.Add(panel1);
             panel5.Controls.Add(panel3);
             panel5.Controls.Add(panel8);
