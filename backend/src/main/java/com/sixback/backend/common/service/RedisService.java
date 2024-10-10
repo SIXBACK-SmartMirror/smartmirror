@@ -28,7 +28,9 @@ public class RedisService {
 
 	public String generateKey(String prefix, String baseString) {
 		String dataToHash = "%s%s".formatted(baseString, SALT);
-		return "%s:%s".formatted(prefix, DigestUtils.sha256Hex(dataToHash).substring(0, KEY_LENGTH));
+		String key = "%s:%s".formatted(prefix, DigestUtils.sha256Hex(dataToHash).substring(0, KEY_LENGTH));
+		log.debug("Generated key: {}", key);
+		return key;
 	}
 
 	public <T> T getData(String key, Class<T> clazz) {
