@@ -25,6 +25,7 @@ public class CustomService {
 	private final MarketService marketService;
 	private final GoodsOptionRepository goodsOptionRepository;
 	private final FacerClientService facerClientService;
+	private final LogService logService;
 
 	public Map<String, List<OptionInfoDto>> findAllCustomOption(Long marketId, int page, int size) {
 		// 매장 유효성 검사
@@ -40,6 +41,12 @@ public class CustomService {
 		validateFileSize(customMakeupReqDto.getInputImage());
 		// 매장 유효성 검사
 		marketService.validateMarket(marketId);
+		// 커스텀 합성 로그 저장
+		logService.saveMakeupCustomLog("custom_makeup", marketId,
+			customMakeupReqDto.getEyebrowColor(),
+			customMakeupReqDto.getSkinColor(),
+			customMakeupReqDto.getLipColor(),
+			customMakeupReqDto.getLipMode());
 		return facerClientService.sendRequest(customMakeupReqDto)
 			.map(result -> CustomResultDto.builder()
 				.makeupImage(result)  // sendRequest에서 반환된 String 값을 result에 넣음
