@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using System.Windows.Forms;
-using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using SmartMirror.Config;
 using SmartMirror.Helpers;
 using SmartMirror.Models;
-using System.Reflection.Metadata;
 
 
 namespace SmartMirror
@@ -29,10 +20,15 @@ namespace SmartMirror
         public CustomsGoodsData eyeGoods = null;
         public CustomsGoodsData skinGoods = null;
 
+        private int outputMonitor = 1;
+        private int inputMonitor = 2;
+        private Screen[] screens = Screen.AllScreens;
 
         public int lipGoodsIndex = -1;
         public int eyeGoodsIndex = -1;
         public int skinGoodsIndex = -1;
+
+        private bool flag;
 
         public CustomsMakeupInputForm()
         {
@@ -94,7 +90,14 @@ namespace SmartMirror
                         customsGoodsData.optionName = eyebrowList[i]["optionName"].ToString();
                         customsGoodsData.optionImage = eyebrowList[i]["optionImage"].ToString();
                         customsGoodsData.isInMarket = (bool)eyebrowList[i]["isInMarket"];
-                        customsGoodsData.location = eyebrowList[i]["location"]["name"].ToString();
+                        if (customsGoodsData.isInMarket)
+                        {
+                            customsGoodsData.location = skinList[i]["location"]["name"].ToString();
+                        }
+                        else
+                        {
+                            customsGoodsData.location = null;
+                        }
                         customsGoodsData.stock = (int)eyebrowList[i]["stock"];
                         EyebrowList[i] = customsGoodsData;
 
@@ -110,7 +113,14 @@ namespace SmartMirror
                         customsGoodsData.optionName = skinList[i]["optionName"].ToString();
                         customsGoodsData.optionImage = skinList[i]["optionImage"].ToString();
                         customsGoodsData.isInMarket = (bool)skinList[i]["isInMarket"];
-                        customsGoodsData.location = skinList[i]["location"]["name"].ToString();
+                        if (customsGoodsData.isInMarket)
+                        {
+                            customsGoodsData.location = skinList[i]["location"]["name"].ToString();
+                        }
+                        else
+                        {
+                            customsGoodsData.location = null;
+                        }
                         customsGoodsData.stock = (int)skinList[i]["stock"];
                         SkinList[i] = customsGoodsData;
                     }
@@ -125,7 +135,14 @@ namespace SmartMirror
                         customsGoodsData.optionName = lipList[i]["optionName"].ToString();
                         customsGoodsData.optionImage = lipList[i]["optionImage"].ToString();
                         customsGoodsData.isInMarket = (bool)lipList[i]["isInMarket"];
-                        customsGoodsData.location = lipList[i]["location"]["name"].ToString();
+                        if (customsGoodsData.isInMarket)
+                        {
+                            customsGoodsData.location = skinList[i]["location"]["name"].ToString();
+                        }
+                        else
+                        {
+                            customsGoodsData.location = null;
+                        }
                         customsGoodsData.stock = (int)lipList[i]["stock"];
                         LipList[i] = customsGoodsData;
                     }
@@ -371,6 +388,8 @@ namespace SmartMirror
 
         public void chooseGoods_click(CustomsGoodsData customsGood, int buttonCount)
         {
+            flag = false;
+
             // 현재 clickList에 있는 버튼과 일치하는지 확인하고 제거
             Control controlToRemove = null;
 
@@ -498,18 +517,63 @@ namespace SmartMirror
                 }
             }
 
-            Form openMakeupOutputForm = formFinder.findForm("MakeupOutputForm");
-            openMakeupOutputForm.Show();
+            if (screens.Length == 2)
+            {
+                inputMonitor = 0; // 2개의 모니터 중 첫 번째로 설정
+            }
 
-            // CustomsMakeupOutForm 클로즈
-            Form openCustomsMakeupOutputForm = formFinder.findForm("CustomsMakeupOutputForm");
-            if (openCustomsMakeupOutputForm != null)
+            // primary와 secondary 스크린 설정
+            Screen primaryScreen = screens[inputMonitor];
+            Screen secondaryScreen = screens[outputMonitor];
+
+            MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
+            CustomsMakeupOutputForm openCustomsMakeupOutputForm = Application.OpenForms["CustomsMakeupOutputForm"] as CustomsMakeupOutputForm;
+
+            if (openCustomsMakeupOutputForm != null && !openCustomsMakeupOutputForm.IsDisposed)
             {
                 openCustomsMakeupOutputForm.Close();
             }
-            MakeupInputForm openMakeupInputForm = Application.OpenForms["MakeupInputForm"] as MakeupInputForm;
-            this.Hide();
-            openMakeupInputForm.Show();
+
+
+            if (openMakeupOutputForm == null)
+            {
+                MakeupOutputForm makeupOutputForm = new MakeupOutputForm();
+                makeupOutputForm.StartPosition = FormStartPosition.Manual;
+                makeupOutputForm.Location = secondaryScreen.Bounds.Location;
+                makeupOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+
+                Screen mirror = Screen.AllScreens[outputMonitor];
+
+                Console.WriteLine("연결");
+                makeupOutputForm.Show();
+
+                CustomInputForm inputForm = new CustomInputForm(makeupOutputForm);
+                inputForm.StartPosition = FormStartPosition.Manual;
+                inputForm.Location = primaryScreen.Bounds.Location;
+                inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                inputForm.Show();
+
+                this.Close();
+                //outputForm.Hide();
+            }
+            else
+            {
+                openMakeupOutputForm.StartPosition = FormStartPosition.Manual;
+                openMakeupOutputForm.Location = secondaryScreen.Bounds.Location;
+                openMakeupOutputForm.Size = new Size(secondaryScreen.Bounds.Width, secondaryScreen.Bounds.Height);
+                openMakeupOutputForm.Show();
+                openMakeupOutputForm.CaptureImage();
+
+                // makeupinput  
+                CustomInputForm openMakeupInputForm = Application.OpenForms["CustomInputForm"] as CustomInputForm;
+                openMakeupInputForm.StartPosition = FormStartPosition.Manual;
+                openMakeupInputForm.Location = primaryScreen.Bounds.Location;
+                openMakeupInputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+                openMakeupInputForm.Show();
+
+                // MaininputForm 숨기기
+                this.Close();
+            }
         }
 
         private void lipListLabel_Click(object sender, EventArgs e)
@@ -517,6 +581,14 @@ namespace SmartMirror
             lip.Visible = true;
             eye.Visible = false;
             skin.Visible = false;
+
+            panel12.BackColor = Color.FromArgb(134, 147, 250);
+            panel3.BackColor = Color.WhiteSmoke;
+            panel9.BackColor = Color.WhiteSmoke;
+
+            liplabel.ForeColor = Color.White;
+            eyebrowListLabel.ForeColor = Color.Black;
+            skinListLabel.ForeColor = Color.Black;
         }
 
         private void eyebrowListLabel_Click(object sender, EventArgs e)
@@ -524,6 +596,14 @@ namespace SmartMirror
             lip.Visible = false;
             eye.Visible = true;
             skin.Visible = false;
+
+            panel12.BackColor = Color.WhiteSmoke;
+            panel3.BackColor = Color.FromArgb(134, 147, 250);
+            panel9.BackColor = Color.WhiteSmoke;
+
+            liplabel.ForeColor = Color.Black;
+            eyebrowListLabel.ForeColor = Color.White;
+            skinListLabel.ForeColor = Color.Black;
         }
 
         private void skinListLabel_Click(object sender, EventArgs e)
@@ -531,6 +611,14 @@ namespace SmartMirror
             lip.Visible = false;
             eye.Visible = false;
             skin.Visible = true;
+
+            panel12.BackColor = Color.WhiteSmoke;
+            panel3.BackColor = Color.WhiteSmoke;
+            panel9.BackColor = Color.FromArgb(134, 147, 250);
+
+            liplabel.ForeColor = Color.Black;
+            eyebrowListLabel.ForeColor = Color.Black;
+            skinListLabel.ForeColor = Color.White;
         }
 
         private async void makeupStart_Click(object sender, EventArgs e)
@@ -540,11 +628,9 @@ namespace SmartMirror
                 clickplease.Visible = true;
                 await Task.Delay(3000);
                 clickplease.Visible = false;
-
             }
             else
             {
-
                 CustomsMakeupOutputForm openCustomsMakeupOutputForm = Application.OpenForms["CustomsMakeupOutputForm"] as CustomsMakeupOutputForm;
                 if (openCustomsMakeupOutputForm == null)
                 {
@@ -559,10 +645,13 @@ namespace SmartMirror
                 else
                 {
                     openCustomsMakeupOutputForm.apiRequest(chooseGoodsList);
+                    openCustomsMakeupOutputForm.QRpicture.Visible = false;
+                    openCustomsMakeupOutputForm.syntheticImg.Visible = true;
                     openCustomsMakeupOutputForm.Show();
                 }
                 QR.Visible = true;
                 QRpicture.Visible = true;
+                pictureBox2.Visible = true;
 
 
                 Form openMakeupOutputForm = formFinder.findForm("MakeupOutputForm");
@@ -577,6 +666,26 @@ namespace SmartMirror
             {
                 openCustomsMakeupOutputForm.qr_click(chooseGoodsList);
             }
+        }
+
+        private void home_Click(object sender, EventArgs e)
+        {
+            var screens = Screen.AllScreens;
+            var (primaryScreen, secondaryScreen) = FormHelper.SetupScreens(outputMonitor, ref inputMonitor, screens);
+
+            MainOutputForm mainOutputForm = new MainOutputForm();
+            MainInputForm inputForm = new MainInputForm(mainOutputForm);
+
+            FormHelper.SwitchToForm(inputForm, mainOutputForm, primaryScreen, secondaryScreen);
+
+            CustomsMakeupOutputForm openCustomsMakeupOutputForm = Application.OpenForms["CustomsMakeupOutputForm"] as CustomsMakeupOutputForm;
+
+            if (openCustomsMakeupOutputForm != null && !openCustomsMakeupOutputForm.IsDisposed)
+            {
+                openCustomsMakeupOutputForm.Close();
+            }
+
+            Close();
         }
     }
 }
