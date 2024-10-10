@@ -8,29 +8,45 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
+/**
+ * WebClient 초기 설정 Config
+ */
 @Configuration
 public class WebClientConfig {
 
+	// 외부 API Key & URL
 	@Value("${spring.data.api.key}")
 	private String API_KEY;
 	@Value("${spring.data.api.url}")
 	private String API_URL;
+	// Gan 서버 URL
 	@Value("${spring.data.gan.url}")
 	private String GAN_API_URL;
+	// Facer 서버 URL
 	@Value("${spring.data.facer.url}")
 	private String FACER_API_URL;
 
-	// Base configuration for WebClient
+	/**
+	 * webClientBuilder 공통 설정.
+	 *
+	 * @return 설정된 WebClient 인스턴스.
+	 */
 	@Bean
 	public WebClient.Builder webClientBuilder() {
 		return WebClient.builder()
 			.exchangeStrategies(ExchangeStrategies.builder()
 				.codecs(configurer -> configurer.defaultCodecs()
+					// 메모리 크기 제한을 없앰
 					.maxInMemorySize(-1)) //unlimited
 				.build());
 	}
 
-	// WebClient for GAN server
+	/**
+	 * Gan 서버 요청 WebClient.
+	 *
+	 * @param webClientBuilder  WebClient.Builder 인스턴스.
+	 * @return 설정된 WebClient 인스턴스.
+	 */
 	@Bean
 	public WebClient ganWebClient(WebClient.Builder webClientBuilder) {
 		return webClientBuilder
@@ -39,7 +55,12 @@ public class WebClientConfig {
 			.build();
 	}
 
-	// WebClient for Facer server
+	/**
+	 * Facer 서버 요청 WebClient.
+	 *
+	 * @param webClientBuilder  WebClient.Builder 인스턴스.
+	 * @return 설정된 WebClient 인스턴스.
+	 */
 	@Bean
 	public WebClient facerWebClient(WebClient.Builder webClientBuilder) {
 		return webClientBuilder
@@ -48,7 +69,12 @@ public class WebClientConfig {
 			.build();
 	}
 
-	// WebClient for STT server
+	/**
+	 * STT 서버 요청 WebClient.
+	 *
+	 * @param webClientBuilder  WebClient.Builder 인스턴스.
+	 * @return 설정된 WebClient 인스턴스.
+	 */
 	@Bean
 	public WebClient sttWebClient(WebClient.Builder webClientBuilder) {
 		return webClientBuilder
@@ -58,7 +84,12 @@ public class WebClientConfig {
 			.build();
 	}
 
-	// WebClient for NLP server
+	/**
+	 * NLP 서버 요청 WebClient.
+	 *
+	 * @param webClientBuilder  WebClient.Builder 인스턴스.
+	 * @return 설정된 WebClient 인스턴스.
+	 */
 	@Bean
 	public WebClient nlpWebClient(WebClient.Builder webClientBuilder) {
 		return webClientBuilder
