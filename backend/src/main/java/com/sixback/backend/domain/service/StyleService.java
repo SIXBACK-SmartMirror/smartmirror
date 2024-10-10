@@ -161,7 +161,6 @@ public class StyleService {
 				virtualMakeupReqDto.setInputImageBase64(base64);
 			}
 			String baseString = "%d%d%s".formatted(marketId, styleId, virtualMakeupReqDto.getInputImageBase64());
-			log.debug("baseString: {}", baseString);
 			// 기존 generateKey 메서드 활용
 			return redisService.generateKey(STYLE_PREFIX, baseString);
 		} catch (IOException e) {
