@@ -202,48 +202,24 @@ namespace SmartMirror
             Panel panel = new Panel();
             panel.Size = new Size(309, 342);
 
-            // 상품 이름 Label
-            Label goodsNameLabel = new Label();
-            goodsNameLabel.Text = goodsData.GoodsName;
-            goodsNameLabel.Location = new Point(0, 287);
-            goodsNameLabel.Size = new Size(309, 25);
-            goodsNameLabel.TextAlign = ContentAlignment.MiddleCenter; // 상품 이름을 중앙에 배치
-            goodsNameLabel.ForeColor = Color.White;
-            panel.Controls.Add(goodsNameLabel);
+            // TableLayoutPanel 설정
+            TableLayoutPanel tableLayoutPanel = new TableLayoutPanel();
+            tableLayoutPanel.Dock = DockStyle.Fill; // TableLayoutPanel을 Panel 크기에 맞게 설정
+            tableLayoutPanel.ColumnCount = 1; // 기본적으로 한 열에 배치
+            tableLayoutPanel.RowCount = 4; // 이미지, 브랜드 이름, 상품 이름, 가격+할인 가격
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 70F)); // 이미지 크기를 60%로 설정
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F)); // 브랜드 이름 크기 10%
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F)); // 상품 이름 크기 10%
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F)); // 가격 + 할인 가격 크기 20%
 
-            // 브랜드 이름 Label
-            Label brandLabel = new Label();
-            brandLabel.Text = goodsData.BrandName;
-            brandLabel.Location = new Point(0, 262);
-            brandLabel.Size = new Size(309, 25);
-            brandLabel.TextAlign = ContentAlignment.MiddleCenter; // 브랜드 이름 중앙에 배치
-            brandLabel.ForeColor = Color.White;
-            panel.Controls.Add(brandLabel);
-
-            // 상품 가격 Label
-            Label priceLabel = new Label();
-            priceLabel.Text = $"{int.Parse(goodsData.GoodsPrice):N0}원~";
-            priceLabel.Location = new Point(80, 312);
-            priceLabel.Size = new Size(80, 25);
-            priceLabel.ForeColor = Color.Gray;
-            priceLabel.Font = new Font(priceLabel.Font, FontStyle.Strikeout);
-            panel.Controls.Add(priceLabel);
-
-            // 할인 가격 Label
-            Label discountPriceLabel = new Label();
-            discountPriceLabel.Text = $"{int.Parse(goodsData.GoodsDiscountPrice):N0}원~";
-            discountPriceLabel.Location = new Point(160, 312);
-            discountPriceLabel.Size = new Size(80, 25);
-            discountPriceLabel.ForeColor = Color.Red;
-            panel.Controls.Add(discountPriceLabel);
-
-            // 상품 이미지 PictureBox
+            // 상품 이미지 PictureBox 설정
             PictureBox pictureBox = new PictureBox();
-            pictureBox.Size = new Size(220, 220);
-            pictureBox.Location = new Point(30, 13);
-            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox.Size = new Size(220, 220); // 이미지 크기를 200x200으로 설정
+            pictureBox.Margin = new Padding(0, 20, 0, 20); // 이미지의 여백 설정 (상단 20, 하단 20)
+            pictureBox.Dock = DockStyle.Fill;
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom; // 이미지 크기 비율에 맞게 설정
+            pictureBox.Anchor = AnchorStyles.None; // 중앙에 배치되도록 Anchor 설정
 
-            // 이미지 로드 (임시로 placeholder 이미지 설정)
             try
             {
                 using (HttpClient client = new HttpClient())
@@ -259,9 +235,56 @@ namespace SmartMirror
             {
                 pictureBox.Image = Image.FromFile("placeholder.png"); // 기본 이미지 설정
             }
+            tableLayoutPanel.Controls.Add(pictureBox, 0, 0);
 
-            panel.Controls.Add(pictureBox);
+            // 브랜드 이름 Label 설정
+            Label brandLabel = new Label();
+            brandLabel.Text = goodsData.BrandName;
+            brandLabel.Dock = DockStyle.Fill;
+            brandLabel.TextAlign = ContentAlignment.MiddleCenter; // 중앙 정렬
+            brandLabel.ForeColor = Color.White;
+            tableLayoutPanel.Controls.Add(brandLabel, 0, 1);
 
+            // 상품 이름 Label 설정
+            Label goodsNameLabel = new Label();
+            goodsNameLabel.Text = goodsData.GoodsName;
+            goodsNameLabel.Dock = DockStyle.Fill;
+            goodsNameLabel.TextAlign = ContentAlignment.MiddleCenter; // 중앙 정렬
+            goodsNameLabel.ForeColor = Color.White;
+            tableLayoutPanel.Controls.Add(goodsNameLabel, 0, 2);
+
+            // 가격과 할인 가격을 담을 또 다른 TableLayoutPanel 설정
+            TableLayoutPanel pricePanel = new TableLayoutPanel();
+            pricePanel.ColumnCount = 2; // 가격과 할인 가격을 나란히 배치
+            pricePanel.RowCount = 1;
+            pricePanel.Dock = DockStyle.Fill;
+            pricePanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F)); // 가격 열 50%
+            pricePanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F)); // 할인 가격 열 50%
+
+            // 상품 가격 Label 설정
+            Label priceLabel = new Label();
+            priceLabel.Text = $"{int.Parse(goodsData.GoodsPrice):N0}원";
+            priceLabel.Dock = DockStyle.Fill;
+            priceLabel.TextAlign = ContentAlignment.MiddleRight; // 오른쪽 정렬
+            priceLabel.ForeColor = Color.Gray;
+            priceLabel.Font = new Font(priceLabel.Font, FontStyle.Strikeout);
+            pricePanel.Controls.Add(priceLabel, 0, 0); // 첫 번째 열에 배치
+
+            // 할인 가격 Label 설정
+            Label discountPriceLabel = new Label();
+            discountPriceLabel.Text = $"{int.Parse(goodsData.GoodsDiscountPrice):N0}원";
+            discountPriceLabel.Dock = DockStyle.Fill;
+            discountPriceLabel.TextAlign = ContentAlignment.MiddleLeft; // 왼쪽 정렬
+            discountPriceLabel.ForeColor = Color.Red;
+            pricePanel.Controls.Add(discountPriceLabel, 1, 0); // 두 번째 열에 배치
+
+            // 가격 + 할인 가격 Panel을 마지막 행에 추가
+            tableLayoutPanel.Controls.Add(pricePanel, 0, 3);
+
+            // TableLayoutPanel을 Panel에 추가
+            panel.Controls.Add(tableLayoutPanel);
+
+            // 클릭 이벤트 연결
             pictureBox.Click += (sender, e) => Panel_Click(goodsData);
 
             return panel;
@@ -295,7 +318,7 @@ namespace SmartMirror
             pictureBox.Dock = DockStyle.None; // 이미지 크기를 고정된 크기로 설정
             pictureBox.Margin = new Padding(0); // 이미지의 여백 제거
             pictureBox.Padding = new Padding(0); // 이미지의 패딩 제거
-            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage; // 이미지 크기 비율에 맞게 설정
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom; // 이미지 크기 비율에 맞게 설정
             pictureBox.Anchor = AnchorStyles.None; // 중앙에 배치되도록 Anchor 설정
 
             try

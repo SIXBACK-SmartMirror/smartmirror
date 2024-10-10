@@ -184,7 +184,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("맑은 고딕", 12F, FontStyle.Regular, GraphicsUnit.Point, 129);
-            label1.Location = new Point(474, 36);
+            label1.Location = new Point(61, 178);
             label1.Name = "label1";
             label1.Size = new Size(62, 32);
             label1.TabIndex = 6;
@@ -192,16 +192,16 @@
             // 
             // panel1
             // 
-            panel1.Location = new Point(474, 84);
+            panel1.Location = new Point(61, 222);
             panel1.Name = "panel1";
-            panel1.Size = new Size(777, 551);
+            panel1.Size = new Size(869, 475);
             panel1.TabIndex = 5;
             // 
             // button1
             // 
             button1.BackColor = SystemColors.ControlLight;
             button1.Font = new Font("맑은 고딕", 14F, FontStyle.Regular, GraphicsUnit.Point, 129);
-            button1.Location = new Point(50, 504);
+            button1.Location = new Point(972, 566);
             button1.Name = "button1";
             button1.Size = new Size(291, 131);
             button1.TabIndex = 4;
@@ -223,7 +223,7 @@
             // 
             name.AutoSize = true;
             name.Font = new Font("맑은 고딕", 20F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            name.Location = new Point(84, 87);
+            name.Location = new Point(48, 87);
             name.Name = "name";
             name.Size = new Size(183, 54);
             name.TabIndex = 1;
