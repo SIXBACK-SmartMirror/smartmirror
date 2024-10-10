@@ -40,9 +40,10 @@
             // syntheticImg
             // 
             syntheticImg.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            syntheticImg.Location = new Point(189, 33);
+            syntheticImg.Location = new Point(210, 41);
+            syntheticImg.Margin = new Padding(3, 4, 3, 4);
             syntheticImg.Name = "syntheticImg";
-            syntheticImg.Size = new Size(727, 726);
+            syntheticImg.Size = new Size(808, 908);
             syntheticImg.SizeMode = PictureBoxSizeMode.CenterImage;
             syntheticImg.TabIndex = 4;
             syntheticImg.TabStop = false;
@@ -51,9 +52,10 @@
             // goodsOptionList1
             // 
             goodsOptionList1.Anchor = AnchorStyles.None;
-            goodsOptionList1.Location = new Point(41, 809);
+            goodsOptionList1.Location = new Point(46, 1011);
+            goodsOptionList1.Margin = new Padding(3, 4, 3, 4);
             goodsOptionList1.Name = "goodsOptionList1";
-            goodsOptionList1.Size = new Size(1012, 1000);
+            goodsOptionList1.Size = new Size(1124, 1250);
             goodsOptionList1.TabIndex = 5;
             // 
             // panel1
@@ -62,17 +64,19 @@
             panel1.Controls.Add(QRpicture);
             panel1.Controls.Add(syntheticImg);
             panel1.Controls.Add(goodsOptionList1);
-            panel1.Location = new Point(262, 170);
+            panel1.Location = new Point(291, 212);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1093, 1849);
+            panel1.Size = new Size(1214, 2311);
             panel1.TabIndex = 6;
             // 
             // QRpicture
             // 
             QRpicture.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            QRpicture.Location = new Point(189, 33);
+            QRpicture.Location = new Point(210, 41);
+            QRpicture.Margin = new Padding(3, 4, 3, 4);
             QRpicture.Name = "QRpicture";
-            QRpicture.Size = new Size(727, 726);
+            QRpicture.Size = new Size(808, 908);
             QRpicture.SizeMode = PictureBoxSizeMode.CenterImage;
             QRpicture.TabIndex = 6;
             QRpicture.TabStop = false;
@@ -81,13 +85,14 @@
             // 
             // CustomsMakeupOutputForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
-            ClientSize = new Size(1600, 2122);
+            ClientSize = new Size(1778, 2652);
             Controls.Add(panel1);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "CustomsMakeupOutputForm";
             WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)syntheticImg).EndInit();
@@ -98,9 +103,9 @@
 
         #endregion
 
-        private PictureBox syntheticImg;
+        public PictureBox syntheticImg;
         private Panel goodsOptionList1;
         private Panel panel1;
-        private PictureBox QRpicture;
+        public PictureBox QRpicture;
     }
 }
