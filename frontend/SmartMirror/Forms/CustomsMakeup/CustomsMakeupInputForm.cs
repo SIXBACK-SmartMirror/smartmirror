@@ -90,7 +90,14 @@ namespace SmartMirror
                         customsGoodsData.optionName = eyebrowList[i]["optionName"].ToString();
                         customsGoodsData.optionImage = eyebrowList[i]["optionImage"].ToString();
                         customsGoodsData.isInMarket = (bool)eyebrowList[i]["isInMarket"];
-                        customsGoodsData.location = eyebrowList[i]["location"]["name"].ToString();
+                        if (customsGoodsData.isInMarket)
+                        {
+                            customsGoodsData.location = skinList[i]["location"]["name"].ToString();
+                        }
+                        else
+                        {
+                            customsGoodsData.location = null;
+                        }
                         customsGoodsData.stock = (int)eyebrowList[i]["stock"];
                         EyebrowList[i] = customsGoodsData;
 
@@ -106,7 +113,14 @@ namespace SmartMirror
                         customsGoodsData.optionName = skinList[i]["optionName"].ToString();
                         customsGoodsData.optionImage = skinList[i]["optionImage"].ToString();
                         customsGoodsData.isInMarket = (bool)skinList[i]["isInMarket"];
-                        customsGoodsData.location = skinList[i]["location"]["name"].ToString();
+                        if (customsGoodsData.isInMarket)
+                        {
+                            customsGoodsData.location = skinList[i]["location"]["name"].ToString();
+                        }
+                        else
+                        {
+                            customsGoodsData.location = null;
+                        }
                         customsGoodsData.stock = (int)skinList[i]["stock"];
                         SkinList[i] = customsGoodsData;
                     }
@@ -121,7 +135,14 @@ namespace SmartMirror
                         customsGoodsData.optionName = lipList[i]["optionName"].ToString();
                         customsGoodsData.optionImage = lipList[i]["optionImage"].ToString();
                         customsGoodsData.isInMarket = (bool)lipList[i]["isInMarket"];
-                        customsGoodsData.location = lipList[i]["location"]["name"].ToString();
+                        if (customsGoodsData.isInMarket)
+                        {
+                            customsGoodsData.location = skinList[i]["location"]["name"].ToString();
+                        }
+                        else
+                        {
+                            customsGoodsData.location = null;
+                        }
                         customsGoodsData.stock = (int)lipList[i]["stock"];
                         LipList[i] = customsGoodsData;
                     }
@@ -506,6 +527,13 @@ namespace SmartMirror
             Screen secondaryScreen = screens[outputMonitor];
 
             MakeupOutputForm openMakeupOutputForm = Application.OpenForms["MakeupOutputForm"] as MakeupOutputForm;
+            CustomsMakeupOutputForm openCustomsMakeupOutputForm = Application.OpenForms["CustomsMakeupOutputForm"] as CustomsMakeupOutputForm;
+
+            if (openCustomsMakeupOutputForm != null && !openCustomsMakeupOutputForm.IsDisposed)
+            {
+                openCustomsMakeupOutputForm.Close();
+            }
+
 
             if (openMakeupOutputForm == null)
             {
@@ -525,7 +553,7 @@ namespace SmartMirror
                 inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
                 inputForm.Show();
 
-                this.Hide();
+                this.Close();
                 //outputForm.Hide();
             }
             else
@@ -544,7 +572,7 @@ namespace SmartMirror
                 openMakeupInputForm.Show();
 
                 // MaininputForm 숨기기
-                this.Hide();
+                this.Close();
             }
         }
 
@@ -654,7 +682,7 @@ namespace SmartMirror
 
             if (openCustomsMakeupOutputForm != null && !openCustomsMakeupOutputForm.IsDisposed)
             {
-                openCustomsMakeupOutputForm.Hide();
+                openCustomsMakeupOutputForm.Close();
             }
 
             Close();

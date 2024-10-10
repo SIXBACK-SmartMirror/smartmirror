@@ -1,17 +1,7 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using SmartMirror.Config;
 using SmartMirror.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SmartMirror
 {
@@ -77,7 +67,7 @@ namespace SmartMirror
 
                 if (lipColor != null)
                 {
-                form.Add(new StringContent(lipColor.ToString()), "lipColor"); 
+                    form.Add(new StringContent(lipColor.ToString()), "lipColor");
                 }
 
                 if (eyebrowColor != null)
@@ -103,8 +93,6 @@ namespace SmartMirror
 
                     string responseBody = await response.Content.ReadAsStringAsync();
                     JObject responseJson = JObject.Parse(responseBody);
-
-
 
                     syntheticPath = responseJson["data"]["makeupImage"].ToString();
                     syntheticImg.Image = GetUrlImage(syntheticPath);
