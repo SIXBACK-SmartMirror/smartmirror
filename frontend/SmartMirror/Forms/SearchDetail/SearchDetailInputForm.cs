@@ -37,6 +37,7 @@ namespace SmartMirror
 
         private void SearchDetailInputForm_Load(object sender, EventArgs e)
         {
+            // 기존 라벨 속성 설정
             brand.Text = goodsData.BrandName;
             outputForm.brand.Text = goodsData.BrandName;
 
@@ -44,9 +45,23 @@ namespace SmartMirror
             outputForm.name.Text = goodsData.GoodsName;
 
             outputForm.price.Text = $"{int.Parse(goodsData.GoodsPrice):N0}원~";
-
             outputForm.discountPrice.Text = $"{int.Parse(goodsData.GoodsDiscountPrice):N0}원~";
 
+            // outputForm.name 라벨의 속성 설정
+            outputForm.name.AutoSize = false; // 라벨의 크기를 고정
+            outputForm.name.TextAlign = ContentAlignment.TopCenter; // 텍스트를 중앙 정렬
+            outputForm.name.Font = new Font(outputForm.name.Font.FontFamily, 14, FontStyle.Bold); // 폰트 설정
+
+            // 텍스트를 줄바꿈 가능하도록 설정
+            outputForm.name.MaximumSize = new Size(400, 0); // 최대 너비를 400으로 설정하고, 높이는 자동으로 늘어남
+            outputForm.name.AutoEllipsis = false; // ... 표시 비활성화
+            outputForm.name.UseCompatibleTextRendering = true; // 호환 렌더링 사용하여 줄바꿈 설정
+
+            // 텍스트가 길 경우 줄바꿈을 적용하고 전체 텍스트가 보이도록 설정
+            outputForm.name.Text = goodsData.GoodsName;
+            outputForm.name.Size = new Size(400, outputForm.name.PreferredHeight); // 텍스트 높이에 맞게 라벨 크기 조정
+
+            // 이미지 로드 및 설정
             try
             {
                 using (HttpClient client = new HttpClient())
@@ -63,6 +78,7 @@ namespace SmartMirror
                 outputForm.img.Image = Image.FromFile("placeholder.png");
             }
         }
+
 
         private void InitializePanelContainer()
         {
