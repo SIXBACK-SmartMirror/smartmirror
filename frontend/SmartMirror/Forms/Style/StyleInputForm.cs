@@ -194,7 +194,7 @@ namespace SmartMirror
                 inputForm.Size = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
                 inputForm.Show();
 
-                this.Hide();
+                this.Close();
                 //outputForm.Hide();
             }
             else
@@ -213,7 +213,7 @@ namespace SmartMirror
                 openMakeupInputForm.Show();
 
                 // MaininputForm 숨기기
-                this.Hide();
+                this.Close();
             }
         }
 
