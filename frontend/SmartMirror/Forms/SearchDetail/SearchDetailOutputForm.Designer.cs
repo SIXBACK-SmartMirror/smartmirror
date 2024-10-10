@@ -391,7 +391,7 @@
             panel4.Controls.Add(panel8);
             panel4.Location = new Point(31, 1016);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1130, 593);
+            panel4.Size = new Size(1130, 691);
             panel4.TabIndex = 4;
             // 
             // panel5
@@ -403,7 +403,7 @@
             panel5.Controls.Add(optionImg);
             panel5.Location = new Point(62, 401);
             panel5.Name = "panel5";
-            panel5.Size = new Size(981, 149);
+            panel5.Size = new Size(981, 249);
             panel5.TabIndex = 5;
             // 
             // optionPrice
@@ -411,22 +411,20 @@
             optionPrice.AutoSize = true;
             optionPrice.Font = new Font("맑은 고딕", 15F, FontStyle.Bold);
             optionPrice.ForeColor = Color.White;
-            optionPrice.Location = new Point(737, 50);
+            optionPrice.Location = new Point(145, 158);
             optionPrice.Name = "optionPrice";
-            optionPrice.Size = new Size(141, 41);
+            optionPrice.Size = new Size(0, 41);
             optionPrice.TabIndex = 6;
-            optionPrice.Text = "18,000원";
             // 
             // optionStock
             // 
             optionStock.AutoSize = true;
             optionStock.Font = new Font("맑은 고딕", 15F, FontStyle.Bold);
             optionStock.ForeColor = Color.FromArgb(130, 220, 40);
-            optionStock.Location = new Point(466, 50);
+            optionStock.Location = new Point(763, 158);
             optionStock.Name = "optionStock";
-            optionStock.Size = new Size(65, 41);
+            optionStock.Size = new Size(0, 41);
             optionStock.TabIndex = 5;
-            optionStock.Text = "3개";
             // 
             // optionName
             // 
@@ -435,9 +433,9 @@
             optionName.ForeColor = Color.White;
             optionName.Location = new Point(135, 50);
             optionName.Name = "optionName";
-            optionName.Size = new Size(179, 41);
+            optionName.Size = new Size(0, 41);
             optionName.TabIndex = 4;
-            optionName.Text = "클래식 레드";
+            optionName.Text = "옵션을 선택해 주세요";
             // 
             // optionImg
             // 

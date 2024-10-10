@@ -93,19 +93,23 @@ namespace SmartMirror
                 int optionId = (int)option["optionId"];
 
                 // 항목을 나타낼 Panel 생성
-                Panel optionPanel = new Panel();
-                optionPanel.Size = new Size(panel1.Width - 20, 50); // 패널 크기 설정
-                optionPanel.Location = new Point(0, yPosition); // 위치 설정
-                optionPanel.BackColor = Color.Gray;
-                optionPanel.Margin = new Padding(5); // 여백 설정
-                optionPanel.Tag = optionId; // Panel의 Tag에 optionId를 저장하여 나중에 참조 가능
+                Panel optionPanel = new Panel
+                {
+                    Size = new Size(panel1.Width - 20, 50), // 패널 크기 설정
+                    Location = new Point(0, yPosition), // 위치 설정
+                    BackColor = Color.Gray,
+                    Margin = new Padding(5), // 여백 설정
+                    Tag = optionId // Panel의 Tag에 optionId를 저장하여 나중에 참조 가능
+                };
 
                 // Panel 내부의 Label 생성
-                Label optionLabel = new Label();
-                optionLabel.Text = optionName;
-                optionLabel.Dock = DockStyle.Fill;
-                optionLabel.TextAlign = ContentAlignment.MiddleCenter;
-                optionLabel.ForeColor = Color.Black;
+                Label optionLabel = new Label
+                {
+                    Text = optionName,
+                    Dock = DockStyle.Fill,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    ForeColor = Color.Black
+                };
 
                 // Panel에 Label 추가
                 optionPanel.Controls.Add(optionLabel);
@@ -114,7 +118,6 @@ namespace SmartMirror
                 optionPanel.Click += OptionPanel_Click;
                 optionLabel.Click += OptionPanel_Click; // Label 클릭 시에도 같은 핸들러 사용
 
-
                 // Panel을 패널1에 추가
                 panel1.Controls.Add(optionPanel);
 
@@ -122,10 +125,20 @@ namespace SmartMirror
                 yPosition += optionPanel.Height + 10; // 패널의 높이와 간격만큼 y 좌표 증가
             }
 
-            // 기본적으로 첫 번째 항목 선택
+            // 기본적으로 첫 번째 항목 선택 및 해당 옵션 정보 표시
             if (panel1.Controls.Count > 0)
             {
-                SelectOptionPanel((Panel)panel1.Controls[0]);
+                // 첫 번째 Panel을 선택 및 시각적으로 구분
+                Panel firstOptionPanel = (Panel)panel1.Controls[0];
+                SelectOptionPanel(firstOptionPanel);
+
+                // 첫 번째 옵션의 이름을 가져와서 CreateAndShowPanelForSelectedOption 메서드 호출
+                Label firstOptionLabel = firstOptionPanel.Controls.OfType<Label>().FirstOrDefault();
+                if (firstOptionLabel != null)
+                {
+                    string firstOptionName = firstOptionLabel.Text;
+                    CreateAndShowPanelForSelectedOption(firstOptionName);
+                }
             }
         }
 
