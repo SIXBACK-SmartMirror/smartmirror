@@ -19,4 +19,5 @@ public class VirtualMakeupReqDto {
 	private Long styleId;
 	@NotNull
 	private MultipartFile inputImage;
+	private String inputImageBase64;
 }

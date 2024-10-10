@@ -1,4 +1,4 @@
-﻿using SmartMirror.Helpers;
+using SmartMirror.Helpers;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -37,6 +37,15 @@ namespace SmartMirror
 
             // 다음 상태를 위해 isPictureBox7Visible 값을 반전
             isPictureBox7Visible = !isPictureBox7Visible;
+        }
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = 0x02000000;
+                return cp;
+            }
         }
 
         private void panel2_Click(object sender, EventArgs e)
