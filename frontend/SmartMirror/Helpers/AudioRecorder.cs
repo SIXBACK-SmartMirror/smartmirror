@@ -74,7 +74,7 @@ namespace SmartMirror.Helpers
         // POST 요청을 통해 녹음된 오디오 파일 전송
         public async Task<string> SendPostRequestWithRecordedAudio()
         {
-            string url = $"{ApiConfig.url}/1/goods/test";
+            string url = $"{ApiConfig.url}/1/goods";
             string filePath = outputFilePath; // audioRecorder로 생성한 파일 경로
 
             if (!File.Exists(filePath))
