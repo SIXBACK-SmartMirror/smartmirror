@@ -91,7 +91,7 @@ namespace SmartMirror.Helpers
                     audioFile.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("audio/wav");
                     form.Add(audioFile, "audioFile", Path.GetFileName(filePath)); // audioFile 필드로 파일 전송
                     form.Add(new StringContent("0"), "page");
-                    form.Add(new StringContent("10"), "size");
+                    form.Add(new StringContent("9"), "size");
 
                     using (HttpClient client = new HttpClient())
                     {
