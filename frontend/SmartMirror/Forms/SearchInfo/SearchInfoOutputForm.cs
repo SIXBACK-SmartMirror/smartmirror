@@ -11,6 +11,16 @@ namespace SmartMirror
             InitializeComponent();
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = 0x02000000;
+                return cp;
+            }
+        }
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             // 둥근 모서리 반지름 설정
