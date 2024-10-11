@@ -433,7 +433,7 @@
             optionName.ForeColor = Color.White;
             optionName.Location = new Point(135, 50);
             optionName.Name = "optionName";
-            optionName.Size = new Size(0, 41);
+            optionName.Size = new Size(310, 41);
             optionName.TabIndex = 4;
             optionName.Text = "옵션을 선택해 주세요";
             // 
@@ -448,7 +448,7 @@
             // 
             // img
             // 
-            img.Location = new Point(62, 21);
+            img.Location = new Point(62, 34);
             img.Name = "img";
             img.Size = new Size(276, 348);
             img.SizeMode = PictureBoxSizeMode.Zoom;
