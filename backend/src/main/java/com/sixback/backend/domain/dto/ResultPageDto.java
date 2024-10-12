@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ResultPageDTO {
+public class ResultPageDto {
 	private String marketName;
 	private List<UseOptionDetailDto> goodsList;
 	private String makeupImage;

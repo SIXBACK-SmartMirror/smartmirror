@@ -23,9 +23,9 @@ import com.sixback.backend.common.exception.FailGenerateQrException;
 import com.sixback.backend.common.exception.MismatchMarketId;
 import com.sixback.backend.common.service.FileService;
 import com.sixback.backend.common.service.RedisService;
-import com.sixback.backend.domain.dto.QRDto;
-import com.sixback.backend.domain.dto.QRReqDto;
-import com.sixback.backend.domain.dto.ResultPageDTO;
+import com.sixback.backend.domain.dto.QrDto;
+import com.sixback.backend.domain.dto.QrReqDto;
+import com.sixback.backend.domain.dto.ResultPageDto;
 import com.sixback.backend.domain.dto.UseOptionDetailDto;
 import com.sixback.backend.domain.entity.Market;
 import com.sixback.backend.domain.repository.GoodsOptionRepository;
@@ -63,10 +63,10 @@ public class QrService {
 	 *
 	 * @param marketId 마켓 ID
 	 * @param qrReqDto QR 요청 데이터
-	 * @return QRDto 생성된 QR 코드 이미지 DTO
+	 * @return QrDto 생성된 QR 코드 이미지 DTO
 	 * @throws FailDecodeBase64Exception Base64 이미지 검증 실패 시
 	 */
-	public QRDto generateQRCode(Long marketId, QRReqDto qrReqDto) {
+	public QrDto generateQRCode(Long marketId, QrReqDto qrReqDto) {
 		// base64 검증
 		if (!fileService.isValidBase64Image(qrReqDto.getMakeupImage())) {
 			throw new FailDecodeBase64Exception();
@@ -78,7 +78,7 @@ public class QrService {
 		String qrUrl = generateQrUrl(qrReqDto);
 		log.debug("qrUrl: {}", qrUrl);
 		// QR 코드 생성 및 Base64 인코딩 반환
-		return QRDto.builder()
+		return QrDto.builder()
 			.qrImage(generateQRImageBytes(qrUrl))
 			.build();
 	}
@@ -89,7 +89,7 @@ public class QrService {
 	 * @param qrReqDto QR 요청 데이터
 	 * @return 생성된 QR 코드 URL 문자열
 	 */
-	private String generateQrUrl(QRReqDto qrReqDto) {
+	private String generateQrUrl(QrReqDto qrReqDto) {
 		String token = storeQrData(qrReqDto, redisQrTtlSeconds);
 		return "%s/%d/result?user=%s".formatted(qrBaseUrl, qrReqDto.getMarketId(), token);
 	}
@@ -131,15 +131,15 @@ public class QrService {
 	 * @throws ExpiredQRException QR 코드가 만료된 경우
 	 * @throws MismatchMarketId 매장 ID 불일치 시
 	 */
-	public ResultPageDTO getOptionInfoList(Long marketId, String token) {
+	public ResultPageDto getOptionInfoList(Long marketId, String token) {
 		// 마켓 ID 검증
 		Market market = marketService.validateMarket(marketId);
 		// 토큰 검증 및 디코딩
-		QRReqDto qrReqDto = getTokenInfo(marketId, token);
+		QrReqDto qrReqDto = getTokenInfo(marketId, token);
 		// QR에 담긴 정보기반 사용 상품 목록 조회
 		List<UseOptionDetailDto> goodsList = goodsOptionRepository.findAllByMarketIdAndUseOptionIdIn(marketId,
 			qrReqDto.getOptionIdList());
-		return ResultPageDTO.builder()
+		return ResultPageDto.builder()
 			.marketName(market.getMarketName())
 			.goodsList(goodsList)
 			.makeupImage(qrReqDto.getMakeupImage())
@@ -156,8 +156,8 @@ public class QrService {
 	 * @throws ExpiredQRException QR 코드가 만료된 경우
 	 * @throws MismatchMarketId 매장 ID 불일치 시
 	 */
-	private QRReqDto getTokenInfo(Long marketId, String token) {
-		QRReqDto qrReqDto = redisService.getData(token, QRReqDto.class);
+	private QrReqDto getTokenInfo(Long marketId, String token) {
+		QrReqDto qrReqDto = redisService.getData(token, QrReqDto.class);
 		// 해당 키-값 없을 경우
 		if (qrReqDto == null) {
 			throw new ExpiredQRException();
@@ -176,7 +176,7 @@ public class QrService {
 	 * @param redisQrTtlSeconds Redis 저장 TTL
 	 * @return 생성된 키
 	 */
-	public String storeQrData(QRReqDto qrReqDto, long redisQrTtlSeconds) {
+	public String storeQrData(QrReqDto qrReqDto, long redisQrTtlSeconds) {
 		String baseString = "%d%s%s".formatted(qrReqDto.getMarketId(),
 			qrReqDto.getOptionIdListString(),
 			qrReqDto.getMakeupImage());
