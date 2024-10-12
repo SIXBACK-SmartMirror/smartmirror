@@ -147,7 +147,7 @@ QR 코드를 통해 사용자는 합성 사진과 사용한 상품 목록을 간
 
 `#Hashing` `#Cache` `#ZXING` `#Thymeleaf`
 
-<img src="./image/QRcode_webPage.png" alt="QR code" width="70%"/>
+<img src="./image/QRcode_webPage.png" alt="QR code" width="60%"/>
 
 ### 로그
 
