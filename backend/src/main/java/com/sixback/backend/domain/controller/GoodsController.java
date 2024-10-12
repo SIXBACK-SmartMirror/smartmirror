@@ -44,14 +44,13 @@ public class GoodsController {
 		return new ResponseEntity<>(new ResponseDto<>("A00", searchResultDto), HttpStatus.OK);
 	}
 
-	@PostMapping(path = "/test", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<?> testFindAllGoodsBySTT(@PathVariable("marketId") Long marketId,
-		@Valid @ModelAttribute SearchReqDto searchReqDto) {
-		SearchResultDto searchResultDto = goodsService.testFindAllGoods(marketId, searchReqDto);
-		return new ResponseEntity<>(new ResponseDto<>("A00", searchResultDto), HttpStatus.OK);
-	}
-
-	// 타이핑 검색
+	/**
+	 * 터치 검색을 통한 상품 검색 메서드.
+	 *
+	 * @param marketId 요청한 마켓의 ID.
+	 * @param searchReqDto 음성 검색 (타이핑 검색어, 녹음파일, page, size) DTO.
+	 * @return 검색 결과(SearchResultDto)와 상태 코드.
+	 */
 	@GetMapping
 	public ResponseEntity<?> findAllGoodsByKeyword(@PathVariable("marketId") Long marketId,
 		@Valid @ModelAttribute SearchReqDto searchReqDto) {

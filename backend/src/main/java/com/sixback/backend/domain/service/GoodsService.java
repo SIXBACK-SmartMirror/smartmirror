@@ -59,12 +59,12 @@ public class GoodsService {
 		return findAllGoodsByKeyword(keyword, searchReqDto.getPage(), searchReqDto.getSize());
 	}
 
-	public SearchResultDto testFindAllGoods(Long marketId, SearchReqDto searchReqDto) {
-		// 오디오에서 키워드 추출
-		// 해당 keyword로 DB에서 (like "%keyword%") 조회
-		return findAllGoodsByKeyword("블러셔", searchReqDto.getPage(), searchReqDto.getSize());
-	}
-
+	/**
+	 * 사용자가 입력한 키워드/음성에서 분석한 키워드 반환 메서드.
+	 *
+	 * @param searchReqDto 검색 요청 DTO
+	 * @return Mono(String) 검색 키워드
+	 */
 	public Mono<String> findKeyword(SearchReqDto searchReqDto) {
 		// 이미 사용자가 키워드를 입력했을 경우 해당 키워드로 검색
 		if (searchReqDto.getKeyword() != null && !searchReqDto.getKeyword().isBlank()) {
