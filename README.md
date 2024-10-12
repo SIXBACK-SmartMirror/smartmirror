@@ -24,7 +24,7 @@
 |Frontend Developer|Backend Developer|Backend Developer|Frontend Developer|Backend Developer|
 
 <details>
-<summary><h3 style="display: inline-block;">역할 상세👍</h3></summary>
+<summary><h3 style="display: inline-block;">✔역할 상세</h3></summary>
 <div markdown="1">
 <div class="team-member"> 
 <h3>김종덕</h3>
@@ -123,13 +123,15 @@
 
 `# BeautyGAN`  `# Pre-fetching` `# Cache`
 
-![oneclick_makeup.gif](./image/oneclick_makeup.gif)
+<img src="./image/oneclick_makeup.gif" alt="oneclick_makeup.gif" width="70%"/>
+
+### 커스텀 화장 합성
 
 원하는 색상과 얼굴 부위(피부, 눈썹, 입술)를 설정하고 커스텀 화장을 적용하여 결과를 출력합니다. 합성된 사진, 사용된 화장품 리스트가 화면에 출력됩니다. QR로 사용자는 결과 정보를 받을 수 있습니다.
 
 `# facer` `# Daemon Thread`
 
-![custom_makeup.gif](./image/custom_makeup.gif)
+<img src="./image/custom_makeup.gif" alt="custom_makeup.gif" width="70%"/>
 
 ### 음성/터치로 간편한 물건 검색
 
@@ -137,7 +139,7 @@
 
 `# STT - Whisper모델` `# NLP 기반 사용자 질문 분석(Prompt)`  `# Full Text Search`
 
-![searching.gif](./image/searching.gif)
+<img src="./image/searching.gif" alt="searching.gif" width="70%"/>
 
 ### QR
 
@@ -145,7 +147,7 @@ QR 코드를 통해 사용자는 합성 사진과 사용한 상품 목록을 간
 
 `#Hashing` `#Cache` `#ZXING` `#Thymeleaf`
 
-![QRcode_webPage.png](./image/QRcode_webPage.png)
+<img src="./image/QRcode_webPage.png" alt="QR code" width="70%"/>
 
 ### 로그
 
@@ -153,7 +155,7 @@ QR 코드를 통해 사용자는 합성 사진과 사용한 상품 목록을 간
 
 `#MongoDB`
 
-![mongoDB_log.png](./image/mongoDB_log.png)
+<p align="center"><img src="./image/mongoDB_log.png" alt="mongoDB_log.png" width="50%"/></p>
 
 
 ## 📖 참고 자료
@@ -163,11 +165,11 @@ QR 코드를 통해 사용자는 합성 사진과 사용한 상품 목록을 간
 
 ## 🔀 시스템 구조도
 
-![pipeline.png](./image/pipeline.png)
+<p align="center"><img src="./image/pipeline.png" alt="pipeline.png" width="90%"/></p>
 
 ## 🗂️ 기술 스택
 
-![skill_stack.png](./image/skill_stack.png)
+<p align="center"><img src="./image/skill_stack.png" alt="skill_stack.png" width="90%"/></p>
 
 ## 🏞️ 개발 환경
 
@@ -230,6 +232,23 @@ QR 코드를 통해 사용자는 합성 사진과 사용한 상품 목록을 간
 <p style="font-weight: bold">frontend</p>
 
 ```bash
+frontend
+├───Config
+├───Forms
+│   ├───CustomsMakeup
+│   ├───Main
+│   ├───Makeup
+│   ├───Mirror
+│   ├───Search
+│   ├───SearchDetail
+│   ├───SearchInfo
+│   ├───Style
+│   └───Synthetic
+├───Helpers
+├───Models
+├───Properties
+└───Resources
+
 ```
 </div>
 </td>
@@ -238,6 +257,21 @@ QR 코드를 통해 사용자는 합성 사진과 사용한 상품 목록을 간
 <p style="font-weight: bold">backend</p>
 
 ```bash
+backend
+├───common
+│   ├───config
+│   ├───dto
+│   │   ├───gan
+│   │   └───nlp
+│   ├───exception
+│   └───service
+└───domain
+    ├───controller
+    ├───dto
+    ├───entity
+    ├───repository
+    └───service
+
 ```
 </div>
 </td>
@@ -247,10 +281,11 @@ QR 코드를 통해 사용자는 합성 사진과 사용한 상품 목록을 간
 
 ## 🐿️ ERD
 
-![ERD.png](./image/ERD.png)
+<p align="center"><img src="./image/ERD.png" alt="ERD.png" width="90%"/></p>
+
 
 ## ☕ API 명세서
 
-![API 명세서.jpg](./image/API_명세서.jpg)
+<p align="center"><img src="./image/API_명세서.jpg" alt="API_명세서.jpg" width="60%"/></p>
 
 
