@@ -20,6 +20,7 @@ import com.sixback.backend.domain.dto.OptionInfoDto;
 import com.sixback.backend.domain.service.CustomService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -45,8 +46,8 @@ public class CustomController {
 	 */
 	@GetMapping
 	public ResponseEntity<?> findAllCustomOption(@PathVariable("marketId") Long marketId,
-		@RequestParam(defaultValue = "0", value = "page") int page,
-		@RequestParam(defaultValue = "10", value = "size") int size) {
+		@Min(0) @RequestParam(defaultValue = "0", value = "page") int page,
+		@Min(1) @RequestParam(defaultValue = "10", value = "size") int size) {
 		// 커스텀 옵션 목록을 조회
 		Map<String, List<OptionInfoDto>> CustomOptionList = customService.findAllCustomOption(marketId, page, size);
 		return new ResponseEntity<>(new ResponseDto<>("A00", CustomOptionList), HttpStatus.OK);
