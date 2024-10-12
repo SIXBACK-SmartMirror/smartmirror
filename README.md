@@ -27,7 +27,7 @@
 <summary><h3 style="display: inline-block;">역할 상세👍</h3></summary>
 <div markdown="1">
 <div class="team-member"> 
-<h4>김종덕</h4>
+<h3>김종덕</h3>
 <ul>
     <li>역할: 팀장, 프론트엔드 개발</li>
     <li>담당</li>
@@ -38,7 +38,7 @@
 </ul>
 </div>
 <div class="team-member"> 
-<h4>김아름</h4>
+<h3>김아름</h3>
 <ul>
     <li>역할: 백엔드 개발</li>
     <li>담당</li>
@@ -60,7 +60,7 @@
 </ul>
 </div>
 <div class="team-member"> 
-<h4>김찬민</h4>
+<h3>김찬민</h3>
 <ul>
     <li>역할: 인프라, 데이터 수집</li>
     <li>담당</li>
@@ -76,7 +76,7 @@
 </ul>
 </div>
 <div class="team-member"> 
-<h4>신혜민</h4>
+<h3>신혜민</h3>
 <ul>
     <li>역할: 프론트엔드 개발</li>
     <li>담당</li>
@@ -92,7 +92,7 @@
 </ul>
 </div>
 <div class="team-member"> 
-<h4>안치숙</h4>
+<h3>안치숙</h3>
 <ul>
     <li>역할: AI, 백엔드 개발</li>
     <li>담당</li>
