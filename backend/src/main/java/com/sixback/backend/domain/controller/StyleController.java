@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sixback.backend.common.dto.ResponseDto;
 import com.sixback.backend.domain.dto.StyleInfoListDto;
+import com.sixback.backend.domain.dto.StyleMakeupReqDto;
 import com.sixback.backend.domain.dto.StyleResultDto;
 import com.sixback.backend.domain.dto.VirtualMakeupReqDto;
 import com.sixback.backend.domain.service.StyleService;
@@ -44,6 +45,7 @@ public class StyleController {
 	public Mono<ResponseEntity<ResponseDto<StyleResultDto>>> createVirtualMakeup(@PathVariable("marketId") Long marketId,
 		@Valid @ModelAttribute VirtualMakeupReqDto virtualMakeupReqDto) {
 		return styleService.createVirtualMakeup(marketId, virtualMakeupReqDto)
+		@Valid @ModelAttribute StyleMakeupReqDto styleMakeupReqDto) {
 			.map(styleResultDto -> new ResponseEntity<>(new ResponseDto<>("A00", styleResultDto), HttpStatus.OK))
 			.doOnSuccess(response -> styleService.prefetchOtherStyles(marketId, virtualMakeupReqDto));
 	}
