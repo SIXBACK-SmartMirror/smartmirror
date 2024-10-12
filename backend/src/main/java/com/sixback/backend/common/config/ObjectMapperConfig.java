@@ -8,7 +8,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * ObjectMapper 초기 설정 config
+ * ObjectMapper 초기 설정 config.
  */
 @Configuration
 @EnableSpringDataWebSupport(pageSerializationMode = EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)

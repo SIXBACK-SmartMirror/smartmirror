@@ -9,11 +9,10 @@ import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
- * WebClient 초기 설정 Config
+ * WebClient 초기 설정 Config.
  */
 @Configuration
 public class WebClientConfig {
-
 	// 외부 API Key & URL
 	@Value("${spring.data.api.key}")
 	private String API_KEY;

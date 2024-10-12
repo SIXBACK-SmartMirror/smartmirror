@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * QR로 접속한 페이지에 표시될 정보를 담는 DTO.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

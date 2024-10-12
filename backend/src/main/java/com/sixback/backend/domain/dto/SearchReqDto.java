@@ -2,13 +2,14 @@ package com.sixback.backend.domain.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * 검색 요청에 필요한 정보를 담는 DTO.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,5 +22,6 @@ public class SearchReqDto {
 	@Min(1)
 	private int size;
 	private String keyword;
+	// 음성 파일 (.wav 형식)
 	private MultipartFile audioFile;
 }
