@@ -15,6 +15,7 @@ import com.sixback.backend.common.exception.GoodsNotFoundException;
 import com.sixback.backend.common.exception.NoSearchKeywordException;
 import com.sixback.backend.common.exception.NullNLPException;
 import com.sixback.backend.common.exception.OptionNotFoundException;
+import com.sixback.backend.common.service.FileService;
 import com.sixback.backend.common.service.NLPClientService;
 import com.sixback.backend.common.service.STTClientService;
 import com.sixback.backend.domain.dto.GoodsDetailDto;
@@ -33,6 +34,8 @@ import reactor.core.publisher.Mono;
 public class GoodsService {
 
 	private final MarketService marketService;
+	// 파일 관련 서비스
+	private final FileService fileService;
 	private final STTClientService sttClientService;
 	private final NLPClientService nlpClientService;
 	private final GoodsOptionRepository goodsOptionRepository;
@@ -57,7 +60,7 @@ public class GoodsService {
 		if (searchReqDto.getKeyword() != null && !searchReqDto.getKeyword().isBlank()) {
 			return Mono.just(searchReqDto.getKeyword());
 		}
-		checkVailAudioFile(searchReqDto.getAudioFile());
+		fileService.checkValidAudioFile(searchReqDto.getAudioFile());
 		// STT 통신 요청 - 이때 webclient 비동기 openAI한테 STT 요청 보냄
 		return sttClientService.sendRequest(searchReqDto.getAudioFile())
 			// STT 결과에서 openAI chat을 통해 상품명만 추출 후 요청 결과를 반환

@@ -39,6 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 public class QrService {
 
 	private final MarketService marketService;
+	// 파일 관련 서비스
+	private final FileService fileService;
 	private final RedisService redisService;
 	private final GoodsOptionRepository goodsOptionRepository;
 
@@ -51,7 +53,7 @@ public class QrService {
 
 	public QRDto generateQRCode(Long marketId, QRReqDto qrReqDto) {
 		// base64 검증
-		if (!isValidBase64Image(qrReqDto.getMakeupImage())) {
+		if (!fileService.isValidBase64Image(qrReqDto.getMakeupImage())) {
 			throw new FailDecodeBase64Exception();
 		}
 		// 마켓 id 검증

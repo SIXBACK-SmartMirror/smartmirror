@@ -27,6 +27,8 @@ public class GanClientService {
 
 	private final WebClient ganWebClient;
 	private final ObjectMapper objectMapper;
+	// File 관련 처리 서비스
+	private final FileService fileService;
 
 	private static void errorLog(String errorBody) {
 		// 에러 응답 본문을 콘솔에 출력
@@ -49,7 +51,7 @@ public class GanClientService {
 	public MultiValueMap<String, Object> createBody(GanRequestDto ganRequestDto) {
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 		// 파일 데이터가 포함된 ByteArrayResource 생성
-		ByteArrayResource resource = multipartFileToByteArray(ganRequestDto.getInputImage());
+		ByteArrayResource resource = fileService.multipartFileToByteArray(ganRequestDto.getInputImage());
 		// 요청 본문 구성
 		body.add("inputImage", resource); // 요청 본문에 파일 추가
 		body.add("styleImage", ganRequestDto.getStyleImage());

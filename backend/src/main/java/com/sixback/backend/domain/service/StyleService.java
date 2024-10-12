@@ -17,6 +17,7 @@ import com.sixback.backend.common.exception.EmptyFileException;
 import com.sixback.backend.common.exception.OptionNotFoundException;
 import com.sixback.backend.common.exception.StyleNotFoundException;
 import com.sixback.backend.common.exception.StyleUseOptionNotFoundException;
+import com.sixback.backend.common.service.FileService;
 import com.sixback.backend.common.service.GanClientService;
 import com.sixback.backend.common.service.RedisService;
 import com.sixback.backend.domain.dto.OptionInfoDto;
@@ -41,6 +42,8 @@ import reactor.core.scheduler.Schedulers;
 public class StyleService {
 
 	private final MarketService marketService;
+	// 파일 관련 서비스
+	private final FileService fileService;
 	private final GanClientService ganClientService;
 	private final RedisService redisService;
 	private final LogService logService;
@@ -167,5 +170,7 @@ public class StyleService {
 			log.error("Failed to read input image file {}", e.getMessage());
 			throw new RuntimeException(e);
 		}
+			// Base64 변환
+			String base64 = fileService.convertFileToBase64(styleMakeupReqDto.getInputImage());
 	}
 }

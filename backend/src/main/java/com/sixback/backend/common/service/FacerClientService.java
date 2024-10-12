@@ -27,6 +27,8 @@ public class FacerClientService {
 
 	private final WebClient facerWebClient;
 	private final ObjectMapper objectMapper;
+	// File 관련 처리 서비스
+	private final FileService fileService;
 
 	private static void errorLog(String errorBody) {
 		// 에러 응답 본문을 콘솔에 출력
@@ -57,7 +59,8 @@ public class FacerClientService {
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 		log.debug("customMakeupReqDto = {}", customMakeupReqDto);
 		// 파일 데이터가 포함된 ByteArrayResource 생성
-		ByteArrayResource resource = multipartFileToByteArray(customMakeupReqDto.getInputImage());
+		ByteArrayResource resource = fileService.multipartFileToByteArray(customMakeupReqDto.getInputImage());
+
 		// 요청 본문 구성
 		body.add("inputImage", resource); // 요청 본문에 파일 추가
 		// eyebrowColor, skinColor, lipColor는 null이 아닐 경우에만 추가
