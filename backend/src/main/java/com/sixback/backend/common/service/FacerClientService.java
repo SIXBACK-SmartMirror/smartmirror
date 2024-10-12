@@ -13,7 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sixback.backend.common.exception.FailGanException;
+import com.sixback.backend.common.exception.FailAIException;
 import com.sixback.backend.domain.dto.CustomMakeupReqDto;
 
 import lombok.RequiredArgsConstructor;
@@ -90,6 +90,7 @@ public class FacerClientService {
 		return clientResponse.bodyToMono(String.class)
 			.doOnNext(FacerClientService::errorLog)
 			.then(Mono.error(new FailGanException()));
+			.then(Mono.error(new FailAIException())); // 예외 발생
 	}
 
 	private Mono<String> parseMakeupImage(String responseBody) {
@@ -101,6 +102,7 @@ public class FacerClientService {
 		} catch (JsonProcessingException e) {
 			errorLog(e.getMessage());
 			return Mono.error(new FailGanException());
+			return Mono.error(new FailAIException()); // 예외 발생
 		}
 	}
 }

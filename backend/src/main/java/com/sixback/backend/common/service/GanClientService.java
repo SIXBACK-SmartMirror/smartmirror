@@ -14,7 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sixback.backend.common.dto.gan.GanRequestDto;
-import com.sixback.backend.common.exception.FailGanException;
+import com.sixback.backend.common.exception.FailAIException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -76,6 +76,7 @@ public class GanClientService {
 		return clientResponse.bodyToMono(String.class)
 			.doOnNext(GanClientService::errorLog)
 			.then(Mono.error(new FailGanException()));
+			.then(Mono.error(new FailAIException())); // 예외 발생
 	}
 
 	private Mono<String> parseMakeupImage(String responseBody) {
@@ -85,7 +86,7 @@ public class GanClientService {
 			return Mono.just(makeupImage);
 		} catch (JsonProcessingException e) {
 			errorLog(e.getMessage());
-			return Mono.error(new FailGanException());
+			return Mono.error(new FailAIException());
 		}
 	}
 }
