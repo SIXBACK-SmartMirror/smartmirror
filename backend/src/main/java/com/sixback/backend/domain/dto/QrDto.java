@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class QRDto {
+public class QrDto {
 	// QR 코드 이미지
 	String qrImage;
 }

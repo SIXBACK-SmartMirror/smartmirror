@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class QRReqDto {
+public class QrReqDto {
 	private Long marketId;
 	@NotNull
 	private List<Long> optionIdList;

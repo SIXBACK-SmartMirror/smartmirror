@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sixback.backend.common.dto.ResponseDto;
-import com.sixback.backend.domain.dto.QRDto;
-import com.sixback.backend.domain.dto.QRReqDto;
-import com.sixback.backend.domain.dto.ResultPageDTO;
+import com.sixback.backend.domain.dto.QrDto;
+import com.sixback.backend.domain.dto.QrReqDto;
+import com.sixback.backend.domain.dto.ResultPageDto;
 import com.sixback.backend.domain.service.QrService;
 
 import jakarta.validation.Valid;
@@ -41,8 +41,8 @@ public class QrController {
 	 */
 	@PostMapping(value = "/generate-qr", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> generateQR(@PathVariable("marketId") Long marketId,
-		@Valid @ModelAttribute QRReqDto request) {
-		QRDto qrDto = qrService.generateQRCode(marketId, request);
+		@Valid @ModelAttribute QrReqDto request) {
+		QrDto qrDto = qrService.generateQRCode(marketId, request);
 		return new ResponseEntity<>(new ResponseDto<>("A00", qrDto), HttpStatus.OK);
 	}
 
@@ -55,10 +55,11 @@ public class QrController {
 	 * @return 결과 페이지.
 	 */
 	@GetMapping
-	public String getResultPage(@PathVariable("marketId") Long marketId, @RequestParam("user") String token, Model model) {
+	public String getResultPage(@PathVariable("marketId") Long marketId, @RequestParam("user") String token,
+		Model model) {
 		try {
 			// QR 코드와 관련된 정보를 가져옴
-			ResultPageDTO result = qrService.getOptionInfoList(marketId, token);
+			ResultPageDto result = qrService.getOptionInfoList(marketId, token);
 			model.addAttribute("result", result);
 			return "result-page";
 		} catch (Exception e) {
