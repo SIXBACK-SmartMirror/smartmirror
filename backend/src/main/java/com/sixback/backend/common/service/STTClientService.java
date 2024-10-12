@@ -29,6 +29,9 @@ public class STTClientService {
 
 	private final WebClient sttWebClient;
 	private final ObjectMapper objectMapper;
+	// 파일 처리 서비스 인스턴스
+	private final FileService fileService;
+	// STT API의 URI 설정
 	@Value("${spring.data.stt.uri}")
 	private String STT_API_URI;
 	@Value("${spring.data.stt.model}")
@@ -55,7 +58,7 @@ public class STTClientService {
 	public MultiValueMap<String, Object> creatBody(MultipartFile audioFile) {
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 		// 파일 데이터가 포함된 ByteArrayResource 생성
-		ByteArrayResource resource = multipartFileToByteArray(audioFile);
+		ByteArrayResource resource = fileService.multipartFileToByteArray(audioFile);
 		// 요청 본문 구성
 		body.add("file", resource); // 요청 본문에 파일 추가
 		body.add("model", STT_MODEL);

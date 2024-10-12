@@ -23,6 +23,8 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class CustomService {
 	private final MarketService marketService;
+	// 파일 관련 서비스
+	private final FileService fileService;
 	private final GoodsOptionRepository goodsOptionRepository;
 	private final FacerClientService facerClientService;
 	private final LogService logService;
@@ -38,7 +40,8 @@ public class CustomService {
 	}
 
 	public Mono<CustomResultDto> creatCustomMakeup(Long marketId, CustomMakeupReqDto customMakeupReqDto) {
-		validateFileSize(customMakeupReqDto.getInputImage());
+		// 파일 유효성(크기) 검사
+		fileService.validateFileSize(customMakeupReqDto.getInputImage());
 		// 매장 유효성 검사
 		marketService.validateMarket(marketId);
 		// 커스텀 합성 로그 저장
@@ -51,11 +54,5 @@ public class CustomService {
 			.map(result -> CustomResultDto.builder()
 				.makeupImage(result)  // sendRequest에서 반환된 String 값을 result에 넣음
 				.build());
-	}
-
-	public void validateFileSize(MultipartFile file) {
-		if (file.getSize() < 0) {
-			throw new EmptyFileException();
-		}
 	}
 }
