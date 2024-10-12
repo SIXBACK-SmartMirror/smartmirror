@@ -18,6 +18,7 @@ import com.sixback.backend.domain.dto.StyleResultDto;
 import com.sixback.backend.domain.service.StyleService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -42,8 +43,8 @@ public class StyleController {
 	 */
 	@GetMapping
 	public ResponseEntity<?> findAllStyle(@PathVariable("marketId") Long marketId,
-		@RequestParam(defaultValue = "0", value = "page") int page,
-		@RequestParam(defaultValue = "10", value = "size") int size) {
+		@Min(0) @RequestParam(defaultValue = "0", value = "page") int page,
+		@Min(1) @RequestParam(defaultValue = "10", value = "size") int size) {
 		// 스타일 목록 조회
 		StyleInfoListDto styleInfoListDto = styleService.findAllStyle(marketId, page, size);
 		return new ResponseEntity<>(new ResponseDto<>("A00", styleInfoListDto), HttpStatus.OK);
