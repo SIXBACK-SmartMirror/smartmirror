@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * AI의 메시지를 표현하는  Data Transfer Object.
+ * AI의 메시지를 표현하는  DTO.
  * AI과 사용자 간의 메시지를 담고 있으며,
  * 역할(user 또는 system)과 내용으로 구성.
  */
@@ -23,7 +23,7 @@ public class ChatMessageDto {
 	/**
 	 * 객체를 JSON 문자열로 변환하여 반환.
 	 *
-	 * @return 변환된 JSON 형태의 문자열
+	 * @return 변환된 JSON 형태의 문자열.
 	 */
 	@Override
 	public String toString() {

@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * NLP 모델(사용자 질문 분석 후 검색 상품명 추출)설정 DTO.
+ */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
