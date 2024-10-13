@@ -1,7 +1,7 @@
 package com.sixback.backend.common.exception;
 
 /**
- * 해당 market을 찾을 수 없음
+ * QR 코드가 만료되어 발생하는 예외.
  */
 public class ExpiredQRException extends CustomClientException {
 	public ExpiredQRException() {
