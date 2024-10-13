@@ -11,6 +11,7 @@
             --background-color: #FFFFFF;
             --border-color: #92af99;
         }
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: var(--background-color);
@@ -21,18 +22,21 @@
             flex-direction: column;
             min-height: 100vh;
         }
+
         header {
             background-color: var(--primary-color);
             color: var(--background-color);
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 1rem;
         }
+
         .market-name {
             font-size: 1.5rem;
             font-weight: bold;
             margin: 0;
         }
+
         .market-name::after {
             content: "";
             position: absolute;
@@ -42,6 +46,7 @@
             background-color: var(--secondary-color);
             transform: translate(-5%, -50%);
         }
+
         main {
             flex-grow: 1;
             padding: 1rem;
@@ -50,6 +55,7 @@
             width: 100%;
             box-sizing: border-box;
         }
+
         .image {
             width: 100%;
             max-height: 100%;
@@ -57,16 +63,20 @@
             border-radius: 8px;
             margin: .5rem auto 1rem;
         }
+
         .user-image {
             margin: .5rem auto 1rem;
         }
-        .blueprint-image{
+
+        .blueprint-image {
             margin: 1.5rem auto 1rem;
         }
+
         .goods-list {
             display: grid;
             gap: .5rem;
         }
+
         .goods-item {
             background-color: var(--background-color);
             border-radius: 8px;
@@ -76,9 +86,11 @@
             transition: transform 0.2s;
             border: 1px solid var(--border-color);
         }
+
         .goods-item:hover {
             transform: translateY(-2px);
         }
+
         .option-image {
             width: 60px;
             height: 60px;
@@ -86,16 +98,20 @@
             border-radius: 4px;
             margin-right: 1rem;
         }
+
         .goods-info {
             flex-grow: 1;
         }
+
         .goods-name {
             font-weight: bold;
         }
-        .option-name{
+
+        .option-name {
             font-weight: normal;
             margin-bottom: 0.25rem;
         }
+
         .goods-details {
             font-size: small;
             color: #666;
@@ -104,10 +120,13 @@
 </head>
 <body th:if="${result != null}">
 <header>
-    <h1  class="market-name" th:text="${result.marketName}">마켓 이름</h1>
+    <!--매장 지점명-->
+    <h1 class="market-name" th:text="${result.marketName}">마켓 이름</h1>
 </header>
 <main>
+    <!--사용자 화장 결과-->
     <img class="image user-image" th:src="${'data:image/jpeg;base64,' + result.makeupImage}" alt="User Image"/>
+    <!--합성에 사용된 제품 정보-->
     <div class="goods-list">
         <div class="goods-item" th:each="item : ${result.goodsList}">
             <img class="option-image" th:src="${item.optionImage}" th:alt="${item.goodsName}">
@@ -122,6 +141,7 @@
             </div>
         </div>
     </div>
+    <!--매장 도면-->
     <img class="image blueprint-image" th:src="${result.blueprintImage}" alt="매장 이미지">
 </main>
 </body>
