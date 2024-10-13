@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 사용된 옵션의 상세 정보를 담는 DTO.
+ */
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor

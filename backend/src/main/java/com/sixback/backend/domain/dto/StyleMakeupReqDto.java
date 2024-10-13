@@ -9,12 +9,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 가상 화장을 위한 요청 DTO 클래스.
+ */
 @ToString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class VirtualMakeupReqDto {
+public class StyleMakeupReqDto {
 	@NotNull
 	private Long styleId;
 	@NotNull
