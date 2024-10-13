@@ -1,7 +1,7 @@
 package com.sixback.backend.common.exception;
 
 /**
- * 빈 파일이 전달됐을 떄 예외 발생
+ * QR 생성 실패 예외.
  */
 public class FailGenerateQrException extends CustomServerException {
 	public FailGenerateQrException() {

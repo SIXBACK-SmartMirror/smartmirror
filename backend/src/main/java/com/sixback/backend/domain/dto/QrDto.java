@@ -1,21 +1,20 @@
 package com.sixback.backend.domain.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * QR 코드 정보를 담는 DTO.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ResultPageDTO {
-	private String marketName;
-	private List<UseOptionDetailDto> goodsList;
-	private String makeupImage;
-	private String blueprintImage;
+public class QrDto {
+	// QR 코드 이미지
+	String qrImage;
 }
