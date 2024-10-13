@@ -67,7 +67,7 @@ public interface StyleRepository extends JpaRepository<Style, Long> {
 	 *
 	 * @param styleId 스타일 식별 번호.
 	 * @param optionId 옵션 식별 번호.
-	 * @return 스타일 정보 (주어진 스타일 ID에 해당 상품 옵션 ID가 존재하면)
+	 * @return 스타일 정보 (주어진 스타일 ID에 해당 상품 옵션 ID가 존재하면).
 	 */
 	@Query(value = """
 		    SELECT *
