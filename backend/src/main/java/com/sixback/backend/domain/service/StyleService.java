@@ -62,10 +62,10 @@ public class StyleService {
 	/**
 	 * 모든 스타일 정보를 조회하는 메서드.
 	 *
-	 * @param marketId 매장 ID
-	 * @param page 페이지 번호
-	 * @param size 페이지 크기
-	 * @return StyleInfoListDto 스타일 정보 리스트 DTO
+	 * @param marketId 매장 ID.
+	 * @param page 페이지 번호.
+	 * @param size 페이지 크기.
+	 * @return StyleInfoListDto 스타일 정보 리스트 DTO.
 	 */
 	public StyleInfoListDto findAllStyle(Long marketId, int page, int size) {
 		// 매장 유효성 검사

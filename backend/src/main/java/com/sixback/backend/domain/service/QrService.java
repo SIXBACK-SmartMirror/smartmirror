@@ -61,10 +61,10 @@ public class QrService {
 	/**
 	 * QR 코드 생성을 위한 메서드.
 	 *
-	 * @param marketId 마켓 ID
-	 * @param qrReqDto QR 요청 데이터
-	 * @return QrDto 생성된 QR 코드 이미지 DTO
-	 * @throws FailDecodeBase64Exception Base64 이미지 검증 실패 시
+	 * @param marketId 마켓 ID.
+	 * @param qrReqDto QR 요청 데이터.
+	 * @return QrDto 생성된 QR 코드 이미지 DTO.
+	 * @throws FailDecodeBase64Exception Base64 이미지 검증 실패 시.
 	 */
 	public QrDto generateQRCode(Long marketId, QrReqDto qrReqDto) {
 		// base64 검증
@@ -86,8 +86,8 @@ public class QrService {
 	/**
 	 * QR 코드 URL 생성을 위한 메서드.
 	 *
-	 * @param qrReqDto QR 요청 데이터
-	 * @return 생성된 QR 코드 URL 문자열
+	 * @param qrReqDto QR 요청 데이터.
+	 * @return 생성된 QR 코드 URL 문자열.
 	 */
 	private String generateQrUrl(QrReqDto qrReqDto) {
 		String token = storeQrData(qrReqDto, redisQrTtlSeconds);
@@ -97,9 +97,9 @@ public class QrService {
 	/**
 	 * QR 코드 이미지를 생성하여 Base64로 변환하는 메서드.
 	 *
-	 * @param content QR 코드에 담을 내용
-	 * @return Base64로 인코딩된 QR 코드 이미지
-	 * @throws FailGenerateQrException QR 코드 생성 실패 시
+	 * @param content QR 코드에 담을 내용.
+	 * @return Base64로 인코딩된 QR 코드 이미지.
+	 * @throws FailGenerateQrException QR 코드 생성 실패 시.
 	 */
 	private String generateQRImageBytes(String content) {
 		// QR 코드 크기 설정
@@ -125,11 +125,11 @@ public class QrService {
 	/**
 	 * QR 코드에서 옵션 정보를 가져오는 메서드.
 	 *
-	 * @param marketId 마켓 ID
-	 * @param token QR 코드 토큰
-	 * @return QR 접속 페이지에 전할 DTO
-	 * @throws ExpiredQRException QR 코드가 만료된 경우
-	 * @throws MismatchMarketId 매장 ID 불일치 시
+	 * @param marketId 마켓 ID.
+	 * @param token QR 코드 토큰.
+	 * @return QR 접속 페이지에 전할 DTO.
+	 * @throws ExpiredQRException QR 코드가 만료된 경우.
+	 * @throws MismatchMarketId 매장 ID 불일치 시.
 	 */
 	public ResultPageDto getOptionInfoList(Long marketId, String token) {
 		// 마켓 ID 검증
@@ -150,11 +150,11 @@ public class QrService {
 	/**
 	 * 토큰 정보를 가져오는 메서드.
 	 *
-	 * @param marketId 마켓 ID
-	 * @param token QR 코드 토큰
-	 * @return QR 요청 DTO
-	 * @throws ExpiredQRException QR 코드가 만료된 경우
-	 * @throws MismatchMarketId 매장 ID 불일치 시
+	 * @param marketId 마켓 ID.
+	 * @param token QR 코드 토큰.
+	 * @return QR 요청 DTO.
+	 * @throws ExpiredQRException QR 코드가 만료된 경우.
+	 * @throws MismatchMarketId 매장 ID 불일치 시.
 	 */
 	private QrReqDto getTokenInfo(Long marketId, String token) {
 		QrReqDto qrReqDto = redisService.getData(token, QrReqDto.class);
@@ -172,9 +172,9 @@ public class QrService {
 	/**
 	 * QR 요청 데이터를 Redis에 저장하는 메서드.
 	 *
-	 * @param qrReqDto QR 요청 데이터
-	 * @param redisQrTtlSeconds Redis 저장 TTL
-	 * @return 생성된 키
+	 * @param qrReqDto QR 요청 데이터.
+	 * @param redisQrTtlSeconds Redis 저장 TTL.
+	 * @return 생성된 키.
 	 */
 	public String storeQrData(QrReqDto qrReqDto, long redisQrTtlSeconds) {
 		String baseString = "%d%s%s".formatted(qrReqDto.getMarketId(),

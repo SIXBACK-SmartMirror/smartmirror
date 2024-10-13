@@ -46,7 +46,7 @@ public class FacerClientService {
 	 * 커스텀 화장 요청을 Facer 서버에 보내는 메서드.
 	 *
 	 * @param customMakeupReqDto 사용자 이미지와 커스텀 정보가 포함된 요청 DTO.
-	 * @return 서버로부터 받은 화장 결과 이미지 base64를 포함하는 Mono
+	 * @return 서버로부터 받은 화장 결과 이미지 base64를 포함하는 Mono.
 	 */
 	public Mono<String> sendRequest(CustomMakeupReqDto customMakeupReqDto) {
 		// Multipart 요청을 위한 Body 생성

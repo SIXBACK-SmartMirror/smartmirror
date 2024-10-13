@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * 상품(Goods)의 자세한 설명(포함 옵션, 옵션별 위치) 정보 DTO
+ * 상품(Goods)의 자세한 설명(포함 옵션, 옵션별 위치) 정보 DTO.
  */
 @Getter
 @NoArgsConstructor
