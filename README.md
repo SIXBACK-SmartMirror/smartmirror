@@ -1,6 +1,6 @@
 # 💄 “찾으시는 상품 있으면- 말씀해주세요↗” 서비스
 
-<p align="center"><img src="./image/main_image.png" alt="main_image.png" width="70%"/></p>
+<p align="center"><img src="./image/main_image.png" alt="main_image.png" width="60%"/></p>
 
 ## 📽️ **프로젝트 소개**
 
