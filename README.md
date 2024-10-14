@@ -101,14 +101,14 @@
             <li>dlib을 이용하여 얼굴 탐지, 정렬 등 이미지 전처리</li>
             <li>BeautyGAN을 이용하여 사용자 사진과 화장 스타일 사진을 합성해 해당 화장 스타일을 적용한 사용자 사진 생성</li>
             <li>Facer의 Face Parsing을 이용하여 사용자 사진에 원하는 색깔을 지정해 피부, 눈썹, 입술 색깔 변경</li>
-            <li>fastapi를 이용하여 원클릭 합성과 커스텀 합성 API 구현</li>
+            <li>FastAPI를 이용하여 원클릭 합성과 커스텀 합성 API 구현</li>
             <li>입력 이미지 해시 값을 이용해 fase parser 관련 파일(얼굴 segmentation 맵, 타임스탬프, 이미지 크롭 정보) 생성해 응답 속도 향상</li>
             <li>데몬 스레드로 캐싱 위해 저장했던 파일 주기적으로 검사해 만료된 파일 삭제</li>
             <li>MongoDB를 이용한 로그 생성</li>
         </ul>
 </ul>
 </div>
-</div>>
+</div>
 </details>
 
 
