@@ -1,6 +1,6 @@
 # 💄 “찾으시는 상품 있으면- 말씀해주세요↗” 서비스
 
-![main_image.png](./image/main_image.png)
+<img src="./image/main_image.png" alt="main_image.png" width="100%"/>
 
 ## 📽️ **프로젝트 소개**
 
@@ -30,21 +30,21 @@
 <h3>김종덕</h3>
 <ul>
     <li>역할: 팀장, 프론트엔드 개발</li>
-    <li>담당</li>
+    <li>담당
         <ul>
             <li>원클릭 화장 기능 개발</li>
             <li>커스텀 화장 기능  개발</li>
             <li>Open CV를 활용하여 사진 촬영 및 저장</li>
             <li>합성정보, 상품리스트를 캐싱하여 성능 향상</li>
         </ul>
+    </li>
 </ul>
 </div>
 <div class="team-member"> 
 <h3>김아름</h3>
 <ul>
     <li>역할: 백엔드 개발</li>
-    <li>담당</li>
-    
+    <li>담당
         <ul>
             <li>DB 설계 및 구현</li>
             <li>Spring WebFlux를 이용하여 외부 API와 DB 조회 시 비동기&논블록킹 구조 적용</li>
@@ -60,13 +60,14 @@
             <li>화장 스타일/커스텀 목록 조회 및 합성 결과 응답 API 구현</li>
             <li>(음성) 검색 결과 조회 및 상세 정보 조회 API 구현</li>
         </ul>
+    </li>
 </ul>
 </div>
 <div class="team-member"> 
 <h3>김찬민</h3>
 <ul>
     <li>역할: 인프라, 데이터 수집</li>
-    <li>담당</li>
+    <li>담당
         <ul>
             <li>DB 설계</li>
             <li>Jenkins를 이용한 CI/CD 파이프 라인 자동화 기능 구현</li>
@@ -76,13 +77,14 @@
             <li>Blue-Green 배포 방식을 적용한 무중단 배포 기능 구현</li>
             <li>Selenium을 이용한 데이터 수집</li>
         </ul>
+    </li>
 </ul>
 </div>
 <div class="team-member"> 
 <h3>신혜민</h3>
 <ul>
     <li>역할: 프론트엔드 개발</li>
-    <li>담당</li>
+    <li>담당
         <ul>
             <li>UI 개발</li>
             <li>검색 기능 개발
@@ -92,13 +94,14 @@
                 </ul>
             </li>
         </ul>
+    </li>
 </ul>
 </div>
 <div class="team-member"> 
 <h3>안치숙</h3>
 <ul>
     <li>역할: AI, 백엔드 개발</li>
-    <li>담당</li>
+    <li>담당
         <ul>
             <li>DB 설계</li>
             <li>dlib을 이용하여 얼굴 탐지, 정렬 등 이미지 전처리</li>
@@ -109,6 +112,7 @@
             <li>데몬 스레드로 캐싱 위해 저장했던 파일 주기적으로 검사해 만료된 파일 삭제</li>
             <li>MongoDB를 이용한 로그 생성</li>
         </ul>
+    </li>
 </ul>
 </div>
 </div>
